@@ -1,0 +1,61 @@
+[WebServer] (node:87504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:131940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:106924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 e2e\run-lifecycle.spec.ts:10:46 › real IndexedDB fresh: 100 mixed production Worker runs and retention growth (522ms)
+(node:144624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 e2e\run-lifecycle.spec.ts:10:46 › real IndexedDB v5: 100 mixed production Worker runs and retention growth (311ms)
+(node:108464) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 e2e\run-lifecycle.spec.ts:79:1 › real UI: pin, export, cleanup, favorite source and failure feedback (2.5s)
+  ok 4 e2e\run-lifecycle.spec.ts:99:1 › page reload/reopen recovers dead owners and preserves another live tab (2.4s)
+
+
+  1) e2e\run-lifecycle.spec.ts:10:46 › real IndexedDB fresh: 100 mixed production Worker runs and retention growth 
+
+    Error: page.evaluate: Error: no generated output
+        at eval (eval at evaluate (:370:30), <anonymous>:146:23)
+        at async <anonymous>:396:30
+        at eval (eval at evaluate (:370:30), <anonymous>:146:23)
+        at async <anonymous>:396:30
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\run-lifecycle.spec.ts:14:29
+
+    Error Context: test-results\run-lifecycle-real-Indexed-3af83-r-runs-and-retention-growth\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\run-lifecycle-real-Indexed-3af83-r-runs-and-retention-growth\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results\run-lifecycle-real-Indexed-3af83-r-runs-and-retention-growth\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) e2e\run-lifecycle.spec.ts:10:46 › real IndexedDB v5: 100 mixed production Worker runs and retention growth 
+
+    Error: page.evaluate: Error: no generated output
+        at eval (eval at evaluate (:370:30), <anonymous>:146:23)
+        at async <anonymous>:396:30
+        at eval (eval at evaluate (:370:30), <anonymous>:146:23)
+        at async <anonymous>:396:30
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\run-lifecycle.spec.ts:14:29
+
+    Error Context: test-results\run-lifecycle-real-Indexed-b62fc-r-runs-and-retention-growth\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\run-lifecycle-real-Indexed-b62fc-r-runs-and-retention-growth\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results\run-lifecycle-real-Indexed-b62fc-r-runs-and-retention-growth\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    e2e\run-lifecycle.spec.ts:10:46 › real IndexedDB fresh: 100 mixed production Worker runs and retention growth 
+    e2e\run-lifecycle.spec.ts:10:46 › real IndexedDB v5: 100 mixed production Worker runs and retention growth 
+  2 passed (18.1s)

@@ -40,6 +40,8 @@ import {
 } from "lucide-react";
 import GraphEditor, { Inspector, NodeLibrary } from "./components/GraphEditor";
 import Results from "./components/Results";
+import RunHistory from "./components/RunHistory";
+import { acquireRunLock, beginRun, finishRun, recoverRuns, pruneHistory, historyLimit, toggleFavorite } from "./storage/run-lifecycle";
 import { ResourceModal, ResourcePage } from "./components/Resources";
 import { ReverseSearch } from "./components/Tools";
 import { TextLab } from "./components/TextLab";
@@ -84,6 +86,7 @@ let bootPromise: Promise<Workflow> | undefined;
 function bootstrap() {
   return (bootPromise ||= (async () => {
     await initialize();
+    await recoverRuns();
     if (!(await db.workflows.count()))
       await db.workflows.bulkAdd([
         createWorkflow(),
@@ -141,6 +144,7 @@ export default function App() {
   );
   const [progress, setProgress] = useState("");
   const activeRun = useRef("");
+  const releases = useRef(new Map<string, () => void>());
   const worker = useRef<Worker | null>(null);
   const history = useRef(new WorkflowHistory());
   const fileInput = useRef<HTMLInputElement>(null);
@@ -263,6 +267,8 @@ export default function App() {
         notify(e instanceof Error ? e.message : "工作流错误");
         return;
       }
+      const previousId = activeRun.current;
+      if (worker.current && previousId) void finishRun(previousId, "cancelled", "由新的运行替代").catch(e => notify(String(e))).finally(() => { releases.current.get(previousId)?.(); releases.current.delete(previousId); });
       worker.current?.terminate();
       const w = new Worker(
         new URL("./workers/execution.worker.ts", import.meta.url),
@@ -273,7 +279,21 @@ export default function App() {
       setStats(undefined);
       setRunning(true);
       setProgress("正在准备资源…");
-      activeRun.current = "";
+      const id = crypto.randomUUID();
+      activeRun.current = id;
+      let release: (() => void) | undefined;
+      let startupStatus: "cancelled" | "done" | "error" | "interrupted" = "cancelled";
+      const deadline = setTimeout(() => { if (worker.current === w) void end("interrupted", "执行环境无响应，已强制停止"); }, 12000);
+      async function end(status: "done" | "error" | "interrupted", message = "") {
+        if (worker.current !== w) return;
+        startupStatus = status;
+        w.terminate(); worker.current = null;
+        clearTimeout(deadline); setRunning(false); setProgress("");
+        if (message) notify(message);
+        try { await finishRun(id, status, message); await pruneHistory(historyLimit()); }
+        catch (e) { notify(`运行状态或历史清理失败：${e instanceof Error ? e.message : String(e)}`); }
+        finally { release?.(); releases.current.delete(id); }
+      }
       w.onmessage = (event) => {
         if (worker.current !== w) return;
         if (event.data.type === "started") {
@@ -289,21 +309,24 @@ export default function App() {
         if (event.data.type === "batch")
           setCandidates((old) => [...old, ...event.data.batch]);
         else {
-          setRunning(false);
-          setProgress("");
           if (event.data.type === "done") setStats(event.data.stats);
-          else notify(event.data.message);
-          w.terminate();
-          worker.current = null;
+          void end(event.data.type === "done" ? "done" : "error", event.data.type === "done" ? "" : event.data.message);
         }
       };
-      w.onerror = () => {
-        notify("执行环境发生错误，请重新运行");
-        setRunning(false);
-        w.terminate();
-        worker.current = null;
-      };
-      w.postMessage(executable);
+      w.onerror = () => { void end("interrupted", "执行环境发生错误，请重新运行"); };
+      void (async () => {
+        try {
+          release = await acquireRunLock(id);
+          await beginRun(executable, id);
+          if (worker.current !== w) {
+            await finishRun(id, startupStatus, "任务在启动时结束");
+            await pruneHistory(historyLimit()); clearTimeout(deadline); release(); return;
+          }
+          w.postMessage({ workflow: executable, runId: id, keep: historyLimit() });
+          // Release only after termination/status persistence; page death releases the lock automatically.
+          releases.current.set(id, () => { clearTimeout(deadline); release?.(); });
+        } catch (e) { await end("error", e instanceof Error ? e.message : String(e)); release?.(); }
+      })();
     },
     [workflow, codeDirty, notify],
   );
@@ -316,6 +339,10 @@ export default function App() {
   useEffect(
     () => () => {
       worker.current?.terminate();
+      const id = activeRun.current;
+      if (id) void finishRun(id, "interrupted", "界面已卸载").catch(() => {}).finally(() => {
+        releases.current.get(id)?.(); releases.current.delete(id);
+      });
       clearTimeout(toastTimer.current);
     },
     [],
@@ -325,15 +352,11 @@ export default function App() {
     worker.current = null;
     setRunning(false);
     setProgress("");
-    if (activeRun.current)
-      void db.runs.get(activeRun.current).then((record) => {
-        if (record)
-          return db.runs.put({
-            ...record,
-            status: "cancelled",
-            count: candidates.length,
-          });
-      });
+    const id = activeRun.current;
+    if (id) void finishRun(id, "cancelled", "用户停止生成")
+      .then(() => pruneHistory(historyLimit()))
+      .catch(e => notify(`停止状态或历史清理失败：${String(e)}`))
+      .finally(() => { releases.current.get(id)?.(); releases.current.delete(id); });
     notify("任务已停止，已生成的结果仍然保留");
   }
   function undo() {
@@ -450,8 +473,7 @@ export default function App() {
   }
   async function favorite(c: Candidate) {
     try {
-      if (await db.favorites.get(c.text)) await db.favorites.delete(c.text);
-      else await db.favorites.put({ ...c, savedAt: Date.now() });
+      await toggleFavorite(c);
     } catch {
       notify("收藏保存失败");
     }
@@ -1048,6 +1070,7 @@ export default function App() {
               onCopy={copy}
               onDetail={setDetail}
             />
+            <RunHistory onDetail={setDetail} />
             <div className="workspace-bottom-note">
               <span>让每一个 ID，都有一点你的样子。</span>
               <span>
@@ -1386,7 +1409,7 @@ export default function App() {
               {detail.members?.length ? <div className="detail-members">{detail.members.map((member, i) => <div key={i}><span>{i + 1}. {member}</span><button className="text-button" onClick={() => copy(member)}>复制此成员</button></div>)}</div> : null}
               <div className="detail-status">
                 <span className="tiny-dot" />
-                {detail.workflowId ? "已知生成来源" : "文字实验结果"}
+                {detailRun ? "已知生成来源" : detail.runId || detail.workflowId ? "生成来源记录缺失" : "文字实验结果"}
               </div>
               <div className="detail-parts">
                 {detail.notes?.length ? <p className="field-note">{[...new Set(detail.notes)].join("；")}</p> : null}
@@ -1397,13 +1420,14 @@ export default function App() {
                     {new Date(detailRun.createdAt).toLocaleString("zh-CN")}
                   </p>
                 ) : null}
+                <p className="field-note">保留工作流快照与资源版本号；没有历史资源内容快照，无法保证完整重现旧结果。</p>
                 {detail.parts.map((p, i) => (
                   <div key={i}>
                     <b>{p.text}</b>
                     <span>
                       {resources.find((r) => r.id === p.resourceId)?.name ||
                         "已删除词库"}{" "}
-                      · v{p.version || "?"}
+                      · v{p.version || "?"}{resources.find(r => r.id === p.resourceId)?.version !== p.version ? "（当前资源缺失或版本已改变）" : ""}
                       {p.pair ? ` · ${relationLabels[p.pair.relation]}` : ""}
                     </span>
                   </div>

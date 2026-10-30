@@ -1,0 +1,82 @@
+{
+  "mode": "fresh",
+  "outcomes": {
+    "done": 40,
+    "error": 20,
+    "cancelled": 20,
+    "interrupted": 20
+  },
+  "samples": [
+    {
+      "round": 1,
+      "runs": 1,
+      "generated": 128,
+      "logicalBytes": 15800,
+      "browserUsage": 143360
+    },
+    {
+      "round": 25,
+      "runs": 22,
+      "generated": 1792,
+      "logicalBytes": 229693,
+      "browserUsage": 962560
+    },
+    {
+      "round": 50,
+      "runs": 22,
+      "generated": 1792,
+      "logicalBytes": 230082,
+      "browserUsage": 966656
+    },
+    {
+      "round": 75,
+      "runs": 22,
+      "generated": 1792,
+      "logicalBytes": 230082,
+      "browserUsage": 970752
+    },
+    {
+      "round": 100,
+      "runs": 22,
+      "generated": 1792,
+      "logicalBytes": 230082,
+      "browserUsage": 962560
+    }
+  ],
+  "baselineSamples": [
+    {
+      "round": 25,
+      "runs": 25,
+      "generated": 1664,
+      "logicalBytes": 220222
+    },
+    {
+      "round": 50,
+      "runs": 50,
+      "generated": 2304,
+      "logicalBytes": 318208
+    },
+    {
+      "round": 75,
+      "runs": 75,
+      "generated": 2944,
+      "logicalBytes": 415938
+    },
+    {
+      "round": 100,
+      "runs": 100,
+      "generated": 3584,
+      "logicalBytes": 513668
+    }
+  ],
+  "normal": 20,
+  "favoriteReadable": true,
+  "restoredCount": 128,
+  "sourceBefore": null,
+  "final": {
+    "runs": 2,
+    "generated": 256,
+    "logicalBytes": 31614,
+    "browserUsage": 217088
+  }
+}

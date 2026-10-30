@@ -1,0 +1,34 @@
+
+ RUN  v3.2.7 C:/Users/someb/AppData/Local/Temp/glyphforge-p2-check-9r47xm0u
+
+ ✓ src/tests/p1d-highlight.test.ts (4 tests) 5ms
+ ✓ src/tests/p1d-motion.test.ts (18 tests) 82ms
+ ✓ src/tests/core.test.ts (19 tests) 22ms
+ ✓ src/tests/audit-worker.test.ts (1 test) 147ms
+ ✓ src/tests/p1c-game.test.ts (7 tests) 64ms
+ ✓ src/tests/p1c-relations.test.ts (5 tests) 86ms
+ ✓ src/tests/storage.test.ts (8 tests) 160ms
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 206.85 ms, 40041 steps, max batch 64
+
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 289.31 ms, 200002 steps
+
+ ✓ src/tests/performance.test.ts (2 tests) 504ms
+ ✓ src/tests/p0.test.ts (31 tests) 493ms
+ ✓ src/tests/audit.test.ts (20 tests) 656ms
+ ✓ src/tests/run-lifecycle.test.ts (9 tests) 802ms
+   ✓ 100 mixed runs bound ordinary history while preserving pins, favorites and active runs  694ms
+ ✓ src/tests/p1c-search.test.ts (24 tests) 1162ms
+ ✓ src/tests/relations.test.ts (31 tests) 1106ms
+ ✓ src/tests/chinese.test.ts (20 tests) 3735ms
+   ✓ P1-A Chinese phonetics and conversion > queries actual Unihan homophones and validates single-character inputs  600ms
+   ✓ P1-A real structure data > decomposes 明 left/right and 思 top/bottom  999ms
+   ✓ P1-A real structure data > reverse-composes only actual known characters and respects duplicate counts  683ms
+   ✓ P1-A real structure data > finds characters by components and filters structure and strokes  1120ms
+
+ Test Files  14 passed (14)
+      Tests  199 passed (199)
+   Start at  04:17:33
+   Duration  5.34s (transform 3.45s, setup 0ms, collect 8.02s, tests 9.02s, environment 3ms, prepare 5.92s)
+

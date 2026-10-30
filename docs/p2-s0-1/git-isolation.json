@@ -1,0 +1,19 @@
+{
+  "baseCommit": "bc7966b102dfb242f2e1d9da7186c8e8e3bd4782",
+  "method": "temporary index: baseline-to-current source patches applied to HEAD; status prefix only; no original user/audit delta staged",
+  "sourceOverlays": [
+    "src/App.tsx",
+    "src/storage/db.ts",
+    "src/workers/execution.worker.ts",
+    "src/tests/relations.test.ts",
+    "PROJECT-STATUS.md"
+  ],
+  "originalFilesVerified": 50,
+  "otherOriginalFilesByteIdentical": true,
+  "localBaselineZipAndPatchExcludedFromCommit": true,
+  "validatedWorkingTreeIncludesPreservedAuditFixes": true,
+  "isolatedTypecheckExit": 0,
+  "isolatedTests": 199,
+  "isolatedTestFiles": 14,
+  "workingTreeTests": 210
+}

@@ -1,0 +1,47 @@
+[WebServer] (node:152672) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:56328) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:169332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 e2e\run-lifecycle.spec.ts:10:46 › real IndexedDB fresh: 100 mixed production Worker runs and retention growth (3.6s)
+  ok 2 e2e\run-lifecycle.spec.ts:10:46 › real IndexedDB v5: 100 mixed production Worker runs and retention growth (3.5s)
+  ok 3 e2e\run-lifecycle.spec.ts:106:1 › real UI: pin, export, cleanup, favorite source and failure feedback (1.9s)
+  ok 4 e2e\run-lifecycle.spec.ts:126:1 › page reload/reopen recovers dead owners and preserves another live tab (2.5s)
+  x  5 e2e\run-lifecycle.spec.ts:150:1 › UI startup cancellation and unexpected Worker failure persist accurate terminal states (45.2s)
+
+
+  1) e2e\run-lifecycle.spec.ts:150:1 › UI startup cancellation and unexpected Worker failure persist accurate terminal states 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: '运行工作流', exact: true })
+
+
+      173 |   await page.evaluate(() => { (window as any).workerMode = "delay"; });
+      174 |   for (let i = 0; i < 20; i++) {
+    > 175 |     await page.getByRole("button", { name: "运行工作流", exact: true }).click();
+          |                                                                    ^
+      176 |     await page.getByRole("button", { name: "停止生成", exact: true }).click();
+      177 |   }
+      178 |   await expect.poll(() => page.evaluate(async () => {
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\run-lifecycle.spec.ts:175:68
+
+    Error Context: test-results\run-lifecycle-UI-startup-c-2851f-st-accurate-terminal-states\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\run-lifecycle-UI-startup-c-2851f-st-accurate-terminal-states\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results\run-lifecycle-UI-startup-c-2851f-st-accurate-terminal-states\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\run-lifecycle.spec.ts:150:1 › UI startup cancellation and unexpected Worker failure persist accurate terminal states 
+  4 passed (1.0m)

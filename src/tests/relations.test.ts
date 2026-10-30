@@ -178,7 +178,7 @@ describe("relation persistence, migration and interchange", () => {
     await old.table("runs").put({ id: "run", createdAt: 1, workflow }); await old.table("generated").put({ runId: "run", text: "结果", parts: [] });
     old.close(); const upgraded = new ForgeDatabase(name);
     try {
-      await upgraded.open(); expect(upgraded.verno).toBe(5);
+      await upgraded.open(); expect(upgraded.verno).toBe(6);
       expect((await upgraded.resources.get("old"))?.version).toBe(7);
       expect((await upgraded.entries.toArray())[0].text).toBe("旧词");
       expect(await upgraded.workflows.get(workflow.id)).toEqual(workflow);

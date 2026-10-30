@@ -16,8 +16,13 @@ export interface RunRecord {
   workflow: Workflow;
   versions: Record<string, number>;
   createdAt: number;
-  status: "running" | "done" | "error" | "cancelled";
+  status: "running" | "done" | "error" | "cancelled" | "interrupted";
   count: number;
+  pinned?: boolean;
+  /** 0 ordinary, 1 pinned/favorite source, 2 active. Indexed retention bucket. */
+  retention?: number;
+  endedAt?: number;
+  message?: string;
 }
 export interface GeneratedRecord extends Candidate {
   runId: string;
@@ -54,6 +59,38 @@ export class ForgeDatabase extends Dexie {
       row.reverseQueryable ??= false;
     }));
     this.version(5).stores({ gamePresets: "id,name" });
+    // Additive, atomic versionchange: no history/resource deletion in migration.
+    this.version(6).stores({
+      runs: "id,createdAt,status,[retention+createdAt]",
+      favorites: "text,savedAt,runId",
+    }).upgrade(async tx => {
+      const runs = tx.table("runs"), favorites = tx.table("favorites");
+      await runs.toCollection().modify(row => {
+        if (!["running", "done", "error", "cancelled", "interrupted"].includes(row.status)) { row.status = "interrupted"; row.message = "旧记录状态缺失，无法确认完成"; }
+        row.retention = row.status === "running" ? 2 : row.pinned ? 1 : 0;
+      });
+      let after: string | undefined;
+      for (;;) {
+        const chunk = await (after === undefined ? favorites.orderBy(":id") : favorites.where(":id").above(after)).limit(256).toArray();
+        if (!chunk.length) break;
+        for (const favorite of chunk) if (favorite.runId) {
+          const run = await runs.get(favorite.runId);
+          if (run) {
+            await runs.update(run.id, { retention: run.status === "running" ? 2 : 1 });
+            if (!(await tx.table("generated").get([run.id, favorite.text])))
+              await tx.table("generated").add({ ...favorite, runId: run.id });
+          }
+        }
+        after = chunk[chunk.length - 1].text;
+      }
+      let afterRun: string | undefined;
+      for (;;) {
+        const chunk = await (afterRun === undefined ? runs.orderBy(":id") : runs.where(":id").above(afterRun)).limit(256).toArray();
+        if (!chunk.length) break;
+        for (const run of chunk) await runs.update(run.id, { count: await tx.table("generated").where("runId").equals(run.id).count() });
+        afterRun = chunk[chunk.length - 1].id;
+      }
+    });
   }
 }
 export const db = new ForgeDatabase();

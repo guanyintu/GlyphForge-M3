@@ -1,0 +1,9 @@
+{
+  "verifiedOriginalFiles": 50,
+  "intentionalOverlays": [
+    "PROJECT-STATUS.md",
+    "src/App.tsx",
+    "src/storage/db.ts"
+  ],
+  "allOtherOriginalFilesByteIdentical": true
+}

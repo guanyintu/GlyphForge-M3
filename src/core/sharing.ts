@@ -4,7 +4,8 @@ import { programResources, visitProgramExpressions } from "./program";
 import { operators } from "./model";
 import { isChineseOp } from "./chinese-definitions";
 import type { Op } from "./model";
-import type { Resource, Workflow } from "./model";
+import type { Resource, Workflow, PairValue } from "./model";
+import { templateConfig, validatePair } from "./relations";
 export interface Dependency {
   id: string;
   name: string;
@@ -19,7 +20,7 @@ export class ResourceDependencyError extends Error {
 function packageOperators(workflow: Workflow) {
   const used = new Set<Op>(workflow.nodes.map(n => n.op));
   for (const node of workflow.nodes) if (node.program) visitProgramExpressions(node.program, expression => {
-    if (expression.kind === "call" && isChineseOp(expression.name)) used.add(expression.name);
+    if (expression.kind === "call" && (isChineseOp(expression.name) || expression.name === "pairs")) used.add(expression.name);
   });
   return [...used];
 }
@@ -27,8 +28,9 @@ export function dependencyIds(workflow: Workflow) {
   return [
     ...new Set(
       workflow.nodes.flatMap((n) =>
-        n.op === "resource"
+        n.op === "resource" || n.op === "pairs"
           ? [String(n.params.resourceId)]
+          : n.op === "template" ? templateConfig(n.params).slots.map(s => s.resourceId)
           : n.op === "program"
             ? programResources(n.program!)
             : [],
@@ -44,7 +46,7 @@ export async function exportPackage(
   validateGraph(workflow);
   const ids = dependencyIds(workflow);
   const dependencies: Dependency[] = [];
-  const resources: { meta: Resource; entries: string[] }[] = [];
+  const resources: { meta: Resource; entries: string[]; relationRows?: PairValue[] }[] = [];
   let budget=new TextEncoder().encode(JSON.stringify(workflow,null,2)).length+4096;
   for (const id of ids) {
     if(signal?.aborted)throw new Error('导出已取消');
@@ -65,14 +67,14 @@ export async function exportPackage(
           "便携包单个快照最多十万词条；大型词库请单独导出，使用轻量工作流重新绑定",
         );
       if(resources.length>=100)throw new Error('便携包最多包含 100 个词库快照');
-      const entries:string[]=[];budget+=new TextEncoder().encode(JSON.stringify(meta)).length+512;
-      for await(const item of readResource(id,0)){if(signal?.aborted)throw new Error('导出已取消');if(item.parts[0].version!==meta.version)throw new Error('词库在导出期间变化，请重新导出');budget+=new TextEncoder().encode(JSON.stringify(item.text)).length+16;if(budget>15*1024*1024)throw new Error('便携包超过 15 MB，请减少快照或使用轻量工作流');entries.push(item.text);}
-      resources.push({meta,entries});
+      const entries:string[]=[], relationRows: PairValue[] = [];budget+=new TextEncoder().encode(JSON.stringify(meta)).length+512;
+      for await(const item of readResource(id,0)){if(signal?.aborted)throw new Error('导出已取消');if(item.parts[0].version!==meta.version)throw new Error('词库在导出期间变化，请重新导出');budget+=new TextEncoder().encode(JSON.stringify(item.pair || item.text)).length+16;if(budget>15*1024*1024)throw new Error('便携包超过 15 MB，请减少快照或使用轻量工作流');if(item.pair) relationRows.push(item.pair); else entries.push(item.text);}
+      resources.push({meta,entries,...(meta.kind === "relation" ? {relationRows} : {})});
     }
   }
   return {
     format: "glyphforge",
-    version: 2,
+    version: dependencies.some(d => d.kind === "relation") ? 3 : 2,
     irVersion: 1,
     operatorVersions: Object.fromEntries(
       packageOperators(workflow).map((op) => [op, 1]),
@@ -90,7 +92,7 @@ export async function importPackage(
   const pkg = data as Record<string, unknown>;
   if (
     pkg.format !== "glyphforge" ||
-    ![1, 2].includes(Number(pkg.version)) ||
+    ![1, 2, 3].includes(Number(pkg.version)) ||
     !pkg.workflow ||
     !Array.isArray(pkg.resources) ||
     pkg.resources.length > 100
@@ -123,7 +125,7 @@ export async function importPackage(
       throw new Error("节点参数无效");
   }
   validateGraph(workflow);
-  if (pkg.version === 2) {
+  if (Number(pkg.version) >= 2) {
     if (
       pkg.irVersion !== 1 ||
       !pkg.operatorVersions ||
@@ -141,7 +143,7 @@ export async function importPackage(
   const ids = dependencyIds(workflow),
     mapping = new Map<string, string>(),
     seen = new Set<string>();
-  const items: { meta: Resource; entries: string[] }[] = [];
+  const items: { meta: Resource; entries: string[]; relationRows?: PairValue[] }[] = [];
   for (const item of pkg.resources) {
     if (
       !item?.meta ||
@@ -156,9 +158,18 @@ export async function importPackage(
     )
       throw new Error("资源内容无效、重复或超过十万条快照限制");
     seen.add(item.meta.id);
+    const isRelation = item.meta.kind === "relation";
+    if (isRelation) {
+      if (pkg.version !== 3 || item.entries.length || !Array.isArray(item.relationRows) || item.relationRows.length > 100000) throw new Error("关系快照需要 v3 和有效的关系行");
+      item.relationRows.forEach(validatePair);
+    } else if (item.relationRows !== undefined) throw new Error("普通词库不能包含关系行");
     const id = crypto.randomUUID();
     mapping.set(item.meta.id, id);
     const entries = [...new Set<string>(item.entries)];
+    const relationRows: PairValue[] = isRelation ? [...new Map<string, PairValue>(item.relationRows.map((r: PairValue) => {
+      const row = { left: r.left.trim(), right: r.right.trim(), relation: r.relation };
+      return [JSON.stringify(row), row] as [string, PairValue];
+    })).values()] : [];
     items.push({
       meta: {
         id,
@@ -167,7 +178,7 @@ export async function importPackage(
           0,
           256,
         ),
-        kind: ["word", "character", "symbol"].includes(item.meta.kind)
+        kind: ["word", "character", "symbol", "relation"].includes(item.meta.kind)
           ? item.meta.kind
           : "word",
         color: ["green", "purple", "orange", "blue"].includes(item.meta.color)
@@ -177,14 +188,15 @@ export async function importPackage(
           Number.isSafeInteger(item.meta.version) && item.meta.version > 0
             ? item.meta.version
             : 1,
-        count: entries.length,
+        count: isRelation ? relationRows.length : entries.length,
         updatedAt: Date.now(),
       },
       entries,
+      ...(isRelation ? { relationRows } : {}),
     });
   }
   const dependencies: Dependency[] = [];
-  if (pkg.version === 2) {
+  if (Number(pkg.version) >= 2) {
     if (
       !Array.isArray(pkg.dependencies) ||
       pkg.dependencies.length !== ids.length
@@ -197,6 +209,7 @@ export async function importPackage(
         typeof dep.name !== "string" ||
         !Number.isSafeInteger(dep.version) ||
         dep.version < 1 ||
+        !["word", "character", "symbol", "relation"].includes(dep.kind) ||
         dependencies.some((d) => d.id === dep.id)
       )
         throw new Error("资源依赖清单无效");
@@ -207,10 +220,12 @@ export async function importPackage(
       dependencies.push({ id, name: id, kind: "word", version: 1 });
   const missing: Dependency[] = [];
   for (const dep of dependencies) {
+    const snapshot = items.find(item => mapping.get(dep.id) === item.meta.id);
+    if (snapshot && Number(pkg.version) >= 2 && ((snapshot.meta.kind === "relation") !== (dep.kind === "relation") || snapshot.meta.version !== dep.version)) throw new Error("快照与依赖的类型或版本不一致");
     if (mapping.has(dep.id)) continue;
     const target = bindings[dep.id] || dep.id;
     const resource = await db.resources.get(target);
-    if (!resource || (!bindings[dep.id] && resource.version !== dep.version)) {
+    if (!resource || (resource.kind === "relation") !== (dep.kind === "relation") || (!bindings[dep.id] && resource.version !== dep.version)) {
       missing.push(dep);
       continue;
     }
@@ -231,14 +246,15 @@ export async function importPackage(
       Math.abs(point.y) < 100000
     )
       layout[node.id] = { x: point.x, y: point.y };
-    if (node.op === "resource")
+    if (node.op === "resource" || node.op === "pairs")
       node.params.resourceId = mapping.get(String(node.params.resourceId))!;
+    if (node.op === "template") node.params.slots = JSON.stringify(templateConfig(node.params).slots.map(s => ({ ...s, resourceId: mapping.get(s.resourceId)! })));
     if (node.program)
       visitProgramExpressions(node.program, (e) => {
         if (e.kind === "resource") e.id = mapping.get(e.id)!;
         if (
           e.kind === "call" &&
-          e.name === "resource" &&
+          ["resource", "pairs"].includes(e.name) &&
           e.args[0].kind === "literal"
         )
           e.args[0].value = mapping.get(String(e.args[0].value))!;
@@ -274,10 +290,13 @@ export async function importPackage(
     "rw",
     db.resources,
     db.entries,
+    db.relations,
     db.workflows,
     async () => {
       for (const item of items) {
         await db.resources.add(item.meta);
+        if (item.relationRows) for (let i = 0; i < item.relationRows.length; i += 1000)
+          await db.relations.bulkAdd(item.relationRows.slice(i, i + 1000).map(r => ({ ...r, resourceId: item.meta.id })));
         for (let i = 0; i < item.entries.length; i += 1000)
           await db.entries.bulkAdd(
             item.entries

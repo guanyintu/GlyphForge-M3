@@ -1,0 +1,88 @@
+{
+  "format": "glyphforge",
+  "version": 3,
+  "irVersion": 1,
+  "operatorVersions": {
+    "template": 1,
+    "output": 1
+  },
+  "workflow": {
+    "version": 1,
+    "id": "p1b-example-antonyms",
+    "name": "反义词组合",
+    "nodes": [
+      {
+        "id": "names",
+        "op": "template",
+        "inputs": [],
+        "params": {
+          "slots": "[{\"name\":\"opposite\",\"resourceId\":\"p1b-antonyms\",\"kind\":\"pair\",\"relation\":\"antonym\"}]",
+          "templates": "[\"{opposite.left}面骑士\",\"{opposite.right}面骑士\"]",
+          "separator": " / ",
+          "maxLength": 16,
+          "equalLength": false
+        }
+      },
+      {
+        "id": "result",
+        "op": "output",
+        "inputs": [
+          "names"
+        ],
+        "params": {}
+      }
+    ],
+    "layout": {
+      "names": {
+        "x": 35,
+        "y": 120
+      },
+      "result": {
+        "x": 315,
+        "y": 120
+      }
+    },
+    "seed": 42,
+    "limit": 200
+  },
+  "dependencies": [
+    {
+      "id": "p1b-antonyms",
+      "name": "明确的反义词",
+      "version": 2,
+      "kind": "relation"
+    }
+  ],
+  "resources": [
+    {
+      "meta": {
+        "id": "p1b-antonyms",
+        "name": "明确的反义词",
+        "kind": "relation",
+        "description": "P1-B 可编辑示例素材",
+        "color": "purple",
+        "count": 3,
+        "version": 2,
+        "updatedAt": 0
+      },
+      "entries": [],
+      "relationRows": [
+        {
+          "left": "冷",
+          "right": "热",
+          "relation": "antonym"
+        },
+        {
+          "left": "昼",
+          "right": "夜",
+          "relation": "antonym"
+        },
+        {
+          "left": "猫",
+          "right": "月",
+          "relation": "associated"
+        }
+      ]
+    }
+  ]
+}

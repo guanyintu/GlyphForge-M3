@@ -63,9 +63,12 @@ import {
   WorkflowHistory,
   autoLayout,
 } from "./core/graph-editing";
-import { parseProgram, programResources } from "./core/program";
+import { parseProgram } from "./core/program";
 import ProgramBuilder from "./components/ProgramBuilder";
 import BenchmarkPanel from "./components/BenchmarkPanel";
+import { RelationEditor } from "./components/RelationEditor";
+import { createRelationRecipe, ensureRecipeExamples, relationRecipes } from "./core/recipes";
+import { relationLabels } from "./core/relations";
 
 type Page = "workflow" | "resources" | "lab" | "reverse" | "favorites";
 const CodeMirror = lazy(() => import("@uiw/react-codemirror"));
@@ -156,7 +159,7 @@ export default function App() {
           await Promise.all(
             resources.map(async (r) => [
               r.id,
-              (
+              r.kind === "relation" ? (await db.relations.where({ resourceId: r.id }).limit(6).toArray()).map(row => `${row.left} ↔ ${row.right}`) : (
                 await db.entries.where({ resourceId: r.id }).limit(6).toArray()
               ).map((e) => e.text),
             ]),
@@ -365,15 +368,7 @@ export default function App() {
       change(result.workflow);
       setSelection(result.ids);
       setSelected(result.ids[0]);
-      const missing = result.workflow.nodes
-        .filter((n) => result.ids.includes(n.id))
-        .flatMap((n) =>
-          n.op === "resource"
-            ? [String(n.params.resourceId)]
-            : n.op === "program"
-              ? programResources(n.program!)
-              : [],
-        )
+      const missing = dependencyIds({ ...result.workflow, nodes: result.workflow.nodes.filter(n => result.ids.includes(n.id)) })
         .filter((id) => !resources.some((r) => r.id === id));
       notify(
         `已粘贴 ${result.ids.length} 个节点${result.disconnected ? "，外部输入需重新连线" : ""}${missing.length ? "；存在缺失词库，请在参数中重新绑定" : ""}`,
@@ -443,6 +438,12 @@ export default function App() {
     };
     const saved = await saveNewResource(meta, texts?.map(c => c.text) || []);
     setResource(saved);
+  }
+  async function createRelationResource() {
+    try {
+      const meta: Resource = { id: crypto.randomUUID(), name: "未命名关系词库", description: "成对保存彼此呼应的文字。", kind: "relation", color: "purple", count: 0, version: 1, updatedAt: Date.now() };
+      await db.resources.add(meta); setResource(meta);
+    } catch { notify("关系词库创建失败"); }
   }
   async function favorite(c: Candidate) {
     try {
@@ -977,7 +978,7 @@ export default function App() {
                         <div className="code-note">
                           {codeDirty ? "有未应用的代码修改" : "语义已同步"} ·
                           支持 resource / pattern / concat / filter / prefix /
-                          reverse / output / sequence；for / if / else / emit
+                          reverse / pairs / template / group / output / sequence；for / if / else / emit
                         </div>
                       )}
                     </div>
@@ -1057,6 +1058,7 @@ export default function App() {
             previews={previews}
             onEdit={setResource}
             onCreate={() => void createResource()}
+            onCreateRelation={() => void createRelationResource()}
           />
         ) : page === "lab" ? (
           <TextLab onSave={createResource} onCopy={copy} />
@@ -1109,7 +1111,7 @@ export default function App() {
           e.target.value = "";
         }}
       />
-      {resource ? (
+      {resource?.kind === "relation" ? <RelationEditor key={resource.id} resource={resource} onClose={() => setResource(undefined)} notify={notify} /> : resource ? (
         <ResourceModal
           key={resource.id}
           resource={resource}
@@ -1297,6 +1299,10 @@ export default function App() {
               </div>
             ) : (
               <div className="preset-grid">
+                {relationRecipes.map(p => <button className="preset-card purple" key={p.id} onClick={async () => {
+                  try { await ensureRecipeExamples(); switchWorkflow(createRelationRecipe(p.id)); setModal(null); }
+                  catch (e) { notify(e instanceof Error ? e.message : "示例资源安装失败"); }
+                }}><span className="preset-tag">P1-B · 关系与共享变量</span><b className="preset-sample">{p.sample}</b><h3>{p.title}</h3><p>{p.description}</p><span className="preset-use">使用这个配方<ArrowLeft size={15} /></span></button>)}
                 {[
                   {
                     id: "dream",
@@ -1371,6 +1377,7 @@ export default function App() {
             </div>
             <div className="modal-body">
               <div className="detail-name">{detail.text}</div>
+              {detail.members?.length ? <div className="detail-members">{detail.members.map((member, i) => <div key={i}><span>{i + 1}. {member}</span><button className="text-button" onClick={() => copy(member)}>复制此成员</button></div>)}</div> : null}
               <div className="detail-status">
                 <span className="tiny-dot" />
                 {detail.workflowId ? "已知生成来源" : "文字实验结果"}
@@ -1391,6 +1398,7 @@ export default function App() {
                       {resources.find((r) => r.id === p.resourceId)?.name ||
                         "已删除词库"}{" "}
                       · v{p.version || "?"}
+                      {p.pair ? ` · ${relationLabels[p.pair.relation]}` : ""}
                     </span>
                   </div>
                 ))}

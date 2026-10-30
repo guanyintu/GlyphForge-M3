@@ -1,6 +1,7 @@
-import { addEntries, db, ForgeDatabase } from "../storage/db";
+import { addEntries, db, ForgeDatabase, readResource, saveRelationRows } from "../storage/db";
 import { csvCell, fileWords } from "../core/files";
-import type { Resource } from "../core/model";
+import type { Resource, PairValue, RelationKind } from "../core/model";
+import { parseRelationRows, relationRowsFile } from "../core/relation-files";
 self.onmessage = async (
   event: MessageEvent<
     | {
@@ -13,11 +14,26 @@ self.onmessage = async (
     | { type: "export"; resourceId: string; format: "txt" | "csv" | "json" }
     | { type: "benchmark"; size: number; name?: string }
     | { type: "query"; resourceId: string; query: string; page: number }
+    | { type: "relationImport"; resourceId: string; text: string; name: string; relation: RelationKind }
+    | { type: "relationExport"; resourceId: string; format: "csv" | "json" }
   >,
 ) => {
   const input = event.data;
   try {
-    if (input.type === "import") {
+    if (input.type === "relationImport") {
+      const rows = parseRelationRows(input.text, input.name, input.relation);
+      await saveRelationRows(input.resourceId, rows);
+      self.postMessage({ type: "done", processed: rows.length });
+    } else if (input.type === "relationExport") {
+      const rows: PairValue[] = [];
+      const meta = await db.resources.get(input.resourceId);
+      if (meta?.kind !== "relation" || meta.count > 10000) throw new Error("单独关系文件最多导出 10,000 行；更大词库请使用便携包");
+      for await (const item of readResource(input.resourceId, 0)) {
+        if (item.parts[0].version !== meta.version) throw new Error("词库发生变化，请重新导出");
+        rows.push(item.pair!);
+      }
+      self.postMessage({ type: "exported", name: `${meta.name}.${input.format}`, blob: new Blob([relationRowsFile(rows, input.format)], { type: input.format === "json" ? "application/json" : "text/csv;charset=utf-8" }) });
+    } else if (input.type === "import") {
       const file = input.file || new Blob([input.text || ""]);
       let batch: string[] = [],
         processed = 0;

@@ -3,6 +3,7 @@ import type { Candidate, SourcePart } from "./model";
 import { chineseDefinitions, isChineseOp } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
 import type { Params } from "./model";
+import { readPairs } from "./relations";
 
 export type Expr =
   | { kind: "literal"; value: string | number | boolean; line: number }
@@ -80,8 +81,8 @@ function tokenize(source: string): Token[] {
       } catch {
         throw new Error(`第 ${line} 行：无效的字符串转义`);
       }
-      if (value.length > 256)
-        throw new Error(`第 ${line} 行：字符串最多 256 字符`);
+      if (value.length > 16384)
+        throw new Error(`第 ${line} 行：字符串最多 16,384 字符`);
       tokens.push({ type: "string", value, line });
       continue;
     }
@@ -273,8 +274,12 @@ export class ProgramParser {
   }
 }
 type ValueType =
-  "string" | "number" | "boolean" | "strings" | "numbers" | "booleans";
+  "string" | "number" | "boolean" | "strings" | "numbers" | "booleans" | "pair" | "pairs";
 const signatures: Record<string, { args: ValueType[]; result: ValueType }> = {
+  pairs: { args: ["string", "string"], result: "pairs" },
+  left: { args: ["pair"], result: "string" },
+  right: { args: ["pair"], result: "string" },
+  relation: { args: ["pair"], result: "string" },
   ...Object.fromEntries(Object.entries(chineseDefinitions).map(([op, def]) => [op, {
     args: ["string", ...Object.values(def.defaults).map(v => typeof v)] as ValueType[], result: "strings" as const,
   }])),
@@ -346,11 +351,11 @@ export function validateProgram(program: Program) {
         )
           return error(`${expr.name} 参数需要 (${fn.args.join(", ")})`);
         if (
-          expr.name === "resource" &&
+          ["resource", "pairs"].includes(expr.name) &&
           (expr.args[0].kind !== "literal" ||
             typeof expr.args[0].value !== "string")
         )
-          return error("resource 需要固定的资源 ID 字符串");
+          return error(`${expr.name} 需要固定的资源 ID 字符串`);
         return fn.result;
       }
       case "unary": {
@@ -405,7 +410,7 @@ export function validateProgram(program: Program) {
         if (s.kind === "let") locals.add(s.name);
         if (s.kind === "let") scope.set(s.name, type);
         else {
-          if (!["strings", "numbers", "booleans"].includes(type))
+          if (!["strings", "numbers", "booleans", "pairs"].includes(type))
             throw new Error(`第 ${s.line} 行：for 需要词库、集合或 range`);
           const child = new Map(scope);
           child.set(s.name, type.slice(0, -1) as ValueType);
@@ -478,7 +483,7 @@ export function programResources(program: Program): string[] {
     if (e.kind === "resource") ids.add(e.id);
     if (
       e.kind === "call" &&
-      e.name === "resource" &&
+      ["resource", "pairs"].includes(e.name) &&
       e.args[0]?.kind === "literal" &&
       typeof e.args[0].value === "string"
     )
@@ -522,6 +527,8 @@ interface Atom {
 }
 type Value =
   | Atom
+  | { type: "pair"; candidate: Candidate }
+  | { type: "pairs"; id: string; relation: string }
   | { type: "resource"; id: string }
   | { type: "range"; from: number; to: number }
   | { type: "list"; items: Atom[] }
@@ -610,6 +617,11 @@ export async function* executeProgram(
       return atom(result, [...a.parts, ...b.parts], [...(a.notes || []), ...(b.notes || [])]);
     }
     const args = e.args.map((x) => evaluate(x, env));
+    if (["left", "right", "relation"].includes(e.name)) {
+      const pair = args[0];
+      if (pair.type !== "pair" || !pair.candidate.pair) throw new Error("需要关系词对变量");
+      return atom(pair.candidate.pair[e.name as "left" | "right" | "relation"], pair.candidate.parts);
+    }
     const values = args.map((v) => scalar(v));
     const texts = values.map((v) => String(v.value));
     const parts = values.flatMap((v) => v.parts);
@@ -619,6 +631,8 @@ export async function* executeProgram(
       return { type: "chinese", op: e.name, input: values[0], params };
     }
     switch (e.name) {
+      case "pairs":
+        return { type: "pairs", id: texts[0], relation: texts[1] };
       case "resource":
         return { type: "resource", id: texts[0] };
       case "range": {
@@ -660,8 +674,11 @@ export async function* executeProgram(
         throw new Error("未知函数");
     }
   }
-  async function* iterate(value: Value): AsyncGenerator<Atom> {
-    if (value.type === "chinese") {
+  async function* iterate(value: Value): AsyncGenerator<Value> {
+    if (value.type === "pairs") {
+      if (value.relation && !["associated", "antonym", "couple", "parallel"].includes(value.relation)) throw new Error("未知关系类型");
+      for await (const candidate of readPairs(reader, value.id, seed, value.relation, tick)) yield { type: "pair", candidate };
+    } else if (value.type === "chinese") {
       const { transformChinese } = await import("./chinese");
       for await (const item of transformChinese(value.op, { text: String(value.input.value), parts: value.input.parts, notes: value.input.notes }, value.params, seed, tick)) {
         yield atom(item.text, item.parts, item.notes);
@@ -669,6 +686,7 @@ export async function* executeProgram(
     } else if (value.type === "resource") {
       for await (const c of reader(value.id, seed)) {
         tick();
+        if (c.pair) throw new Error("关系词库请使用 pairs(id, relation)");
         yield atom(c.text, c.parts);
       }
     } else if (value.type === "range") {
@@ -711,7 +729,7 @@ export async function* executeProgram(
           const parts = [
             ...new Map(
               value.parts.map((p) => [
-                `${p.resourceId}\0${p.text}\0${p.version}`,
+                `${p.resourceId}\0${p.text}\0${p.version}\0${JSON.stringify(p.pair)}`,
                 p,
               ]),
             ).values(),

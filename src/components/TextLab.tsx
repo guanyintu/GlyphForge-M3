@@ -8,7 +8,7 @@ import { ChineseParams } from "./ChineseParams";
 import "../p1.css";
 
 type Snapshot = { label: string; results: Candidate[] };
-const labOps = Object.values(operators).filter(op => op.inputs === 1 && op.id !== "output");
+const labOps = Object.values(operators).filter(op => isChineseOp(op.id) || ["filter", "prefix", "reverse"].includes(op.id));
 export function TextLab({ onSave, onCopy }: {
   onSave: (c: Candidate[]) => void | Promise<void>; onCopy: (s: string) => void;
 }) {

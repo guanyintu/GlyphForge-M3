@@ -1,0 +1,96 @@
+{
+  "format": "glyphforge",
+  "version": 2,
+  "irVersion": 1,
+  "operatorVersions": {
+    "template": 1,
+    "output": 1
+  },
+  "workflow": {
+    "version": 1,
+    "id": "p1b-example-mirror-pair",
+    "name": "双人镜像 ID",
+    "nodes": [
+      {
+        "id": "names",
+        "op": "template",
+        "inputs": [],
+        "params": {
+          "slots": "[{\"name\":\"animal\",\"resourceId\":\"p1b-animals\",\"kind\":\"word\",\"relation\":\"\"},{\"name\":\"sky\",\"resourceId\":\"p1b-moon\",\"kind\":\"word\",\"relation\":\"\"}]",
+          "templates": "[\"{animal}追{sky}\",\"{sky}追{animal}\"]",
+          "separator": " / ",
+          "maxLength": 16,
+          "equalLength": false
+        }
+      },
+      {
+        "id": "result",
+        "op": "output",
+        "inputs": [
+          "names"
+        ],
+        "params": {}
+      }
+    ],
+    "layout": {
+      "names": {
+        "x": 35,
+        "y": 120
+      },
+      "result": {
+        "x": 315,
+        "y": 120
+      }
+    },
+    "seed": 42,
+    "limit": 200
+  },
+  "dependencies": [
+    {
+      "id": "p1b-animals",
+      "name": "镜像：动物",
+      "version": 2,
+      "kind": "word"
+    },
+    {
+      "id": "p1b-moon",
+      "name": "镜像：天体",
+      "version": 2,
+      "kind": "word"
+    }
+  ],
+  "resources": [
+    {
+      "meta": {
+        "id": "p1b-animals",
+        "name": "镜像：动物",
+        "kind": "word",
+        "description": "P1-B 可编辑示例素材",
+        "color": "green",
+        "count": 2,
+        "version": 2,
+        "updatedAt": 0
+      },
+      "entries": [
+        "猫",
+        "鹿"
+      ]
+    },
+    {
+      "meta": {
+        "id": "p1b-moon",
+        "name": "镜像：天体",
+        "kind": "word",
+        "description": "P1-B 可编辑示例素材",
+        "color": "green",
+        "count": 2,
+        "version": 2,
+        "updatedAt": 0
+      },
+      "entries": [
+        "月",
+        "星"
+      ]
+    }
+  ]
+}

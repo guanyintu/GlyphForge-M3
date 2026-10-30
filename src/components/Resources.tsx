@@ -22,11 +22,13 @@ export function ResourcePage({
   previews,
   onEdit,
   onCreate,
+  onCreateRelation,
 }: {
   resources: Resource[];
   previews: Record<string, string[]>;
   onEdit: (r: Resource) => void;
   onCreate: () => void;
+  onCreateRelation: () => void;
 }) {
   const [query, setQuery] = useState("");
   return (
@@ -39,10 +41,10 @@ export function ResourcePage({
           </h1>
           <p>在这里收集、整理和复用你的文字素材。</p>
         </div>
-        <button className="primary-button" onClick={onCreate}>
+        <div className="row relation-actions"><button className="button" onClick={onCreateRelation}>新建关系词库</button><button className="primary-button" onClick={onCreate}>
           <Plus size={16} />
           新建词库
-        </button>
+        </button></div>
       </div>
       <div className="collection-bar">
         <h2>
@@ -85,7 +87,7 @@ export function ResourcePage({
                 ))}
               </div>
               <div className="resource-card-foot">
-                <span>{r.count} 个词条</span>
+                <span>{r.count} {r.kind === "relation" ? "行关系" : "个词条"}</span>
                 <span>v{r.version} · 本地词库</span>
               </div>
             </button>

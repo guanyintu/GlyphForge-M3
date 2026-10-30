@@ -1,0 +1,106 @@
+{
+  "format": "glyphforge",
+  "version": 2,
+  "irVersion": 1,
+  "operatorVersions": {
+    "template": 1,
+    "group": 1,
+    "output": 1
+  },
+  "workflow": {
+    "version": 1,
+    "id": "p1b-example-squad-theme",
+    "name": "战队主题 ID",
+    "nodes": [
+      {
+        "id": "names",
+        "op": "template",
+        "inputs": [],
+        "params": {
+          "slots": "[{\"name\":\"theme\",\"resourceId\":\"p1b-space\",\"kind\":\"word\",\"relation\":\"\"}]",
+          "templates": "[\"{theme}巡游者\"]",
+          "separator": " / ",
+          "maxLength": 16,
+          "equalLength": false
+        }
+      },
+      {
+        "id": "team",
+        "op": "group",
+        "inputs": [
+          "names"
+        ],
+        "params": {
+          "count": 3,
+          "batches": 2,
+          "prefix": "",
+          "suffix": "",
+          "separator": "",
+          "joiner": " / ",
+          "maxLength": 16,
+          "random": true
+        }
+      },
+      {
+        "id": "result",
+        "op": "output",
+        "inputs": [
+          "team"
+        ],
+        "params": {}
+      }
+    ],
+    "layout": {
+      "names": {
+        "x": 35,
+        "y": 120
+      },
+      "team": {
+        "x": 315,
+        "y": 120
+      },
+      "result": {
+        "x": 595,
+        "y": 120
+      }
+    },
+    "seed": 42,
+    "limit": 200
+  },
+  "dependencies": [
+    {
+      "id": "p1b-space",
+      "name": "战队主题：星际",
+      "version": 2,
+      "kind": "word"
+    }
+  ],
+  "resources": [
+    {
+      "meta": {
+        "id": "p1b-space",
+        "name": "战队主题：星际",
+        "kind": "word",
+        "description": "P1-B 可编辑示例素材",
+        "color": "green",
+        "count": 12,
+        "version": 2,
+        "updatedAt": 0
+      },
+      "entries": [
+        "月亮",
+        "星星",
+        "彗星",
+        "银河",
+        "极光",
+        "流星",
+        "星云",
+        "北斗",
+        "天狼",
+        "织女",
+        "晨星",
+        "长庚"
+      ]
+    }
+  ]
+}

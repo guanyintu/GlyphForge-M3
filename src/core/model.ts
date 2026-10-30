@@ -2,6 +2,7 @@ import type { Program } from "./program";
 import { chineseDefinitions } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
 export type Op =
+  | "pairs" | "template" | "group"
   | ChineseOp
   | "program"
   | "resource"
@@ -34,7 +35,7 @@ export interface Resource {
   id: string;
   name: string;
   description: string;
-  kind: "word" | "character" | "symbol";
+  kind: "word" | "character" | "symbol" | "relation";
   color: string;
   count: number;
   version: number;
@@ -45,10 +46,24 @@ export interface Entry {
   resourceId: string;
   text: string;
 }
+export type RelationKind = "associated" | "antonym" | "couple" | "parallel";
+export interface RelationRow {
+  id?: number;
+  resourceId: string;
+  left: string;
+  right: string;
+  relation: RelationKind;
+}
+export interface PairValue {
+  left: string;
+  right: string;
+  relation: RelationKind;
+}
 export interface SourcePart {
   resourceId: string;
   text: string;
   version?: number;
+  pair?: PairValue;
 }
 export interface Candidate {
   text: string;
@@ -57,10 +72,21 @@ export interface Candidate {
   workflowId?: string;
   seed?: number;
   runId?: string;
+  pair?: PairValue;
+  members?: string[];
 }
 export interface Favorite extends Candidate {
   text: string;
   savedAt: number;
+}
+// Text transforms operate on the displayed sequence value. Group/tuple metadata
+// is only valid while that value still represents its original members.
+export function candidateText(item: Candidate, text: string): Candidate {
+  if (text === item.text) return item;
+  const next = { ...item, text };
+  delete next.pair;
+  delete next.members;
+  return next;
 }
 export interface OperatorDefinition {
   version: 1;
@@ -83,6 +109,18 @@ const builtinOperators: Record<
     "version" | "inputTypes" | "outputType" | "deterministic" | "streaming"
   >
 > = {
+  pairs: {
+    id: "pairs", name: "关系词对", category: "数据源", description: "按行读取明确的关联关系，左右端始终绑定",
+    inputs: 0, color: "green", defaults: { resourceId: "p1b-sky", relation: "" },
+  },
+  template: {
+    id: "template", name: "共享变量模板", category: "生成", description: "绑定多个词库或关系槽位，用模板生成一组呼应的名字",
+    inputs: 0, color: "purple", defaults: { slots: '[{"name":"sky","resourceId":"p1b-sky","kind":"pair","relation":""}]', templates: '["{sky.left}","{sky.right}"]', separator: " / ", maxLength: 16, equalLength: false },
+  },
+  group: {
+    id: "group", name: "成员分组", category: "生成", description: "去重后为 N 人生成统一前后缀、结构与长度的名字",
+    inputs: 1, color: "purple", defaults: { count: 3, batches: 1, prefix: "星河", suffix: "", separator: "·", joiner: " / ", maxLength: 16, random: true },
+  },
   ...chineseDefinitions,
   program: {
     id: "program",
@@ -169,7 +207,7 @@ export const operators = Object.fromEntries(
       ),
       outputType: "CandidateSequence",
       deterministic: true,
-      streaming: true,
+      streaming: id !== "group",
     },
   ]),
 ) as Record<Op, OperatorDefinition>;

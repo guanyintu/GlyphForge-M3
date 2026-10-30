@@ -6,7 +6,10 @@ import type {
   Favorite,
   Resource,
   Workflow,
+  RelationRow,
+  PairValue,
 } from "../core/model";
+import { validatePair } from "../core/relations";
 export interface RunRecord {
   id: string;
   workflow: Workflow;
@@ -25,6 +28,7 @@ export class ForgeDatabase extends Dexie {
   favorites!: Table<Favorite, string>;
   runs!: Table<RunRecord, string>;
   generated!: Table<GeneratedRecord, [string, string]>;
+  relations!: Table<RelationRow, number>;
   constructor(name = "glyphforge-v1") {
     super(name);
     this.version(1).stores({
@@ -37,6 +41,9 @@ export class ForgeDatabase extends Dexie {
       entries: "++id, resourceId, text, &[resourceId+text], [resourceId+id]",
       runs: "id,createdAt",
       generated: "[runId+text],text,runId",
+    });
+    this.version(3).stores({
+      relations: "++id, resourceId, &[resourceId+left+right+relation], [resourceId+id]",
     });
   }
 }
@@ -159,6 +166,7 @@ export async function addEntries(
   await target.transaction("rw", target.entries, target.resources, async () => {
     const resource = await target.resources.get(resourceId);
     if (!resource) throw new Error("词库不存在");
+    if (resource.kind === "relation") throw new Error("关系词库请使用关系行编辑器");
     let added = 0;
     for (let i = 0; i < unique.length; i += 500) {
       const chunk = unique.slice(i, i + 500);
@@ -193,14 +201,16 @@ export async function saveNewResource(meta: Resource, texts: string[], target: F
 export async function* readResource(
   id: string,
   seed: number,
+  target: ForgeDatabase = db,
 ): AsyncGenerator<Candidate> {
-  const resource = await db.resources.get(id);
+  const resource = await target.resources.get(id);
   if (!resource) throw new Error(`未找到资源 ${id}，请重新绑定词库`);
   // Read at most 256 entries per page. A seeded rotation changes order without expanding the full resource.
   const count = resource.count;
   if (!count) return;
   const start = Math.abs(Math.trunc(seed)) % count;
-  const first = await db.entries
+  const table = resource.kind === "relation" ? target.relations : target.entries;
+  const first = await table
     .where({ resourceId: id })
     .offset(start)
     .first();
@@ -211,22 +221,26 @@ export async function* readResource(
   ]) {
     let cursor = from;
     while (true) {
-      if ((await db.resources.get(id))?.version !== resource.version)
+      if ((await target.resources.get(id))?.version !== resource.version)
         throw new Error("词库在运行期间发生更改，请重新生成");
-      const entries = await db.entries
+      const entries = await table
         .where("[resourceId+id]")
         .between([id, cursor], [id, to], true, false)
         .limit(256)
         .toArray();
       if (!entries.length) break;
       cursor = entries.at(-1)!.id! + 1;
-      for (const entry of entries)
+      for (const entry of entries) {
+        const pair = "left" in entry ? { left: entry.left, right: entry.right, relation: entry.relation } : undefined;
+        const text = pair ? `${pair.left} / ${pair.right}` : (entry as Entry).text;
         yield {
-          text: entry.text,
+          text,
+          ...(pair ? { pair } : {}),
           parts: [
-            { resourceId: id, text: entry.text, version: resource.version },
+            { resourceId: id, text, version: resource.version, ...(pair ? { pair } : {}) },
           ],
         };
+      }
     }
   }
 }
@@ -246,9 +260,39 @@ export function resourceQuery(
     .where({ resourceId: id })
     .filter((e) => e.text.includes(query));
 }
-export async function deleteResource(id: string) {
-  await db.transaction("rw", db.resources, db.entries, async () => {
-    await db.entries.where({ resourceId: id }).delete();
-    await db.resources.delete(id);
+export async function deleteResource(id: string, target: ForgeDatabase = db) {
+  await target.transaction("rw", target.resources, target.entries, target.relations, async () => {
+    await target.entries.where({ resourceId: id }).delete();
+    await target.relations.where({ resourceId: id }).delete();
+    await target.resources.delete(id);
+  });
+}
+export async function saveRelationRows(resourceId: string, rows: PairValue[], replaceId?: number, target: ForgeDatabase = db) {
+  if (rows.length > 10000) throw new Error("每次最多写入 10,000 行关系");
+  const normalized = rows.map(r => {
+    validatePair(r);
+    return { left: r.left.trim(), right: r.right.trim(), relation: r.relation };
+  });
+  await target.transaction("rw", target.resources, target.relations, async () => {
+    const meta = await target.resources.get(resourceId);
+    if (meta?.kind !== "relation") throw new Error("请选择关系词库");
+    if (replaceId !== undefined) {
+      if (normalized.length !== 1 || (await target.relations.get(replaceId))?.resourceId !== resourceId) throw new Error("待修改关系不存在");
+      await target.relations.delete(replaceId);
+    }
+    const unique = [...new Map(normalized.map(r => [JSON.stringify([r.left, r.right, r.relation]), r])).values()];
+    for (const r of unique) {
+      if (!(await target.relations.where("[resourceId+left+right+relation]").equals([resourceId, r.left, r.right, r.relation]).count()))
+        await target.relations.add({ ...r, resourceId, ...(replaceId !== undefined ? { id: replaceId } : {}) });
+    }
+    await target.resources.update(resourceId, { count: await target.relations.where({ resourceId }).count(), version: meta.version + 1, updatedAt: Date.now() });
+  });
+}
+export async function deleteRelationRow(resourceId: string, rowId: number, target: ForgeDatabase = db) {
+  await target.transaction("rw", target.resources, target.relations, async () => {
+    const meta = await target.resources.get(resourceId), row = await target.relations.get(rowId);
+    if (meta?.kind !== "relation" || row?.resourceId !== resourceId) throw new Error("关系行不存在");
+    await target.relations.delete(rowId);
+    await target.resources.update(resourceId, { count: meta.count - 1, version: meta.version + 1, updatedAt: Date.now() });
   });
 }

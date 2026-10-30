@@ -1,0 +1,26 @@
+.relation-editor { width: min(900px, 96vw); }
+.relation-form { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; border: 1px solid #d9dfd3; border-radius: 12px; margin: 20px 0; padding: 16px; background: #f4f6ef; }
+.relation-form .field-label { flex: 1; min-width: 120px; margin: 0; }
+.relation-form legend, .relation-slot legend { color: #66785d; font-size: 12px; padding: 0 6px; }
+.pair-link { align-self: center; color: #9a80b1; font-size: 24px; }
+.relation-editor textarea, .relation-params textarea { width: 100%; min-width: 0; resize: vertical; border: 1px solid #d7ddd4; padding: 10px; border-radius: 8px; background: #fffefa; font: 12px/1.7 monospace; box-sizing: border-box; }
+.relation-actions { flex-wrap: wrap; margin: 14px 0; gap: 8px; font-size: 12px; }
+.relation-actions input[type=file] { max-width: 180px; font-size: 11px; }
+.relation-rows { max-height: 360px; overflow: auto; border-top: 1px solid #e3e7dc; }
+.relation-row { display: grid; grid-template-columns: minmax(0,1fr) 70px minmax(0,1fr) 90px; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid #e3e7dc; }
+.relation-row b { overflow-wrap: anywhere; font-weight: 500; }
+.relation-badge { color: #806b92; font-size: 11px; text-align: center; border: 1px solid #e0d5e8; border-radius: 20px; padding: 3px; }
+.relation-params { display: grid; gap: 12px; font-size: 12px; }
+.relation-params input[type=checkbox] { width: 16px; height: 16px; accent-color: #46765b; }
+.relation-slot { border: 1px solid #d9dfd3; border-radius: 8px; padding: 10px; min-width: 0; }
+.relation-slot .field-label { margin-bottom: 10px; }
+.detail-members { display: grid; gap: 8px; margin: 14px 0; }
+.detail-members > div { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px; background: #f4f6ef; border-radius: 8px; }
+.detail-members span { min-width: 0; overflow-wrap: anywhere; }
+@media(max-width: 600px) {
+  .relation-row { grid-template-columns: minmax(0,1fr) 60px minmax(0,1fr); gap: 8px; }
+  .relation-row > div { grid-column: 1 / -1; text-align: right; }
+  .relation-form { gap: 8px; }
+  .relation-form .field-label { min-width: 100px; }
+  .pair-link { display: none; }
+}

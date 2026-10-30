@@ -171,7 +171,9 @@ function BlockEditor({
                     if (e.target.value)
                       update(i, {
                         ...s,
-                        source: {
+                        source: resources.find(r => r.id === e.target.value)?.kind === "relation" ? {
+                          kind: "call", name: "pairs", args: [{ kind: "literal", value: e.target.value, line: s.line }, { kind: "literal", value: "", line: s.line }], line: s.line,
+                        } : {
                           kind: "resource",
                           id: e.target.value,
                           line: s.line,
@@ -182,7 +184,7 @@ function BlockEditor({
                   <option value="">引用词库…</option>
                   {resources.map((r) => (
                     <option value={r.id} key={r.id}>
-                      {r.name}
+                      {r.name}{r.kind === "relation" ? "（关系变量使用 left / right）" : ""}
                     </option>
                   ))}
                 </select>

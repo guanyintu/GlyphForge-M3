@@ -125,7 +125,7 @@ export function ImportBindings({
             }
           >
             <option value="">选择本地词库…</option>
-            {resources.map((r) => (
+            {resources.filter(r => (r.kind === "relation") === (dep.kind === "relation")).map((r) => (
               <option value={r.id} key={r.id}>
                 {r.name} · v{r.version}
               </option>

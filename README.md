@@ -1,6 +1,6 @@
 # GlyphForge · 文字创作工坊
 
-本地优先的游戏 ID 与文字规则工具。已完成 P0，并新增 P1-A 中文算子与独立文字实验室；关系命名、逆向增强及新动画尚未实现。当前进度与验证见 [P1 进度](P1-PROGRESS.md)、[P1-A 使用与数据许可](docs/P1-A.md)；历史基线见 [P0 验收清单](P0-CHECKLIST.md) 和 [验证报告](VALIDATION.md)。
+本地优先的游戏 ID 与文字规则工具。已完成 P0、P1-A 中文算子与文字实验室、P1-B 关系词库与六种通用命名配方。当前进度见 [P1 进度](P1-PROGRESS.md)、[P1-A 使用与数据许可](docs/P1-A.md)、[P1-B 使用、架构与验证](docs/P1-B.md)；历史基线见 [P0 验收清单](P0-CHECKLIST.md) 和 [验证报告](VALIDATION.md)。P1-C 逆向增强与 P1-D 新动画尚未实现。
 
 ## 启动
 
@@ -14,11 +14,12 @@ pnpm dev
 pnpm test
 pnpm build
 pnpm bench
+pnpm examples:p1b
 ```
 
 修改源代码后请重新 `pnpm build`，双击入口运行的是 dist 中的生产构建。
 
-## P0 功能
+## 已完成功能
 
 - **独立资源中心**：单字库、普通词库和符号库，创建/重命名/修改词条/删除，批量粘贴与去重。后台导入 TXT、带引号的 CSV、TSV、JSON；TXT/CSV/JSON 导出。精确与前缀走索引，包含扫描在可停止的 Worker 中执行；每页只读取并显示 60 条。
 - **节点工作流**：拖动、连接、缩放、平移、框选与多选，多节点及内部连线复制粘贴、跨工作流重映射 ID、分组、自动布局、节点预览。参数、节点、连线和布局支持 50 步撤销/重做，多个工作流自动保存。
@@ -28,6 +29,7 @@ pnpm bench
 - **结果工作台**：默认虚拟列表、虚拟卡片、包含/排除/排序/收藏、复制、TXT/CSV/JSON 导出、结果保存为新词库。最多 24 张抽卡动画或 20 个爆炸散开标签，可关闭，遵循系统减少动态效果设置。
 - **基础逆向分析**：索引精确/片段匹配、最多五条组合候选、基本重复模式检测。历史生成来源与词库匹配、组合推断分开标注。
 - **文字实验室（P1-A）**：复用注册算子提供拼音/音韵/多音候选、同音字、押韵、简繁/火星文、多候选映射、汉字结构拆解/反查与笔画筛选，保留倒序、前缀和长度过滤。后台批量加工、候选选择、连续加工、最近八步恢复、分页、取消、复制及非破坏性另存词库。字典按需加载；数据范围和 NameScript 参数见 P1-A 文档。
+- **关系与配方（P1-B）**：独立关系词库与行编辑器、CSV/TSV/JSON 交换、显式关系类型、共享普通/配对变量、多槽位模板、有界 N 人去重分组。六种可编辑配方：情侣、战队统一前缀、战队主题、反义、对仗关联、双人镜像；共享后缀、叠字和符号包裹可直接配置。节点与 NameScript 共用注册算子，组结果保留成员和词对来源，详情支持逐个成员复制。可从「选择配方」启动，或导入 [六份完整示例](examples/p1b/README.md)。
 
 ## NameScript
 
@@ -58,7 +60,7 @@ for a in @animals {
 
 应用后会形成「循环与条件 → 输出」节点。控制流保存为 AST，结构编辑器修改 AST，代码视图以 `let program = sequence { ... };` 规范显示。该序列也可继续连接普通筛选、前缀等节点。
 
-支持 String / Number / Boolean、同类型集合、固定资源引用、算术与比较运算、短路 AND/OR/NOT。内置函数包括 `resource`、`range`、`length`、`contains`、`startsWith`、`endsWith`、`pattern`、`concat`、`prefix`、`reverse`、`text`。`range(a,b)` 包含 a，不包含 b；`text(number)` 显式转字符串。循环变量只在循环体有效，分支和循环内部变量不泄漏。相同模式字母绑定相同词条。没有 eval 或任意 JavaScript 执行。
+支持 String / Number / Boolean、同类型集合、固定资源引用、算术与比较运算、短路 AND/OR/NOT。内置函数包括 `resource`、`range`、`length`、`contains`、`startsWith`、`endsWith`、`pattern`、`concat`、`prefix`、`reverse`、`text`；P1-B 增加 `pairs(id, relation)` 和 `left(pair)` / `right(pair)` / `relation(pair)`，图算子增加 `template` 与 `group`。`range(a,b)` 包含 a，不包含 b；`text(number)` 显式转字符串。循环变量只在循环体有效，分支和循环内部变量不泄漏。相同模式字母绑定相同词条。没有 eval 或任意 JavaScript 执行。
 
 资源用稳定 ID 引用；自建资源可在循环结构编辑器的词库下拉框中选择，代码会显示对应 ID。源代码注释会保留到代码视图，布局与分组独立保存。格式化可能移动注释和更新行号，不承诺逐字无损还原。
 
@@ -71,7 +73,7 @@ for a in @animals {
 - 便携包限制 15 MB，每个资源快照最多 100,000 条、最多 100 个快照。大词库单独导出，再以轻量工作流重新绑定。资源文件导出最多 64 MB。
 - 实际一万/十万/百万条 IndexedDB 写入、精确查询和前缀分页已测试；百万导入约 125 秒。它不是“所有百万级操作都瞬间完成”的保证。完整进程峰值内存、低端设备帧率与跨浏览器性能未测，记录见验证报告。
 - 种子控制词库读取起点，固定词库版本可重现顺序；不保证统计学随机采样。输入资源在运行期间变化会停止并提示重新生成。
-- 普通生成记录保留最近 20 次；运行快照供收藏追踪。完整资源历史版本恢复、资源操作撤销、自定义函数/子图/插件扩展及 P1-B 关系能力后续实现。
+- 普通生成记录保留最近 20 次；运行快照供收藏追踪。完整资源历史版本恢复、资源操作撤销、自定义函数/子图/插件扩展后续实现。P1-B 的关系文件单次 10,000 行 / 2 MB，模板最多六槽位/八名字；N 与批次各最多 100。完整组仍限 1,024 个代码单元，工作流结果上限按组计数。
 - 关闭本地服务后不能重新加载应用；目前不提供 PWA/Service Worker 离线启动。保持本地服务时可断开互联网使用。
 
 ## 数据与架构
@@ -84,6 +86,6 @@ for a in @animals {
 - `src/components/`：React Flow、结构化控制流编辑、CodeMirror、资源、分享、结果及搜索。
 - `src/tests/`：语义、作用域、限额与取消、持久化、文件与分享验证、复制与布局回归、基准。
 
-React Flow 提供节点交互；语义和布局不依赖其内部状态，执行器通过注册表读取算子。CodeMirror 按需加载。现有存储从 schema 1 升级到 schema 2，保留原词库、工作流和收藏。
+React Flow 提供节点交互；语义和布局不依赖其内部状态，执行器通过注册表读取算子。CodeMirror 按需加载。现有存储从 schema 1→2→3 加性升级，保留原词库、工作流、收藏及运行历史；schema 3 仅新增关系行表。普通分享继续使用 v2，含关系依赖时使用 v3，均可导入。
 
 React / React DOM、React Flow、CodeMirror、Vite、Lucide 使用 MIT 许可，Dexie / dexie-react-hooks 使用 Apache-2.0；版本锁定在 pnpm-lock.yaml。P1-A 新增 pinyin-pro（MIT）、OpenCC JS（MIT / 数据 Apache-2.0）、CJK Decomposition（选择 Apache-2.0）及 Unihan（Unicode V3）。来源、固定版本、覆盖范围及再生成说明见 [P1-A 文档](docs/P1-A.md)，许可副本随 public/licenses 发布。参考：[React](https://react.dev/versions)、[React Flow](https://reactflow.dev/learn)、[xyflow 许可](https://xyflow.com/open-source)。

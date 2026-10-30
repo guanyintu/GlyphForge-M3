@@ -1,0 +1,130 @@
+{
+  "format": "glyphforge",
+  "version": 3,
+  "irVersion": 1,
+  "operatorVersions": {
+    "template": 1,
+    "output": 1
+  },
+  "workflow": {
+    "version": 1,
+    "id": "p1b-example-parallel",
+    "name": "对仗关联组合",
+    "nodes": [
+      {
+        "id": "names",
+        "op": "template",
+        "inputs": [],
+        "params": {
+          "slots": "[{\"name\":\"season\",\"resourceId\":\"p1b-season\",\"kind\":\"pair\",\"relation\":\"parallel\"},{\"name\":\"weather\",\"resourceId\":\"p1b-weather\",\"kind\":\"pair\",\"relation\":\"parallel\"},{\"name\":\"action\",\"resourceId\":\"p1b-action\",\"kind\":\"pair\",\"relation\":\"parallel\"}]",
+          "templates": "[\"{season.left}{weather.left}{action.left}\",\"{season.right}{weather.right}{action.right}\"]",
+          "separator": " / ",
+          "maxLength": 16,
+          "equalLength": true
+        }
+      },
+      {
+        "id": "result",
+        "op": "output",
+        "inputs": [
+          "names"
+        ],
+        "params": {}
+      }
+    ],
+    "layout": {
+      "names": {
+        "x": 35,
+        "y": 120
+      },
+      "result": {
+        "x": 315,
+        "y": 120
+      }
+    },
+    "seed": 42,
+    "limit": 200
+  },
+  "dependencies": [
+    {
+      "id": "p1b-season",
+      "name": "对仗：时序",
+      "version": 2,
+      "kind": "relation"
+    },
+    {
+      "id": "p1b-weather",
+      "name": "对仗：风雨",
+      "version": 2,
+      "kind": "relation"
+    },
+    {
+      "id": "p1b-action",
+      "name": "对仗：动词",
+      "version": 2,
+      "kind": "relation"
+    }
+  ],
+  "resources": [
+    {
+      "meta": {
+        "id": "p1b-season",
+        "name": "对仗：时序",
+        "kind": "relation",
+        "description": "P1-B 可编辑示例素材",
+        "color": "purple",
+        "count": 1,
+        "version": 2,
+        "updatedAt": 0
+      },
+      "entries": [],
+      "relationRows": [
+        {
+          "left": "春",
+          "right": "秋",
+          "relation": "parallel"
+        }
+      ]
+    },
+    {
+      "meta": {
+        "id": "p1b-weather",
+        "name": "对仗：风雨",
+        "kind": "relation",
+        "description": "P1-B 可编辑示例素材",
+        "color": "purple",
+        "count": 1,
+        "version": 2,
+        "updatedAt": 0
+      },
+      "entries": [],
+      "relationRows": [
+        {
+          "left": "风",
+          "right": "雨",
+          "relation": "parallel"
+        }
+      ]
+    },
+    {
+      "meta": {
+        "id": "p1b-action",
+        "name": "对仗：动词",
+        "kind": "relation",
+        "description": "P1-B 可编辑示例素材",
+        "color": "purple",
+        "count": 1,
+        "version": 2,
+        "updatedAt": 0
+      },
+      "entries": [],
+      "relationRows": [
+        {
+          "left": "入梦",
+          "right": "归心",
+          "relation": "parallel"
+        }
+      ]
+    }
+  ]
+}

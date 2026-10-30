@@ -1,0 +1,114 @@
+{
+  "format": "glyphforge",
+  "version": 3,
+  "irVersion": 1,
+  "operatorVersions": {
+    "template": 1,
+    "output": 1
+  },
+  "workflow": {
+    "version": 1,
+    "id": "p1b-example-couple",
+    "name": "情侣 ID",
+    "nodes": [
+      {
+        "id": "names",
+        "op": "template",
+        "inputs": [],
+        "params": {
+          "slots": "[{\"name\":\"sky\",\"resourceId\":\"p1b-sky\",\"kind\":\"pair\",\"relation\":\"\"},{\"name\":\"role\",\"resourceId\":\"p1b-roles\",\"kind\":\"pair\",\"relation\":\"\"}]",
+          "templates": "[\"{sky.left}{role.left}\",\"{sky.right}{role.right}\"]",
+          "separator": " / ",
+          "maxLength": 16,
+          "equalLength": false
+        }
+      },
+      {
+        "id": "result",
+        "op": "output",
+        "inputs": [
+          "names"
+        ],
+        "params": {}
+      }
+    ],
+    "layout": {
+      "names": {
+        "x": 35,
+        "y": 120
+      },
+      "result": {
+        "x": 315,
+        "y": 120
+      }
+    },
+    "seed": 42,
+    "limit": 200
+  },
+  "dependencies": [
+    {
+      "id": "p1b-sky",
+      "name": "呼应的天体",
+      "version": 2,
+      "kind": "relation"
+    },
+    {
+      "id": "p1b-roles",
+      "name": "通信的角色",
+      "version": 2,
+      "kind": "relation"
+    }
+  ],
+  "resources": [
+    {
+      "meta": {
+        "id": "p1b-sky",
+        "name": "呼应的天体",
+        "kind": "relation",
+        "description": "P1-B 可编辑示例素材",
+        "color": "purple",
+        "count": 2,
+        "version": 2,
+        "updatedAt": 0
+      },
+      "entries": [],
+      "relationRows": [
+        {
+          "left": "月亮",
+          "right": "星星",
+          "relation": "couple"
+        },
+        {
+          "left": "落日",
+          "right": "晚霞",
+          "relation": "associated"
+        }
+      ]
+    },
+    {
+      "meta": {
+        "id": "p1b-roles",
+        "name": "通信的角色",
+        "kind": "relation",
+        "description": "P1-B 可编辑示例素材",
+        "color": "purple",
+        "count": 2,
+        "version": 2,
+        "updatedAt": 0
+      },
+      "entries": [],
+      "relationRows": [
+        {
+          "left": "邮差",
+          "right": "收件人",
+          "relation": "couple"
+        },
+        {
+          "left": "写信人",
+          "right": "读信人",
+          "relation": "associated"
+        }
+      ]
+    }
+  ]
+}

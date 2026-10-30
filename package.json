@@ -9,6 +9,7 @@
     "build": "tsc -b && vite build",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
+    "examples:p1b": "node scripts/export-p1b-examples.mjs",
     "bench": "vitest run src/tests/performance.test.ts --reporter=verbose"
   },
   "dependencies": {

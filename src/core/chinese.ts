@@ -1,4 +1,4 @@
-import { glyphs } from "./model";
+import { candidateText, glyphs } from "./model";
 import type { Candidate, Params } from "./model";
 import { parseCharacterMap, validateChineseParams } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
@@ -136,7 +136,7 @@ function loadReadingIndex(tick: () => void) {
 export async function* transformChinese(op: ChineseOp, item: Candidate, p: Params, seed: number, tick: () => void): AsyncGenerator<Candidate> {
   validateChineseParams(op, p);
   tick();
-  const emit = (text: string, ...notes: string[]): Candidate => ({ ...item, text, notes: [...(item.notes || []), ...notes] });
+  const emit = (text: string, ...notes: string[]): Candidate => ({ ...candidateText(item, text), notes: [...(item.notes || []), ...notes] });
   const limit = Number(p.limit || 32);
   if (op === "pinyin") {
     const { pinyin, polyphonic } = await loadPinyin();

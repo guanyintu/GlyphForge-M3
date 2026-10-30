@@ -1,6 +1,7 @@
 import { operators } from "./model";
 import type { Op, RuleNode, Workflow } from "./model";
 import { isChineseOp, validateChineseParams } from "./chinese-definitions";
+import { validateRelationParams } from "./relations";
 import {
   ProgramParser,
   parseProgram,
@@ -39,6 +40,11 @@ export function toScript(workflow: Workflow): string {
       return;
     }
     switch (n.op) {
+      case "pairs":
+      case "template":
+      case "group":
+        expr = `${n.op}(${[...n.inputs, ...Object.keys(operators[n.op].defaults).map(key => json(p[key]))].join(", ")})`;
+        break;
       case "program":
         lines.push(
           `let ${n.id} = sequence {\n${programCode(n.program!, 1)}\n};`,
@@ -254,11 +260,12 @@ export function validateGraph(workflow: Workflow) {
         throw new Error(`${def.name} 的 ${key} 参数类型错误`);
       if (
         typeof n.params[key] === "string" &&
-        String(n.params[key]).length > (n.op === "mapchars" && key === "mapping" ? 16384 : 256)
+        String(n.params[key]).length > ((n.op === "mapchars" && key === "mapping") || (n.op === "template" && ["slots", "templates"].includes(key)) ? 16384 : 256)
       )
         throw new Error(`${def.name} 的文字参数过长`);
     }
     if (isChineseOp(n.op)) validateChineseParams(n.op, n.params);
+    validateRelationParams(n.op, n.params);
     if (n.inputs.length !== def.inputs || n.inputs.some((x) => !map.has(x)))
       throw new Error(`${def.name} 缺少有效输入`);
     if (n.op === "pattern" && !/^[AB]{1,16}$/.test(String(n.params.template)))

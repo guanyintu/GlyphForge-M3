@@ -1,8 +1,9 @@
-import { glyphs, operators } from "./model";
+import { candidateText, glyphs, operators } from "./model";
 import type { Candidate, Op, OperatorDefinition, RuleNode } from "./model";
 import { executeProgram } from "./program";
 import { chineseDefinitions } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
+import { readPairs, renderTemplates, groupMembers } from "./relations";
 export interface OperatorContext {
   node: RuleNode;
   seed: number;
@@ -22,6 +23,9 @@ export function boundedText(text: string) {
   return text;
 }
 const executors: Record<Op, RegisteredOperator["execute"]> = {
+  pairs: c => readPairs(c.read, String(c.node.params.resourceId), c.seed, String(c.node.params.relation), c.tick),
+  template: c => renderTemplates(c.node.params, c.read, c.seed, c.tick),
+  group: c => groupMembers(c.input(0), c.node.params, c.seed, c.tick),
   ...Object.fromEntries(Object.keys(chineseDefinitions).map(op => [op, async function* (c: OperatorContext) {
     const { transformChinese } = await import("./chinese");
     for await (const item of c.input(0)) {
@@ -34,6 +38,7 @@ const executors: Record<Op, RegisteredOperator["execute"]> = {
   resource: async function* (c) {
     for await (const item of c.read(String(c.node.params.resourceId), c.seed)) {
       c.tick();
+      if (item.pair) throw new Error("关系词库请使用关系词对或共享变量模板节点");
       yield item;
     }
   },
@@ -79,13 +84,13 @@ const executors: Record<Op, RegisteredOperator["execute"]> = {
   prefix: async function* (c) {
     for await (const a of c.input(0)) {
       c.tick();
-      yield { ...a, text: boundedText(String(c.node.params.text) + a.text) };
+      yield candidateText(a, boundedText(String(c.node.params.text) + a.text));
     }
   },
   reverse: async function* (c) {
     for await (const a of c.input(0)) {
       c.tick();
-      yield { ...a, text: glyphs(a.text).reverse().join("") };
+      yield candidateText(a, glyphs(a.text).reverse().join(""));
     }
   },
   output: async function* (c) {

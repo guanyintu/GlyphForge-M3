@@ -1,6 +1,7 @@
 import type { RuleNode, Workflow } from "./model";
 import { operators } from "./model";
 import { validateProgram } from "./program";
+import { validateRelationParams } from "./relations";
 export interface NodeClipboard {
   format: "glyphforge-nodes";
   version: 1;
@@ -107,11 +108,12 @@ export function pasteNodes(
     for (const [key, value] of Object.entries(operators[n.op].defaults)) {
       if (
         typeof n.params[key] !== typeof value ||
-        String(n.params[key]).length > 256
+        String(n.params[key]).length > ((n.op === "mapchars" && key === "mapping") || (n.op === "template" && ["slots", "templates"].includes(key)) ? 16384 : 256)
       )
         throw new Error("节点参数无效");
     }
     if (n.op === "program") validateProgram(n.program!);
+    validateRelationParams(n.op, n.params);
   });
   const mapping = new Map(
     payload.nodes.map((n) => [

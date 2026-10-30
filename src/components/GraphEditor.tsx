@@ -32,8 +32,10 @@ import { nodePosition } from "../core/graph-editing";
 import { chineseDefinitions, isChineseOp } from "../core/chinese-definitions";
 import { ChineseParams } from "./ChineseParams";
 import type { LucideIcon } from "lucide-react";
+import { RelationParams } from "./RelationParams";
 
 const icons: Record<Op, LucideIcon> = {
+  pairs: GitMerge, template: Sparkles, group: Layers,
   ...Object.fromEntries(Object.keys(chineseDefinitions).map(op => [op, Sparkles])) as Record<keyof typeof chineseDefinitions, LucideIcon>,
   program: Repeat2,
   resource: BookOpen,
@@ -89,7 +91,7 @@ const ForgeCard = memo(function ForgeCard({
             </div>
           </>
         ) : null}
-        {rule.op === "resource" ? (
+        {rule.op === "resource" || rule.op === "pairs" ? (
           <>
             <div className="node-field">
               {resource?.name || "选择一个词库"}
@@ -106,6 +108,7 @@ const ForgeCard = memo(function ForgeCard({
             </div>
           </>
         ) : null}
+        {rule.op === "template" || rule.op === "group" ? <><div className="node-field">{rule.op === "template" ? "共享槽位 → 名字模板" : `${rule.params.count} 人 × ${rule.params.batches} 批`}</div><p className="node-hint">{def.description}</p></> : null}
         {rule.op === "pattern" ? (
           <>
             <div className="node-field">
@@ -447,6 +450,7 @@ export function Inspector({
         <p className="description">{def.description}</p>
         <div className="divider" />
         {isChineseOp(node.op) ? <ChineseParams op={node.op} params={node.params} onChange={params => onUpdate({ ...node, params })} /> : null}
+        {node.op === "pairs" || node.op === "template" || node.op === "group" ? <RelationParams op={node.op} params={node.params} resources={resources} onChange={params => onUpdate({ ...node, params })} /> : null}
         <button className="text-button node-preview-button" onClick={onPreview}>
           <Play size={12} />
           预览此节点（20 条）
@@ -461,7 +465,7 @@ export function Inspector({
             </button>
           </>
         ) : null}
-        {node.op === "resource" ? (
+        {node.op === "resource" || node.op === "pairs" ? (
           <>
             <label className="field-label">
               引用词库
@@ -469,7 +473,7 @@ export function Inspector({
                 value={String(node.params.resourceId)}
                 onChange={(e) => param("resourceId", e.target.value)}
               >
-                {resources.map((r) => (
+                {resources.filter(r => (r.kind === "relation") === (node.op === "pairs")).map((r) => (
                   <option key={r.id} value={r.id}>
                     {r.name} · {r.count} 词
                   </option>

@@ -21,6 +21,6 @@ dist/assets/decomposition-Qix4g1h5.js     2,456.57 kB
 dist/assets/index-Ddr0f85n.css               71.02 kB │ gzip:  15.25 kB
 dist/assets/storage-CvBhfY6t.js             109.81 kB │ gzip:  36.16 kB
 dist/assets/react-flow-C3qdJseD.js          184.87 kB │ gzip:  60.52 kB
-dist/assets/index-B2brmpsF.js               390.05 kB │ gzip: 126.26 kB
+dist/assets/index-BWxCp6IF.js               390.08 kB │ gzip: 126.25 kB
 dist/assets/index-Bk0DJwzC.js               400.75 kB │ gzip: 130.77 kB
-✓ built in 18.41s
+✓ built in 14.31s

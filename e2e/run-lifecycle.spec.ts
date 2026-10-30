@@ -196,6 +196,18 @@ test("UI startup cancellation and unexpected Worker failure persist accurate ter
   const cancelled = await page.evaluate(async () => { const h = await import("/e2e-harness/lifecycle.js"); return h.db.runs.where("status").equals("cancelled").count(); });
   expect(cancelled).toBe(20);
   await expect.poll(() => page.evaluate(async () => (await navigator.locks.query()).held?.filter(l => l.name?.startsWith("glyphforge-run:")).length ?? 0)).toBe(0);
+  await page.getByRole("button", { name: /^运行工作流/ }).click();
+  await expect.poll(() => page.evaluate(async () => {
+    const h = await import("/e2e-harness/lifecycle.js"); return h.db.runs.where("status").equals("running").count();
+  })).toBe(1);
+  const switchingId = await page.evaluate(async () => {
+    const h = await import("/e2e-harness/lifecycle.js"); return (await h.db.runs.where("status").equals("running").first()).id;
+  });
+  await page.getByRole("button", { name: "镜像文字实验", exact: true }).click();
+  await expect.poll(() => page.evaluate(async id => {
+    const h = await import("/e2e-harness/lifecycle.js"); return (await h.db.runs.get(id)).status;
+  }, switchingId)).toBe("cancelled");
+  await expect.poll(() => page.evaluate(async () => (await navigator.locks.query()).held?.filter(l => l.name?.startsWith("glyphforge-run:")).length ?? 0)).toBe(0);
   await page.evaluate(() => { (window as any).workerMode = "crash"; });
   await page.getByRole("button", { name: /^运行工作流/ }).click();
   await expect.poll(() => page.evaluate(async () => {

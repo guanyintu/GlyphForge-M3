@@ -39,14 +39,14 @@ node scripts/validate-p2-s0-1.mjs --targeted
 
 - **210/210，15文件**：[单元日志](p2-s0-1/tests.txt)，含原201项及新增9项、引擎性能基准。原schema2回归仅将版本断言5更新为6，其他语义断言保留。
 - **25/25生产Chromium**：[全量日志](p2-s0-1/browser.txt)、[机器结果](p2-s0-1/browser-results.json)，包括原19项P0～P1-D链路、百万词条、预算/取消、分享与动画回归。
-- 加强“错误前已持久化128项”夹具和启动终态处理后，再通过全部210项及 **6/6本阶段浏览器**：[最终定向日志](p2-s0-1/browser-targeted.txt)、[机器结果](p2-s0-1/browser-targeted-results.json)。25与6是两批运行，不合并宣称31个独立功能。
+- 加强“错误前已持久化128项”夹具和启动终态处理，并补齐切换工作流取消收尾后，再通过全部210项及 **6/6本阶段浏览器**：[最终定向日志](p2-s0-1/browser-targeted.txt)、[机器结果](p2-s0-1/browser-targeted-results.json)。25与6是两批运行，不合并宣称31个独立功能。
 - [类型检查](p2-s0-1/typecheck.txt)、[构建](p2-s0-1/build.txt)、[构建类型](p2-s0-1/build-types.txt)退出0。React复核：独立组件按需挂载、hook无条件调用、分页订阅、状态/错误/操作具可访问名称。
 
 | 强制项目 | 本轮证据 |
 | --- | --- |
 | 新库100轮 | 各40成功/20错误/20取消/20中断，成功及错误前各128项；[新库JSON](p2-s0-1/browser-fresh-growth.json) |
 | 旧库迁移+100轮 | 原生v5资源/词条/工作流/收藏/run；中止升级再重试，随后同样100轮；[旧库JSON](p2-s0-1/browser-v5-growth.json) |
-| 成功/错误/取消/中断 | 每轮读出真实终态，错误含已提交部分结果；UI另做20次启动取消、注入Worker error，最终无遗留锁 |
+| 成功/错误/取消/中断 | 每轮读出真实终态，错误含已提交部分结果；UI另做20次启动取消、执行中切换工作流、注入Worker error，最终无遗留锁 |
 | 刷新与重新打开 | 同context刷新/关页重开；独立Chromium持久profile真正关闭浏览器进程，再以同profile启动，部分结果数量保持 |
 | 收藏旧结果及裁剪 | 第1次收藏、第5次固定，旧库另含升级前收藏；清到普通历史0仍保留来源 |
 | 来源可读 | 旧run.workflow、versions.historic=7、原词条/收藏可读，收藏generated可补回；实际打开详情UI |

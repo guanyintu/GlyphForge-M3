@@ -347,16 +347,19 @@ export default function App() {
     },
     [],
   );
-  function stop() {
+  function stopRun(message: string) {
+    const id = worker.current ? activeRun.current : "";
     worker.current?.terminate();
     worker.current = null;
     setRunning(false);
     setProgress("");
-    const id = activeRun.current;
-    if (id) void finishRun(id, "cancelled", "用户停止生成")
+    if (id) void finishRun(id, "cancelled", message)
       .then(() => pruneHistory(historyLimit()))
       .catch(e => notify(`停止状态或历史清理失败：${String(e)}`))
       .finally(() => { releases.current.get(id)?.(); releases.current.delete(id); });
+  }
+  function stop() {
+    stopRun("用户停止生成");
     notify("任务已停止，已生成的结果仍然保留");
   }
   function undo() {
@@ -511,9 +514,7 @@ export default function App() {
     void db.workflows
       .put(workflow)
       .catch(() => notify("切换前保存失败，请导出备份"));
-    worker.current?.terminate();
-    worker.current = null;
-    setRunning(false);
+    stopRun("切换工作流停止执行");
     setWorkflow(w);
     setCandidates([]);
     setStats(undefined);

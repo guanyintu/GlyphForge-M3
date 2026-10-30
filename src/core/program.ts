@@ -1,7 +1,10 @@
+import { astSignatures as signatures, astParams, boundedText, ContractError, diagnose, parameterLimit, transformText, uniqueParts, requireResourceKind } from "./contracts";
+import type { ValueType, ResourceMetadataReader } from "./contracts";
+import type { Op } from "./model";
 import { checkGameId, parseGameRule } from "./game-rules";
 import { glyphs } from "./model";
 import type { Candidate, SourcePart } from "./model";
-import { chineseDefinitions, isChineseOp } from "./chinese-definitions";
+import { isChineseOp } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
 import type { Params } from "./model";
 import { readPairs } from "./relations";
@@ -143,7 +146,7 @@ export class ProgramParser {
       );
   }
   fail(message: string): never {
-    throw new Error(`第 ${this.peek().line} 行：${message}`);
+    throw new ContractError({ code: "TYPE", line: this.peek().line, message });
   }
   identifier() {
     const token = this.take();
@@ -274,30 +277,11 @@ export class ProgramParser {
     return expr;
   }
 }
-type ValueType =
-  "string" | "number" | "boolean" | "strings" | "numbers" | "booleans" | "pair" | "pairs";
-const signatures: Record<string, { args: ValueType[]; result: ValueType }> = {
-  gamecheck: { args: ["string", "string"], result: "boolean" },
-  pairs: { args: ["string", "string"], result: "pairs" },
-  left: { args: ["pair"], result: "string" },
-  right: { args: ["pair"], result: "string" },
-  relation: { args: ["pair"], result: "string" },
-  ...Object.fromEntries(Object.entries(chineseDefinitions).map(([op, def]) => [op, {
-    args: ["string", ...Object.values(def.defaults).map(v => typeof v)] as ValueType[], result: "strings" as const,
-  }])),
-  resource: { args: ["string"], result: "strings" },
-  range: { args: ["number", "number"], result: "numbers" },
-  length: { args: ["string"], result: "number" },
-  contains: { args: ["string", "string"], result: "boolean" },
-  startsWith: { args: ["string", "string"], result: "boolean" },
-  endsWith: { args: ["string", "string"], result: "boolean" },
-  pattern: { args: ["string", "string", "string"], result: "string" },
-  concat: { args: ["string", "string"], result: "string" },
-  prefix: { args: ["string", "string"], result: "string" },
-  reverse: { args: ["string"], result: "string" },
-  text: { args: ["number"], result: "string" },
-};
 export function validateProgram(program: Program) {
+  try { validateProgramBody(program); }
+  catch (error) { throw diagnose(error, { code: "TYPE" }); }
+}
+function validateProgramBody(program: Program) {
   if (!program || program.version !== 1 || !Array.isArray(program.body))
     throw new Error("无效的程序 IR");
   let size = 0,
@@ -311,7 +295,7 @@ export function validateProgram(program: Program) {
     if (!expr || ++size > 2000 || depth > 40)
       throw new Error("程序超过结构限额");
     const error = (msg: string): never => {
-      throw new Error(`第 ${expr.line || "?"} 行：${msg}`);
+      throw new ContractError({ code: expr.kind === "variable" ? "SCOPE" : "TYPE", line: expr.line, message: msg });
     };
     switch (expr.kind) {
       case "literal":
@@ -347,17 +331,28 @@ export function validateProgram(program: Program) {
         if (!Object.hasOwn(signatures, expr.name) || !Array.isArray(expr.args))
           return error(`不支持的函数 ${expr.name}`);
         const fn = signatures[expr.name];
-        if (
-          expr.args.length !== fn.args.length ||
-          expr.args.some((x, i) => check(x, scope, depth + 1, ["mapchars", "gamecheck"].includes(expr.name) && i === 1 ? 16384 : 256) !== fn.args[i])
-        )
+        if (expr.args.length < fn.required || expr.args.length > fn.args.length)
           return error(`${expr.name} 参数需要 (${fn.args.join(", ")})`);
+        expr.args.forEach((arg, i) => {
+          const key = fn.parameters?.[i];
+          if (check(arg, scope, depth + 1, key ? parameterLimit(expr.name as Op, key) : 256) !== fn.args[i]) {
+            if (key) throw new ContractError({ code: "PARAMETER", operator: expr.name, parameter: key, line: expr.line, message: `${key} 参数类型错误，需要 ${fn.args[i]}` });
+            error(`${expr.name} 参数需要 (${fn.args.join(", ")})`);
+          }
+        });
         if (
           ["resource", "pairs"].includes(expr.name) &&
           (expr.args[0].kind !== "literal" ||
             typeof expr.args[0].value !== "string")
         )
           return error(`${expr.name} 需要固定的资源 ID 字符串`);
+        if (fn.parameters && expr.args.every(a => a.kind === "literal" || a.kind === "variable")) {
+          // Validate literal parameters now; expressions and variables are validated at evaluation.
+          if (fn.parameters.every((key, i) => !key || !expr.args[i] || expr.args[i].kind === "literal")) {
+            try { astParams(expr.name as Op, expr.args.map(a => a.kind === "literal" ? a.value : undefined)); }
+            catch (error) { throw diagnose(error, { line: expr.line }); }
+          }
+        }
         return fn.result;
       }
       case "unary": {
@@ -407,25 +402,25 @@ export function validateProgram(program: Program) {
           reserved.has(s.name) ||
           (s.kind === "let" && locals.has(s.name))
         )
-          throw new Error(`第 ${s.line} 行：变量重复或名称无效 ${s.name}`);
+          throw new ContractError({ code: "TYPE", line: s.line, message: `变量重复或名称无效 ${s.name}` });
         const type = check(s.kind === "let" ? s.value : s.source, scope);
         if (s.kind === "let") locals.add(s.name);
         if (s.kind === "let") scope.set(s.name, type);
         else {
           if (!["strings", "numbers", "booleans", "pairs"].includes(type))
-            throw new Error(`第 ${s.line} 行：for 需要词库、集合或 range`);
+            throw new ContractError({ code: "TYPE", line: s.line, message: `for 需要词库、集合或 range` });
           const child = new Map(scope);
           child.set(s.name, type.slice(0, -1) as ValueType);
           block(s.body, child, depth + 1);
         }
       } else if (s.kind === "if") {
         if (check(s.test, scope) !== "boolean")
-          throw new Error(`第 ${s.line} 行：if 条件必须为 Boolean`);
+          throw new ContractError({ code: "TYPE", line: s.line, message: `if 条件必须为 Boolean` });
         block(s.body, scope, depth + 1);
         block(s.otherwise, scope, depth + 1);
       } else if (s.kind === "emit") {
         if (check(s.value, scope) !== "string")
-          throw new Error(`第 ${s.line} 行：emit 需要 String`);
+          throw new ContractError({ code: "TYPE", line: s.line, message: `emit 需要 String` });
         emits++;
       } else throw new Error("未知控制流语句");
     }
@@ -540,24 +535,25 @@ export async function* executeProgram(
   reader: (id: string, seed: number) => AsyncIterable<Candidate>,
   seed: number,
   tick: () => void,
+  resourceMetadata?: ResourceMetadataReader,
 ): AsyncGenerator<Candidate> {
   const atom = (value: Atom["value"], parts: SourcePart[] = [], notes?: string[]): Atom => {
-    if (typeof value === "string" && value.length > 1024)
-      throw new Error("中间文字超过 1024 个代码单元");
+    if (typeof value === "string") boundedText(value);
     if (typeof value === "number" && !Number.isFinite(value))
       throw new Error("数值超出有限范围");
     // Reusing a scalar must not double its entire provenance on every operation.
     // Deduplicate before the next expression, rather than only at final emit.
-    const uniqueParts = [...new Map(parts.map(p => [
-      JSON.stringify([p.resourceId, p.text, p.version, p.pair]), p,
-    ])).values()];
-    return { type: "atom", value, parts: uniqueParts, notes: notes ? [...new Set(notes)] : undefined };
+    return { type: "atom", value, parts: uniqueParts(parts), notes: notes ? [...new Set(notes)] : undefined };
   };
   const scalar = (value: Value): Atom => {
     if (value.type !== "atom") throw new Error("需要标量值");
     return value;
   };
   function evaluate(e: Expr, env: Map<string, Value>): Value {
+    try { return evaluateValue(e, env); }
+    catch (error) { throw diagnose(error, { line: e.line }); }
+  }
+  function evaluateValue(e: Expr, env: Map<string, Value>): Value {
     tick();
     if (e.kind === "literal") return atom(e.value);
     if (e.kind === "variable") return env.get(e.name)!;
@@ -630,18 +626,18 @@ export async function* executeProgram(
       return atom(pair.candidate.pair[e.name as "left" | "right" | "relation"], pair.candidate.parts);
     }
     const values = args.map((v) => scalar(v));
+    const params = signatures[e.name]?.parameters ? astParams(e.name as Op, values.map(v => v.value)) : {};
     const texts = values.map((v) => String(v.value));
     const parts = values.flatMap((v) => v.parts);
     const notes = values.flatMap(v => v.notes || []);
     if (isChineseOp(e.name)) {
-      const params = Object.fromEntries(Object.keys(chineseDefinitions[e.name].defaults).map((key, i) => [key, values[i + 1].value]));
       return { type: "chinese", op: e.name, input: values[0], params };
     }
     switch (e.name) {
       case "gamecheck":
-        return atom(checkGameId(texts[0], parseGameRule(texts[1])).valid, parts, notes);
+        return atom(checkGameId(texts[0], parseGameRule(String(params.rules))).valid, parts, notes);
       case "pairs":
-        return { type: "pairs", id: texts[0], relation: texts[1] };
+        return { type: "pairs", id: texts[0], relation: String(params.relation) };
       case "resource":
         return { type: "resource", id: texts[0] };
       case "range": {
@@ -665,18 +661,11 @@ export async function* executeProgram(
       case "endsWith":
         return atom(texts[0].endsWith(texts[1]));
       case "pattern":
-        if (!/^[AB]{1,16}$/.test(texts[0]))
-          throw new Error("pattern 第一个参数需要 A/B 模式");
-        return atom(
-          texts[0].replace(/[AB]/g, (c) => (c === "A" ? texts[1] : texts[2])),
-          parts, notes,
-        );
+        return atom(transformText("pattern", [texts[1], texts[2]], params), parts, notes);
       case "concat":
-        return atom(texts[0] + texts[1], parts, notes);
       case "prefix":
-        return atom(texts[1] + texts[0], parts, notes);
       case "reverse":
-        return atom(glyphs(texts[0]).reverse().join(""), parts, notes);
+        return atom(transformText(e.name, texts, params), parts, notes);
       case "text":
         return atom(texts[0], parts, notes);
       default:
@@ -685,6 +674,7 @@ export async function* executeProgram(
   }
   async function* iterate(value: Value): AsyncGenerator<Value> {
     if (value.type === "pairs") {
+      if (resourceMetadata) await requireResourceKind(resourceMetadata, value.id, true);
       if (value.relation && !["associated", "antonym", "couple", "parallel"].includes(value.relation)) throw new Error("未知关系类型");
       for await (const candidate of readPairs(reader, value.id, seed, value.relation, tick)) yield { type: "pair", candidate };
     } else if (value.type === "chinese") {
@@ -693,10 +683,11 @@ export async function* executeProgram(
         yield atom(item.text, item.parts, item.notes);
       }
     } else if (value.type === "resource") {
+      if (resourceMetadata) await requireResourceKind(resourceMetadata, value.id, false);
       for await (const c of reader(value.id, seed)) {
         tick();
         if (c.pair) throw new Error("关系词库请使用 pairs(id, relation)");
-        yield atom(c.text, c.parts);
+        yield atom(c.text, c.parts, c.notes);
       }
     } else if (value.type === "range") {
       for (let n = value.from; n < value.to; n++) {
@@ -746,9 +737,7 @@ export async function* executeProgram(
           yield { text, parts, ...(value.notes?.length ? { notes: [...new Set(value.notes)] } : {}) };
         }
       } catch (error) {
-        if (error instanceof Error && !error.message.startsWith("第 "))
-          throw new Error(`第 ${s.line} 行：${error.message}`);
-        throw error;
+        throw diagnose(error, { line: s.line });
       }
     }
   }

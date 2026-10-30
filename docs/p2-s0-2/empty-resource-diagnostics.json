@@ -1,0 +1,79 @@
+[
+  {
+    "code": "let a = pairs(\"word\", \"\");\nlet out = output(a);",
+    "result": {
+      "type": "error",
+      "message": "节点 a：请选择关系词库，普通词条不能用作关系词对",
+      "diagnostic": {
+        "nodeId": "a",
+        "operator": "pairs",
+        "code": "TYPE",
+        "message": "请选择关系词库，普通词条不能用作关系词对"
+      },
+      "cleanupError": ""
+    },
+    "status": "error"
+  },
+  {
+    "code": "let a = resource(\"relation\");\nlet out = output(a);",
+    "result": {
+      "type": "error",
+      "message": "节点 a：关系词库请使用关系词对或共享变量模板节点",
+      "diagnostic": {
+        "nodeId": "a",
+        "operator": "resource",
+        "code": "TYPE",
+        "message": "关系词库请使用关系词对或共享变量模板节点"
+      },
+      "cleanupError": ""
+    },
+    "status": "error"
+  },
+  {
+    "code": "for p in pairs(\"word\") { emit(left(p)); }",
+    "result": {
+      "type": "error",
+      "message": "节点 program：第 1 行：请选择关系词库，普通词条不能用作关系词对",
+      "diagnostic": {
+        "nodeId": "program",
+        "operator": "program",
+        "line": 1,
+        "code": "TYPE",
+        "message": "请选择关系词库，普通词条不能用作关系词对"
+      },
+      "cleanupError": ""
+    },
+    "status": "error"
+  },
+  {
+    "code": "for x in @relation { emit(x); }",
+    "result": {
+      "type": "error",
+      "message": "节点 program：第 1 行：关系词库请使用关系词对或共享变量模板节点",
+      "diagnostic": {
+        "nodeId": "program",
+        "operator": "program",
+        "line": 1,
+        "code": "TYPE",
+        "message": "关系词库请使用关系词对或共享变量模板节点"
+      },
+      "cleanupError": ""
+    },
+    "status": "error"
+  },
+  {
+    "code": "let t = template(\"[{\\\"name\\\":\\\"x\\\",\\\"resourceId\\\":\\\"word\\\",\\\"kind\\\":\\\"pair\\\"}]\", \"[\\\"{x.left}\\\"]\", \" / \", 16, false);\nlet out = output(t);",
+    "result": {
+      "type": "error",
+      "message": "节点 t：请选择关系词库，普通词条不能用作关系词对",
+      "diagnostic": {
+        "nodeId": "t",
+        "operator": "template",
+        "code": "TYPE",
+        "message": "请选择关系词库，普通词条不能用作关系词对"
+      },
+      "cleanupError": ""
+    },
+    "status": "error"
+  }
+]

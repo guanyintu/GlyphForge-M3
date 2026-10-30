@@ -1,0 +1,49 @@
+[WebServer] (node:127016) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:91020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:40568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 e2e\contracts.spec.ts:8:1 › a delayed old autosave cannot replace the selected workflow on reload (8.1s)
+
+
+  1) e2e\contracts.spec.ts:8:1 › a delayed old autosave cannot replace the selected workflow on reload
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator:  getByLabel('工作流名称')
+    Expected: "叠字的快乐"
+    Received: "延迟旧工作流"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveValue" getByLabel('工作流名称') with timeout 5000ms
+      - waiting for getByLabel('工作流名称')
+        13 × locator resolved to <input maxlength="60" value="延迟旧工作流" aria-label="工作流名称"/>
+           - unexpected value "延迟旧工作流"
+
+
+      29 |   await expect(page.getByText("已保存到本地", { exact: true })).toBeVisible();
+      30 |   await page.reload();
+    > 31 |   await expect(page.getByLabel("工作流名称")).toHaveValue("叠字的快乐");
+         |                                          ^
+      32 | });
+      33 |
+      34 | test("production execution/laboratory Workers and graph/code/AST share signatures", async ({ page }) => {
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\contracts.spec.ts:31:42
+
+    Error Context: test-results\contracts-a-delayed-old-au-46e6d-selected-workflow-on-reload\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\contracts-a-delayed-old-au-46e6d-selected-workflow-on-reload\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\contracts-a-delayed-old-au-46e6d-selected-workflow-on-reload\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\contracts.spec.ts:8:1 › a delayed old autosave cannot replace the selected workflow on reload

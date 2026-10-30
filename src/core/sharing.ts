@@ -1,3 +1,4 @@
+import { normalizeParams } from "./contracts";
 import { db, readResource } from "../storage/db";
 import { validateGraph } from "./script";
 import { programResources, visitProgramExpressions } from "./program";
@@ -29,8 +30,8 @@ export function dependencyIds(workflow: Workflow) {
     ...new Set(
       workflow.nodes.flatMap((n) =>
         n.op === "resource" || n.op === "pairs"
-          ? [String(n.params.resourceId)]
-          : n.op === "template" ? templateConfig(n.params).slots.map(s => s.resourceId)
+          ? [String(normalizeParams(n.op, n.params).resourceId)]
+          : n.op === "template" ? templateConfig(normalizeParams(n.op, n.params)).slots.map(s => s.resourceId)
           : n.op === "program"
             ? programResources(n.program!)
             : [],
@@ -125,6 +126,7 @@ export async function importPackage(
       throw new Error("节点参数无效");
   }
   validateGraph(workflow);
+  for (const node of workflow.nodes) node.params = normalizeParams(node.op, node.params);
   if (Number(pkg.version) >= 2) {
     if (
       pkg.irVersion !== 1 ||

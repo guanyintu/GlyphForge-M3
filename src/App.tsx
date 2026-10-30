@@ -105,6 +105,8 @@ export default function App() {
   const [ready, setReady] = useState(false);
   const [page, setPage] = useState<Page>("workflow");
   const [workflow, setWorkflow] = useState<Workflow>(createWorkflow);
+  const currentWorkflow = useRef(workflow);
+  currentWorkflow.current = workflow;
   const [selected, setSelected] = useState("mix");
   const [selection, setSelection] = useState<string[]>(["mix"]);
   const [view, setView] = useState("nodes");
@@ -206,10 +208,11 @@ export default function App() {
       db.workflows
         .put(workflow)
         .then(() => {
+          if (currentWorkflow.current !== workflow) return;
           localStorage.setItem("glyphforge-active", workflow.id);
           setSaveState("已保存到本地");
         })
-        .catch(() => setSaveState("保存失败，请导出备份"));
+        .catch(() => { if (currentWorkflow.current === workflow) setSaveState("保存失败，请导出备份"); });
     }, 650);
     return () => clearTimeout(timeout);
   }, [workflow, ready]);
@@ -515,6 +518,17 @@ export default function App() {
       .put(workflow)
       .catch(() => notify("切换前保存失败，请导出备份"));
     stopRun("切换工作流停止执行");
+    currentWorkflow.current = w;
+    setSaveState("正在保存…");
+    // Persist a newly created recipe too, before publishing its durable selection.
+    // A previous autosave may finish after this switch; it cannot select the old ID.
+    void db.workflows.put(w).then(() => {
+      if (currentWorkflow.current !== w) return;
+      localStorage.setItem("glyphforge-active", w.id);
+      setSaveState("已保存到本地");
+    }).catch(() => {
+      if (currentWorkflow.current === w) setSaveState("保存失败，请导出备份");
+    });
     setWorkflow(w);
     setCandidates([]);
     setStats(undefined);

@@ -1,3 +1,4 @@
+import { diagnose, executionBudget } from "../core/contracts";
 import { execute } from "../core/engine";
 import type { Workflow } from "../core/model";
 import { db, readResource } from "../storage/db";
@@ -20,7 +21,7 @@ self.onmessage = async (event: MessageEvent<Workflow | { workflow: Workflow; run
         self.postMessage({ type: "error", message: "达到 10 秒执行时间上限，请缩小词库或调整条件" });
         self.close();
       });
-    }, 10000);
+    }, executionBudget.milliseconds);
     const stats = await execute(workflow, async function* (id, seed) {
       if ((await db.resources.get(id))?.version !== versions[id]) throw new Error("词库在运行期间发生更改，请重新生成");
       for await (const candidate of readResource(id, seed)) {
@@ -30,7 +31,8 @@ self.onmessage = async (event: MessageEvent<Workflow | { workflow: Workflow; run
     }, async batch => {
       await appendRunBatch(runId, batch);
       self.postMessage({ type: "batch", batch });
-    }, { steps: 300000, milliseconds: 10000 }, {
+    }, { steps: executionBudget.steps, milliseconds: executionBudget.milliseconds }, {
+      resourceMetadata: id => db.resources.get(id),
       runId, onProgress: progress => self.postMessage({ type: "progress", ...progress }),
     });
     await finishRun(runId, "done");
@@ -42,7 +44,7 @@ self.onmessage = async (event: MessageEvent<Workflow | { workflow: Workflow; run
     try { await finishRun(runId, "error", message); } catch { /* UI/next boot retries recovery if storage failed. */ }
     let cleanupError = "";
     if (!managed) try { await pruneHistory(keep); } catch (e) { cleanupError = String(e); }
-    self.postMessage({ type: "error", message, cleanupError });
+    self.postMessage({ type: "error", message, diagnostic: diagnose(error).diagnostic, cleanupError });
   } finally {
     clearTimeout(watchdog);
     release?.();

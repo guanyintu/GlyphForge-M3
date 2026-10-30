@@ -1,6 +1,7 @@
+import { normalizeParams } from "./contracts";
 import { candidateText, glyphs } from "./model";
 import type { Candidate, Params } from "./model";
-import { parseCharacterMap, validateChineseParams } from "./chinese-definitions";
+import { parseCharacterMap } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
 
 // Only this small adapter is loaded with the registry. Dictionaries have separate lazy chunks.
@@ -134,7 +135,7 @@ function loadReadingIndex(tick: () => void) {
 }
 
 export async function* transformChinese(op: ChineseOp, item: Candidate, p: Params, seed: number, tick: () => void): AsyncGenerator<Candidate> {
-  validateChineseParams(op, p);
+  p = normalizeParams(op, p);
   tick();
   const emit = (text: string, ...notes: string[]): Candidate => ({ ...candidateText(item, text), notes: [...(item.notes || []), ...notes] });
   const limit = Number(p.limit || 32);

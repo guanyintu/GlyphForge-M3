@@ -1,7 +1,7 @@
+import { normalizeParams } from "./contracts";
 import type { RuleNode, Workflow } from "./model";
 import { operators } from "./model";
-import { validateProgram } from "./program";
-import { validateRelationParams } from "./relations";
+import { validateNodeParameters } from "./script";
 export interface NodeClipboard {
   format: "glyphforge-nodes";
   version: 1;
@@ -105,15 +105,7 @@ export function pasteNodes(
     )
       throw new Error("节点格式无效");
     originalIds.add(n.id);
-    for (const [key, value] of Object.entries(operators[n.op].defaults)) {
-      if (
-        typeof n.params[key] !== typeof value ||
-        String(n.params[key]).length > ((n.op === "mapchars" && key === "mapping") || (n.op === "template" && ["slots", "templates"].includes(key)) ? 16384 : 256)
-      )
-        throw new Error("节点参数无效");
-    }
-    if (n.op === "program") validateProgram(n.program!);
-    validateRelationParams(n.op, n.params);
+    validateNodeParameters(n);
   });
   const mapping = new Map(
     payload.nodes.map((n) => [
@@ -132,6 +124,7 @@ export function pasteNodes(
     };
     return {
       ...structuredClone(n),
+      params: normalizeParams(n.op, n.params),
       id,
       inputs: n.inputs.map((input) => {
         if (mapping.has(input)) return mapping.get(input)!;

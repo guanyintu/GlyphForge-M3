@@ -1,0 +1,39 @@
+{
+  "base": "077292ebb81738f226f5198fb8ec5679d0f4cc6a",
+  "branch": "codex/p2-s0-2-contracts",
+  "sourceSnapshotTree": "cb52e3d2bfec1893ab94a33d8ea268b90a25cec9",
+  "baselineFiles": 54,
+  "overlappingFiles": [
+    "PROJECT-STATUS.md",
+    "src/App.tsx",
+    "src/core/graph-editing.ts",
+    "src/core/script.ts"
+  ],
+  "unchangedBaselineFiles": 50,
+  "unexpectedChanges": [],
+  "backupZipSha256": "bfa56c92e380433101b52a4def68eb58ddaecd8bd1255daa468968162e0733da",
+  "archiveEntriesVerified": true,
+  "originalIndexWasEmpty": true,
+  "sourceFiles": [
+    "src/App.tsx",
+    "src/core/contracts.ts",
+    "src/core/chinese.ts",
+    "src/core/engine.ts",
+    "src/core/graph-editing.ts",
+    "src/core/lab.ts",
+    "src/core/model.ts",
+    "src/core/operators.ts",
+    "src/core/program.ts",
+    "src/core/script.ts",
+    "src/core/sharing.ts",
+    "src/workers/execution.worker.ts",
+    "src/workers/lab.worker.ts",
+    "src/tests/contracts.test.ts",
+    "e2e/contracts-harness.ts",
+    "e2e/contracts.spec.ts",
+    "e2e/contracts.vite.config.ts",
+    "scripts/validate-p2-s0-2.mjs"
+  ],
+  "statusStaging": "Only the new S0-2 section prepended to HEAD; prior uncommitted body remains in working tree",
+  "retainedOriginalChanges": "Other P1 audit/user changes remain unstaged; overlapping shared validation and selection boundary reimplemented within S0-2 scope"
+}

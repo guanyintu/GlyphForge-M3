@@ -1,8 +1,7 @@
-import { parseGameRule } from "./game-rules";
+import { normalizeParams, diagnose, executionBudget } from "./contracts";
 import { operators } from "./model";
 import type { Op, RuleNode, Workflow } from "./model";
-import { isChineseOp, validateChineseParams } from "./chinese-definitions";
-import { validateRelationParams } from "./relations";
+import { isChineseOp } from "./chinese-definitions";
 import {
   ProgramParser,
   parseProgram,
@@ -34,7 +33,7 @@ export function toScript(workflow: Workflow): string {
       if (dep) write(dep);
     });
     const [a = "missing", b = "missing"] = n.inputs;
-    const p = n.params;
+    const p = normalizeParams(n.op, n.params);
     let expr = "";
     if (isChineseOp(n.op)) {
       lines.push(`let ${n.id} = ${n.op}(${[a, ...Object.keys(operators[n.op].defaults).map(key => json(p[key]))].join(", ")});`);
@@ -144,9 +143,7 @@ function parseLegacyScript(source: string, base: Workflow): Workflow {
       });
       nodes.push({ id, op, inputs, params });
     } catch (error) {
-      throw new Error(
-        `第 ${index + 1} 行：${error instanceof Error ? error.message : "语法错误"}`,
-      );
+      throw diagnose(error, { code: "TYPE", line: index + 1 });
     }
   });
   const workflow = { ...base, nodes };
@@ -234,7 +231,19 @@ export function parseScript(source: string, base: Workflow): Workflow {
   validateGraph(workflow);
   return workflow;
 }
+/** Shared by graph execution, package import and node clipboard. */
+export function validateNodeParameters(n: RuleNode) {
+  try {
+    normalizeParams(n.op, n.params);
+    if (n.op === "program") validateProgram(n.program!);
+  } catch (error) { throw diagnose(error, { nodeId: n.id, operator: n.op }); }
+}
+
 export function validateGraph(workflow: Workflow) {
+  try { validateGraphBody(workflow); }
+  catch (error) { throw diagnose(error, { code: "TYPE" }); }
+}
+function validateGraphBody(workflow: Workflow) {
   if (!workflow.nodes.length || workflow.nodes.length > 200)
     throw new Error("工作流需要 1–200 个节点");
   if (workflow.nodes.filter((n) => n.op === "output").length !== 1)
@@ -254,32 +263,9 @@ export function validateGraph(workflow: Workflow) {
   function visit(n: RuleNode) {
     if (done.has(n.id)) return;
     if (visiting.has(n.id)) throw new Error("检测到循环连线，请使用无环数据流");
-    if (!Object.hasOwn(operators, n.op)) throw new Error(`未知算子 ${n.op}`);
-    const def = operators[n.op];
-    if (n.op === "program") validateProgram(n.program!);
-    for (const [key, value] of Object.entries(def.defaults)) {
-      if (typeof n.params[key] !== typeof value)
-        throw new Error(`${def.name} 的 ${key} 参数类型错误`);
-      if (
-        typeof n.params[key] === "string" &&
-        String(n.params[key]).length > ((n.op === "gamecheck" && key === "rules") || (n.op === "mapchars" && key === "mapping") || (n.op === "template" && ["slots", "templates"].includes(key)) ? 16384 : 256)
-      )
-        throw new Error(`${def.name} 的文字参数过长`);
-    }
-    if (isChineseOp(n.op)) validateChineseParams(n.op, n.params);
-    validateRelationParams(n.op, n.params);
-    if (n.op === "gamecheck") { parseGameRule(String(n.params.rules)); if (!["filter", "annotate"].includes(String(n.params.mode))) throw new Error("游戏检查模式无效"); }
-    if (n.inputs.length !== def.inputs || n.inputs.some((x) => !map.has(x)))
-      throw new Error(`${def.name} 缺少有效输入`);
-    if (n.op === "pattern" && !/^[AB]{1,16}$/.test(String(n.params.template)))
-      throw new Error("模式需为 1–16 个 A / B，例如 AABB");
-    if (
-      n.op === "filter" &&
-      (!Number.isFinite(n.params.maxLength) ||
-        Number(n.params.maxLength) < 1 ||
-        Number(n.params.maxLength) > 100)
-    )
-      throw new Error("长度限制需要在 1–100 之间");
+    validateNodeParameters(n);
+    if (n.inputs.length !== operators[n.op].inputs || n.inputs.some(x => !map.has(x)))
+      throw new Error(`${operators[n.op].name} 缺少有效输入`);
     visiting.add(n.id);
     n.inputs.forEach((id) => visit(map.get(id)!));
     visiting.delete(n.id);
@@ -291,7 +277,7 @@ export function validateGraph(workflow: Workflow) {
   if (
     !Number.isInteger(workflow.limit) ||
     workflow.limit < 1 ||
-    workflow.limit > 10000
+    workflow.limit > executionBudget.results
   )
     throw new Error("结果上限为 1–10,000");
 }

@@ -1,28 +1,27 @@
+import { boundedText, combineCandidates, normalizeParams, transformText, operatorContracts } from "./contracts";
 import { candidateText, glyphs, operators } from "./model";
-import type { Candidate, Op, OperatorDefinition, RuleNode } from "./model";
+import type { CandidateSequence, Op, OperatorDefinition, RuleNode } from "./model";
 import { executeProgram } from "./program";
 import { chineseDefinitions } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
 import { readPairs, renderTemplates, groupMembers } from "./relations";
 import { checkGameId, parseGameRule } from "./game-rules";
 export interface OperatorContext {
+  resourceMetadata?: import("./contracts").ResourceMetadataReader;
   node: RuleNode;
   seed: number;
   tick: () => void;
-  input: (index: number) => AsyncIterable<Candidate>;
-  read: (id: string, seed: number) => AsyncIterable<Candidate>;
+  input: (index: number) => CandidateSequence;
+  read: (id: string, seed: number) => CandidateSequence;
 }
 export interface RegisteredOperator extends OperatorDefinition {
-  execute: (context: OperatorContext) => AsyncIterable<Candidate>;
+  contract: (typeof operatorContracts)[Op];
+  execute: (context: OperatorContext) => CandidateSequence;
 }
 export function patternText(template: string, a: string, b: string) {
-  if (!/^[AB]{1,16}$/.test(template)) throw new Error("模式需为 1–16 个 A / B");
-  return boundedText(template.replace(/[AB]/g, (c) => (c === "A" ? a : b)));
+  return transformText("pattern", [a, b], normalizeParams("pattern", { template }));
 }
-export function boundedText(text: string) {
-  if (text.length > 1024) throw new Error("单条文字超过 1024 个代码单元");
-  return text;
-}
+export { boundedText } from "./contracts";
 const executors: Record<Op, RegisteredOperator["execute"]> = {
   gamecheck: async function* (c) {
     const rule = parseGameRule(String(c.node.params.rules));
@@ -48,7 +47,7 @@ const executors: Record<Op, RegisteredOperator["execute"]> = {
     }
   },
   program: async function* (c) {
-    yield* executeProgram(c.node.program!, c.read, c.seed, c.tick);
+    yield* executeProgram(c.node.program!, c.read, c.seed, c.tick, c.resourceMetadata);
   },
   pattern: async function* (c) {
     for await (const a of c.input(0)) {
@@ -56,8 +55,7 @@ const executors: Record<Op, RegisteredOperator["execute"]> = {
       for await (const b of c.input(1)) {
         c.tick();
         yield {
-          text: patternText(String(c.node.params.template), a.text, b.text),
-          parts: [...a.parts, ...b.parts],
+          ...combineCandidates(transformText("pattern", [a.text, b.text], c.node.params), [a, b]),
         };
       }
     }
@@ -68,8 +66,7 @@ const executors: Record<Op, RegisteredOperator["execute"]> = {
       for await (const b of c.input(1)) {
         c.tick();
         yield {
-          text: boundedText(a.text + String(c.node.params.separator) + b.text),
-          parts: [...a.parts, ...b.parts],
+          ...combineCandidates(transformText("concat", [a.text, b.text], c.node.params), [a, b]),
         };
       }
     }
@@ -89,13 +86,13 @@ const executors: Record<Op, RegisteredOperator["execute"]> = {
   prefix: async function* (c) {
     for await (const a of c.input(0)) {
       c.tick();
-      yield candidateText(a, boundedText(String(c.node.params.text) + a.text));
+      yield candidateText(a, transformText("prefix", [a.text], c.node.params));
     }
   },
   reverse: async function* (c) {
     for await (const a of c.input(0)) {
       c.tick();
-      yield candidateText(a, glyphs(a.text).reverse().join(""));
+      yield candidateText(a, transformText("reverse", [a.text], c.node.params));
     }
   },
   output: async function* (c) {
@@ -108,6 +105,6 @@ const executors: Record<Op, RegisteredOperator["execute"]> = {
 export const operatorRegistry = Object.fromEntries(
   Object.entries(operators).map(([id, definition]) => [
     id,
-    { ...definition, execute: executors[id as Op] },
+    { ...definition, contract: operatorContracts[id as Op], execute: (c: OperatorContext) => executors[id as Op]({ ...c, node: { ...c.node, params: normalizeParams(id as Op, c.node.params) } }) },
   ]),
 ) as Record<Op, RegisteredOperator>;

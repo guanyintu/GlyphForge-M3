@@ -1,0 +1,18 @@
+[
+  {
+    "log": "isolated-typecheck.txt",
+    "exit": 0
+  },
+  {
+    "log": "isolated-tests.txt",
+    "exit": 0
+  },
+  {
+    "log": "isolated-build-types.txt",
+    "exit": 0
+  },
+  {
+    "log": "isolated-build.txt",
+    "exit": 0
+  }
+]

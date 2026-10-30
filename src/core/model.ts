@@ -85,6 +85,7 @@ export interface Candidate {
   pair?: PairValue;
   members?: string[];
 }
+export type CandidateSequence = AsyncIterable<Candidate>;
 export interface Favorite extends Candidate {
   text: string;
   savedAt: number;

@@ -1,0 +1,48 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ↓ src/tests/audit.test.ts > audit regressions > roundtrips literal "sequence {" in a graph with control flow
+ ↓ src/tests/audit.test.ts > audit regressions > roundtrips literal "-" in a graph with control flow
+ ↓ src/tests/audit.test.ts > audit regressions > roundtrips literal "!" in a graph with control flow
+ ↓ src/tests/audit.test.ts > audit regressions > roundtrips literal "(" in a graph with control flow
+ ↓ src/tests/audit.test.ts > audit regressions > roundtrips literal "[" in a graph with control flow
+ ↓ src/tests/audit.test.ts > audit regressions > ignores sequence markers inside ordinary strings and comments
+ × src/tests/audit.test.ts > audit regressions > roundtrips small probabilities in mixed graph code 30ms
+   → 第 7 行：需要「)」，实际为「e」
+ ↓ src/tests/audit.test.ts > audit regressions > keeps intermediate AST provenance bounded when a variable is reused
+ ↓ src/tests/audit.test.ts > audit regressions > awaits each output batch before producing the next one
+ ↓ src/tests/audit.test.ts > audit regressions > stops when persistence of an output batch fails
+ ↓ src/tests/audit.test.ts > audit regressions > imports TXT literally: "text\n猫\n"
+ ↓ src/tests/audit.test.ts > audit regressions > imports TXT literally: "名字\n猫\n"
+ ↓ src/tests/audit.test.ts > audit regressions > imports TXT literally: "\"月亮\"\n猫\n"
+ ↓ src/tests/audit.test.ts > audit regressions > imports TXT literally: "\"月亮\n猫\n"
+ ↓ src/tests/audit.test.ts > audit cross-module chains > creates a library, generates and filters, then saves and reloads results
+ ↓ src/tests/audit.test.ts > audit cross-module chains > preserves all slots in couple after copy, edit, and empty-database restore
+ ↓ src/tests/audit.test.ts > audit cross-module chains > preserves all slots in parallel after copy, edit, and empty-database restore
+ ↓ src/tests/audit.test.ts > audit cross-module chains > rejects an invalid connection and broken snapshots without writing resources
+ ↓ src/tests/audit.test.ts > audit cross-module chains > does not keep state between successive executions
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/audit.test.ts > audit regressions > roundtrips small probabilities in mixed graph code
+Error: 第 7 行：需要「)」，实际为「e」
+ ❯ ProgramParser.fail src/core/program.ts:145:11
+    143|   }
+    144|   fail(message: string): never {
+    145|     throw new Error(`第 ${this.peek().line} 行：${message}`);
+       |           ^
+    146|   }
+    147|   identifier() {
+ ❯ ProgramParser.expect src/core/program.ts:140:12
+ ❯ ProgramParser.expression src/core/program.ts:241:16
+ ❯ parseScript src/core/script.ts:196:33
+ ❯ src/tests/audit.test.ts:41:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 18 skipped (19)
+   Start at  14:56:23
+   Duration  1.29s (transform 174ms, setup 0ms, collect 464ms, tests 31ms, environment 0ms, prepare 273ms)
+

@@ -93,7 +93,7 @@ function tokenize(source: string): Token[] {
       i += match[0].length;
       continue;
     }
-    const number = /^\d+(?:\.\d+)?/.exec(source.slice(i));
+    const number = /^\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/.exec(source.slice(i));
     if (number) {
       tokens.push({ type: "number", value: number[0], line });
       i += number[0].length;
@@ -195,7 +195,7 @@ export class ProgramParser {
     if (depth > 40) this.fail("表达式嵌套过深");
     const t = this.take();
     let expr: Expr;
-    if (t.value === "!" || t.value === "-")
+    if (t.type === "symbol" && (t.value === "!" || t.value === "-"))
       expr = {
         kind: "unary",
         op: t.value,
@@ -544,7 +544,12 @@ export async function* executeProgram(
       throw new Error("中间文字超过 1024 个代码单元");
     if (typeof value === "number" && !Number.isFinite(value))
       throw new Error("数值超出有限范围");
-    return { type: "atom", value, parts, notes };
+    // Reusing a scalar must not double its entire provenance on every operation.
+    // Deduplicate before the next expression, rather than only at final emit.
+    const uniqueParts = [...new Map(parts.map(p => [
+      JSON.stringify([p.resourceId, p.text, p.version, p.pair]), p,
+    ])).values()];
+    return { type: "atom", value, parts: uniqueParts, notes: notes ? [...new Set(notes)] : undefined };
   };
   const scalar = (value: Value): Atom => {
     if (value.type !== "atom") throw new Error("需要标量值");

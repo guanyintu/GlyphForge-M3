@@ -24,7 +24,6 @@ self.onmessage = async (event: MessageEvent<Workflow>) => {
       count: 0,
     });
     self.postMessage({ type: "started", runId });
-    let pending = Promise.resolve();
     const stats = await execute(
       event.data,
       async function* (id, seed) {
@@ -36,11 +35,9 @@ self.onmessage = async (event: MessageEvent<Workflow>) => {
           yield candidate;
         }
       },
-      (batch) => {
+      async (batch) => {
+        await db.generated.bulkPut(batch.map((c) => ({ ...c, runId })));
         self.postMessage({ type: "batch", batch });
-        pending = pending
-          .then(() => db.generated.bulkPut(batch.map((c) => ({ ...c, runId }))))
-          .then(() => undefined);
       },
       { steps: 300000, milliseconds: 10000 },
       {
@@ -49,7 +46,6 @@ self.onmessage = async (event: MessageEvent<Workflow>) => {
           self.postMessage({ type: "progress", ...progress }),
       },
     );
-    await pending;
     const record = await db.runs.get(runId);
     if (record)
       await db.runs.put({ ...record, status: "done", count: stats.count });

@@ -1,0 +1,33 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ × src/tests/audit-worker.test.ts > refuses a standalone resource export if its data changes between pages 83ms
+   → expected true to be false // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/audit-worker.test.ts > refuses a standalone resource export if its data changes between pages
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ src/tests/audit-worker.test.ts:19:53
+     17|   await scope.onmessage(new MessageEvent("message", { data: { type: "e…
+     18|   await mutation;
+     19|   expect(messages.some(m => m.type === "exported")).toBe(false);
+       |                                                     ^
+     20|   expect(messages.at(-1)?.message).toContain("变化");
+     21| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  14:58:46
+   Duration  1.03s (transform 91ms, setup 0ms, collect 201ms, tests 84ms, environment 0ms, prepare 252ms)
+

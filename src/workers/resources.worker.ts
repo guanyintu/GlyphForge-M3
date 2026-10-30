@@ -65,6 +65,8 @@ self.onmessage = async (
         count = 0;
       let bytes = 0;
       while (true) {
+        if ((await db.resources.get(input.resourceId))?.version !== resource.version)
+          throw new Error("词库在导出期间发生变化，请重新导出");
         const entries = await db.entries
           .where("[resourceId+id]")
           .between(
@@ -92,6 +94,8 @@ self.onmessage = async (
         parts.push(chunk);
         self.postMessage({ type: "progress", processed: key });
       }
+      if ((await db.resources.get(input.resourceId))?.version !== resource.version)
+        throw new Error("词库在导出期间发生变化，请重新导出");
       if (input.format === "json") parts.push("]}");
       self.postMessage({
         type: "exported",

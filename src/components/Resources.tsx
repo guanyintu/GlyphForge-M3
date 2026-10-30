@@ -440,6 +440,8 @@ export function ResourceModal({
                           db.entries,
                           db.resources,
                           async () => {
+                            const meta = await db.resources.get(resource.id);
+                            if (!meta) throw new Error("词库不存在");
                             const duplicate = text
                               ? await db.entries
                                   .where("[resourceId+text]")
@@ -453,7 +455,8 @@ export function ResourceModal({
                               count: await db.entries
                                 .where({ resourceId: resource.id })
                                 .count(),
-                              version: (liveResource?.version || 1) + 1,
+                              version: meta.version + 1,
+                              updatedAt: Date.now(),
                             });
                           },
                         );
@@ -472,12 +475,15 @@ export function ResourceModal({
                         db.entries,
                         db.resources,
                         async () => {
+                          const meta = await db.resources.get(resource.id);
+                          if (!meta) throw new Error("词库不存在");
                           await db.entries.delete(entry.id!);
                           await db.resources.update(resource.id, {
                             count: await db.entries
                               .where({ resourceId: resource.id })
                               .count(),
-                            version: (liveResource?.version || 1) + 1,
+                            version: meta.version + 1,
+                            updatedAt: Date.now(),
                           });
                         },
                       );

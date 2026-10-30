@@ -1,0 +1,366 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\node_modules\\.pnpm\\@playwright+test@1.64.1\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\playwright.config.ts",
+    "rootDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/someb/Documents/ChatGPT/id生成/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "snapshotDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4175",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "pnpm exec vite preview --host 127.0.0.1 --port 4175 --strictPort",
+      "url": "http://127.0.0.1:4175",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "audit.spec.ts",
+      "file": "audit.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "real UI: lab → saved resource → workflow and reload",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 10876,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: /审计实验室资源/ })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: /审计实验室资源/ }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: /审计实验室资源/ })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: /审计实验室资源/ })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: /审计实验室资源/ }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: /审计实验室资源/ })\u001b[22m\n\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts:23:63",
+                    "location": {
+                      "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts",
+                      "column": 63,
+                      "line": 23
+                    },
+                    "snippet": "  21 |   await page.reload();\n  22 |   await page.getByRole(\"button\", { name: /^资源中心/ }).click();\n> 23 |   await expect(page.getByRole(\"button\", { name: /审计实验室资源/ })).toBeVisible();\n     |                                                               ^\n  24 |   expect(errors).toEqual([]);\n  25 | });\n  26 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts",
+                        "column": 63,
+                        "line": 23
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: /审计实验室资源/ })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: /审计实验室资源/ }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: /审计实验室资源/ })\u001b[22m\n\n\n  21 |   await page.reload();\n  22 |   await page.getByRole(\"button\", { name: /^资源中心/ }).click();\n> 23 |   await expect(page.getByRole(\"button\", { name: /审计实验室资源/ })).toBeVisible();\n     |                                                               ^\n  24 |   expect(errors).toEqual([]);\n  25 | });\n  26 |\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts:23:63"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T06:54:04.530Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\audit-real-UI-lab-→-saved-resource-→-workflow-and-reload\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\audit-real-UI-lab-→-saved-resource-→-workflow-and-reload\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts",
+                    "column": 63,
+                    "line": 23
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-afa03d360b4bf3cf3830",
+          "file": "audit.spec.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "real UI: editable relation recipe runs and persists",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6672,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('月亮邮差 / 星星收件人', { exact: true }).first()\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('月亮邮差 / 星星收件人', { exact: true }).first() with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('月亮邮差 / 星星收件人', { exact: true }).first()\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('月亮邮差 / 星星收件人', { exact: true }).first()\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('月亮邮差 / 星星收件人', { exact: true }).first() with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('月亮邮差 / 星星收件人', { exact: true }).first()\u001b[22m\n\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts:33:73",
+                    "location": {
+                      "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts",
+                      "column": 73,
+                      "line": 33
+                    },
+                    "snippet": "  31 |   await page.getByRole(\"button\", { name: /情侣 ID/ }).click();\n  32 |   await page.getByRole(\"button\", { name: /^运行工作流/ }).click();\n> 33 |   await expect(page.getByText(\"月亮邮差 / 星星收件人\", { exact: true }).first()).toBeVisible();\n     |                                                                         ^\n  34 |   await expect(page.getByText(/生成完成/)).toBeVisible();\n  35 |   await expect(page.getByText(\"已保存到本地\", { exact: true })).toBeVisible();\n  36 |   await page.reload();"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts",
+                        "column": 73,
+                        "line": 33
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('月亮邮差 / 星星收件人', { exact: true }).first()\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('月亮邮差 / 星星收件人', { exact: true }).first() with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('月亮邮差 / 星星收件人', { exact: true }).first()\u001b[22m\n\n\n  31 |   await page.getByRole(\"button\", { name: /情侣 ID/ }).click();\n  32 |   await page.getByRole(\"button\", { name: /^运行工作流/ }).click();\n> 33 |   await expect(page.getByText(\"月亮邮差 / 星星收件人\", { exact: true }).first()).toBeVisible();\n     |                                                                         ^\n  34 |   await expect(page.getByText(/生成完成/)).toBeVisible();\n  35 |   await expect(page.getByText(\"已保存到本地\", { exact: true })).toBeVisible();\n  36 |   await page.reload();\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts:33:73"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T06:54:16.211Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\audit-real-UI-editable-relation-recipe-runs-and-persists\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\audit-real-UI-editable-relation-recipe-runs-and-persists\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts",
+                    "column": 73,
+                    "line": 33
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-0ea213302b8a087220fa",
+          "file": "audit.spec.ts",
+          "line": 27,
+          "column": 1
+        },
+        {
+          "title": "real UI: concurrent entry edits increment versions and refresh indexes",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1971,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m3\u001b[39m\nReceived: \u001b[31m2\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m3\u001b[39m\nReceived: \u001b[31m2\u001b[39m\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts:67:19",
+                    "location": {
+                      "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts",
+                      "column": 19,
+                      "line": 67
+                    },
+                    "snippet": "  65 |     } finally { database.close(); }\n  66 |   });\n> 67 |   expect(version).toBe(3);\n     |                   ^\n  68 |   await page.getByLabel(\"搜索词条\", { exact: true }).fill(\"审计\");\n  69 |   await expect(page.locator(\".entry-list input\")).toHaveCount(2);\n  70 | });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts",
+                        "column": 19,
+                        "line": 67
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m3\u001b[39m\nReceived: \u001b[31m2\u001b[39m\n\n  65 |     } finally { database.close(); }\n  66 |   });\n> 67 |   expect(version).toBe(3);\n     |                   ^\n  68 |   await page.getByLabel(\"搜索词条\", { exact: true }).fill(\"审计\");\n  69 |   await expect(page.locator(\".entry-list input\")).toHaveCount(2);\n  70 | });\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts:67:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T06:54:23.610Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\audit-real-UI-concurrent-e-7d6c2-ersions-and-refresh-indexes\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\audit-real-UI-concurrent-e-7d6c2-ersions-and-refresh-indexes\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\audit.spec.ts",
+                    "column": 19,
+                    "line": 67
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-14a56b97b6ed6c86a742",
+          "file": "audit.spec.ts",
+          "line": 40,
+          "column": 1
+        },
+        {
+          "title": "production Workers: bounded nested execution, persistence and hard cancellation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1859,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "AUDIT_BROWSER_WORKER {\"count\":1000,\"maxBatch\":64,\"steps\":10026,\"milliseconds\":80.79999995231628}\n"
+                    },
+                    {
+                      "text": "AUDIT_BROWSER_CANCEL {\"steps\":1000,\"lateMessages\":0,\"terminateMs\":0}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T06:54:26.255Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-0364a40be5cf67aa9e3f",
+          "file": "audit.spec.ts",
+          "line": 72,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-30T06:54:03.066Z",
+    "duration": 25965.821,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

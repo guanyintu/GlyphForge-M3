@@ -1,0 +1,45 @@
+$ pnpm build && playwright test
+$ tsc -b && vite build
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 1830 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                               0.88 kB │ gzip:   0.54 kB
+dist/assets/chinese-fBPsQwX6.js               7.36 kB
+dist/assets/chinese-4lS0GTdQ.js               7.37 kB
+dist/assets/lab.worker-D7l64cIg.js           25.32 kB
+dist/assets/t2cn-D2IW0CH8.js                109.07 kB
+dist/assets/resources.worker-BlZ0fs9e.js    115.33 kB
+dist/assets/execution.worker-B0Q42Crl.js    127.41 kB
+dist/assets/index-DGLEpTeg.js               313.78 kB
+dist/assets/readings-DmiNxDN8.js            633.08 kB
+dist/assets/cn2t-DDyjQPTw.js              1,100.39 kB
+dist/assets/strokes-CNWsGUWK.js           1,134.42 kB
+dist/assets/decomposition-Qix4g1h5.js     2,456.57 kB
+dist/assets/index-YTmgpcc7.css               68.73 kB │ gzip:  14.78 kB
+dist/assets/storage-CvBhfY6t.js             109.81 kB │ gzip:  36.16 kB
+dist/assets/react-flow-C3qdJseD.js          184.87 kB │ gzip:  60.52 kB
+dist/assets/index-DQ005Zdy.js               355.23 kB │ gzip: 114.23 kB
+dist/assets/index-Bk0DJwzC.js               400.75 kB │ gzip: 130.77 kB
+✓ built in 12.95s
+[WebServer] (node:63516) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:106504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:71200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 e2e\audit.spec.ts:6:1 › real UI: lab → saved resource → workflow and reload (3.5s)
+  ok 2 e2e\audit.spec.ts:47:1 › real UI: relation editor saves, edits, deletes and survives reload (4.2s)
+AUDIT_RELATION_10000 {"importMs":4651,"runMs":832.7999999523163,"count":10000,"maxBatch":64,"correct":true}
+  ok 3 e2e\audit.spec.ts:76:1 › real IndexedDB: import and execute 10,000 relation rows (7.7s)
+  ok 4 e2e\audit.spec.ts:122:1 › real UI: editable relation recipe runs and persists (3.7s)
+  ok 5 e2e\audit.spec.ts:135:1 › real UI: concurrent entry edits increment versions and refresh indexes (2.3s)
+AUDIT_BROWSER_WORKER {"count":1000,"maxBatch":64,"steps":10026,"milliseconds":92.79999995231628}
+AUDIT_BROWSER_CANCEL {"steps":1000,"lateMessages":0,"terminateMs":0}
+  ok 6 e2e\audit.spec.ts:167:1 › production Workers: bounded nested execution, persistence and hard cancellation (2.8s)
+
+  6 passed (28.1s)

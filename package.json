@@ -8,6 +8,7 @@
     "dev": "vite --host 127.0.0.1",
     "build": "tsc -b && vite build",
     "test": "vitest run",
+    "test:e2e": "pnpm build && playwright test",
     "typecheck": "tsc --noEmit",
     "examples:p1b": "node scripts/export-p1b-examples.mjs",
     "bench": "vitest run src/tests/performance.test.ts --reporter=verbose"
@@ -24,6 +25,7 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.0",

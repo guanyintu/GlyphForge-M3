@@ -6,7 +6,7 @@ export class DelimitedParser {
   private cell = "";
   private row: string[] = [];
   private first = true;
-  constructor(private delimiter = ",") {}
+  constructor(private delimiter = ",", private allowQuotes = true) {}
   feed(text: string, final = false): string[][] {
     const rows: string[][] = [];
     const finishCell = () => {
@@ -39,7 +39,7 @@ export class DelimitedParser {
           this.skipLF = false;
           if (ch === "\n") continue;
         }
-        if (ch === '"' && !this.cell) this.quoted = true;
+        if (this.allowQuotes && ch === '"' && !this.cell) this.quoted = true;
         else if (ch === this.delimiter) finishCell();
         else if (ch === "\n" || ch === "\r") {
           finishRow();
@@ -84,7 +84,8 @@ export async function* fileWords(
     : /\.tsv$/i.test(name)
       ? "\t"
       : "\u0000";
-  const parser = new DelimitedParser(delimiter);
+  const delimited = /\.(csv|tsv)$/i.test(name);
+  const parser = new DelimitedParser(delimiter, delimited);
   const reader = file.stream().getReader(),
     decoder = new TextDecoder();
   let first = true,
@@ -97,7 +98,7 @@ export async function* fileWords(
         const header = row.findIndex((x) =>
           ["text", "词条", "名字"].includes(x.trim().toLowerCase()),
         );
-        if (header >= 0) {
+        if (delimited && header >= 0) {
           column = header;
           continue;
         }

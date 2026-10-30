@@ -25,7 +25,7 @@ export interface RunHooks {
 export async function execute(
   workflow: Workflow,
   reader: ResourceReader,
-  onBatch: (batch: Candidate[]) => void,
+  onBatch: (batch: Candidate[]) => unknown,
   limits = { steps: 300000, milliseconds: 10000 },
   hooks: RunHooks = {},
 ): Promise<RunStats> {
@@ -85,10 +85,10 @@ export async function execute(
       ...(hooks.runId ? { runId: hooks.runId } : {}),
     });
     if (batch.length >= 64) {
-      onBatch(batch);
+      await onBatch(batch);
       batch = [];
     }
   }
-  if (batch.length) onBatch(batch);
+  if (batch.length) await onBatch(batch);
   return { steps, count, truncated, duration: performance.now() - started };
 }

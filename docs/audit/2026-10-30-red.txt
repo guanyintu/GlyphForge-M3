@@ -1,0 +1,164 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ✓ src/tests/audit.test.ts > audit regressions > roundtrips literal "sequence {" in a graph with control flow 24ms
+ × src/tests/audit.test.ts > audit regressions > roundtrips literal "-" in a graph with control flow 12ms
+   → 第 9 行：需要字符串、数字、变量或内置函数表达式
+ × src/tests/audit.test.ts > audit regressions > roundtrips literal "!" in a graph with control flow 7ms
+   → 第 9 行：需要字符串、数字、变量或内置函数表达式
+ ✓ src/tests/audit.test.ts > audit regressions > roundtrips literal "(" in a graph with control flow 5ms
+ ✓ src/tests/audit.test.ts > audit regressions > roundtrips literal "[" in a graph with control flow 6ms
+ ✓ src/tests/audit.test.ts > audit regressions > ignores sequence markers inside ordinary strings and comments 31ms
+ × src/tests/audit.test.ts > audit regressions > keeps intermediate AST provenance bounded when a variable is reused 18ms
+   → expected 65536 to be less than 1000
+ × src/tests/audit.test.ts > audit regressions > awaits each output batch before producing the next one 9ms
+   → expected +0 to be 130 // Object.is equality
+ × src/tests/audit.test.ts > audit regressions > imports TXT literally: "text\n猫\n" 16ms
+   → expected [ '猫' ] to deeply equal [ 'text', '猫' ]
+ × src/tests/audit.test.ts > audit regressions > imports TXT literally: "名字\n猫\n" 7ms
+   → expected [ '猫' ] to deeply equal [ '名字', '猫' ]
+ × src/tests/audit.test.ts > audit regressions > imports TXT literally: "\"月亮\"\n猫\n" 4ms
+   → expected [ '月亮', '猫' ] to deeply equal [ '"月亮"', '猫' ]
+ × src/tests/audit.test.ts > audit regressions > imports TXT literally: "\"月亮\n猫\n" 5ms
+   → CSV 引号未闭合
+ ✓ src/tests/audit.test.ts > audit cross-module chains > creates a library, generates and filters, then saves and reloads results 10ms
+ ✓ src/tests/audit.test.ts > audit cross-module chains > preserves all slots in couple after copy, edit, and empty-database restore 28ms
+ ✓ src/tests/audit.test.ts > audit cross-module chains > preserves all slots in parallel after copy, edit, and empty-database restore 20ms
+ ✓ src/tests/audit.test.ts > audit cross-module chains > rejects an invalid connection and broken snapshots without writing resources 7ms
+ ✓ src/tests/audit.test.ts > audit cross-module chains > does not keep state between successive executions 17ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/audit.test.ts > audit regressions > roundtrips literal "-" in a graph with control flow
+ FAIL  src/tests/audit.test.ts > audit regressions > roundtrips literal "!" in a graph with control flow
+Error: 第 9 行：需要字符串、数字、变量或内置函数表达式
+ ❯ ProgramParser.fail src/core/program.ts:145:11
+    143|   }
+    144|   fail(message: string): never {
+    145|     throw new Error(`第 ${this.peek().line} 行：${message}`);
+       |           ^
+    146|   }
+    147|   identifier() {
+ ❯ ProgramParser.expression src/core/program.ts:245:17
+ ❯ ProgramParser.expression src/core/program.ts:202:21
+ ❯ ProgramParser.expression src/core/program.ts:239:28
+ ❯ parseScript src/core/script.ts:196:33
+ ❯ src/tests/audit.test.ts:28:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  src/tests/audit.test.ts > audit regressions > keeps intermediate AST provenance bounded when a variable is reused
+AssertionError: expected 65536 to be less than 1000
+ ❯ src/tests/audit.test.ts:55:26
+     53|     // The original implementation builds 131,072 source references be…
+     54|     // Measure the intermediate collection rather than relying on heap…
+     55|     expect(largestParts).toBeLessThan(1000);
+       |                          ^
+     56|   });
+     57|   it("awaits each output batch before producing the next one", async (…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  src/tests/audit.test.ts > audit regressions > awaits each output batch before producing the next one
+AssertionError: expected +0 to be 130 // Object.is equality
+
+- Expected
++ Received
+
+- 130
++ 0
+
+ ❯ src/tests/audit.test.ts:66:23
+     64|       pending--;
+     65|     });
+     66|     expect(committed).toBe(130);
+       |                       ^
+     67|     expect(maxPending).toBe(1);
+     68|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  src/tests/audit.test.ts > audit regressions > imports TXT literally: "text\n猫\n"
+AssertionError: expected [ '猫' ] to deeply equal [ 'text', '猫' ]
+
+- Expected
++ Received
+
+  [
+-   "text",
+    "猫",
+  ]
+
+ ❯ src/tests/audit.test.ts:72:20
+     70|     const output: string[] = [];
+     71|     for await (const text of fileWords(new Blob([input]), "source.txt"…
+     72|     expect(output).toEqual(input.trimEnd().split("\n"));
+       |                    ^
+     73|   });
+     74| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  src/tests/audit.test.ts > audit regressions > imports TXT literally: "名字\n猫\n"
+AssertionError: expected [ '猫' ] to deeply equal [ '名字', '猫' ]
+
+- Expected
++ Received
+
+  [
+-   "名字",
+    "猫",
+  ]
+
+ ❯ src/tests/audit.test.ts:72:20
+     70|     const output: string[] = [];
+     71|     for await (const text of fileWords(new Blob([input]), "source.txt"…
+     72|     expect(output).toEqual(input.trimEnd().split("\n"));
+       |                    ^
+     73|   });
+     74| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  src/tests/audit.test.ts > audit regressions > imports TXT literally: "\"月亮\"\n猫\n"
+AssertionError: expected [ '月亮', '猫' ] to deeply equal [ '"月亮"', '猫' ]
+
+- Expected
++ Received
+
+  [
+-   "\"月亮\"",
++   "月亮",
+    "猫",
+  ]
+
+ ❯ src/tests/audit.test.ts:72:20
+     70|     const output: string[] = [];
+     71|     for await (const text of fileWords(new Blob([input]), "source.txt"…
+     72|     expect(output).toEqual(input.trimEnd().split("\n"));
+       |                    ^
+     73|   });
+     74| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  src/tests/audit.test.ts > audit regressions > imports TXT literally: "\"月亮\n猫\n"
+Error: CSV 引号未闭合
+ ❯ DelimitedParser.feed src/core/files.ts:53:52
+     51|     }
+     52|     if (final) {
+     53|       if (this.quoted && !this.pendingQuote) throw new Error("CSV 引号未闭…
+       |                                                    ^
+     54|       this.quoted = false;
+     55|       this.pendingQuote = false;
+ ❯ fileWords src/core/files.ts:116:26
+ ❯ src/tests/audit.test.ts:71:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 9 passed (17)
+   Start at  14:49:59
+   Duration  1.49s (transform 159ms, setup 0ms, collect 416ms, tests 228ms, environment 0ms, prepare 261ms)
+

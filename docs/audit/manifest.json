@@ -1,0 +1,29 @@
+{
+  "auditDate": "2026-10-30",
+  "timezone": "Asia/Shanghai",
+  "baseCommit": "d57f40bffa574a0cef3d2702ed8807e320713b0f",
+  "branch": "codex/p1b-relations",
+  "state": "uncommitted working tree; pre-existing user documentation changes preserved",
+  "node": "24.22.1",
+  "pnpm": "11.25.0",
+  "chromium": "156.0.8078.4",
+  "unitIntegration": "132/132",
+  "browser": "6/6",
+  "sourceSha256": {
+    "package.json": "95e4c567112d123ce7ce70589f7c5b248a0eb6ec8f3559d33d2f09c40ea2bc78",
+    "pnpm-lock.yaml": "9adeba889d7a55e481b85a93b99671f2c5a1ad1ebb50c47027394146640f2e00",
+    "playwright.config.ts": "5a9ccb1cb6c077b495bdb63776f17ac94486a0bf9ceef9ee5ed46d9e89565a73",
+    "vitest.config.ts": "040d1e54de357de2d25c3377c90fcbaea6aaa13cfa9483d15f161c3968ac9a56",
+    "src/core/files.ts": "a98386a700389f7dcd84996cde98a9b09e687a87052dc84797045191a5d8980a",
+    "src/core/program.ts": "0e34d7a2af6bf6eb3019985667103d8431ae19492cb9ed525c98a2857c0b11c5",
+    "src/core/engine.ts": "109015f1601f72ce47c2e729c70703dfed67e4975153287365caab74be310274",
+    "src/components/Resources.tsx": "cb8ccd490c58c2b5a5f069aa1d17808a5e8aead7dd20a15a65a0fd67c4410b91",
+    "src/workers/execution.worker.ts": "b9714089899f8fe7b0209b5b8adc95bd7128c9f3699cf143d3b645351d2decfc",
+    "src/workers/resources.worker.ts": "b7ac31301fe0c49f1086e9d3be9e5cea48b004b5810ec66139aed1080be2ab38",
+    "src/tests/audit.test.ts": "9ad12300005eba06c5ce6f46a52a219f4541fa495d1f48748ae9068576dd56d0",
+    "src/tests/audit-worker.test.ts": "bbb547ee57d4a8deb61d6ed244597249210881306b99ffdc64c26df852c23e28",
+    "e2e/audit.spec.ts": "837c370a008ea2628c9349cb5e2780338c1f4e5980a52410524a074eb2a35dab",
+    "PROJECT-STATUS.md": "221f5509b4ebbc777be57c96e0eb8233a93b4d97b3bb0f484a92f5cc3d0d2405",
+    "docs/AUDIT_P1B.md": "a68696d7d7f0e6db274a7f6c4af5221970f7846355afec0a7bae80555c320d0a"
+  }
+}

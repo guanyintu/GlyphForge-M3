@@ -1,0 +1,12 @@
+{
+  "size": 100000,
+  "count": 100000,
+  "importMs": 10349.099999904633,
+  "exactMs": 0.7000000476837158,
+  "prefixMs": 1.3999998569488525,
+  "exactFound": true,
+  "renderedPage": 60,
+  "maxWriteBatch": 1000,
+  "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "at": "2026-10-29T14:27:12.179Z"
+}

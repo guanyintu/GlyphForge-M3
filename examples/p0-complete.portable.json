@@ -1,0 +1,222 @@
+{
+  "format": "glyphforge",
+  "version": 2,
+  "irVersion": 1,
+  "operatorVersions": {
+    "program": 1,
+    "output": 1
+  },
+  "workflow": {
+    "version": 1,
+    "id": "6b049c9b-9564-4a15-8f06-8e38f30431b9",
+    "name": "P0完整闭环",
+    "seed": 42,
+    "limit": 200,
+    "nodes": [
+      {
+        "id": "node_dea18145b25b",
+        "op": "program",
+        "inputs": [],
+        "params": {},
+        "program": {
+          "version": 1,
+          "body": [
+            {
+              "kind": "for",
+              "name": "a",
+              "source": {
+                "kind": "call",
+                "name": "resource",
+                "args": [
+                  {
+                    "kind": "literal",
+                    "value": "da306f7e-a1fd-4cfc-824a-e7997ce300d4",
+                    "line": 7
+                  }
+                ],
+                "line": 7
+              },
+              "body": [
+                {
+                  "kind": "for",
+                  "name": "b",
+                  "source": {
+                    "kind": "call",
+                    "name": "resource",
+                    "args": [
+                      {
+                        "kind": "literal",
+                        "value": "d4859c24-43fd-48fe-b4f4-17d7b0f1dc7b",
+                        "line": 8
+                      }
+                    ],
+                    "line": 8
+                  },
+                  "body": [
+                    {
+                      "kind": "let",
+                      "name": "name",
+                      "value": {
+                        "kind": "call",
+                        "name": "pattern",
+                        "args": [
+                          {
+                            "kind": "literal",
+                            "value": "ABAB",
+                            "line": 9
+                          },
+                          {
+                            "kind": "variable",
+                            "name": "a",
+                            "line": 9
+                          },
+                          {
+                            "kind": "variable",
+                            "name": "b",
+                            "line": 9
+                          }
+                        ],
+                        "line": 9
+                      },
+                      "line": 9
+                    },
+                    {
+                      "kind": "if",
+                      "test": {
+                        "kind": "binary",
+                        "op": "&&",
+                        "left": {
+                          "kind": "binary",
+                          "op": "<=",
+                          "left": {
+                            "kind": "call",
+                            "name": "length",
+                            "args": [
+                              {
+                                "kind": "variable",
+                                "name": "name",
+                                "line": 10
+                              }
+                            ],
+                            "line": 10
+                          },
+                          "right": {
+                            "kind": "literal",
+                            "value": 4,
+                            "line": 10
+                          },
+                          "line": 10
+                        },
+                        "right": {
+                          "kind": "call",
+                          "name": "contains",
+                          "args": [
+                            {
+                              "kind": "variable",
+                              "name": "name",
+                              "line": 10
+                            },
+                            {
+                              "kind": "literal",
+                              "value": "猫",
+                              "line": 10
+                            }
+                          ],
+                          "line": 10
+                        },
+                        "line": 10
+                      },
+                      "body": [
+                        {
+                          "kind": "emit",
+                          "value": {
+                            "kind": "variable",
+                            "name": "name",
+                            "line": 11
+                          },
+                          "line": 11
+                        }
+                      ],
+                      "otherwise": [],
+                      "line": 10
+                    }
+                  ],
+                  "line": 8
+                }
+              ],
+              "line": 7
+            }
+          ]
+        }
+      },
+      {
+        "id": "node_08de85b4d192",
+        "op": "output",
+        "inputs": [
+          "node_dea18145b25b"
+        ],
+        "params": {}
+      }
+    ],
+    "layout": {
+      "node_dea18145b25b": {
+        "x": 127.33333333333333,
+        "y": 170.66666666666666
+      },
+      "node_08de85b4d192": {
+        "x": 395,
+        "y": 150
+      }
+    },
+    "groups": []
+  },
+  "dependencies": [
+    {
+      "id": "da306f7e-a1fd-4cfc-824a-e7997ce300d4",
+      "name": "P0动物字库",
+      "version": 2,
+      "kind": "character"
+    },
+    {
+      "id": "d4859c24-43fd-48fe-b4f4-17d7b0f1dc7b",
+      "name": "P0后缀词库",
+      "version": 2,
+      "kind": "word"
+    }
+  ],
+  "resources": [
+    {
+      "meta": {
+        "id": "da306f7e-a1fd-4cfc-824a-e7997ce300d4",
+        "name": "P0动物字库",
+        "description": "属于你的新灵感。",
+        "kind": "character",
+        "color": "green",
+        "count": 2,
+        "version": 2,
+        "updatedAt": 1793285569698
+      },
+      "entries": [
+        "猫",
+        "兔"
+      ]
+    },
+    {
+      "meta": {
+        "id": "d4859c24-43fd-48fe-b4f4-17d7b0f1dc7b",
+        "name": "P0后缀词库",
+        "description": "属于你的新灵感。",
+        "kind": "word",
+        "color": "green",
+        "count": 3,
+        "version": 2,
+        "updatedAt": 1793285606851
+      },
+      "entries": [
+        "困",
+        "甜",
+        "慢"
+      ]
+    }
+  ]
+}

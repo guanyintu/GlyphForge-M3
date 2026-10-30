@@ -1,0 +1,7 @@
+ M P0-CHECKLIST.md
+ M P1-PROGRESS.md
+ M README.md
+ M VALIDATION.md
+?? AGENTS.md
+?? docs/p1d/
+?? docs/reference/

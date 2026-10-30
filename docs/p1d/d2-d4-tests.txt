@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ✓ src/tests/p1d-highlight.test.ts (4 tests) 2ms
+ ✓ src/tests/p1d-motion.test.ts (17 tests) 44ms
+
+ Test Files  2 passed (2)
+      Tests  21 passed (21)
+   Start at  18:56:59
+   Duration  666ms (transform 66ms, setup 0ms, collect 147ms, tests 46ms, environment 0ms, prepare 372ms)

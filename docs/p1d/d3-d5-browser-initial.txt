@@ -1,0 +1,144 @@
+[WebServer] (node:138768) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:33076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:153900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 e2e\p1d.spec.ts:29:1 › P1-D: 1200 results stay bounded; pause/stop/mode switch/reduced motion preserve copy and exports (45.1s)
+(node:24184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 e2e\p1d.spec.ts:57:1 › P1-D: stable keys, FLIP sorting/filtering, Unicode highlights and immediate favorites (2.8s)
+  x  3 e2e\p1d.spec.ts:85:1 › P1-D: visibility, resize, offscreen and unmount clean the owned RAF (45.3s)
+(node:21696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 e2e\p1d.spec.ts:117:1 › P1-D: low device starts with at most twenty objects and auto-stops (20.3s)
+  x  5 e2e\p1d.spec.ts:137:1 › P1-D: measured Chromium CPU throttling and sustained-contention fallback (18.7s)
+
+
+  1) e2e\p1d.spec.ts:29:1 › P1-D: 1200 results stay bounded; pause/stop/mode switch/reduced motion preserve copy and exports
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.getAttribute: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for locator('.physics-grid')
+
+
+      22 | const field = (page: Page) => page.locator(".physics-grid");
+      23 | async function frozen(page: Page) {
+    > 24 |   const before = await field(page).getAttribute("data-physics-frames");
+         |                                    ^
+      25 |   await page.waitForTimeout(160);
+      26 |   expect(await field(page).getAttribute("data-physics-frames")).toBe(before);
+      27 | }
+        at frozen (C:\Users\someb\Documents\ChatGPT\id生成\e2e\p1d.spec.ts:24:36)
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\p1d.spec.ts:37:80
+
+    Error Context: test-results\p1d-P1-D-1200-results-stay-7c1d0-n-preserve-copy-and-exports\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\p1d-P1-D-1200-results-stay-7c1d0-n-preserve-copy-and-exports\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results\p1d-P1-D-1200-results-stay-7c1d0-n-preserve-copy-and-exports\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) e2e\p1d.spec.ts:85:1 › P1-D: visibility, resize, offscreen and unmount clean the owned RAF ────
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    Browser logs:
+
+    <launching> C:\Users\someb\AppData\Local\ms-playwright\chromium_headless_shell-1248\chrome-headless-shell-win64\chrome-headless-shell.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,AvoidCorsURLLoaderRestartOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --enable-precise-memory-info --user-data-dir=C:\Users\someb\AppData\Local\Temp\playwright_chromiumdev_profile-tV8HQS --remote-debugging-pipe --no-startup-window
+    <launched> pid=105268
+    [pid=105268] <gracefully close start>
+    Call log:
+      - waiting for getByRole('button', { name: /^资源中心/ })
+        - locator resolved to <button class="nav-item ">…</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - element is outside of the viewport
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - element is outside of the viewport
+        - retrying click action
+          - waiting 100ms
+        81 × waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - element is outside of the viewport
+         - retrying click action
+           - waiting 500ms
+        - waiting for element to be visible, enabled and stable
+
+
+      108 |   await expect(field(page)).toHaveAttribute("data-physics-running", "true");
+      109 |   await page.evaluate(() => Object.assign(window, { __oldField: document.querySelector(".physics-grid") }));
+    > 110 |   await page.getByRole("button", { name: /^资源中心/ }).click(); await expect(field(page)).toHaveCount(0);
+          |                                                     ^
+      111 |   const before = await page.evaluate(() => (window as unknown as { __oldField: HTMLElement }).__oldField.dataset.physicsFrames);
+      112 |   await page.waitForTimeout(200);
+      113 |   const cleanup = await page.evaluate(() => ({ frames: (window as unknown as { __oldField: HTMLElement }).__oldField.dataset.physicsFrames, pending: (window as unknown as { __pendingFrames: Set<number> }).__pendingFrames.size }));
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\p1d.spec.ts:110:53
+
+    Error Context: test-results\p1d-P1-D-visibility-resize-40ba1-unmount-clean-the-owned-RAF\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\p1d-P1-D-visibility-resize-40ba1-unmount-clean-the-owned-RAF\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results\p1d-P1-D-visibility-resize-40ba1-unmount-clean-the-owned-RAF\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) e2e\p1d.spec.ts:137:1 › P1-D: measured Chromium CPU throttling and sustained-contention fallback
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('.physics-grid')
+    Expected: "static"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" locator('.physics-grid') with timeout 5000ms
+      - waiting for locator('.physics-grid')
+
+
+      157 |   });
+      158 |   const contention = await sample(page, 6000);
+    > 159 |   await expect(field(page)).toHaveAttribute("data-quality", "static"); await frozen(page);
+          |                             ^
+      160 |   await page.evaluate(() => Object.assign(window, { __contention: false })); await cdp.send("Emulation.setCPUThrottlingRate", { rate: 1 });
+      161 |   await page.getByLabel("开启动画", { exact: true }).uncheck(); await frozen(page);
+      162 |   const environment = await page.evaluate(() => ({ userAgent: navigator.userAgent, hardwareConcurrency: navigator.hardwareConcurrency, deviceMemory: (navigator as Navigator & { deviceMemory?: number }).deviceMemory }));
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\p1d.spec.ts:159:29
+
+    Error Context: test-results\p1d-P1-D-measured-Chromium-1ac88-stained-contention-fallback\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\p1d-P1-D-measured-Chromium-1ac88-stained-contention-fallback\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results\p1d-P1-D-measured-Chromium-1ac88-stained-contention-fallback\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    e2e\p1d.spec.ts:29:1 › P1-D: 1200 results stay bounded; pause/stop/mode switch/reduced motion preserve copy and exports
+    e2e\p1d.spec.ts:85:1 › P1-D: visibility, resize, offscreen and unmount clean the owned RAF ─────
+    e2e\p1d.spec.ts:137:1 › P1-D: measured Chromium CPU throttling and sustained-contention fallback
+  2 passed (2.3m)

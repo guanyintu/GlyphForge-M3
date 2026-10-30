@@ -1,0 +1,24 @@
+.results-toolbar { flex-wrap: wrap; row-gap: 8px; }
+.results-viewport.float { height: clamp(240px, 36vh, 380px); overflow: hidden; padding-right: 0; }
+.physics-grid { position: absolute; inset: 0; overflow: hidden; }
+.physics-grid .candidate {
+  position: absolute; left: 0; top: 0; margin: 0; padding: 6px 8px;
+  border-radius: 8px; background: #f5f9ef;
+}
+.physics-grid .candidate:nth-child(3n + 2) { background: #f7f1fc; border-color: #e4d5ef; }
+.physics-grid .candidate:nth-child(3n) { background: #fdf5e9; border-color: #ead9c0; }
+.physics-grid .candidate-name { font-size: 12px; }
+.physics-grid small, .physics-grid .game-check { display: none; }
+.physics-grid .candidate-buttons { align-self: center; }
+.physics-grid .candidate-buttons .icon-button:first-child { opacity: 1; }
+.physics-grid[data-physics-running="true"] .candidate { will-change: transform; }
+.motion-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 2px 0 10px; color: #6c805e; font-size: 10px; }
+.motion-controls > span:last-child { margin-left: auto; color: #7d8972; }
+.motion-controls .text-button { font-size: 10px; }
+.candidate-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.candidate-text mark { color: #435e2f; background: #e4efbf; border-radius: 3px; padding: 0; }
+.motion-enabled .candidate-text mark { animation: glyph-hit 650ms ease-out; }
+@keyframes glyph-hit { 0% { background: #eecb75; } 100% { background: #e4efbf; } }
+.motion-disabled .candidate, .motion-disabled mark { transition: none !important; animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .candidate-text mark { animation: none !important; } }
+@media (max-width: 600px) { .motion-controls { gap: 8px; } .motion-controls > span:last-child { width: 100%; margin-left: 0; } }

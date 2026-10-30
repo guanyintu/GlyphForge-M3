@@ -1,0 +1,54 @@
+{
+  "browser": "156.0.8078.4",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+    "hardwareConcurrency": 20,
+    "deviceMemory": 32
+  },
+  "cpuRate": 6,
+  "normal": {
+    "elapsedMs": 2006.4000000953674,
+    "rafSamples": 117,
+    "meanIntervalMs": 17.139316240131347,
+    "p95IntervalMs": 16.799999999999955,
+    "maxIntervalMs": 50,
+    "longTasks": 1,
+    "maxLongTaskMs": 55,
+    "physicsPaints": 117,
+    "objects": 42,
+    "overlaps": 0,
+    "outOfBounds": 0,
+    "quality": "full"
+  },
+  "throttled": {
+    "elapsedMs": 2012.5,
+    "rafSamples": 92,
+    "meanIntervalMs": 21.78478260869565,
+    "p95IntervalMs": 33.40000000000009,
+    "maxIntervalMs": 50,
+    "longTasks": 0,
+    "maxLongTaskMs": 0,
+    "physicsPaints": 92,
+    "objects": 42,
+    "overlaps": 0,
+    "outOfBounds": 0,
+    "quality": "full"
+  },
+  "contention": {
+    "injectedBusyMsPerFrame": 35,
+    "elapsedMs": 6050.899999856949,
+    "rafSamples": 148,
+    "meanIntervalMs": 40.62567567599786,
+    "p95IntervalMs": 66.60000000000036,
+    "maxIntervalMs": 83.39999999999964,
+    "longTasks": 11,
+    "maxLongTaskMs": 67,
+    "physicsPaints": 50,
+    "objects": 12,
+    "overlaps": 0,
+    "outOfBounds": 0,
+    "quality": "static"
+  },
+  "favoriteLatencyMs": 200.69999980926514,
+  "errors": []
+}

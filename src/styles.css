@@ -3153,3 +3153,14 @@ pre {
     display: none;
   }
 }
+
+/* P1-C bounded search and reusable game rules */
+.reverse-options, .game-rule-editor { display:flex; flex-wrap:wrap; gap:12px; padding:16px; }
+.game-rule-editor { max-height:360px; overflow:auto; background:var(--surface,#f7f7f4); border:1px solid #ddd; border-radius:12px; margin:8px; }
+.game-rule-editor .field-label { min-width:150px; flex:1; }
+.game-rule-editor input[type=checkbox], .reverse-options input[type=checkbox] { width:auto; margin-right:6px; }
+.game-length { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+.game-length input[type=number] { width:70px; }
+.game-rule-editor fieldset { display:flex; flex-wrap:wrap; gap:10px; width:100%; }
+.game-check { font-size:11px; color:#526854; cursor:help; white-space:nowrap; }
+.reverse-results .match-row, .reverse-results .split-path { flex-wrap:wrap; gap:12px; }

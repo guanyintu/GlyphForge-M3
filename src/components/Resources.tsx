@@ -102,17 +102,19 @@ export function ResourcePage({
   );
 }
 export function ResourceModal({
+  initialQuery = "",
   resource,
   onClose,
   notify,
 }: {
   resource: Resource;
+  initialQuery?: string;
   onClose: () => void;
   notify: (s: string) => void;
 }) {
   const [name, setName] = useState(resource.name);
   const [words, setWords] = useState("");
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery);
   const [page, setPage] = useState(0);
   const [busy, setBusy] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);

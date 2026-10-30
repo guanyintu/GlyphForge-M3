@@ -34,7 +34,10 @@ import { ChineseParams } from "./ChineseParams";
 import type { LucideIcon } from "lucide-react";
 import { RelationParams } from "./RelationParams";
 
+import { GameRuleEditor } from "./GameRuleEditor";
+import { parseGameRule, defaultGameRule } from "../core/game-rules";
 const icons: Record<Op, LucideIcon> = {
+  gamecheck: Filter,
   pairs: GitMerge, template: Sparkles, group: Layers,
   ...Object.fromEntries(Object.keys(chineseDefinitions).map(op => [op, Sparkles])) as Record<keyof typeof chineseDefinitions, LucideIcon>,
   program: Repeat2,
@@ -449,6 +452,7 @@ export function Inspector({
         <h3>{def.name}</h3>
         <p className="description">{def.description}</p>
         <div className="divider" />
+        {node.op === "gamecheck" ? <><GameRuleEditor rule={(() => { try { return parseGameRule(String(node.params.rules)); } catch { return defaultGameRule; } })()} onChange={rule => param("rules", JSON.stringify(rule))} /><label className="field-label">检查模式<select value={String(node.params.mode)} onChange={e => param("mode", e.target.value)}><option value="filter">仅通过项</option><option value="annotate">保留并标注</option></select></label></> : null}
         {isChineseOp(node.op) ? <ChineseParams op={node.op} params={node.params} onChange={params => onUpdate({ ...node, params })} /> : null}
         {node.op === "pairs" || node.op === "template" || node.op === "group" ? <RelationParams op={node.op} params={node.params} resources={resources} onChange={params => onUpdate({ ...node, params })} /> : null}
         <button className="text-button node-preview-button" onClick={onPreview}>

@@ -5,7 +5,7 @@ import { operators } from "./model";
 import { isChineseOp } from "./chinese-definitions";
 import type { Op } from "./model";
 import type { Resource, Workflow, PairValue } from "./model";
-import { templateConfig, validatePair } from "./relations";
+import { templateConfig, validatePair, normalizePair } from "./relations";
 export interface Dependency {
   id: string;
   name: string;
@@ -74,7 +74,7 @@ export async function exportPackage(
   }
   return {
     format: "glyphforge",
-    version: dependencies.some(d => d.kind === "relation") ? 3 : 2,
+    version: dependencies.some(d => d.kind === "relation") ? 4 : 2,
     irVersion: 1,
     operatorVersions: Object.fromEntries(
       packageOperators(workflow).map((op) => [op, 1]),
@@ -92,7 +92,7 @@ export async function importPackage(
   const pkg = data as Record<string, unknown>;
   if (
     pkg.format !== "glyphforge" ||
-    ![1, 2, 3].includes(Number(pkg.version)) ||
+    ![1, 2, 3, 4].includes(Number(pkg.version)) ||
     !pkg.workflow ||
     !Array.isArray(pkg.resources) ||
     pkg.resources.length > 100
@@ -160,14 +160,14 @@ export async function importPackage(
     seen.add(item.meta.id);
     const isRelation = item.meta.kind === "relation";
     if (isRelation) {
-      if (pkg.version !== 3 || item.entries.length || !Array.isArray(item.relationRows) || item.relationRows.length > 100000) throw new Error("关系快照需要 v3 和有效的关系行");
+      if (![3, 4].includes(Number(pkg.version)) || item.entries.length || !Array.isArray(item.relationRows) || item.relationRows.length > 100000) throw new Error("关系快照需要 v3 和有效的关系行");
       item.relationRows.forEach(validatePair);
     } else if (item.relationRows !== undefined) throw new Error("普通词库不能包含关系行");
     const id = crypto.randomUUID();
     mapping.set(item.meta.id, id);
     const entries = [...new Set<string>(item.entries)];
     const relationRows: PairValue[] = isRelation ? [...new Map<string, PairValue>(item.relationRows.map((r: PairValue) => {
-      const row = { left: r.left.trim(), right: r.right.trim(), relation: r.relation };
+      const row = normalizePair(r);
       return [JSON.stringify(row), row] as [string, PairValue];
     })).values()] : [];
     items.push({

@@ -1,0 +1,72 @@
+diff --git a/P0-CHECKLIST.md b/P0-CHECKLIST.md
+index d12bd0e..20b435f 100644
+--- a/P0-CHECKLIST.md
++++ b/P0-CHECKLIST.md
+@@ -1,5 +1,7 @@
+ # P0 验收清单
+ 
++本文件记录 P0 功能闭环的历史验收。整体规划与当前进度以 [PROJECT-STATUS.md](PROJECT-STATUS.md) 为入口；P1 已有后续子阶段交付。本清单中的勾选不代表全部质量要求或整份参考提示词已经完成。
++
+ 交付范围：参考提示词第十五章 P0-A / P0-B / P0-C，以及第十六章对应端到端场景。P1 关系/中文命名、P2 高级函数与子图不计入本次。性能边界明确记录，不以测试总数代替功能验收。
+ 
+ ## P0-A
+@@ -32,4 +34,10 @@
+ - [x] 重载后查询已生成名字来源；普通列表与两种动画展示。
+ - [x] 大量结果仍可交互，达到上限有明确反馈，运行任务可以取消。
+ 
+-复现步骤和实测数字详见 VALIDATION.md。完整资源历史恢复、子图/自定义函数及 P1 能力另行推进。
++## 尚未补齐的质量验证
++
++- [ ] 内存记录与性能场景补测：见项目状态 Q01。
++- [ ] 低性能条件和系统减少动态效果实际行为：见项目状态 Q02。
++- [ ] 可重复浏览器 E2E 回归套件：见项目状态 Q03，属于后续可靠性补强。
++
++复现步骤和实测数字详见 [VALIDATION.md](VALIDATION.md)。完整资源历史恢复、子图/自定义函数及整体规划差距见 [项目状态](PROJECT-STATUS.md)；P1-A/B 的后续交付见 [P1 进度](P1-PROGRESS.md)。
+diff --git a/P1-PROGRESS.md b/P1-PROGRESS.md
+index 450512a..e73df67 100644
+--- a/P1-PROGRESS.md
++++ b/P1-PROGRESS.md
+@@ -2,6 +2,8 @@
+ 
+ 日期：2026-10-30，Asia/Shanghai。
+ 
++范围说明：P1-A/B/C/D 是本仓库对原提示词 P1 的内部拆分。A/B 的子阶段交付不代表整个 P1 或完整资源模型已经完成；映射资源、关系属性等设计差距与待补验证统一记录在 [PROJECT-STATUS.md](PROJECT-STATUS.md)。下文测试数字是各阶段历史记录。
++
+ ## 稳定基线
+ 
+ 现有仓库在开始时没有历史提交；已保存全部 P0 文件为提交 `399bd2d`，标签 `p0-stable-2026-10-30`。P1 在 `codex/p1-chinese-lab` 分支开发。基线 60 项测试、TypeScript 与生产构建均通过。未重初始化项目。
+diff --git a/README.md b/README.md
+index 34fe0ec..fe947fa 100644
+--- a/README.md
++++ b/README.md
+@@ -1,6 +1,8 @@
+ # GlyphForge · 文字创作工坊
+ 
+-本地优先的游戏 ID 与文字规则工具。已完成 P0、P1-A 中文算子与文字实验室、P1-B 关系词库与六种通用命名配方。当前进度见 [P1 进度](P1-PROGRESS.md)、[P1-A 使用与数据许可](docs/P1-A.md)、[P1-B 使用、架构与验证](docs/P1-B.md)；历史基线见 [P0 验收清单](P0-CHECKLIST.md) 和 [验证报告](VALIDATION.md)。P1-C 逆向增强与 P1-D 新动画尚未实现。
++本地优先的游戏 ID 与文字规则工具。当前已有 P0 功能闭环、P1-A 中文算子与文字实验室、P1-B 关系词库与六种通用命名配方的验收记录；整体规划仍有设计简化、待实现能力与验证缺项。P1-C 逆向增强与 P1-D 新动画尚未实现。
++
++接续开发或判断是否完成时，先读 [规划对照与项目状态](PROJECT-STATUS.md)，其中保留了 [原参考提示词](docs/reference/GlyphForge-v3.0.md)、阶段范围、具体差距及待补验证。详细交付见 [P1 进度](P1-PROGRESS.md)、[P1-A 使用与数据许可](docs/P1-A.md)、[P1-B 使用、架构与验证](docs/P1-B.md)；历史基线见 [P0 验收清单](P0-CHECKLIST.md) 和 [验证报告](VALIDATION.md)。
+ 
+ ## 启动
+ 
+@@ -19,7 +21,7 @@ pnpm examples:p1b
+ 
+ 修改源代码后请重新 `pnpm build`，双击入口运行的是 dist 中的生产构建。
+ 
+-## 已完成功能
++## 当前可用功能
+ 
+ - **独立资源中心**：单字库、普通词库和符号库，创建/重命名/修改词条/删除，批量粘贴与去重。后台导入 TXT、带引号的 CSV、TSV、JSON；TXT/CSV/JSON 导出。精确与前缀走索引，包含扫描在可停止的 Worker 中执行；每页只读取并显示 60 条。
+ - **节点工作流**：拖动、连接、缩放、平移、框选与多选，多节点及内部连线复制粘贴、跨工作流重映射 ID、分组、自动布局、节点预览。参数、节点、连线和布局支持 50 步撤销/重做，多个工作流自动保存。
+diff --git a/VALIDATION.md b/VALIDATION.md
+index 2820863..c1a91f3 100644
+--- a/VALIDATION.md
++++ b/VALIDATION.md
+@@ -1,5 +1,7 @@
+ # P0 验证报告
+ 
++这是 P0 历史验证记录，保留当时的测试结果。当前阶段、设计差距与未完成的质量验证见 [PROJECT-STATUS.md](PROJECT-STATUS.md)。记录限制不表示已经完成相应测试。
++
+ 后续验证：P1-A 见 [P1 进度](P1-PROGRESS.md)，P1-B（2026-10-30）见 [关系与配方验证](docs/P1-B.md)。当前全量回归为 111 项通过，包含下文全部 P0 60 项与 P1-A 20 项，TypeScript、生产构建与基准通过。下文保留 P0 历史测量，不将其当作本次新增关系库的规模测试。
+ 
+ 主体测试日期：2026-10-29；中断恢复后的生产与窄屏复核：2026-10-30，Asia/Shanghai。环境：Windows 11 专业版 10.0.26200、Intel i5-13600KF（20 逻辑处理器）、Node.js v24.22.1、pnpm 11.25.0、内置浏览器 Chromium 156。

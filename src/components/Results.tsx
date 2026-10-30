@@ -15,6 +15,13 @@ import type { Candidate, Favorite } from "../core/model";
 import type { RunStats } from "../core/engine";
 import { download } from "../core/sharing";
 import { resultsFile } from "../core/files";
+import { GameRuleEditor } from "./GameRuleEditor";
+import type { GameRule } from "../core/game-rules";
+import { checkGameId, defaultGameRule } from "../core/game-rules";
+function GameBadge({ text, rule, onInspect }: { text: string; rule: GameRule; onInspect: (text: string) => void }) {
+  const report = checkGameId(text, rule);
+  return <button className="text-button game-check" title={[...report.errors, ...report.warnings].join("；")} onClick={() => onInspect(text)}>{report.valid ? "规则通过" : "不兼容"}{report.warnings.length ? " · 风险提示" : ""}</button>;
+}
 export default function Results({
   candidates,
   favorites,
@@ -32,10 +39,14 @@ export default function Results({
   running: boolean;
   onlyFavorites?: boolean;
   onFavorite: (c: Candidate) => void;
-  onSave: (c: Candidate[]) => void;
+  onSave: (c: Candidate[]) => unknown;
   onCopy: (text: string) => void;
   onDetail: (c: Candidate) => void;
 }) {
+  const [showRules, setShowRules] = useState(false), [gameRule, setGameRule] = useState(defaultGameRule);
+  const [gameText, setGameText] = useState("月亮邮差");
+  const gameReport = showRules ? checkGameId(gameText, gameRule) : undefined;
+  const [saveError, setSaveError] = useState("");
   const [query, setQuery] = useState("");
   const [view, setView] = useState("list");
   const [starred, setStarred] = useState(false);
@@ -158,12 +169,15 @@ export default function Results({
           <button
             className="text-button"
             disabled={!results.length}
-            onClick={() => onSave(results)}
+            onClick={async () => { try { await onSave(results); setSaveError(""); } catch (e) { setSaveError(e instanceof Error ? e.message : "保存词库失败"); } }}
           >
             存为词库
           </button>
         </div>
       </div>
+      {saveError ? <p role="alert">{saveError}</p> : null}
+      <button className="text-button" onClick={() => setShowRules(v => !v)}>游戏规则检查{showRules ? "（收起）" : ""}</button>
+      {showRules ? <><GameRuleEditor rule={gameRule} onChange={setGameRule} /><div className="tool-panel"><label className="field-label">测试游戏 ID<input aria-label="测试游戏 ID" value={gameText} maxLength={1024} onChange={e => setGameText(e.target.value)} /></label><p>{Object.entries(gameReport!.metrics).map(([unit, value]) => `${unit}: ${value}`).join(" · ")}</p><p role="status">{gameReport!.valid ? "符合本地规则" : gameReport!.errors.join("；")}</p>{gameReport!.warnings.length ? <p>{gameReport!.warnings.join("；")}</p> : null}</div></> : null}
       <div className="results-toolbar">
         <div className="search-box">
           <Search size={15} />
@@ -317,6 +331,7 @@ export default function Results({
                         : "来自你的奇妙想法"}
                     </small>
                   </button>
+                  {showRules ? <GameBadge text={c.text} rule={gameRule} onInspect={setGameText} /> : null}
                   <div className="candidate-buttons">
                     <button
                       className="icon-button"

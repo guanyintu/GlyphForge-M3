@@ -8,6 +8,7 @@ import type { Candidate, Workflow } from "../core/model";
 import { execute } from "../core/engine";
 import { parseScript, toScript, validateGraph } from "../core/script";
 import { exportPackage, importPackage, ResourceDependencyError, dependencyIds } from "../core/sharing";
+import { normalizePair } from "../core/relations";
 import { parseRelationRows, relationRowsFile } from "../core/relation-files";
 import { copyNodes, pasteNodes, WorkflowHistory } from "../core/graph-editing";
 
@@ -177,7 +178,7 @@ describe("relation persistence, migration and interchange", () => {
     await old.table("runs").put({ id: "run", createdAt: 1, workflow }); await old.table("generated").put({ runId: "run", text: "结果", parts: [] });
     old.close(); const upgraded = new ForgeDatabase(name);
     try {
-      await upgraded.open(); expect(upgraded.verno).toBe(3);
+      await upgraded.open(); expect(upgraded.verno).toBe(5);
       expect((await upgraded.resources.get("old"))?.version).toBe(7);
       expect((await upgraded.entries.toArray())[0].text).toBe("旧词");
       expect(await upgraded.workflows.get(workflow.id)).toEqual(workflow);
@@ -201,7 +202,7 @@ describe("relation persistence, migration and interchange", () => {
   });
   it("reads a seeded rotation with actual pair/version provenance and detects edits during reads", async () => {
     const reader = readResource("p1b-sky", 1); const first = (await reader.next()).value!;
-    expect(first.pair).toEqual({ left: "落日", right: "晚霞", relation: "associated" });
+    expect(first.pair).toEqual({ left: "落日", right: "晚霞", relation: "associated", direction: "unknown", reverseQueryable: false });
     expect(first.parts[0].pair).toEqual(first.pair);
     await saveRelationRows("p1b-sky", [{ left: "朝", right: "暮", relation: "associated" }]);
     await expect(reader.next()).rejects.toThrow("更改");
@@ -216,8 +217,8 @@ describe("relation persistence, migration and interchange", () => {
   });
   it("roundtrips quoted CSV, TSV and JSON without splitting the two sides", () => {
     const rows = [{ left: '月,亮"', right: "星\n星", relation: "couple" as const }];
-    expect(parseRelationRows(relationRowsFile(rows, "csv"), "rows.csv")).toEqual(rows);
-    expect(parseRelationRows(relationRowsFile(rows, "json"), "rows.json")).toEqual(rows);
+    expect(parseRelationRows(relationRowsFile(rows, "csv"), "rows.csv")).toEqual(rows.map(normalizePair));
+    expect(parseRelationRows(relationRowsFile(rows, "json"), "rows.json")).toEqual(rows.map(normalizePair));
     expect(parseRelationRows("春\t秋\tparallel\n冷\t热\tantonym", "rows.tsv")).toHaveLength(2);
     expect(() => parseRelationRows("冷\t热\tfake", "rows.tsv")).toThrow();
     expect(() => parseRelationRows("only-one-column", "rows.csv")).toThrow();
@@ -234,7 +235,7 @@ describe("relation persistence, migration and interchange", () => {
   });
   it("requires compatible relation bindings for lightweight packages and refuses bad snapshots atomically", async () => {
     const w = createRelationRecipe("couple"), pkg = await exportPackage(w, false);
-    expect(pkg.version).toBe(3);
+    expect(pkg.version).toBe(4);
     await deleteResource("p1b-sky");
     await expect(importPackage(pkg)).rejects.toBeInstanceOf(ResourceDependencyError);
     await expect(importPackage(pkg, { "p1b-sky": "p1b-space" })).rejects.toBeInstanceOf(ResourceDependencyError);

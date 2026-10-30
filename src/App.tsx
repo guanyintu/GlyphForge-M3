@@ -68,6 +68,7 @@ import ProgramBuilder from "./components/ProgramBuilder";
 import BenchmarkPanel from "./components/BenchmarkPanel";
 import { RelationEditor } from "./components/RelationEditor";
 import { createRelationRecipe, ensureRecipeExamples, relationRecipes } from "./core/recipes";
+import { workflowFromMatches } from "./core/reverse-workflow";
 import { relationLabels } from "./core/relations";
 
 type Page = "workflow" | "resources" | "lab" | "reverse" | "favorites";
@@ -112,6 +113,8 @@ export default function App() {
   const [library, setLibrary] = useState(false);
   const [toast, setToast] = useState("");
   const [saveState, setSaveState] = useState("已保存到本地");
+  const [reverseInput, setReverseInput] = useState("");
+  const [resourceQueryText, setResourceQueryText] = useState("");
   const [resource, setResource] = useState<Resource>();
   const [modal, setModal] = useState<
     | "help"
@@ -1056,7 +1059,7 @@ export default function App() {
           <ResourcePage
             resources={resources}
             previews={previews}
-            onEdit={setResource}
+            onEdit={r => { setResourceQueryText(""); setResource(r); }}
             onCreate={() => void createResource()}
             onCreateRelation={() => void createRelationResource()}
           />
@@ -1066,7 +1069,9 @@ export default function App() {
           <ReverseSearch
             onDetail={setDetail}
             resources={resources}
-            candidates={[...candidates, ...favorites]}
+            initial={reverseInput}
+            onResource={async (r, entryId) => { setResourceQueryText(entryId ? (await db.entries.get(entryId))?.text || "" : ""); setResource(r); }}
+            onUse={matches => { switchWorkflow(workflowFromMatches(matches)); notify("已创建引用真实资源的工作流，运行后可生成命中片段组合"); }}
           />
         ) : (
           <div className="page-content">
@@ -1115,6 +1120,7 @@ export default function App() {
         <ResourceModal
           key={resource.id}
           resource={resource}
+          initialQuery={resourceQueryText}
           onClose={() => setResource(undefined)}
           notify={notify}
         />
@@ -1426,6 +1432,7 @@ export default function App() {
                   : "使用内置文字算子加工"}
               </p>
               <div className="row">
+                <button className="button" onClick={() => { setReverseInput(detail.text); setDetail(undefined); setPage("reverse"); }}>逆向分析</button>
                 <button
                   className="primary-button"
                   onClick={() => copy(detail.text)}

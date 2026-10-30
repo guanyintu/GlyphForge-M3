@@ -1,3 +1,4 @@
+import { checkGameId, parseGameRule } from "./game-rules";
 import { glyphs } from "./model";
 import type { Candidate, SourcePart } from "./model";
 import { chineseDefinitions, isChineseOp } from "./chinese-definitions";
@@ -276,6 +277,7 @@ export class ProgramParser {
 type ValueType =
   "string" | "number" | "boolean" | "strings" | "numbers" | "booleans" | "pair" | "pairs";
 const signatures: Record<string, { args: ValueType[]; result: ValueType }> = {
+  gamecheck: { args: ["string", "string"], result: "boolean" },
   pairs: { args: ["string", "string"], result: "pairs" },
   left: { args: ["pair"], result: "string" },
   right: { args: ["pair"], result: "string" },
@@ -347,7 +349,7 @@ export function validateProgram(program: Program) {
         const fn = signatures[expr.name];
         if (
           expr.args.length !== fn.args.length ||
-          expr.args.some((x, i) => check(x, scope, depth + 1, expr.name === "mapchars" && i === 1 ? 16384 : 256) !== fn.args[i])
+          expr.args.some((x, i) => check(x, scope, depth + 1, ["mapchars", "gamecheck"].includes(expr.name) && i === 1 ? 16384 : 256) !== fn.args[i])
         )
           return error(`${expr.name} 参数需要 (${fn.args.join(", ")})`);
         if (
@@ -636,6 +638,8 @@ export async function* executeProgram(
       return { type: "chinese", op: e.name, input: values[0], params };
     }
     switch (e.name) {
+      case "gamecheck":
+        return atom(checkGameId(texts[0], parseGameRule(texts[1])).valid, parts, notes);
       case "pairs":
         return { type: "pairs", id: texts[0], relation: texts[1] };
       case "resource":

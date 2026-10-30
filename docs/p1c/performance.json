@@ -1,0 +1,85 @@
+{
+  "AUDIT_RELATION_10000": {
+    "importMs": 2390.9000000953674,
+    "runMs": 439.2999999523163,
+    "count": 10000,
+    "maxBatch": 64,
+    "correct": true
+  },
+  "AUDIT_BROWSER_WORKER": {
+    "count": 1000,
+    "maxBatch": 64,
+    "steps": 10026,
+    "milliseconds": 51.09999990463257
+  },
+  "AUDIT_BROWSER_CANCEL": {
+    "steps": 1000,
+    "lateMessages": 0,
+    "terminateMs": 0
+  },
+  "P1C_BROWSER_BENCH": {
+    "entries": 100002,
+    "loadMs": 3072.5,
+    "coldMs": 25.09999990463257,
+    "warmMs": 0.9000000953674316,
+    "cacheHit": true,
+    "deepMs": 23.09999990463257,
+    "deepMatches": [
+      {
+        "text": "词099999",
+        "resourceId": "large-a",
+        "entryId": 100058,
+        "start": 0,
+        "end": 7,
+        "utf16Start": 0,
+        "utf16End": 7,
+        "type": "exact"
+      }
+    ],
+    "maxBatch": 2,
+    "coldMatches": [
+      {
+        "text": "月亮",
+        "resourceId": "large-a",
+        "entryId": 100059,
+        "start": 0,
+        "end": 2,
+        "utf16Start": 0,
+        "utf16End": 2,
+        "type": "fragment"
+      },
+      {
+        "text": "邮差",
+        "resourceId": "large-b",
+        "entryId": 100060,
+        "start": 2,
+        "end": 4,
+        "utf16Start": 2,
+        "utf16End": 4,
+        "type": "fragment"
+      }
+    ],
+    "complete": true,
+    "changedMatches": [
+      {
+        "text": "邮差",
+        "resourceId": "large-b",
+        "entryId": 100060,
+        "start": 2,
+        "end": 4,
+        "utf16Start": 2,
+        "utf16End": 4,
+        "type": "fragment"
+      }
+    ],
+    "changedCacheHit": false,
+    "cancelMs": 0,
+    "cancelledAfterScanned": 256,
+    "messagesAfterCancel": 0,
+    "mainThreadSampledHeapBefore": 9835540,
+    "mainThreadSampledHeapAfter": 7253125,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+    "hardwareConcurrency": 20,
+    "browserVersion": "156.0.8078.4"
+  }
+}

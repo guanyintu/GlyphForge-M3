@@ -1,0 +1,18 @@
+$ vitest run src/tests/performance.test.ts --reporter=verbose
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 57.16 ms, 40041 steps, max batch 64
+
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 66.41 ms, 200002 steps
+
+ ✓ src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches 59ms
+ ✓ src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array 67ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  15:45:55
+   Duration  805ms (transform 84ms, setup 0ms, collect 198ms, tests 127ms, environment 0ms, prepare 164ms)
+

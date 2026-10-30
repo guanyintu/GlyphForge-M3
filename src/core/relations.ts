@@ -11,7 +11,21 @@ export function validatePair(row: unknown): asserts row is PairValue {
   const r = row as PairValue | null;
   if (!r || !validRelation(r.relation) || [r.left, r.right].some(x => typeof x !== "string" || !x.trim() || x.length > 256))
     throw new Error("关系行需要非空的左右词（各最多 256 字符）及有效的关系类型");
+  if (r.direction !== undefined && !["symmetric", "directed", "unknown"].includes(r.direction)) throw new Error("无效关系方向");
+  if (r.reverseQueryable !== undefined && typeof r.reverseQueryable !== "boolean") throw new Error("反向查询开关无效");
+  if (r.weight !== undefined && (!Number.isFinite(r.weight) || r.weight < 0 || r.weight > 100)) throw new Error("关系权重需要 0–100");
+  if (r.tags !== undefined && (!Array.isArray(r.tags) || r.tags.length > 16 || r.tags.some(t => typeof t !== "string" || t.length > 40))) throw new Error("关系标签最多 16 个，各 40 字符");
+  for (const field of ["note", "source"] as const) if (r[field] !== undefined && (typeof r[field] !== "string" || r[field]!.length > 256)) throw new Error("关系备注/来源最多 256 字符");
 }
+export function normalizePair(row: PairValue): PairValue {
+  validatePair(row);
+  return { left: row.left.trim(), right: row.right.trim(), relation: row.relation,
+    direction: row.direction || "unknown", reverseQueryable: row.reverseQueryable ?? false,
+    ...(row.weight !== undefined ? { weight: row.weight } : {}), ...(row.tags ? { tags: [...row.tags] } : {}),
+    ...(row.note !== undefined ? { note: row.note } : {}), ...(row.source !== undefined ? { source: row.source } : {}) };
+}
+export const directionLabels = { symmetric: "对称 ↔", directed: "有向 →", unknown: "历史/未知方向 ?" };
+export function canReverse(row: PairValue) { return row.direction === "symmetric" || row.reverseQueryable === true; }
 export interface TemplateSlot {
   name: string;
   resourceId: string;

@@ -1,3 +1,4 @@
+import { parseGameRule } from "./game-rules";
 import { operators } from "./model";
 import type { Op, RuleNode, Workflow } from "./model";
 import { isChineseOp, validateChineseParams } from "./chinese-definitions";
@@ -40,6 +41,7 @@ export function toScript(workflow: Workflow): string {
       return;
     }
     switch (n.op) {
+      case "gamecheck":
       case "pairs":
       case "template":
       case "group":
@@ -260,12 +262,13 @@ export function validateGraph(workflow: Workflow) {
         throw new Error(`${def.name} 的 ${key} 参数类型错误`);
       if (
         typeof n.params[key] === "string" &&
-        String(n.params[key]).length > ((n.op === "mapchars" && key === "mapping") || (n.op === "template" && ["slots", "templates"].includes(key)) ? 16384 : 256)
+        String(n.params[key]).length > ((n.op === "gamecheck" && key === "rules") || (n.op === "mapchars" && key === "mapping") || (n.op === "template" && ["slots", "templates"].includes(key)) ? 16384 : 256)
       )
         throw new Error(`${def.name} 的文字参数过长`);
     }
     if (isChineseOp(n.op)) validateChineseParams(n.op, n.params);
     validateRelationParams(n.op, n.params);
+    if (n.op === "gamecheck") { parseGameRule(String(n.params.rules)); if (!["filter", "annotate"].includes(String(n.params.mode))) throw new Error("游戏检查模式无效"); }
     if (n.inputs.length !== def.inputs || n.inputs.some((x) => !map.has(x)))
       throw new Error(`${def.name} 缺少有效输入`);
     if (n.op === "pattern" && !/^[AB]{1,16}$/.test(String(n.params.template)))

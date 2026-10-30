@@ -4,6 +4,7 @@ import { executeProgram } from "./program";
 import { chineseDefinitions } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
 import { readPairs, renderTemplates, groupMembers } from "./relations";
+import { checkGameId, parseGameRule } from "./game-rules";
 export interface OperatorContext {
   node: RuleNode;
   seed: number;
@@ -23,6 +24,10 @@ export function boundedText(text: string) {
   return text;
 }
 const executors: Record<Op, RegisteredOperator["execute"]> = {
+  gamecheck: async function* (c) {
+    const rule = parseGameRule(String(c.node.params.rules));
+    for await (const item of c.input(0)) { c.tick(); const result = checkGameId(item.text, rule); if (c.node.params.mode === "annotate") yield { ...item, notes: [...(item.notes || []), ...result.errors, ...result.warnings, result.valid ? "符合本地游戏规则" : "不符合本地游戏规则"] }; else if (result.valid) yield item; }
+  },
   pairs: c => readPairs(c.read, String(c.node.params.resourceId), c.seed, String(c.node.params.relation), c.tick),
   template: c => renderTemplates(c.node.params, c.read, c.seed, c.tick),
   group: c => groupMembers(c.input(0), c.node.params, c.seed, c.tick),

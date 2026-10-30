@@ -1,7 +1,9 @@
+import { defaultGameRule } from "./game-rules";
 import type { Program } from "./program";
 import { chineseDefinitions } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
 export type Op =
+  | "gamecheck"
   | "pairs" | "template" | "group"
   | ChineseOp
   | "program"
@@ -47,7 +49,8 @@ export interface Entry {
   text: string;
 }
 export type RelationKind = "associated" | "antonym" | "couple" | "parallel";
-export interface RelationRow {
+export type RelationDirection = "symmetric" | "directed" | "unknown";
+export interface RelationRow extends PairValue {
   id?: number;
   resourceId: string;
   left: string;
@@ -58,6 +61,13 @@ export interface PairValue {
   left: string;
   right: string;
   relation: RelationKind;
+  /** Missing fields in v1–v3 files mean unknown / false, never symmetric. */
+  direction?: RelationDirection;
+  reverseQueryable?: boolean;
+  weight?: number;
+  tags?: string[];
+  note?: string;
+  source?: string;
 }
 export interface SourcePart {
   resourceId: string;
@@ -109,6 +119,7 @@ const builtinOperators: Record<
     "version" | "inputTypes" | "outputType" | "deterministic" | "streaming"
   >
 > = {
+  gamecheck: { id: "gamecheck", name: "游戏 ID 检查", category: "处理", description: "复用可配置的 Unicode 长度和字符规则，筛选或标注结果", inputs: 1, color: "orange", defaults: { rules: JSON.stringify(defaultGameRule), mode: "filter" } },
   pairs: {
     id: "pairs", name: "关系词对", category: "数据源", description: "按行读取明确的关联关系，左右端始终绑定",
     inputs: 0, color: "green", defaults: { resourceId: "p1b-sky", relation: "" },
@@ -211,18 +222,7 @@ export const operators = Object.fromEntries(
     },
   ]),
 ) as Record<Op, OperatorDefinition>;
-export const segmenter = new Intl.Segmenter("zh", { granularity: "grapheme" });
-export function glyphs(text: string) {
-  return Array.from(segmenter.segment(text), (x) => x.segment);
-}
-export function unicodeMetrics(text: string) {
-  return {
-    utf16: text.length,
-    codePoints: Array.from(text).length,
-    graphemes: glyphs(text).length,
-    bytes: new TextEncoder().encode(text).length,
-  };
-}
+export { segmenter, glyphs, unicodeMetrics } from "./unicode";
 export function createWorkflow(preset = "dream"): Workflow {
   const template =
     preset === "echo" ? "AABB" : preset === "mirror" ? "ABBA" : "AB";

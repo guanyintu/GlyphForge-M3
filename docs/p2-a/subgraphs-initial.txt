@@ -1,0 +1,18 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+stdout | src/tests/subgraphs.test.ts > parameterized sequence functions > streams 100 call instances with constant resource residency and bounded batches
+P2-A 100 calls {
+  milliseconds: 1.3803000000000338,
+  produced: 101,
+  maxBatch: 1,
+  steps: 602,
+  definitionBytes: 197
+}
+
+ ✓ src/tests/subgraphs.test.ts (20 tests) 51ms
+
+ Test Files  1 passed (1)
+      Tests  20 passed (20)
+   Start at  05:58:32
+   Duration  883ms (transform 140ms, setup 0ms, collect 379ms, tests 51ms, environment 0ms, prepare 155ms)

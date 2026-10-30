@@ -1,0 +1,38 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ✓ src/tests/p1d-highlight.test.ts (4 tests) 5ms
+ ✓ src/tests/p1d-motion.test.ts (18 tests) 67ms
+ ✓ src/tests/audit-worker.test.ts (1 test) 88ms
+ ✓ src/tests/core.test.ts (19 tests) 14ms
+ ✓ src/tests/p1c-game.test.ts (7 tests) 47ms
+ ✓ src/tests/p1c-relations.test.ts (5 tests) 66ms
+ ✓ src/tests/storage.test.ts (8 tests) 104ms
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 129.18 ms, 40041 steps, max batch 64
+
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 121.87 ms, 200002 steps
+
+ ✓ src/tests/performance.test.ts (2 tests) 256ms
+ ✓ src/tests/p0.test.ts (31 tests) 251ms
+ ✓ src/tests/run-lifecycle.test.ts (9 tests) 331ms
+ ✓ src/tests/audit.test.ts (20 tests) 437ms
+ ✓ src/tests/relations.test.ts (31 tests) 594ms
+ ✓ src/tests/p1c-search.test.ts (24 tests) 625ms
+ ✓ src/tests/p1-final.test.ts (11 tests) 1200ms
+   ✓ seeded generated graphs and nested scoped programs survive script/JSON roundtrips (100 cases)  463ms
+   ✓ laboratory and workflow share decompose execution including saved output references  476ms
+ ✓ src/tests/contracts.test.ts (28 tests) 1522ms
+   ✓ homophones: node, printed code, AST and laboratory agree with omitted defaults  341ms
+   ✓ decompose: node, printed code, AST and laboratory agree with omitted defaults  392ms
+   ✓ compose: node, printed code, AST and laboratory agree with omitted defaults  430ms
+ ✓ src/tests/chinese.test.ts (20 tests) 2147ms
+   ✓ P1-A real structure data > decomposes 明 left/right and 思 top/bottom  587ms
+   ✓ P1-A real structure data > reverse-composes only actual known characters and respects duplicate counts  423ms
+   ✓ P1-A real structure data > finds characters by components and filters structure and strokes  622ms
+
+ Test Files  16 passed (16)
+      Tests  238 passed (238)
+   Start at  05:56:53
+   Duration  3.32s (transform 2.34s, setup 0ms, collect 7.63s, tests 7.75s, environment 3ms, prepare 4.24s)

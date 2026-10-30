@@ -1,0 +1,29 @@
+{
+  "snapshot": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2-a-isolated-iCFgSN",
+  "tree": "639e9bc87eed18d78340ff44cc56b06a1e6f45bf",
+  "owned": [
+    "src/App.tsx",
+    "src/components/GraphEditor.tsx",
+    "src/components/CallInspector.tsx",
+    "src/components/Subgraphs.tsx",
+    "src/core/model.ts",
+    "src/core/operators.ts",
+    "src/core/engine.ts",
+    "src/core/script.ts",
+    "src/core/graph-editing.ts",
+    "src/core/sharing.ts",
+    "src/core/subgraphs.ts",
+    "src/core/subgraph-script.ts",
+    "src/storage/subgraph-library.ts",
+    "src/workers/execution.worker.ts",
+    "src/p2a.css",
+    "src/tests/subgraphs.test.ts",
+    "e2e/subgraphs.spec.ts",
+    "e2e/subgraph-performance.spec.ts",
+    "e2e/subgraphs-harness.ts",
+    "e2e/subgraphs.vite.config.ts",
+    "scripts/validate-p2-a.mjs",
+    "docs/P2-A-ARCHITECTURE.md",
+    "docs/P2-A-VALIDATION.md"
+  ]
+}

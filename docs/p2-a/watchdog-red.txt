@@ -1,0 +1,31 @@
+[WebServer] (node:55180) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:78440) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:153296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 e2e\subgraphs.spec.ts:61:1 › nested production Worker watchdog expires while a resource page is blocked (17.4s)
+
+
+  1) e2e\subgraphs.spec.ts:61:1 › nested production Worker watchdog expires while a resource page is blocked
+
+    Error: page.evaluate: Error: watchdog failed: [{"type":"started","at":19.5},{"type":"batch","at":26.600000143051147},{"type":"batch","at":29}]
+        at eval (eval at evaluate (:370:30), <anonymous>:52:16)
+        at eval (eval at evaluate (:370:30), <anonymous>:52:16)
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\subgraphs.spec.ts:64:29
+
+    Error Context: test-results\subgraphs-nested-productio-57560--a-resource-page-is-blocked\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\subgraphs-nested-productio-57560--a-resource-page-is-blocked\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\subgraphs-nested-productio-57560--a-resource-page-is-blocked\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\subgraphs.spec.ts:61:1 › nested production Worker watchdog expires while a resource page is blocked

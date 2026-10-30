@@ -1,0 +1,25 @@
+{
+  "type": "error",
+  "message": "达到 10 秒执行时间上限，请缩小词库或调整条件",
+  "diagnostic": {
+    "code": "BUDGET",
+    "message": "达到 10 秒执行时间上限"
+  },
+  "count": 64,
+  "elapsed": 10025.5,
+  "status": "error",
+  "events": [
+    {
+      "type": "started",
+      "at": 19.200000047683716
+    },
+    {
+      "type": "batch",
+      "at": 25.90000009536743
+    },
+    {
+      "type": "error",
+      "at": 10019.900000095367
+    }
+  ]
+}

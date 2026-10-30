@@ -1,3 +1,4 @@
+import Subgraphs from "./components/Subgraphs";
 import {
   lazy,
   Suspense,
@@ -103,6 +104,7 @@ function bootstrap() {
 }
 export default function App() {
   const [ready, setReady] = useState(false);
+  const [subgraphsOpen, setSubgraphsOpen] = useState(false);
   const [page, setPage] = useState<Page>("workflow");
   const [workflow, setWorkflow] = useState<Workflow>(createWorkflow);
   const currentWorkflow = useRef(workflow);
@@ -757,6 +759,7 @@ export default function App() {
           </div>
         ) : page === "workflow" ? (
           <div className="workflow-page">
+            {subgraphsOpen ? <Subgraphs workflow={workflow} selection={selection} resources={resources} previews={previews} onChange={change} onClose={() => setSubgraphsOpen(false)} /> : null}
             <h1 className="sr-only">工作流创作工坊</h1>
             <div className="workflow-heading">
               <div>
@@ -908,6 +911,7 @@ export default function App() {
                         onChange={change}
                       />
                       <div className="canvas-shortcuts">
+                        <button onClick={() => setSubgraphsOpen(true)}>子图与函数</button>
                         <span>滚轮缩放</span>
                         <span>拖动画布平移</span>
                         <button title="复制所选节点 Ctrl+C" onClick={copyNode}>
@@ -1026,6 +1030,8 @@ export default function App() {
                 </div>
                 {view !== "code" ? (
                   <Inspector
+                    workflow={workflow}
+                    onWorkflowChange={change}
                     onPreview={previewNode}
                     onEditProgram={() => setModal("program")}
                     onClose={() => setMobileInspect(false)}

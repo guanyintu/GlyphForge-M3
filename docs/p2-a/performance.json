@@ -1,0 +1,19 @@
+{
+  "milliseconds": 3.8999998569488525,
+  "steps": 1303,
+  "generatedCandidates": 201,
+  "maxBatch": 1,
+  "maxLength": 200,
+  "heapSamples": [
+    10115888,
+    10865060,
+    11313908,
+    11314036
+  ],
+  "declaredLogicalEntries": 1000000,
+  "externalCalls": 100,
+  "totalCallInstances": 300,
+  "topNodes": 200,
+  "definitionBytes": 618,
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36"
+}

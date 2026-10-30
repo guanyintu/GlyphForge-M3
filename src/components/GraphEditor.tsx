@@ -1,3 +1,5 @@
+import { inputCount, definitionFor } from "../core/subgraphs";
+import { CallInspector } from "./CallInspector";
 import { memo, useCallback, useEffect, useMemo } from "react";
 import {
   Background,
@@ -37,6 +39,7 @@ import { RelationParams } from "./RelationParams";
 import { GameRuleEditor } from "./GameRuleEditor";
 import { parseGameRule, defaultGameRule } from "../core/game-rules";
 const icons: Record<Op, LucideIcon> = {
+  call: Repeat2, argument: BookOpen,
   gamecheck: Filter,
   pairs: GitMerge, template: Sparkles, group: Layers,
   ...Object.fromEntries(Object.keys(chineseDefinitions).map(op => [op, Sparkles])) as Record<keyof typeof chineseDefinitions, LucideIcon>,
@@ -50,7 +53,7 @@ const icons: Record<Op, LucideIcon> = {
   output: Layers,
 };
 type ForgeNode = Node<
-  { rule: RuleNode; resource?: Resource; words: string[] },
+  { rule: RuleNode; resource?: Resource; words: string[]; inputs: number; label?: string },
   "forge"
 >;
 const ForgeCard = memo(function ForgeCard({
@@ -62,24 +65,26 @@ const ForgeCard = memo(function ForgeCard({
   const Icon = icons[rule.op];
   return (
     <div className={`forge-node ${def.color} ${selected ? "is-selected" : ""}`}>
-      {Array.from({ length: def.inputs }, (_, i) => (
+      {Array.from({ length: data.inputs }, (_, i) => (
         <Handle
           key={i}
           type="target"
           id={String(i)}
           position={Position.Left}
-          style={{ top: def.inputs === 2 ? 87 + i * 35 : 104 }}
+          style={{ top: data.inputs > 1 ? 78 + i * 24 : 104 }}
         />
       ))}
       <div className="node-heading">
         <span className="node-symbol">
           <Icon size={15} />
         </span>
-        <strong>{def.name}</strong>
+        <strong>{data.label || def.name}</strong>
         <span className="node-dots">···</span>
       </div>
       <div className="node-content">
         {isChineseOp(rule.op) ? <><div className="node-field">{String(rule.params.mode || rule.params.structure || "中文文字实验")}</div><p className="node-hint">{def.description}</p></> : null}
+        {rule.op === "call" ? <p className="node-hint">固定版本 v{rule.call?.version} · 独立参数绑定</p> : null}
+        {rule.op === "argument" ? <b>{String(rule.params.name)}</b> : null}
         {rule.op === "program" ? (
           <>
             <div className="node-field">
@@ -240,11 +245,13 @@ function GraphCanvas({
         selected: selection.includes(rule.id),
         data: {
           rule,
+          inputs: (() => { try { return inputCount(rule, workflow.subgraphs); } catch { return rule.inputs.length; } })(),
+          label: rule.op === "call" ? (() => { try { return definitionFor(rule, workflow.subgraphs).name; } catch { return "缺失子图引用"; } })() : undefined,
           resource: resources.find((r) => r.id === rule.params.resourceId),
           words: previews[String(rule.params.resourceId)] || [],
         },
       })),
-    [workflow.nodes, workflow.layout, selection, resources, previews],
+    [workflow.nodes, workflow.layout, workflow.subgraphs, selection, resources, previews],
   );
   const edges = useMemo(
     () =>
@@ -409,7 +416,11 @@ export function Inspector({
   onClose,
   onEditProgram,
   onPreview,
+  workflow,
+  onWorkflowChange,
 }: {
+  workflow?: Workflow;
+  onWorkflowChange?: (w: Workflow) => void;
   node?: RuleNode;
   resources: Resource[];
   onUpdate: (n: RuleNode) => void;
@@ -452,6 +463,7 @@ export function Inspector({
         <h3>{def.name}</h3>
         <p className="description">{def.description}</p>
         <div className="divider" />
+        {node.op === "call" && workflow ? <><CallInspector node={node} workflow={workflow} onUpdate={onUpdate} />{onWorkflowChange ? <button className="button" onClick={() => onWorkflowChange({ ...workflow, nodes: workflow.nodes.map(n => n.op === "output" ? { ...n, inputs: [node.id] } : n) })}>连接到结果输出</button> : null}</> : null}
         {node.op === "gamecheck" ? <><GameRuleEditor rule={(() => { try { return parseGameRule(String(node.params.rules)); } catch { return defaultGameRule; } })()} onChange={rule => param("rules", JSON.stringify(rule))} /><label className="field-label">检查模式<select value={String(node.params.mode)} onChange={e => param("mode", e.target.value)}><option value="filter">仅通过项</option><option value="annotate">保留并标注</option></select></label></> : null}
         {isChineseOp(node.op) ? <ChineseParams op={node.op} params={node.params} onChange={params => onUpdate({ ...node, params })} /> : null}
         {node.op === "pairs" || node.op === "template" || node.op === "group" ? <RelationParams op={node.op} params={node.params} resources={resources} onChange={params => onUpdate({ ...node, params })} /> : null}
@@ -605,7 +617,7 @@ export function NodeLibrary({
       <div className="node-library">
         <p className="eyebrow">灵感工具箱</p>
         <h3>添加一个节点</h3>
-        {Object.values(operators).map((op) => {
+        {Object.values(operators).filter(op => !["call", "argument"].includes(op.id)).map((op) => {
           const Icon = icons[op.id];
           return (
             <button

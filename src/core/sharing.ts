@@ -1,3 +1,4 @@
+import { allNodes, reachableDefinitions } from "./subgraphs";
 import { normalizeParams } from "./contracts";
 import { db, readResource } from "../storage/db";
 import { validateGraph } from "./script";
@@ -19,8 +20,8 @@ export class ResourceDependencyError extends Error {
   }
 }
 function packageOperators(workflow: Workflow) {
-  const used = new Set<Op>(workflow.nodes.map(n => n.op));
-  for (const node of workflow.nodes) if (node.program) visitProgramExpressions(node.program, expression => {
+  const used = new Set<Op>(allNodes(workflow).map(n => n.op));
+  for (const node of allNodes(workflow)) if (node.program) visitProgramExpressions(node.program, expression => {
     if (expression.kind === "call" && (isChineseOp(expression.name) || expression.name === "pairs")) used.add(expression.name);
   });
   return [...used];
@@ -28,7 +29,7 @@ function packageOperators(workflow: Workflow) {
 export function dependencyIds(workflow: Workflow) {
   return [
     ...new Set(
-      workflow.nodes.flatMap((n) =>
+      allNodes(workflow).flatMap((n) =>
         n.op === "resource" || n.op === "pairs"
           ? [String(normalizeParams(n.op, n.params).resourceId)]
           : n.op === "template" ? templateConfig(normalizeParams(n.op, n.params)).slots.map(s => s.resourceId)
@@ -45,6 +46,7 @@ export async function exportPackage(
   signal?:AbortSignal,
 ) {
   validateGraph(workflow);
+  if (workflow.subgraphs?.length) workflow = { ...workflow, subgraphs: reachableDefinitions(workflow.nodes, workflow.subgraphs) };
   const ids = dependencyIds(workflow);
   const dependencies: Dependency[] = [];
   const resources: { meta: Resource; entries: string[]; relationRows?: PairValue[] }[] = [];
@@ -75,7 +77,7 @@ export async function exportPackage(
   }
   return {
     format: "glyphforge",
-    version: dependencies.some(d => d.kind === "relation") ? 4 : 2,
+    version: workflow.subgraphs?.length ? 5 : dependencies.some(d => d.kind === "relation") ? 4 : 2,
     irVersion: 1,
     operatorVersions: Object.fromEntries(
       packageOperators(workflow).map((op) => [op, 1]),
@@ -93,7 +95,7 @@ export async function importPackage(
   const pkg = data as Record<string, unknown>;
   if (
     pkg.format !== "glyphforge" ||
-    ![1, 2, 3, 4].includes(Number(pkg.version)) ||
+    ![1, 2, 3, 4, 5].includes(Number(pkg.version)) ||
     !pkg.workflow ||
     !Array.isArray(pkg.resources) ||
     pkg.resources.length > 100
@@ -125,8 +127,13 @@ export async function importPackage(
     )
       throw new Error("节点参数无效");
   }
+  if (workflow.subgraphs?.length && Number(pkg.version) !== 5) throw new Error("子图需要 v5 分享包");
   validateGraph(workflow);
-  for (const node of workflow.nodes) node.params = normalizeParams(node.op, node.params);
+  // Imported definitions receive fresh IDs, preserving existing local revisions.
+  const definitionIds = new Map((workflow.subgraphs ?? []).map(d => [d.id, crypto.randomUUID()]));
+  for (const d of workflow.subgraphs ?? []) d.id = definitionIds.get(d.id)!;
+  for (const n of allNodes(workflow)) if (n.call) n.call.definitionId = definitionIds.get(n.call.definitionId)!;
+  for (const node of allNodes(workflow)) node.params = normalizeParams(node.op, node.params);
   if (Number(pkg.version) >= 2) {
     if (
       pkg.irVersion !== 1 ||
@@ -162,7 +169,7 @@ export async function importPackage(
     seen.add(item.meta.id);
     const isRelation = item.meta.kind === "relation";
     if (isRelation) {
-      if (![3, 4].includes(Number(pkg.version)) || item.entries.length || !Array.isArray(item.relationRows) || item.relationRows.length > 100000) throw new Error("关系快照需要 v3 和有效的关系行");
+      if (![3, 4, 5].includes(Number(pkg.version)) || item.entries.length || !Array.isArray(item.relationRows) || item.relationRows.length > 100000) throw new Error("关系快照需要 v3 和有效的关系行");
       item.relationRows.forEach(validatePair);
     } else if (item.relationRows !== undefined) throw new Error("普通词库不能包含关系行");
     const id = crypto.randomUUID();
@@ -238,7 +245,7 @@ export async function importPackage(
     throw new ResourceDependencyError(missing);
   }
   const layout: Workflow["layout"] = {};
-  for (const node of workflow.nodes) {
+  for (const node of allNodes(workflow)) {
     const point = workflow.layout?.[node.id];
     if (
       point &&

@@ -1,0 +1,5 @@
+
+
+## 2026-10-31 P2-A 接续
+
+参数化子图和可复用序列函数已有实际画布/代码/Worker/持久化闭环；本轮验收和语法边界见 [P2-A](docs/P2-A-VALIDATION.md) 与 [架构](docs/P2-A-ARCHITECTURE.md)。P1 历史证据不替代本轮测试，P1 其余 G/Q 差距继续由 PROJECT-STATUS 跟踪。

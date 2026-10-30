@@ -23,6 +23,8 @@ export function patternText(template: string, a: string, b: string) {
 }
 export { boundedText } from "./contracts";
 const executors: Record<Op, RegisteredOperator["execute"]> = {
+  call: async function* () { throw new Error("子图调用需要执行器作用域"); },
+  argument: async function* () { throw new Error("序列参数需要执行器作用域"); },
   gamecheck: async function* (c) {
     const rule = parseGameRule(String(c.node.params.rules));
     for await (const item of c.input(0)) { c.tick(); const result = checkGameId(item.text, rule); if (c.node.params.mode === "annotate") yield { ...item, notes: [...(item.notes || []), ...result.errors, ...result.warnings, result.valid ? "符合本地游戏规则" : "不符合本地游戏规则"] }; else if (result.valid) yield item; }

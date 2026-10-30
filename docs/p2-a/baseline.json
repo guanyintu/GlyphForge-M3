@@ -1,0 +1,211 @@
+{
+  "head": "21e0b6775105f6cfcf174530fc7eb34a7061c75c",
+  "branch": "codex/p2-s0-2-contracts",
+  "backup": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2-a-edbd1e5a-f63f-4ac0-a205-8c95fbdb21b7",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "55778FDBC9B6CC62D7CF3C4D4C98F0283BBC5EAD9D49E0088B2BA20FBF9D0001"
+    },
+    {
+      "path": "docs/AUDIT_P1_FINAL.md",
+      "sha256": "ED1D72F215F899D263BAB1816BE8A74C533C18B9E6214D59FCC9FAAF5983240C"
+    },
+    {
+      "path": "docs/P1-FINAL-REQUIREMENTS.md",
+      "sha256": "A106292D9A7AFD8F8470E67F53657FAA3E987AEE6A8A3AECA4B74001D22AE778"
+    },
+    {
+      "path": "docs/P2-ENTRY-ARCHITECTURE.md",
+      "sha256": "2D23548A29808E7C7F518B87629DC0887AF28B722557D96288935156743A527D"
+    },
+    {
+      "path": "docs/p1-final/baseline-browser.txt",
+      "sha256": "C023B446815C8A3E8326C2EC7FDCA9BF4BC17DCFAA8AECFF319A33F80CDA4BFA"
+    },
+    {
+      "path": "docs/p1-final/baseline-tests.txt",
+      "sha256": "6D759FA66A1E6221986C9B2FA0DAB48CEBB8BDC8AA1B879E1C84E90CEE94EAA0"
+    },
+    {
+      "path": "docs/p1-final/baseline.json",
+      "sha256": "5CEC22A65E191E360062620158C343FED6D13EB17211D86BA9CA87C075A4EB85"
+    },
+    {
+      "path": "docs/p1-final/bench.txt",
+      "sha256": "D00F23B70205D7AC7F2CD5045E54648E04BBAED5D02FA8EF04311A32AE944539"
+    },
+    {
+      "path": "docs/p1-final/browser-initial.txt",
+      "sha256": "1895B3CD4AF89EA7B72F563165EACF77BD58D5BD28E67A62E12A6E8BA73E8C5A"
+    },
+    {
+      "path": "docs/p1-final/browser-results-initial.json",
+      "sha256": "9A4EA857373F398988D6CAEEA4645FB2869B46FE847F4D1D79DA936E568984B6"
+    },
+    {
+      "path": "docs/p1-final/browser-results.json",
+      "sha256": "99731794A248C3C4F739DA94B8742ECAC0578E6594400CCDDAA878CB8AEC169F"
+    },
+    {
+      "path": "docs/p1-final/browser.txt",
+      "sha256": "24E00055CF3532FFA4FEECB41EB04E86EA4A3B840531E6E4473AB1BF69A857EA"
+    },
+    {
+      "path": "docs/p1-final/build-fix.txt",
+      "sha256": "5F8B5285104E0614E607A4BC29A6187A30DF217CA070CFA5F3A7C1C86D8D8471"
+    },
+    {
+      "path": "docs/p1-final/build-initial.txt",
+      "sha256": "8C1B64709FE06F24EE099F54E8BB426EF1D0421774271712C9B3DA5CFD0E5B50"
+    },
+    {
+      "path": "docs/p1-final/check-exits.json",
+      "sha256": "D3BC676E0CCFFBC9713A891C3B95A761A7A66ACD7708BD481B51DED42498D56D"
+    },
+    {
+      "path": "docs/p1-final/diff-check.txt",
+      "sha256": "30B9E203898FFD2376D73C835CB4E2E045FF745BCAA08834C38E882756E982A3"
+    },
+    {
+      "path": "docs/p1-final/environment.json",
+      "sha256": "DC8B158A6A8081A647B797B3BC56574E262A0F9E9BCD8655017A9472EDD33BE9"
+    },
+    {
+      "path": "docs/p1-final/final-integration-initial.txt",
+      "sha256": "B8879A162021847D83D2D9F923402F8B031F4B7BB015230691F96631A7074799"
+    },
+    {
+      "path": "docs/p1-final/fixes.txt",
+      "sha256": "78E1C47A8F45E8123F29FB84B1CAE29033BE7410A5CEDFC7DCB7D1007CB32B09"
+    },
+    {
+      "path": "docs/p1-final/game-ui.png",
+      "sha256": "8C5A0FF338AB033D3E2C0997FFF2B17570FEC8C146E837484C0B19B1C27505D9"
+    },
+    {
+      "path": "docs/p1-final/git-final.txt",
+      "sha256": "31AB9649C88A1DDD8593FF3F2262DFC4B707207F136A685CFE54964C297FD261"
+    },
+    {
+      "path": "docs/p1-final/highlight-cards.png",
+      "sha256": "CFE0BDABA9A616BA989EFAB74A8992900494EB5064B452E2FFCB67C76A0E02B9"
+    },
+    {
+      "path": "docs/p1-final/manifest.json",
+      "sha256": "37683CA85595142EB76874B8EBDCA173036B0F4AEAA983BA06C0098CB1FBA6B3"
+    },
+    {
+      "path": "docs/p1-final/mixed-performance.json",
+      "sha256": "A40534E6DA2EB31905D6F894EDF6AC92F20CF103A47C4BD950B3049E9A72A902"
+    },
+    {
+      "path": "docs/p1-final/mobile-physics.png",
+      "sha256": "0C7E6EFAC2D9A690C3319A7EFB23C0D463FC2918208A90382D3F7B3CCADBB121"
+    },
+    {
+      "path": "docs/p1-final/performance.json",
+      "sha256": "5604D739B1506FB5B51EC55F50C04AF5B1F27C8A2925E423E71B9FB8EB602C65"
+    },
+    {
+      "path": "docs/p1-final/physics-desktop.png",
+      "sha256": "49763EE92F0E5784D800D47EE9A2B41A2F3BE2FAAD6AC62CE7414BE81F6DD1EA"
+    },
+    {
+      "path": "docs/p1-final/red.txt",
+      "sha256": "B98DD79E04C82E66CE98A4D2F0A9C35E95C31CFF9F228A675D5D8121718DBE52"
+    },
+    {
+      "path": "docs/p1-final/reload-fix.txt",
+      "sha256": "8D41056141A65E85CC1018F24D1520D133D2F2A21C3B5B134E9E074C63E253D3"
+    },
+    {
+      "path": "docs/p1-final/resources-performance.json",
+      "sha256": "82D35AFE2C9EE88C490F8BE434164D58C4AA9FA2B4E0AACD46FE2BF530048F31"
+    },
+    {
+      "path": "docs/p1-final/reverse-ui.png",
+      "sha256": "3D6BB469571082AECD1E60AF98A91046494678EA48D3E09FBDFB0279A52E5D45"
+    },
+    {
+      "path": "docs/p1-final/tests.txt",
+      "sha256": "A1CDE8BC4959BA9B90A517D3BA49655BE9B6C5A8B297135627363A79ECD2FC87"
+    },
+    {
+      "path": "docs/p1-final/typecheck.txt",
+      "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+    },
+    {
+      "path": "docs/p1-final/user-baseline.patch.gz",
+      "sha256": "D78B76344F75C02C02E25E2565FF5F7BA8AE7B4FB21C233014AD888427B4862B"
+    },
+    {
+      "path": "docs/p2-s0-1/baseline.patch",
+      "sha256": "2C2FA7F1A2B77FFB5D865A270D609F5FA8598510C3FBC8A0D5E86E74D0F3B659"
+    },
+    {
+      "path": "docs/p2-s0-1/baseline.zip",
+      "sha256": "7DA6103061F0AB7F0AE5DED2B47A8076015A0C9E21B41C9FEFD68973370E9338"
+    },
+    {
+      "path": "docs/p2-s0-1/isolation-local.json",
+      "sha256": "AAF9C4474D177EB77F094C5218E0C1A292E81305FE99914EA9D677FA983E1FF7"
+    },
+    {
+      "path": "docs/p2-s0-1/status-section.txt",
+      "sha256": "9363A643A1686F422C30C9A674624C197046757254F77B7121FF1FFF9354AE3E"
+    },
+    {
+      "path": "docs/reference/GlyphForge-v3.0.md",
+      "sha256": "2A255FDDEDFDA6762E17EE6A27971715C6FE5020F03B5028E80B13F997E701FC"
+    },
+    {
+      "path": "e2e/p1-final.spec.ts",
+      "sha256": "F413BE49EA86142A1EE964F15F7DD0FC06D72FE25C2593FDC8D7F77E0E1D0CD7"
+    },
+    {
+      "path": "scripts/p1-final-manifest.mjs",
+      "sha256": "B82116514C654C5D57D260682A7DF3A0B0386DAB347A5281290693045BAF5D6C"
+    },
+    {
+      "path": "src/tests/p1-final.test.ts",
+      "sha256": "7F7212B37C78229B1DD43D5B1EC596FE05B50BA94CEC6C92D7E480E5743BCAF7"
+    },
+    {
+      "path": "P0-CHECKLIST.md",
+      "sha256": "D01C9B2A26D243388882B36B29EEF40B582A4C7F861F2EDDE44ABC6F7C0CCE49"
+    },
+    {
+      "path": "P1-PROGRESS.md",
+      "sha256": "A69FE4C15FE1BAE6514BEF31A2C04070F8C6193655567FFB3E9D2A180902A77D"
+    },
+    {
+      "path": "PROJECT-STATUS.md",
+      "sha256": "A054C8558515A1E88C4A3C6B5AA4A5C26D1E42A7C18A72C49DAB18EAB02FFC2F"
+    },
+    {
+      "path": "README.md",
+      "sha256": "3B4DEE3962DCC661A09E18530E4DF8F9874678869CFC4511D33BFA4CBCEA1A44"
+    },
+    {
+      "path": "VALIDATION.md",
+      "sha256": "183E7285B0AFA2C94601FD520C3968722FD6464C9B9B262F685D0C4D57105011"
+    },
+    {
+      "path": "docs/P1-B.md",
+      "sha256": "D63D84AFB9A8F07D6025C0BBAC8F7A0999CE50861D3288644BCB85E2C4E61D49"
+    },
+    {
+      "path": "e2e/p1c.spec.ts",
+      "sha256": "21898E64DEABD8CD2287BA2C6EC613279F7098BAEE8D67E50C73A1427F04C9C7"
+    },
+    {
+      "path": "e2e/p1d.spec.ts",
+      "sha256": "B4CDC8C928C51798166C3AA3F35114BA319B6FFBDABA7385B36F0761B142B505"
+    },
+    {
+      "path": "src/storage/db.ts",
+      "sha256": "17D88F7FB26AD6C284C6593562BBB06CF443D90720E5612C12BFE6C674283ECF"
+    }
+  ]
+}

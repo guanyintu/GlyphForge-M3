@@ -1,0 +1,212 @@
+{
+  "head": "21e0b6775105f6cfcf174530fc7eb34a7061c75c",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "unchanged": true
+    },
+    {
+      "path": "docs/AUDIT_P1_FINAL.md",
+      "unchanged": true
+    },
+    {
+      "path": "docs/P1-FINAL-REQUIREMENTS.md",
+      "unchanged": true
+    },
+    {
+      "path": "docs/P2-ENTRY-ARCHITECTURE.md",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/baseline-browser.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/baseline-tests.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/baseline.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/bench.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/browser-initial.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/browser-results-initial.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/browser-results.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/browser.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/build-fix.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/build-initial.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/check-exits.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/diff-check.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/environment.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/final-integration-initial.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/fixes.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/game-ui.png",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/git-final.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/highlight-cards.png",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/manifest.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/mixed-performance.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/mobile-physics.png",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/performance.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/physics-desktop.png",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/red.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/reload-fix.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/resources-performance.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/reverse-ui.png",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/tests.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/typecheck.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p1-final/user-baseline.patch.gz",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p2-s0-1/baseline.patch",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p2-s0-1/baseline.zip",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p2-s0-1/isolation-local.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/p2-s0-1/status-section.txt",
+      "unchanged": true
+    },
+    {
+      "path": "docs/reference/GlyphForge-v3.0.md",
+      "unchanged": true
+    },
+    {
+      "path": "e2e/p1-final.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/p1-final-manifest.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "src/tests/p1-final.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "P0-CHECKLIST.md",
+      "unchanged": true
+    },
+    {
+      "path": "VALIDATION.md",
+      "unchanged": true
+    },
+    {
+      "path": "docs/P1-B.md",
+      "unchanged": true
+    },
+    {
+      "path": "e2e/p1c.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "e2e/p1d.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/storage/db.ts",
+      "unchanged": true
+    },
+    {
+      "path": "PROJECT-STATUS.md",
+      "originalBytesPreserved": true,
+      "increment": "P2-A section only"
+    },
+    {
+      "path": "P1-PROGRESS.md",
+      "originalBytesPreserved": true,
+      "increment": "P2-A section only"
+    },
+    {
+      "path": "README.md",
+      "originalBytesPreserved": true,
+      "increment": "P2-A section only"
+    }
+  ]
+}

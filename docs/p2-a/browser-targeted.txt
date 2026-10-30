@@ -1,0 +1,14 @@
+
+Running 3 tests using 1 worker
+
+  ok 1 e2e\subgraphs.spec.ts:6:1 › canvas extraction, parameter editing, execution, favorites and durable reload (3.4s)
+  ok 2 e2e\subgraphs.spec.ts:33:1 › production Worker inherits nested budgets, retains sources and terminates with partial results (2.6s)
+  ok 3 e2e\subgraphs.spec.ts:61:1 › nested production Worker watchdog expires while a resource page is blocked (11.2s)
+
+  3 passed (22.5s)
+[WebServer] (node:142868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:69728) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:69804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

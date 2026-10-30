@@ -1,0 +1,56 @@
+
+Running 5 tests using 1 worker
+
+  ok 1 e2e\subgraph-performance.spec.ts:6:1 › 300 nested call instances stream a virtual million-entry resource with sampled heap bounds (1.2s)
+  ok 2 e2e\subgraphs.spec.ts:6:1 › empty definition, copy and cross-workflow reuse survive reload (3.3s)
+  x  3 e2e\subgraphs.spec.ts:31:1 › canvas extraction, parameter editing, execution, favorites and durable reload (9.0s)
+  ok 4 e2e\subgraphs.spec.ts:64:1 › production Worker inherits nested budgets, retains sources and terminates with partial results (2.9s)
+  ok 5 e2e\subgraphs.spec.ts:93:1 › nested production Worker watchdog expires while a resource page is blocked (11.4s)
+
+
+  1) e2e\subgraphs.spec.ts:31:1 › canvas extraction, parameter editing, execution, favorites and durable reload
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.candidate-name').first()
+    Expected substring: "光"
+    Received string:    "月山海飞行员2 个来源片段"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" locator('.candidate-name').first() with timeout 5000ms
+      - waiting for locator('.candidate-name').first()
+        14 × locator resolved to <button title="查看名字来源" class="candidate-name">…</button>
+           - unexpected value "月山海飞行员2 个来源片段"
+
+
+      59 |   await page.getByRole("button", { name: "应用到节点", exact: true }).click();
+      60 |   await page.getByRole("button", { name: "节点画布", exact: true }).click();
+    > 61 |   await page.getByRole("button", { name: /^运行工作流/ }).click(); await expect(page.locator(".candidate-name").first()).toContainText("光");
+         |                                                                                                                     ^
+      62 | });
+      63 |
+      64 | test("production Worker inherits nested budgets, retains sources and terminates with partial results", async ({ page }) => {
+        at C:\Users\someb\AppData\Local\Temp\glyphforge-p2-a-isolated-iCFgSN\e2e\subgraphs.spec.ts:61:117
+
+    Error Context: test-results\subgraphs-canvas-extractio-49334-avorites-and-durable-reload\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\subgraphs-canvas-extractio-49334-avorites-and-durable-reload\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\subgraphs-canvas-extractio-49334-avorites-and-durable-reload\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\subgraphs.spec.ts:31:1 › canvas extraction, parameter editing, execution, favorites and durable reload
+  4 passed (39.7s)
+[WebServer] (node:20348) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:156068) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:146508) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:164672) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

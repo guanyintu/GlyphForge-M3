@@ -1,7 +1,8 @@
 import { ContractError, diagnose, executionBudget, nodeResourceBindings, normalizeParams, requireResourceKind } from "./contracts";
 import type { ResourceMetadataReader } from "./contracts";
 import { operatorRegistry } from "./operators";
-import type { Candidate, RuleNode, Workflow } from "./model";
+import type { Candidate, CandidateSequence, Params, RuleNode, Workflow } from "./model";
+import { callBindings, definitionFor, MAX_CALL_DEPTH } from "./subgraphs";
 import { validateGraph } from "./script";
 
 export type ResourceReader = (
@@ -53,23 +54,36 @@ export async function execute(
         elapsed: performance.now() - started,
       });
   }
-  async function* evaluate(n: RuleNode): AsyncGenerator<Candidate> {
+  async function* evaluate(n: RuleNode, scope = nodes, bindings: Params = {}, args: Record<string, () => CandidateSequence> = {}, depth = 0, path = ""): AsyncGenerator<Candidate> {
     try {
       tick();
-      if (hooks.resourceMetadata) for (const binding of nodeResourceBindings(n.op, normalizeParams(n.op, n.params))) {
+      if (n.op === "argument") { yield* args[String(n.params.name)](); return; }
+      if (n.op === "call") {
+        if (depth >= MAX_CALL_DEPTH) throw new ContractError({ code: "BUDGET", message: `子图调用深度超过 ${MAX_CALL_DEPTH}` });
+        const d = definitionFor(n, workflow.subgraphs);
+        const local = callBindings(n, d, bindings);
+        const sequences = Object.fromEntries(d.parameters.filter(p => p.type === "CandidateSequence").map((p, i) => [p.name, () => evaluate(scope.get(n.inputs[i])!, scope, bindings, args, depth, path)]));
+        const inner = new Map(d.nodes.map(n => [n.id, n]));
+        yield* evaluate(inner.get(d.output)!, inner, local, sequences, depth + 1, `${path}${n.id}/`);
+        return;
+      }
+      const params = { ...n.params };
+      for (const [target, ref] of Object.entries(n.parameterBindings ?? {})) params[target] = bindings[ref];
+      const bound = { ...n, params: normalizeParams(n.op, params) };
+      if (hooks.resourceMetadata) for (const binding of nodeResourceBindings(n.op, bound.params)) {
         await requireResourceKind(hooks.resourceMetadata, binding.id, binding.pair);
         tick();
       }
       yield* operatorRegistry[n.op].execute({
-        node: n,
+        node: bound,
         seed: workflow.seed,
         tick,
         read: reader,
         resourceMetadata: hooks.resourceMetadata,
-        input: (index) => evaluate(nodes.get(n.inputs[index])!),
+        input: (index) => evaluate(scope.get(n.inputs[index])!, scope, bindings, args, depth, path),
       });
     } catch (error) {
-      throw diagnose(error, { nodeId: n.id, operator: n.op });
+      throw diagnose(error, { nodeId: `${path}${n.id}`, operator: n.op, line: n.line });
     }
   }
   for await (const value of evaluate(

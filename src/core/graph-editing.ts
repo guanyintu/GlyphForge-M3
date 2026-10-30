@@ -1,3 +1,5 @@
+import { inputCount, mergeDefinitions, reachableDefinitions } from "./subgraphs";
+import { validateDefinitions } from "./script";
 import { normalizeParams } from "./contracts";
 import type { RuleNode, Workflow } from "./model";
 import { operators } from "./model";
@@ -8,6 +10,7 @@ export interface NodeClipboard {
   nodes: RuleNode[];
   layout: Workflow["layout"];
   groups: Workflow["groups"];
+  subgraphs?: Workflow["subgraphs"];
 }
 export function copyNodes(
   workflow: Workflow,
@@ -19,6 +22,7 @@ export function copyNodes(
     format: "glyphforge-nodes",
     version: 1,
     nodes,
+    subgraphs: reachableDefinitions(nodes, workflow.subgraphs),
     layout: Object.fromEntries(
       nodes.map((n) => [n.id, nodePosition(workflow, n.id)]),
     ),
@@ -91,6 +95,8 @@ export function pasteNodes(
     payload.nodes.length + workflow.nodes.length > 200
   )
     throw new Error("剪贴板格式错误或节点超过 200 个");
+  const merged = mergeDefinitions(workflow.subgraphs, payload.subgraphs);
+  validateDefinitions({ ...workflow, subgraphs: merged.definitions });
   const originalIds = new Set<string>();
   payload.nodes.forEach((n) => {
     if (
@@ -101,7 +107,7 @@ export function pasteNodes(
       !n.params ||
       !Array.isArray(n.inputs) ||
       n.inputs.some((id) => typeof id !== "string") ||
-      n.inputs.length !== operators[n.op].inputs
+      n.inputs.length !== inputCount(n, payload.subgraphs)
     )
       throw new Error("节点格式无效");
     originalIds.add(n.id);
@@ -123,7 +129,7 @@ export function pasteNodes(
       y: point && Number.isFinite(point.y) ? point.y + 70 : 250,
     };
     return {
-      ...structuredClone(n),
+      ...merged.rewrite(structuredClone(n)),
       params: normalizeParams(n.op, n.params),
       id,
       inputs: n.inputs.map((input) => {
@@ -143,6 +149,7 @@ export function pasteNodes(
   return {
     workflow: {
       ...workflow,
+      subgraphs: merged.definitions,
       nodes: [...workflow.nodes, ...nodes],
       layout,
       groups: [...(workflow.groups || []), ...groups],

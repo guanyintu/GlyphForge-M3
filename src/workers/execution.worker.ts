@@ -10,6 +10,7 @@ self.onmessage = async (event: MessageEvent<Workflow | { workflow: Workflow; run
   const keep = managed ? event.data.keep : 20;
   let release: (() => void) | undefined;
   let watchdog: ReturnType<typeof setTimeout> | undefined;
+  let expired = false;
   try {
     if (!managed) { release = await acquireRunLock(runId); await beginRun(workflow, runId); }
     const record = await db.runs.get(runId);
@@ -17,10 +18,11 @@ self.onmessage = async (event: MessageEvent<Workflow | { workflow: Workflow; run
     const versions = record.versions;
     self.postMessage({ type: "started", runId });
     watchdog = setTimeout(() => {
-      void finishRun(runId, "error", "达到 10 秒执行时间上限").finally(() => {
-        self.postMessage({ type: "error", message: "达到 10 秒执行时间上限，请缩小词库或调整条件" });
-        self.close();
-      });
+      expired = true;
+      // Storage may itself be blocked. Notify the owner first so its hard stop
+      // and terminal-state retry do not depend on this pending transaction.
+      self.postMessage({ type: "error", message: "达到 10 秒执行时间上限，请缩小词库或调整条件", diagnostic: { code: "BUDGET", message: "达到 10 秒执行时间上限" } });
+      void finishRun(runId, "error", "达到 10 秒执行时间上限").catch(() => {}).finally(() => self.close());
     }, executionBudget.milliseconds);
     const stats = await execute(workflow, async function* (id, seed) {
       if ((await db.resources.get(id))?.version !== versions[id]) throw new Error("词库在运行期间发生更改，请重新生成");
@@ -40,6 +42,7 @@ self.onmessage = async (event: MessageEvent<Workflow | { workflow: Workflow; run
     if (!managed) try { await pruneHistory(keep); } catch (e) { cleanupError = String(e); }
     if ((await db.runs.get(runId))?.status === "done") self.postMessage({ type: "done", stats, cleanupError });
   } catch (error) {
+    if (expired) return; // The watchdog already sent the terminal notification.
     const message = error instanceof Error ? error.message : "生成失败";
     try { await finishRun(runId, "error", message); } catch { /* UI/next boot retries recovery if storage failed. */ }
     let cleanupError = "";

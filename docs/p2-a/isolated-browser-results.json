@@ -1,0 +1,305 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "e2e/subgraphs.spec.ts",
+      "e2e/subgraph-performance.spec.ts",
+      "--config",
+      "playwright.isolated.config.ts"
+    ],
+    "configFile": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2-a-isolated-iCFgSN\\playwright.isolated.config.ts",
+    "rootDir": "C:/Users/someb/AppData/Local/Temp/glyphforge-p2-a-isolated-iCFgSN/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/someb/AppData/Local/Temp/glyphforge-p2-a-isolated-iCFgSN/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/someb/AppData/Local/Temp/glyphforge-p2-a-isolated-iCFgSN/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2-a-isolated-iCFgSN\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2-a-isolated-iCFgSN\\e2e",
+        "snapshotDir": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2-a-isolated-iCFgSN\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "launchOptions": {
+            "args": [
+              "--enable-precise-memory-info"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4176",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "pnpm exec vite preview --host 127.0.0.1 --port 4176 --strictPort",
+      "url": "http://127.0.0.1:4176",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "subgraph-performance.spec.ts",
+      "file": "subgraph-performance.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "300 nested call instances stream a virtual million-entry resource with sampled heap bounds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1041,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T22:19:59.551Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7f98b347452eec20b4f7-45e634ab05c6de534d5c",
+          "file": "subgraph-performance.spec.ts",
+          "line": 6,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "subgraphs.spec.ts",
+      "file": "subgraphs.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "empty definition, copy and cross-workflow reuse survive reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3395,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T22:20:03.678Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9620351288a6ec27ebdf-e581b2055366a70be162",
+          "file": "subgraphs.spec.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "canvas extraction, parameter editing, execution, favorites and durable reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4645,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T22:20:10.050Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9620351288a6ec27ebdf-83528971e28db0bd3489",
+          "file": "subgraphs.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "production Worker inherits nested budgets, retains sources and terminates with partial results",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2991,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T22:20:14.705Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9620351288a6ec27ebdf-94c62b9b61ee5c6c3d8d",
+          "file": "subgraphs.spec.ts",
+          "line": 69,
+          "column": 1
+        },
+        {
+          "title": "nested production Worker watchdog expires while a resource page is blocked",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 40000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11521,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T22:20:17.702Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9620351288a6ec27ebdf-180303152f3308591fc3",
+          "file": "subgraphs.spec.ts",
+          "line": 98,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-30T22:19:57.173Z",
+    "duration": 32906.408,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,53 @@
+[WebServer] (node:50892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:69852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:143312) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 e2e\subgraphs.spec.ts:6:1 › canvas extraction, parameter editing, execution, favorites and durable reload (7.9s)
+(node:106208) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 e2e\subgraphs.spec.ts:33:1 › production Worker inherits nested budgets, retains sources and terminates with partial results (2.7s)
+
+
+  1) e2e\subgraphs.spec.ts:6:1 › canvas extraction, parameter editing, execution, favorites and durable reload
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByLabel('开启动画')
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeDisabled" getByLabel('开启动画') with timeout 5000ms
+      - waiting for getByLabel('开启动画')
+        14 × locator resolved to <input checked type="checkbox" aria-label="开启动画"/>
+           - unexpected value "enabled"
+
+
+      24 |   await expect(page.locator('.forge-node').filter({ hasText: "浏览器命名函数" })).toBeVisible();
+      25 |   await page.getByRole("button", { name: /^运行工作流/ }).click(); await expect(page.locator(".candidate-name").first()).toContainText("星");
+    > 26 |   await page.emulateMedia({ reducedMotion: "reduce" }); await expect(page.getByLabel("开启动画")).toBeDisabled();
+         |                                                                                               ^
+      27 |   await page.getByRole("button", { name: "子图与函数", exact: true }).click(); await panel.getByRole("button", { name: "添加调用", exact: true }).last().click(); await panel.getByRole("button", { name: "返回主图", exact: false }).click();
+      28 |   await page.locator('.react-flow__node').last().click(); await page.getByLabel("调用序列 input1").selectOption("a"); await page.getByLabel("调用序列 input2").selectOption("b"); await page.getByLabel("调用参数 tag").fill("月"); await page.getByRole("button", { name: "连接到结果输出", exact: true }).click();
+      29 |   await page.getByRole("button", { name: /^运行工作流/ }).click(); await expect(page.locator(".candidate-name").first()).toContainText("月"); expect(errors).toEqual([]);
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\subgraphs.spec.ts:26:95
+
+    Error Context: test-results\subgraphs-canvas-extractio-49334-avorites-and-durable-reload\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\subgraphs-canvas-extractio-49334-avorites-and-durable-reload\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\subgraphs-canvas-extractio-49334-avorites-and-durable-reload\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\subgraphs.spec.ts:6:1 › canvas extraction, parameter editing, execution, favorites and durable reload
+  1 passed (19.6s)

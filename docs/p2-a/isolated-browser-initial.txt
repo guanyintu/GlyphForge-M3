@@ -1,0 +1,64 @@
+
+Running 5 tests using 1 worker
+
+  ok 1 e2e\subgraph-performance.spec.ts:6:1 › 300 nested call instances stream a virtual million-entry resource with sampled heap bounds (1.2s)
+  x  2 e2e\subgraphs.spec.ts:6:1 › empty definition, copy and cross-workflow reuse survive reload (8.4s)
+  ok 3 e2e\subgraphs.spec.ts:31:1 › canvas extraction, parameter editing, execution, favorites and durable reload (4.0s)
+  ok 4 e2e\subgraphs.spec.ts:64:1 › production Worker inherits nested budgets, retains sources and terminates with partial results (2.5s)
+  ok 5 e2e\subgraphs.spec.ts:93:1 › nested production Worker watchdog expires while a resource page is blocked (11.4s)
+
+
+  1) e2e\subgraphs.spec.ts:6:1 › empty definition, copy and cross-workflow reuse survive reload ────
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: locator('.candidate-name').first()
+    Timeout: 5000ms
+    - Expected  - 2
+    + Received  + 1
+
+    - 山海
+    - 1 个来源片段
+    + 山海1 个来源片段
+
+    Call log:
+      - Expect "toHaveText" locator('.candidate-name').first() with timeout 5000ms
+      - waiting for locator('.candidate-name').first()
+        13 × locator resolved to <button title="查看名字来源" class="candidate-name">…</button>
+           - unexpected value "山海1 个来源片段"
+
+
+      26 |   const first = await page.locator(".candidate-name").first().innerText();
+      27 |   await expect(page.getByText("已保存到本地", { exact: true })).toBeVisible(); await page.reload();
+    > 28 |   await page.getByRole("button", { name: /^运行工作流/ }).click(); await expect(page.locator(".candidate-name").first()).toHaveText(first);
+         |                                                                                                                     ^
+      29 | });
+      30 |
+      31 | test("canvas extraction, parameter editing, execution, favorites and durable reload", async ({ page }) => {
+        at C:\Users\someb\AppData\Local\Temp\glyphforge-p2-a-isolated-iCFgSN\e2e\subgraphs.spec.ts:28:117
+
+    Error Context: test-results\subgraphs-empty-definition-a0591-rkflow-reuse-survive-reload\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\subgraphs-empty-definition-a0591-rkflow-reuse-survive-reload\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\subgraphs-empty-definition-a0591-rkflow-reuse-survive-reload\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\subgraphs.spec.ts:6:1 › empty definition, copy and cross-workflow reuse survive reload ─────
+  4 passed (41.2s)
+[WebServer] (node:122312) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:45268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:45268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:157688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:78832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:146428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

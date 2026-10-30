@@ -1,6 +1,9 @@
 import { normalizeParams, diagnose, executionBudget } from "./contracts";
 import { operators } from "./model";
 import type { Op, RuleNode, Workflow } from "./model";
+import type { SubgraphDefinition } from "./model";
+import { inputCount, validateScopedNode, validateSubgraphs } from "./subgraphs";
+import { parseFunctions, printFunctions } from "./subgraph-script";
 import { isChineseOp } from "./chinese-definitions";
 import {
   ProgramParser,
@@ -10,6 +13,7 @@ import {
 } from "./program";
 const json = JSON.stringify;
 export function toScript(workflow: Workflow): string {
+  if (workflow.subgraphs?.length || workflow.nodes.some(n => n.op === "call")) return printFunctions(workflow);
   const lines = [
     "// NameScript · 节点与代码，共用一份灵感",
     "// 修改后点击「应用到节点」，再运行工作流",
@@ -151,6 +155,7 @@ function parseLegacyScript(source: string, base: Workflow): Workflow {
   return workflow;
 }
 export function parseScript(source: string, base: Workflow): Workflow {
+  if (/^\s*(?:\/\/[^\n]*\n\s*)*fn\b/m.test(source)) return parseFunctions(source, base);
   const comments = source
     .split("\n")
     .filter((line) => line.trim().startsWith("//"))
@@ -236,18 +241,20 @@ export function validateNodeParameters(n: RuleNode) {
   try {
     normalizeParams(n.op, n.params);
     if (n.op === "program") validateProgram(n.program!);
-  } catch (error) { throw diagnose(error, { nodeId: n.id, operator: n.op }); }
+  } catch (error) { throw diagnose(error, { nodeId: n.id, operator: n.op, line: n.line }); }
 }
 
+export function validateDefinitions(workflow: Workflow) { validateSubgraphs(workflow, validateGraphBody); }
 export function validateGraph(workflow: Workflow) {
-  try { validateGraphBody(workflow); }
+  try { validateSubgraphs(workflow, validateGraphBody); validateGraphBody(workflow); }
   catch (error) { throw diagnose(error, { code: "TYPE" }); }
 }
-function validateGraphBody(workflow: Workflow) {
+function validateGraphBody(workflow: Workflow, scope?: SubgraphDefinition) {
   if (!workflow.nodes.length || workflow.nodes.length > 200)
     throw new Error("工作流需要 1–200 个节点");
-  if (workflow.nodes.filter((n) => n.op === "output").length !== 1)
+  if (!scope && workflow.nodes.filter((n) => n.op === "output").length !== 1)
     throw new Error("请保留一个结果输出节点");
+  if (scope && (!workflow.nodes.some(n => n.id === scope.output) || workflow.nodes.some(n => n.op === "output"))) throw new Error("子图需要明确返回内部节点，不使用结果输出节点");
   const map = new Map(workflow.nodes.map((n) => [n.id, n]));
   if (map.size !== workflow.nodes.length) throw new Error("节点 ID 重复");
   if (
@@ -264,7 +271,8 @@ function validateGraphBody(workflow: Workflow) {
     if (done.has(n.id)) return;
     if (visiting.has(n.id)) throw new Error("检测到循环连线，请使用无环数据流");
     validateNodeParameters(n);
-    if (n.inputs.length !== operators[n.op].inputs || n.inputs.some(x => !map.has(x)))
+    validateScopedNode(n, workflow.subgraphs ?? [], scope);
+    if (n.inputs.length !== inputCount(n, workflow.subgraphs) || n.inputs.some(x => !map.has(x)))
       throw new Error(`${operators[n.op].name} 缺少有效输入`);
     visiting.add(n.id);
     n.inputs.forEach((id) => visit(map.get(id)!));

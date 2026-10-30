@@ -3,6 +3,7 @@ import type { Program } from "./program";
 import { chineseDefinitions } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
 export type Op =
+  | "call" | "argument"
   | "gamecheck"
   | "pairs" | "template" | "group"
   | ChineseOp
@@ -21,6 +22,25 @@ export interface RuleNode {
   inputs: string[];
   params: Params;
   program?: Program;
+  /** Explicit lexical parameter references; never evaluated as JS. */
+  parameterBindings?: Record<string, string>;
+  call?: { definitionId: string; version: number; bindings: Params };
+  line?: number;
+}
+export interface SubgraphParameter {
+  name: string;
+  type: import("./contracts").ScalarType | "CandidateSequence";
+  default?: Params[string];
+}
+export interface SubgraphDefinition {
+  id: string;
+  version: number;
+  name: string;
+  parameters: SubgraphParameter[];
+  returns: "CandidateSequence";
+  nodes: RuleNode[];
+  output: string;
+  layout: Workflow["layout"];
 }
 export interface Workflow {
   version: 1;
@@ -32,6 +52,7 @@ export interface Workflow {
   limit: number;
   comments?: string[];
   groups?: { id: string; name: string; nodeIds: string[] }[];
+  subgraphs?: SubgraphDefinition[];
 }
 export interface Resource {
   id: string;
@@ -120,6 +141,8 @@ const builtinOperators: Record<
     "version" | "inputTypes" | "outputType" | "deterministic" | "streaming"
   >
 > = {
+  call: { id: "call", name: "子图调用", category: "函数", description: "调用稳定版本的参数化子图", inputs: 0, color: "purple", defaults: {} },
+  argument: { id: "argument", name: "序列参数", category: "函数", description: "显式的子图序列输入", inputs: 0, color: "green", defaults: { name: "input" } },
   gamecheck: { id: "gamecheck", name: "游戏 ID 检查", category: "处理", description: "复用可配置的 Unicode 长度和字符规则，筛选或标注结果", inputs: 1, color: "orange", defaults: { rules: JSON.stringify(defaultGameRule), mode: "filter" } },
   pairs: {
     id: "pairs", name: "关系词对", category: "数据源", description: "按行读取明确的关联关系，左右端始终绑定",

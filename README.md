@@ -89,3 +89,10 @@ for a in @animals {
 React Flow 提供节点交互；语义和布局不依赖其内部状态，执行器通过注册表读取算子。CodeMirror 按需加载。现有存储从 schema 1→2→3 加性升级，保留原词库、工作流、收藏及运行历史；schema 3 仅新增关系行表。普通分享继续使用 v2，含关系依赖时使用 v3，均可导入。
 
 React / React DOM、React Flow、CodeMirror、Vite、Lucide 使用 MIT 许可，Dexie / dexie-react-hooks 使用 Apache-2.0；版本锁定在 pnpm-lock.yaml。P1-A 新增 pinyin-pro（MIT）、OpenCC JS（MIT / 数据 Apache-2.0）、CJK Decomposition（选择 Apache-2.0）及 Unihan（Unicode V3）。来源、固定版本、覆盖范围及再生成说明见 [P1-A 文档](docs/P1-A.md)，许可副本随 public/licenses 发布。参考：[React](https://react.dev/versions)、[React Flow](https://reactflow.dev/learn)、[xyflow 许可](https://xyflow.com/open-source)。
+
+
+## 参数化子图与可复用函数（P2-A）
+
+在主画布底部打开「子图与函数」。多选单出口节点进行封装，配置序列输入与标量参数，编辑内部图并选择返回节点；保存后可在同一或其他工作流中复用，调用实例参数独立。NameScript 支持显式 fn/let/return 序列函数往返。含子图的分享包为v5，旧v1～v4仍可导入。
+
+支持范围、版本语义、共享预算、验收和限制见 [P2-A 架构](docs/P2-A-ARCHITECTURE.md) 与 [验收](docs/P2-A-VALIDATION.md)。

@@ -149,7 +149,7 @@ export class ReverseSearcher {
     }
     check();
     const latest = await this.target.resources.toArray();
-    if (JSON.stringify(latest.filter(r => ids.has(r.id)).map(r => [r.id, r.version]).sort()) !== signature) throw new Error("资源在检索期间发生变化，请重新检索");
+    if (JSON.stringify(latest.filter(r => !options.resourceIds || ids.has(r.id)).map(r => [r.id, r.version]).sort()) !== signature) throw new Error("资源在检索期间发生变化，请重新检索");
     result.warnings = [...new Set(result.warnings)];
     const { known: _, possibleTemplates: __, ...cacheValue } = result;
     this.cache.set(key, structuredClone(cacheValue));

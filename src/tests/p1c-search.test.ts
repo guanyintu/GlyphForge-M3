@@ -109,3 +109,7 @@ it("can cancel an optional phonetic scan after its first keyset page", async () 
   await expect(searcher.search("yueliang", { pinyin: true }, controller.signal, undefined, (_, count) => { scanned = count; controller.abort(); })).rejects.toThrow("取消");
   expect(scanned).toBeGreaterThan(0);
 });
+
+it("invalidates an all-library query when a new resource appears during batching", async () => {
+  await expect(searcher.search("月亮", {}, undefined, () => { void db.resources.put({ id: "new-library", name: "new", kind: "word", count: 0, version: 1, color: "green", description: "", updatedAt: 0 }); })).rejects.toThrow("发生变化");
+});

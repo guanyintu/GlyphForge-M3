@@ -7,13 +7,13 @@ rendering chunks...
 computing gzip size...
 dist/index.html                               0.88 kB │ gzip:   0.54 kB
 dist/assets/chinese-C9qFakWJ.js               7.36 kB
-dist/assets/chinese-CjtSq9_y.js               7.37 kB
+dist/assets/chinese-DNNQw-Eg.js               7.37 kB
 dist/assets/chinese-By7cXr-Z.js               7.37 kB
 dist/assets/lab.worker-DI-7J3zc.js           28.73 kB
 dist/assets/t2cn-D2IW0CH8.js                109.07 kB
 dist/assets/resources.worker-rRZc3BHr.js    117.46 kB
 dist/assets/execution.worker-DXAjL1iG.js    132.35 kB
-dist/assets/reverse.worker-DbAtWbmU.js      136.14 kB
+dist/assets/reverse.worker-ieXYOXK-.js      136.16 kB
 dist/assets/index-DGLEpTeg.js               313.78 kB
 dist/assets/readings-DmiNxDN8.js            633.08 kB
 dist/assets/cn2t-DDyjQPTw.js              1,100.39 kB
@@ -23,31 +23,31 @@ dist/assets/decomposition-Qix4g1h5.js     2,456.57 kB
 dist/assets/index-6ySddCAi.css               69.45 kB │ gzip:  14.93 kB
 dist/assets/storage-CvBhfY6t.js             109.81 kB │ gzip:  36.16 kB
 dist/assets/react-flow-C3qdJseD.js          184.87 kB │ gzip:  60.52 kB
-dist/assets/index-fFgiO1n-.js               369.35 kB │ gzip: 119.07 kB
+dist/assets/index-PpjgvHBR.js               369.35 kB │ gzip: 119.07 kB
 dist/assets/index-Bk0DJwzC.js               400.75 kB │ gzip: 130.77 kB
-✓ built in 10.08s
-[WebServer] (node:106276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+✓ built in 10.02s
+[WebServer] (node:142744) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 [WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
-[WebServer] (node:56960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (node:39764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 [WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
 
 Running 10 tests using 1 worker
 
-(node:134724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:162568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-  ok  1 e2e\audit.spec.ts:6:1 › real UI: lab → saved resource → workflow and reload (7.5s)
-  ok  2 e2e\audit.spec.ts:47:1 › real UI: relation editor saves, edits, deletes and survives reload (2.5s)
-AUDIT_RELATION_10000 {"importMs":2390.9000000953674,"runMs":439.2999999523163,"count":10000,"maxBatch":64,"correct":true}
-  ok  3 e2e\audit.spec.ts:76:1 › real IndexedDB: import and execute 10,000 relation rows (9.1s)
-  ok  4 e2e\audit.spec.ts:122:1 › real UI: editable relation recipe runs and persists (4.1s)
-  ok  5 e2e\audit.spec.ts:135:1 › real UI: concurrent entry edits increment versions and refresh indexes (1.5s)
-AUDIT_BROWSER_WORKER {"count":1000,"maxBatch":64,"steps":10026,"milliseconds":51.09999990463257}
+  ok  1 e2e\audit.spec.ts:6:1 › real UI: lab → saved resource → workflow and reload (2.4s)
+  ok  2 e2e\audit.spec.ts:47:1 › real UI: relation editor saves, edits, deletes and survives reload (4.2s)
+AUDIT_RELATION_10000 {"importMs":2466.2000000476837,"runMs":440.59999990463257,"count":10000,"maxBatch":64,"correct":true}
+  ok  3 e2e\audit.spec.ts:76:1 › real IndexedDB: import and execute 10,000 relation rows (4.7s)
+  ok  4 e2e\audit.spec.ts:122:1 › real UI: editable relation recipe runs and persists (3.3s)
+  ok  5 e2e\audit.spec.ts:135:1 › real UI: concurrent entry edits increment versions and refresh indexes (2.4s)
+AUDIT_BROWSER_WORKER {"count":1000,"maxBatch":64,"steps":10026,"milliseconds":51.799999952316284}
 AUDIT_BROWSER_CANCEL {"steps":1000,"lateMessages":0,"terminateMs":0}
-  ok  6 e2e\audit.spec.ts:167:1 › production Workers: bounded nested execution, persistence and hard cancellation (2.6s)
-  ok  7 e2e\p1c.spec.ts:4:1 › reverse UI separates provenance, opens exact resources and builds executable workflow (3.9s)
-  ok  8 e2e\p1c.spec.ts:21:1 › relation direction can be edited, persisted and queried without reversing slots (2.5s)
-  ok  9 e2e\p1c.spec.ts:31:1 › game rule presets are editable in the workbench and survive reload (2.7s)
-P1C_BROWSER_BENCH {"entries":100002,"loadMs":3072.5,"coldMs":25.09999990463257,"warmMs":0.9000000953674316,"cacheHit":true,"deepMs":23.09999990463257,"deepMatches":[{"text":"词099999","resourceId":"large-a","entryId":100058,"start":0,"end":7,"utf16Start":0,"utf16End":7,"type":"exact"}],"maxBatch":2,"coldMatches":[{"text":"月亮","resourceId":"large-a","entryId":100059,"start":0,"end":2,"utf16Start":0,"utf16End":2,"type":"fragment"},{"text":"邮差","resourceId":"large-b","entryId":100060,"start":2,"end":4,"utf16Start":2,"utf16End":4,"type":"fragment"}],"complete":true,"changedMatches":[{"text":"邮差","resourceId":"large-b","entryId":100060,"start":2,"end":4,"utf16Start":2,"utf16End":4,"type":"fragment"}],"changedCacheHit":false,"cancelMs":0,"cancelledAfterScanned":256,"messagesAfterCancel":0,"mainThreadSampledHeapBefore":9835540,"mainThreadSampledHeapAfter":7253125,"userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","hardwareConcurrency":20,"browserVersion":"156.0.8078.4"}
-  ok 10 e2e\p1c.spec.ts:39:1 › production reverse Worker: 100k indexed entries, batching, cache invalidation and active cancellation (4.6s)
+  ok  6 e2e\audit.spec.ts:167:1 › production Workers: bounded nested execution, persistence and hard cancellation (3.5s)
+  ok  7 e2e\p1c.spec.ts:4:1 › reverse UI separates provenance, opens exact resources and builds executable workflow (5.4s)
+  ok  8 e2e\p1c.spec.ts:21:1 › relation direction can be edited, persisted and queried without reversing slots (3.7s)
+  ok  9 e2e\p1c.spec.ts:31:1 › game rule presets are editable in the workbench and survive reload (5.4s)
+P1C_BROWSER_BENCH {"entries":100002,"loadMs":3285.600000143051,"coldMs":27.40000009536743,"warmMs":1.1999998092651367,"cacheHit":true,"deepMs":25.800000190734863,"deepMatches":[{"text":"词099999","resourceId":"large-a","entryId":100058,"start":0,"end":7,"utf16Start":0,"utf16End":7,"type":"exact"}],"maxBatch":2,"coldMatches":[{"text":"月亮","resourceId":"large-a","entryId":100059,"start":0,"end":2,"utf16Start":0,"utf16End":2,"type":"fragment"},{"text":"邮差","resourceId":"large-b","entryId":100060,"start":2,"end":4,"utf16Start":2,"utf16End":4,"type":"fragment"}],"complete":true,"changedMatches":[{"text":"邮差","resourceId":"large-b","entryId":100060,"start":2,"end":4,"utf16Start":2,"utf16End":4,"type":"fragment"}],"changedCacheHit":false,"cancelMs":0,"cancelledAfterScanned":256,"messagesAfterCancel":0,"mainThreadSampledHeapBefore":9812719,"mainThreadSampledHeapAfter":7012749,"userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","hardwareConcurrency":20,"browserVersion":"156.0.8078.4"}
+  ok 10 e2e\p1c.spec.ts:39:1 › production reverse Worker: 100k indexed entries, batching, cache invalidation and active cancellation (5.9s)
 
   10 passed (43.3s)

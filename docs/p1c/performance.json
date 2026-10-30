@@ -1,7 +1,7 @@
 {
   "AUDIT_RELATION_10000": {
-    "importMs": 2390.9000000953674,
-    "runMs": 439.2999999523163,
+    "importMs": 2466.2000000476837,
+    "runMs": 440.59999990463257,
     "count": 10000,
     "maxBatch": 64,
     "correct": true
@@ -10,7 +10,7 @@
     "count": 1000,
     "maxBatch": 64,
     "steps": 10026,
-    "milliseconds": 51.09999990463257
+    "milliseconds": 51.799999952316284
   },
   "AUDIT_BROWSER_CANCEL": {
     "steps": 1000,
@@ -19,11 +19,11 @@
   },
   "P1C_BROWSER_BENCH": {
     "entries": 100002,
-    "loadMs": 3072.5,
-    "coldMs": 25.09999990463257,
-    "warmMs": 0.9000000953674316,
+    "loadMs": 3285.600000143051,
+    "coldMs": 27.40000009536743,
+    "warmMs": 1.1999998092651367,
     "cacheHit": true,
-    "deepMs": 23.09999990463257,
+    "deepMs": 25.800000190734863,
     "deepMatches": [
       {
         "text": "词099999",
@@ -76,8 +76,8 @@
     "cancelMs": 0,
     "cancelledAfterScanned": 256,
     "messagesAfterCancel": 0,
-    "mainThreadSampledHeapBefore": 9835540,
-    "mainThreadSampledHeapAfter": 7253125,
+    "mainThreadSampledHeapBefore": 9812719,
+    "mainThreadSampledHeapAfter": 7012749,
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
     "hardwareConcurrency": 20,
     "browserVersion": "156.0.8078.4"

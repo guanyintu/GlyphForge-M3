@@ -1,6 +1,8 @@
 import { glyphs, operators } from "./model";
 import type { Candidate, Op, OperatorDefinition, RuleNode } from "./model";
 import { executeProgram } from "./program";
+import { chineseDefinitions } from "./chinese-definitions";
+import type { ChineseOp } from "./chinese-definitions";
 export interface OperatorContext {
   node: RuleNode;
   seed: number;
@@ -20,6 +22,15 @@ export function boundedText(text: string) {
   return text;
 }
 const executors: Record<Op, RegisteredOperator["execute"]> = {
+  ...Object.fromEntries(Object.keys(chineseDefinitions).map(op => [op, async function* (c: OperatorContext) {
+    const { transformChinese } = await import("./chinese");
+    for await (const item of c.input(0)) {
+      for await (const result of transformChinese(op as ChineseOp, item, c.node.params, c.seed, c.tick)) {
+        c.tick();
+        yield { ...result, text: boundedText(result.text) };
+      }
+    }
+  }])) as unknown as Record<ChineseOp, RegisteredOperator["execute"]>,
   resource: async function* (c) {
     for await (const item of c.read(String(c.node.params.resourceId), c.seed)) {
       c.tick();

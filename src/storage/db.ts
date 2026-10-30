@@ -183,6 +183,13 @@ export async function addEntries(
     });
   });
 }
+export async function saveNewResource(meta: Resource, texts: string[], target: ForgeDatabase = db) {
+  await target.transaction("rw", target.resources, target.entries, async () => {
+    await target.resources.add({ ...meta, count: 0 });
+    if (texts.length) await addEntries(meta.id, texts, target);
+  });
+  return (await target.resources.get(meta.id))!;
+}
 export async function* readResource(
   id: string,
   seed: number,

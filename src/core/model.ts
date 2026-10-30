@@ -1,5 +1,8 @@
 import type { Program } from "./program";
+import { chineseDefinitions } from "./chinese-definitions";
+import type { ChineseOp } from "./chinese-definitions";
 export type Op =
+  | ChineseOp
   | "program"
   | "resource"
   | "pattern"
@@ -49,6 +52,7 @@ export interface SourcePart {
 }
 export interface Candidate {
   text: string;
+  notes?: string[];
   parts: SourcePart[];
   workflowId?: string;
   seed?: number;
@@ -79,6 +83,7 @@ const builtinOperators: Record<
     "version" | "inputTypes" | "outputType" | "deterministic" | "streaming"
   >
 > = {
+  ...chineseDefinitions,
   program: {
     id: "program",
     name: "循环与条件",

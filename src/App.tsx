@@ -41,8 +41,9 @@ import {
 import GraphEditor, { Inspector, NodeLibrary } from "./components/GraphEditor";
 import Results from "./components/Results";
 import { ResourceModal, ResourcePage } from "./components/Resources";
-import { ReverseSearch, TextLab } from "./components/Tools";
-import { addEntries, db, initialize } from "./storage/db";
+import { ReverseSearch } from "./components/Tools";
+import { TextLab } from "./components/TextLab";
+import { db, initialize, saveNewResource } from "./storage/db";
 import { createWorkflow, operators, unicodeMetrics } from "./core/model";
 import type { Candidate, Op, Resource, Workflow } from "./core/model";
 import { parseScript, toScript, validateGraph } from "./core/script";
@@ -440,13 +441,8 @@ export default function App() {
       version: 1,
       updatedAt: Date.now(),
     };
-    await db.resources.add(meta);
-    if (texts)
-      await addEntries(
-        id,
-        texts.map((c) => c.text),
-      );
-    setResource(meta);
+    const saved = await saveNewResource(meta, texts?.map(c => c.text) || []);
+    setResource(saved);
   }
   async function favorite(c: Candidate) {
     try {
@@ -1380,6 +1376,7 @@ export default function App() {
                 {detail.workflowId ? "已知生成来源" : "文字实验结果"}
               </div>
               <div className="detail-parts">
+                {detail.notes?.length ? <p className="field-note">{[...new Set(detail.notes)].join("；")}</p> : null}
                 {detailRun ? (
                   <p className="field-note">
                     运行时配方：{detailRun.workflow.name} ·{" "}

@@ -1,5 +1,8 @@
 import { glyphs } from "./model";
 import type { Candidate, SourcePart } from "./model";
+import { chineseDefinitions, isChineseOp } from "./chinese-definitions";
+import type { ChineseOp } from "./chinese-definitions";
+import type { Params } from "./model";
 
 export type Expr =
   | { kind: "literal"; value: string | number | boolean; line: number }
@@ -272,6 +275,9 @@ export class ProgramParser {
 type ValueType =
   "string" | "number" | "boolean" | "strings" | "numbers" | "booleans";
 const signatures: Record<string, { args: ValueType[]; result: ValueType }> = {
+  ...Object.fromEntries(Object.entries(chineseDefinitions).map(([op, def]) => [op, {
+    args: ["string", ...Object.values(def.defaults).map(v => typeof v)] as ValueType[], result: "strings" as const,
+  }])),
   resource: { args: ["string"], result: "strings" },
   range: { args: ["number", "number"], result: "numbers" },
   length: { args: ["string"], result: "number" },
@@ -293,6 +299,7 @@ export function validateProgram(program: Program) {
     expr: Expr,
     scope: Map<string, ValueType>,
     depth = 0,
+    literalLimit = 256,
   ): ValueType {
     if (!expr || ++size > 2000 || depth > 40)
       throw new Error("程序超过结构限额");
@@ -303,7 +310,7 @@ export function validateProgram(program: Program) {
       case "literal":
         if (
           !["string", "number", "boolean"].includes(typeof expr.value) ||
-          (typeof expr.value === "string" && expr.value.length > 256) ||
+          (typeof expr.value === "string" && expr.value.length > literalLimit) ||
           (typeof expr.value === "number" && !Number.isFinite(expr.value))
         )
           return error("常量类型或长度无效");
@@ -335,7 +342,7 @@ export function validateProgram(program: Program) {
         const fn = signatures[expr.name];
         if (
           expr.args.length !== fn.args.length ||
-          expr.args.some((x, i) => check(x, scope, depth + 1) !== fn.args[i])
+          expr.args.some((x, i) => check(x, scope, depth + 1, expr.name === "mapchars" && i === 1 ? 16384 : 256) !== fn.args[i])
         )
           return error(`${expr.name} 参数需要 (${fn.args.join(", ")})`);
         if (
@@ -511,24 +518,26 @@ interface Atom {
   type: "atom";
   value: string | number | boolean;
   parts: SourcePart[];
+  notes?: string[];
 }
 type Value =
   | Atom
   | { type: "resource"; id: string }
   | { type: "range"; from: number; to: number }
-  | { type: "list"; items: Atom[] };
+  | { type: "list"; items: Atom[] }
+  | { type: "chinese"; op: ChineseOp; input: Atom; params: Params };
 export async function* executeProgram(
   program: Program,
   reader: (id: string, seed: number) => AsyncIterable<Candidate>,
   seed: number,
   tick: () => void,
 ): AsyncGenerator<Candidate> {
-  const atom = (value: Atom["value"], parts: SourcePart[] = []): Atom => {
+  const atom = (value: Atom["value"], parts: SourcePart[] = [], notes?: string[]): Atom => {
     if (typeof value === "string" && value.length > 1024)
       throw new Error("中间文字超过 1024 个代码单元");
     if (typeof value === "number" && !Number.isFinite(value))
       throw new Error("数值超出有限范围");
-    return { type: "atom", value, parts };
+    return { type: "atom", value, parts, notes };
   };
   const scalar = (value: Value): Atom => {
     if (value.type !== "atom") throw new Error("需要标量值");
@@ -598,12 +607,17 @@ export async function* executeProgram(
         default:
           throw new Error("未知运算");
       }
-      return atom(result, [...a.parts, ...b.parts]);
+      return atom(result, [...a.parts, ...b.parts], [...(a.notes || []), ...(b.notes || [])]);
     }
     const args = e.args.map((x) => evaluate(x, env));
     const values = args.map((v) => scalar(v));
     const texts = values.map((v) => String(v.value));
     const parts = values.flatMap((v) => v.parts);
+    const notes = values.flatMap(v => v.notes || []);
+    if (isChineseOp(e.name)) {
+      const params = Object.fromEntries(Object.keys(chineseDefinitions[e.name].defaults).map((key, i) => [key, values[i + 1].value]));
+      return { type: "chinese", op: e.name, input: values[0], params };
+    }
     switch (e.name) {
       case "resource":
         return { type: "resource", id: texts[0] };
@@ -632,22 +646,27 @@ export async function* executeProgram(
           throw new Error("pattern 第一个参数需要 A/B 模式");
         return atom(
           texts[0].replace(/[AB]/g, (c) => (c === "A" ? texts[1] : texts[2])),
-          parts,
+          parts, notes,
         );
       case "concat":
-        return atom(texts[0] + texts[1], parts);
+        return atom(texts[0] + texts[1], parts, notes);
       case "prefix":
-        return atom(texts[1] + texts[0], parts);
+        return atom(texts[1] + texts[0], parts, notes);
       case "reverse":
-        return atom(glyphs(texts[0]).reverse().join(""), parts);
+        return atom(glyphs(texts[0]).reverse().join(""), parts, notes);
       case "text":
-        return atom(texts[0], parts);
+        return atom(texts[0], parts, notes);
       default:
         throw new Error("未知函数");
     }
   }
   async function* iterate(value: Value): AsyncGenerator<Atom> {
-    if (value.type === "resource") {
+    if (value.type === "chinese") {
+      const { transformChinese } = await import("./chinese");
+      for await (const item of transformChinese(value.op, { text: String(value.input.value), parts: value.input.parts, notes: value.input.notes }, value.params, seed, tick)) {
+        yield atom(item.text, item.parts, item.notes);
+      }
+    } else if (value.type === "resource") {
       for await (const c of reader(value.id, seed)) {
         tick();
         yield atom(c.text, c.parts);
@@ -697,7 +716,7 @@ export async function* executeProgram(
               ]),
             ).values(),
           ];
-          yield { text, parts };
+          yield { text, parts, ...(value.notes?.length ? { notes: [...new Set(value.notes)] } : {}) };
         }
       } catch (error) {
         if (error instanceof Error && !error.message.startsWith("第 "))

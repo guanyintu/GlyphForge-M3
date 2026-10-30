@@ -1,5 +1,6 @@
 import { operators } from "./model";
 import type { Op, RuleNode, Workflow } from "./model";
+import { isChineseOp, validateChineseParams } from "./chinese-definitions";
 import {
   ProgramParser,
   parseProgram,
@@ -33,6 +34,10 @@ export function toScript(workflow: Workflow): string {
     const [a = "missing", b = "missing"] = n.inputs;
     const p = n.params;
     let expr = "";
+    if (isChineseOp(n.op)) {
+      lines.push(`let ${n.id} = ${n.op}(${[a, ...Object.keys(operators[n.op].defaults).map(key => json(p[key]))].join(", ")});`);
+      return;
+    }
     switch (n.op) {
       case "program":
         lines.push(
@@ -113,16 +118,7 @@ function parseLegacyScript(source: string, base: Workflow): Workflow {
           ? [rawArgs[1], rawArgs[2], rawArgs[0]]
           : rawArgs;
       const def = operators[op];
-      const expected = {
-        program: 0,
-        resource: 1,
-        pattern: 3,
-        concat: 3,
-        filter: 4,
-        prefix: 2,
-        reverse: 1,
-        output: 1,
-      }[op];
+      const expected = def.inputs + Object.keys(def.defaults).length;
       if (args.length !== expected)
         throw new Error(`${op} 需要 ${expected} 个参数`);
       const inputs = args.slice(0, def.inputs);
@@ -131,16 +127,7 @@ function parseLegacyScript(source: string, base: Workflow): Workflow {
       const values = args
         .slice(def.inputs)
         .map((arg) => JSON.parse(arg) as unknown);
-      const keys = {
-        program: [],
-        resource: ["resourceId"],
-        pattern: ["template"],
-        concat: ["separator"],
-        filter: ["maxLength", "includes", "excludes"],
-        prefix: ["text"],
-        reverse: [],
-        output: [],
-      }[op];
+      const keys = Object.keys(def.defaults);
       const params = { ...def.defaults };
       keys.forEach((key, i) => {
         if (typeof values[i] !== typeof params[key])
@@ -267,10 +254,11 @@ export function validateGraph(workflow: Workflow) {
         throw new Error(`${def.name} 的 ${key} 参数类型错误`);
       if (
         typeof n.params[key] === "string" &&
-        String(n.params[key]).length > 256
+        String(n.params[key]).length > (n.op === "mapchars" && key === "mapping" ? 16384 : 256)
       )
         throw new Error(`${def.name} 的文字参数过长`);
     }
+    if (isChineseOp(n.op)) validateChineseParams(n.op, n.params);
     if (n.inputs.length !== def.inputs || n.inputs.some((x) => !map.has(x)))
       throw new Error(`${def.name} 缺少有效输入`);
     if (n.op === "pattern" && !/^[AB]{1,16}$/.test(String(n.params.template)))

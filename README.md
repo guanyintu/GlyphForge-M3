@@ -1,6 +1,6 @@
 # GlyphForge · 文字创作工坊
 
-本地优先的游戏 ID 与文字规则工具。本版实现 P0-A / P0-B / P0-C 的纵向功能，具体证据见 [P0 验收清单](P0-CHECKLIST.md) 和 [验证报告](VALIDATION.md)。P1 的中文数据与关系命名未包含在内。
+本地优先的游戏 ID 与文字规则工具。已完成 P0，并新增 P1-A 中文算子与独立文字实验室；关系命名、逆向增强及新动画尚未实现。当前进度与验证见 [P1 进度](P1-PROGRESS.md)、[P1-A 使用与数据许可](docs/P1-A.md)；历史基线见 [P0 验收清单](P0-CHECKLIST.md) 和 [验证报告](VALIDATION.md)。
 
 ## 启动
 
@@ -27,7 +27,7 @@ pnpm bench
 - **分享**：轻量工作流、可选择资源的便携包、完整工作流复制。导入校验格式/IR/算子版本，资源缺失或版本不同时要求重新绑定，恢复快照时创建新资源 ID。
 - **结果工作台**：默认虚拟列表、虚拟卡片、包含/排除/排序/收藏、复制、TXT/CSV/JSON 导出、结果保存为新词库。最多 24 张抽卡动画或 20 个爆炸散开标签，可关闭，遵循系统减少动态效果设置。
 - **基础逆向分析**：索引精确/片段匹配、最多五条组合候选、基本重复模式检测。历史生成来源与词库匹配、组合推断分开标注。
-- **文字实验室**：复用内置算子做倒序、前缀和长度过滤，并显示 UTF-16、码点、字符簇和 UTF-8 字节数量。
+- **文字实验室（P1-A）**：复用注册算子提供拼音/音韵/多音候选、同音字、押韵、简繁/火星文、多候选映射、汉字结构拆解/反查与笔画筛选，保留倒序、前缀和长度过滤。后台批量加工、候选选择、连续加工、最近八步恢复、分页、取消、复制及非破坏性另存词库。字典按需加载；数据范围和 NameScript 参数见 P1-A 文档。
 
 ## NameScript
 
@@ -71,7 +71,7 @@ for a in @animals {
 - 便携包限制 15 MB，每个资源快照最多 100,000 条、最多 100 个快照。大词库单独导出，再以轻量工作流重新绑定。资源文件导出最多 64 MB。
 - 实际一万/十万/百万条 IndexedDB 写入、精确查询和前缀分页已测试；百万导入约 125 秒。它不是“所有百万级操作都瞬间完成”的保证。完整进程峰值内存、低端设备帧率与跨浏览器性能未测，记录见验证报告。
 - 种子控制词库读取起点，固定词库版本可重现顺序；不保证统计学随机采样。输入资源在运行期间变化会停止并提示重新生成。
-- 普通生成记录保留最近 20 次；运行快照供收藏追踪。完整资源历史版本恢复、资源操作撤销、自定义函数/子图/插件扩展、P1 中文与关系能力后续实现。
+- 普通生成记录保留最近 20 次；运行快照供收藏追踪。完整资源历史版本恢复、资源操作撤销、自定义函数/子图/插件扩展及 P1-B 关系能力后续实现。
 - 关闭本地服务后不能重新加载应用；目前不提供 PWA/Service Worker 离线启动。保持本地服务时可断开互联网使用。
 
 ## 数据与架构
@@ -86,4 +86,4 @@ for a in @animals {
 
 React Flow 提供节点交互；语义和布局不依赖其内部状态，执行器通过注册表读取算子。CodeMirror 按需加载。现有存储从 schema 1 升级到 schema 2，保留原词库、工作流和收藏。
 
-React / React DOM、React Flow、CodeMirror、Vite、Lucide 使用 MIT 许可，Dexie / dexie-react-hooks 使用 Apache-2.0；版本锁定在 pnpm-lock.yaml，完整许可在依赖包 LICENSE 中。内置词条为项目示例，不分发第三方中文数据集。参考：[React](https://react.dev/versions)、[React Flow](https://reactflow.dev/learn)、[xyflow 许可](https://xyflow.com/open-source)。
+React / React DOM、React Flow、CodeMirror、Vite、Lucide 使用 MIT 许可，Dexie / dexie-react-hooks 使用 Apache-2.0；版本锁定在 pnpm-lock.yaml。P1-A 新增 pinyin-pro（MIT）、OpenCC JS（MIT / 数据 Apache-2.0）、CJK Decomposition（选择 Apache-2.0）及 Unihan（Unicode V3）。来源、固定版本、覆盖范围及再生成说明见 [P1-A 文档](docs/P1-A.md)，许可副本随 public/licenses 发布。参考：[React](https://react.dev/versions)、[React Flow](https://reactflow.dev/learn)、[xyflow 许可](https://xyflow.com/open-source)。

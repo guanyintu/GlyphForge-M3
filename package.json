@@ -8,6 +8,7 @@
     "dev": "vite --host 127.0.0.1",
     "build": "tsc -b && vite build",
     "test": "vitest run",
+    "typecheck": "tsc --noEmit",
     "bench": "vitest run src/tests/performance.test.ts --reporter=verbose"
   },
   "dependencies": {
@@ -16,6 +17,8 @@
     "dexie": "^4.2.0",
     "dexie-react-hooks": "^4.2.0",
     "lucide-react": "^0.468.0",
+    "opencc-js": "^1.4.2",
+    "pinyin-pro": "^3.29.5",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

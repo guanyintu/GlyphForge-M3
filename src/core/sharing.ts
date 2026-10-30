@@ -2,6 +2,8 @@ import { db, readResource } from "../storage/db";
 import { validateGraph } from "./script";
 import { programResources, visitProgramExpressions } from "./program";
 import { operators } from "./model";
+import { isChineseOp } from "./chinese-definitions";
+import type { Op } from "./model";
 import type { Resource, Workflow } from "./model";
 export interface Dependency {
   id: string;
@@ -13,6 +15,13 @@ export class ResourceDependencyError extends Error {
   constructor(public dependencies: Dependency[]) {
     super("依赖词库缺失或版本不同，请选择本地词库重新绑定");
   }
+}
+function packageOperators(workflow: Workflow) {
+  const used = new Set<Op>(workflow.nodes.map(n => n.op));
+  for (const node of workflow.nodes) if (node.program) visitProgramExpressions(node.program, expression => {
+    if (expression.kind === "call" && isChineseOp(expression.name)) used.add(expression.name);
+  });
+  return [...used];
 }
 export function dependencyIds(workflow: Workflow) {
   return [
@@ -66,7 +75,7 @@ export async function exportPackage(
     version: 2,
     irVersion: 1,
     operatorVersions: Object.fromEntries(
-      [...new Set(workflow.nodes.map((n) => n.op))].map((op) => [op, 1]),
+      packageOperators(workflow).map((op) => [op, 1]),
     ),
     workflow,
     dependencies,
@@ -125,9 +134,9 @@ export async function importPackage(
       if (!Object.hasOwn(operators, op) || version !== 1)
         throw new Error(`算子 ${op} 的版本不兼容`);
     }
-    for (const n of workflow.nodes)
-      if ((pkg.operatorVersions as Record<string, unknown>)[n.op] !== 1)
-        throw new Error(`缺少算子 ${n.op} 的版本`);
+    for (const op of packageOperators(workflow))
+      if ((pkg.operatorVersions as Record<string, unknown>)[op] !== 1)
+        throw new Error(`缺少算子 ${op} 的版本`);
   }
   const ids = dependencyIds(workflow),
     mapping = new Map<string, string>(),

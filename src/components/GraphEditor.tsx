@@ -29,8 +29,12 @@ import {
 import type { Op, Resource, RuleNode, Workflow } from "../core/model";
 import { operators } from "../core/model";
 import { nodePosition } from "../core/graph-editing";
+import { chineseDefinitions, isChineseOp } from "../core/chinese-definitions";
+import { ChineseParams } from "./ChineseParams";
+import type { LucideIcon } from "lucide-react";
 
-const icons = {
+const icons: Record<Op, LucideIcon> = {
+  ...Object.fromEntries(Object.keys(chineseDefinitions).map(op => [op, Sparkles])) as Record<keyof typeof chineseDefinitions, LucideIcon>,
   program: Repeat2,
   resource: BookOpen,
   pattern: GitMerge,
@@ -70,6 +74,7 @@ const ForgeCard = memo(function ForgeCard({
         <span className="node-dots">···</span>
       </div>
       <div className="node-content">
+        {isChineseOp(rule.op) ? <><div className="node-field">{String(rule.params.mode || rule.params.structure || "中文文字实验")}</div><p className="node-hint">{def.description}</p></> : null}
         {rule.op === "program" ? (
           <>
             <div className="node-field">
@@ -441,6 +446,7 @@ export function Inspector({
         <h3>{def.name}</h3>
         <p className="description">{def.description}</p>
         <div className="divider" />
+        {isChineseOp(node.op) ? <ChineseParams op={node.op} params={node.params} onChange={params => onUpdate({ ...node, params })} /> : null}
         <button className="text-button node-preview-button" onClick={onPreview}>
           <Play size={12} />
           预览此节点（20 条）

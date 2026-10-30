@@ -261,7 +261,7 @@ export default function ProgramBuilder({
   return (
     <div className="program-builder">
       <p className="field-note">
-        逐层编辑循环与条件。表达式支持 pattern、length、contains、reverse、range
+        逐层编辑循环与条件。表达式支持 pattern、length、contains、reverse、range；中文算子返回集合，可用 for 遍历（参数顺序见 NameScript 文档）。
         等内置函数。range(a,b) 包含 a，不包含 b。编辑后离开输入框会应用。
       </p>
       {error ? (

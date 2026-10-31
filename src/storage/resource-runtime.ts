@@ -24,7 +24,7 @@ export function resourceSession(plan: ResourcePlan, target: ForgeDatabase = db, 
     await assertResourcePlan(plan,target);
     let count=0;
     const sequence=r.definition?.type==='dynamic'
-      ? evaluateWorkflow({...r.definition.workflow,seed},read,tick,{resourceMetadata:async dep=>byId.get(dep)})
+      ? evaluateWorkflow({...r.definition.workflow,seed},read,tick,{lineage:true,lineageScope:JSON.stringify(["resource",id,r.version]),resourceMetadata:async dep=>byId.get(dep)})
       : readStaticResource(id,seed,target);
     for await(const c of sequence) {
       tick(); if(signal?.aborted)ownTick();

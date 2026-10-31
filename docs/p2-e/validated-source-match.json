@@ -1,0 +1,155 @@
+{
+  "matched": [
+    {
+      "file": "src/App.tsx",
+      "indexSha256": "7d837deaf1b867f33c79f9ce278fd0499b523ac95e276a63d3c41984e04da6a2",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/components/Results.tsx",
+      "indexSha256": "37d4f96c37464df161b066286270fb6af51797a673deb66c90481cd7713a4df0",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/components/Tools.tsx",
+      "indexSha256": "2d3a005f4d5d89c8638f8a9dd68dd1daaef9aea29a4d1badc96c8c7804380101",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/components/LineagePanel.tsx",
+      "indexSha256": "2bc1b7f91a093cbc761ca0a4054596338082ef290b40c5054bfdc2f90b72e64f",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/core/model.ts",
+      "indexSha256": "d7c57759e06a6f4b5f9d3d5c83031d106d24fe2f63eeaef8412eae5628f0063a",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/core/contracts.ts",
+      "indexSha256": "e1168b91e908069121fe6c9108b620b3748ca1dfbc06c363638dbcbe780f4a60",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/core/engine.ts",
+      "indexSha256": "5eb26bdc409cdc063fa36c7c9f9e0fb32265048f4ba7bb35682761feaef26578",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/core/operators.ts",
+      "indexSha256": "e6ab97e5adc476c95b2941192892ab30f1fc1d1c030d83982db66514e4790d3d",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/core/lineage.ts",
+      "indexSha256": "2cca2c6d681a18846964fc0ba1964822b06dca94214b3a6af7a3c9fae4b60c25",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/core/relations.ts",
+      "indexSha256": "4a3442edbb7146af7eca047175cb3eff9ce2e14916735a6cfb514e33bca80bdd",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/core/mutation.ts",
+      "indexSha256": "285d89740706a50651323ee89f47c3f8827f445d844c867ca6d9f1ae3b38e34e",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/storage/lineage.ts",
+      "indexSha256": "a041df2e16ca649d8973caf2eaf3f4ed6b151ad3c024b8440ed8926f821d7273",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/storage/resource-runtime.ts",
+      "indexSha256": "a7b81ce0b8e1284f6f56a668e5f2f6a9ee2eaec4d7ab7500e71c58ff704a27c3",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/storage/run-lifecycle.ts",
+      "indexSha256": "90795a8689936a4a3053b36f0f46daed0bc17803bed63f8d3674dd4c1b3e8c3c",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/tests/lineage.test.ts",
+      "indexSha256": "6b8395cc46988314650c53d45bdf3710fcff54077ffafab3057ce7c4091afb50",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/tests/fixtures/p2e-legacy-engine.ts",
+      "indexSha256": "a89f8dcfd8ff5e2a3039b2015310fdbb8905630bda039d9d98b893f76d2dab0a",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "src/tests/fixtures/p2e-legacy-operators.ts",
+      "indexSha256": "cd1a4c22068696c2262de46f4c274172db859291296c8b03b3a1a610db91a4b2",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "e2e/lineage.spec.ts",
+      "indexSha256": "585ddfe6bdd262d384eae297ae7f3ce6e7115b217d67273ed92e504ae3417e1f",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "e2e/lineage-harness.ts",
+      "indexSha256": "f791c464f461dc56a26b85746425f3704891b1c63f7edee47a39cf301aaba2f9",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "e2e/lineage.vite.config.ts",
+      "indexSha256": "7b316f9380079b647039604ecf3b221dec383591382534dbbe6c6e5c2ee95aba",
+      "isolatedMatch": true,
+      "worktreeMatch": "exact (EOL normalized)"
+    },
+    {
+      "file": "e2e/p1d.spec.ts",
+      "indexSha256": "15511e9ecf34fbfce112f0256deb25875ec0aca4f88c97a58497694b6c46c5be",
+      "isolatedMatch": true,
+      "worktreeMatch": "historical patch excluded; owned assertion verified"
+    }
+  ],
+  "helpers": [
+    {
+      "file": "scripts/protect-p2-e.mjs",
+      "syntaxExit": 0
+    },
+    {
+      "file": "scripts/validate-p2-e.mjs",
+      "syntaxExit": 0
+    },
+    {
+      "file": "scripts/isolate-p2-e.mjs",
+      "syntaxExit": 0
+    },
+    {
+      "file": "scripts/verify-isolated-browser-p2-e.mjs",
+      "syntaxExit": 0
+    },
+    {
+      "file": "scripts/stage-p2-e.mjs",
+      "syntaxExit": 0
+    }
+  ],
+  "fullWorkingBrowser": "browser-final-full.txt",
+  "isolatedBrowser": "isolated-browser.txt",
+  "isolatedLegacyBrowser": "isolated-p1d-browser.txt"
+}

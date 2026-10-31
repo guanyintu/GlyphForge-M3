@@ -1,0 +1,62 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+stdout | src/tests/lineage.test.ts > 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows
+P2-E 10k {"ms":113.51050000000009,"stats":{"steps":40041,"count":10000,"truncated":true,"safePruned":0,"duration":113.31349999999998},"maxLineageBytes":168,"totalLineageBytes":1680000,"nodeHeapEnd":32009592}
+
+ ❯ src/tests/lineage.test.ts (14 tests | 3 failed) 471ms
+   ✓ frozen e637beb / disabled / enabled concat differential: 80 seeds and versions 133ms
+   ✓ frozen e637beb / disabled / enabled pattern differential: 80 seeds and versions 113ms
+   ✓ local allocation pruning is real, with identical ticks and lazy readers 1ms
+   ✓ does not push across random group, reverse, unknown resource lengths, or side-effectful upstream iteration 2ms
+   ✓ concat boundaries, empty libraries, duplicate paths, UTF16 and grapheme seams 4ms
+   ✓ pattern boundaries, empty libraries, duplicate paths, UTF16 and grapheme seams 4ms
+   ✓ oversize text still throws original diagnostic before any rejection 3ms
+   ✓ step budgets at every tick and cancellation preserve exact error localization 18ms
+   × nested subgraphs, Chinese, Pair/members, extensions and mutation keep old metadata and seed behavior 7ms
+     → 节点 chinese：mode 选项无效
+   ✓ bounded shared references never replicate a tree and unresolved refs degrade honestly 3ms
+   × dynamic DAG/Mapping/extension/subgraph refs resolve in run snapshot after resources change or disappear 50ms
+     → expected [ '当前版本一致', '资源缺失', '当前版本一致' ] to include '资源已变更'
+   × same text in different workflows/runs never overwrites favorite source; protected history, backup/blank DB and reverse keep real identity 13ms
+     → ReverseSearchService is not a constructor
+   ✓ legacy history never fabricates operation execution; absent parent remains a derivation 2ms
+   ✓ 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows 117ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/lineage.test.ts > nested subgraphs, Chinese, Pair/members, extensions and mutation keep old metadata and seed behavior
+ContractError: 节点 chinese：mode 选项无效
+ ❯ diagnose src/core/contracts.ts:24:10
+     22|     code: context.code ?? "EXECUTION", message: error instanceof Error…
+     23|   };
+     24|   return new ContractError({ ...context, ...diagnostic, nodeId: diagno…
+       |          ^
+     25| }
+     26| export const executionBudget = Object.freeze({ steps: 300000, millisec…
+ ❯ validateGraph src/core/script.ts:253:25
+ ❯ execute src/tests/fixtures/p2e-legacy-engine.ts:39:3
+ ❯ compare src/tests/lineage.test.ts:35:44
+ ❯ src/tests/lineage.test.ts:77:172
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  src/tests/lineage.test.ts > dynamic DAG/Mapping/extension/subgraph refs resolve in run snapshot after resources change or disappear
+AssertionError: expected [ '当前版本一致', '资源缺失', '当前版本一致' ] to include '资源已变更'
+ ❯ src/tests/lineage.test.ts:98:213
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  src/tests/lineage.test.ts > same text in different workflows/runs never overwrites favorite source; protected history, backup/blank DB and reverse keep real identity
+TypeError: ReverseSearchService is not a constructor
+ ❯ src/tests/lineage.test.ts:104:23
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 11 passed (14)
+   Start at  21:42:37
+   Duration  1.68s (transform 261ms, setup 0ms, collect 628ms, tests 471ms, environment 0ms, prepare 183ms)

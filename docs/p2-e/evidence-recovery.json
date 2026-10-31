@@ -1,0 +1,1 @@
+{"failure": "Final full validation subprocesses all exited 0; evidence restoration raised UNKNOWN on worker-consistency.json, so parent command exited 1", "fullBrowser": "browser-final-full.txt", "restoredFile": "docs\\p2-s0-2\\worker-consistency.json", "sha256": "f3a76ca7b85dd92218c0f5c26956573f251b2b084a47e50431ec6e57c842556d", "verifiedAgainstByteBaseline": true}

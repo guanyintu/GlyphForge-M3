@@ -1,3 +1,4 @@
+import { mergeLineage } from "./lineage";
 import { glyphs } from "./model";
 import type { Candidate, PairValue, Params, RelationKind, SourcePart } from "./model";
 
@@ -74,7 +75,7 @@ export async function* readPairs(reader: BindingReader, id: string, seed: number
 export async function* renderTemplates(p: Params, reader: BindingReader, seed: number, tick: () => void): AsyncGenerator<Candidate> {
   const { slots, templates } = templateConfig(p);
   const bindings = new Map<string, string>();
-  async function* bind(index: number, parts: SourcePart[]): AsyncGenerator<Candidate> {
+  async function* bind(index: number, parts: SourcePart[], sources: Candidate[]): AsyncGenerator<Candidate> {
     tick();
     if (index === slots.length) {
       const members = templates.map(t => t.replace(/\{([^{}]+)\}/g, (_, key: string) => bindings.get(key)!));
@@ -82,7 +83,8 @@ export async function* renderTemplates(p: Params, reader: BindingReader, seed: n
       if (members.some(m => !m || m.length > 1024) || lengths.some(n => n > Number(p.maxLength)) || (p.equalLength && new Set(lengths).size !== 1)) return;
       const text = members.join(String(p.separator));
       if (text.length > 1024) throw new Error("整组文字超过 1024 个代码单元，请减少模板或缩短分隔符");
-      yield { text, members, parts };
+      const lineage = mergeLineage(sources);
+      yield { text, members, parts, ...(lineage ? {lineage} : {}) };
       return;
     }
     const slot = slots[index];
@@ -96,10 +98,10 @@ export async function* renderTemplates(p: Params, reader: BindingReader, seed: n
         bindings.set(`${slot.name}.left`, item.pair!.left);
         bindings.set(`${slot.name}.right`, item.pair!.right);
       }
-      yield* bind(index + 1, [...parts, ...item.parts]);
+      yield* bind(index + 1, [...parts, ...item.parts], [...sources,item]);
     }
   }
-  yield* bind(0, []);
+  yield* bind(0, [], []);
 }
 export async function* groupMembers(input: AsyncIterable<Candidate>, p: Params, seed: number, tick: () => void): AsyncGenerator<Candidate> {
   const count = Number(p.count), batches = Number(p.batches), needed = count * batches;
@@ -129,6 +131,7 @@ export async function* groupMembers(input: AsyncIterable<Candidate>, p: Params, 
   for (let i = 0; i < needed; i += count) {
     tick(); const group = selected.slice(i, i + count), members = group.map(m => m.text), text = members.join(String(p.joiner));
     if (text.length > 1024) throw new Error("整组文字超过 1024 个代码单元，请减少人数或缩短名字");
-    yield { text, members, parts: group.flatMap(m => m.parts), notes: [...new Set(group.flatMap(m => m.notes || []))] };
+    const lineage = mergeLineage(group);
+    yield { text, members, ...(lineage ? {lineage} : {}), parts: group.flatMap(m => m.parts), notes: [...new Set(group.flatMap(m => m.notes || []))] };
   }
 }

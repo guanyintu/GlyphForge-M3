@@ -1,0 +1,73 @@
+{
+  "targeted": true,
+  "exits": [
+    {
+      "name": "tests",
+      "command": [
+        "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "exit": 0,
+      "milliseconds": 6975
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exit": 0,
+      "milliseconds": 8777
+    },
+    {
+      "name": "build-types",
+      "command": [
+        "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/typescript/bin/tsc",
+        "-b"
+      ],
+      "exit": 0,
+      "milliseconds": 7681
+    },
+    {
+      "name": "build",
+      "command": [
+        "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "exit": 0,
+      "milliseconds": 34308
+    },
+    {
+      "name": "benchmark",
+      "command": [
+        "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "src/tests/performance.test.ts",
+        "src/tests/resource-catalog.test.ts",
+        "src/tests/packs.test.ts",
+        "src/tests/lineage.test.ts",
+        "--reporter=verbose"
+      ],
+      "exit": 0,
+      "milliseconds": 4121
+    },
+    {
+      "name": "browser",
+      "command": [
+        "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "e2e/lineage.spec.ts"
+      ],
+      "exit": 0,
+      "milliseconds": 22205
+    }
+  ],
+  "historicalEvidenceBackup": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2e-evidence-MYzRol",
+  "restoredHistoricalFiles": []
+}

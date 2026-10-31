@@ -1,0 +1,319 @@
+{
+  "baseline": "e637beb4a5a6ed0d90e0612c8151e546b6c9f908",
+  "branch": "codex/p2-e-lineage",
+  "sourceFiles": [
+    "src/App.tsx",
+    "src/components/Results.tsx",
+    "src/components/Tools.tsx",
+    "src/components/LineagePanel.tsx",
+    "src/core/model.ts",
+    "src/core/contracts.ts",
+    "src/core/engine.ts",
+    "src/core/operators.ts",
+    "src/core/lineage.ts",
+    "src/core/relations.ts",
+    "src/core/mutation.ts",
+    "src/storage/lineage.ts",
+    "src/storage/resource-runtime.ts",
+    "src/storage/run-lifecycle.ts",
+    "src/tests/lineage.test.ts",
+    "src/tests/fixtures/p2e-legacy-engine.ts",
+    "src/tests/fixtures/p2e-legacy-operators.ts",
+    "e2e/lineage.spec.ts",
+    "e2e/lineage-harness.ts",
+    "e2e/lineage.vite.config.ts",
+    "e2e/p1d.spec.ts",
+    "scripts/protect-p2-e.mjs",
+    "scripts/validate-p2-e.mjs",
+    "scripts/isolate-p2-e.mjs",
+    "scripts/verify-isolated-browser-p2-e.mjs",
+    "scripts/stage-p2-e.mjs"
+  ],
+  "overlap": [
+    "PROJECT-STATUS.md",
+    "e2e/p1d.spec.ts"
+  ],
+  "excludedHistorical": [
+    "AGENTS.md",
+    "docs/AUDIT_P1_FINAL.md",
+    "docs/P1-FINAL-REQUIREMENTS.md",
+    "docs/P2-ENTRY-ARCHITECTURE.md",
+    "docs/p1-final/baseline-browser.txt",
+    "docs/p1-final/baseline-tests.txt",
+    "docs/p1-final/baseline.json",
+    "docs/p1-final/bench.txt",
+    "docs/p1-final/browser-initial.txt",
+    "docs/p1-final/browser-results-initial.json",
+    "docs/p1-final/browser-results.json",
+    "docs/p1-final/browser.txt",
+    "docs/p1-final/build-fix.txt",
+    "docs/p1-final/build-initial.txt",
+    "docs/p1-final/check-exits.json",
+    "docs/p1-final/diff-check.txt",
+    "docs/p1-final/environment.json",
+    "docs/p1-final/final-integration-initial.txt",
+    "docs/p1-final/fixes.txt",
+    "docs/p1-final/game-ui.png",
+    "docs/p1-final/git-final.txt",
+    "docs/p1-final/highlight-cards.png",
+    "docs/p1-final/manifest.json",
+    "docs/p1-final/mixed-performance.json",
+    "docs/p1-final/mobile-physics.png",
+    "docs/p1-final/performance.json",
+    "docs/p1-final/physics-desktop.png",
+    "docs/p1-final/red.txt",
+    "docs/p1-final/reload-fix.txt",
+    "docs/p1-final/resources-performance.json",
+    "docs/p1-final/reverse-ui.png",
+    "docs/p1-final/tests.txt",
+    "docs/p1-final/typecheck.txt",
+    "docs/p1-final/user-baseline.patch.gz",
+    "docs/p2-a/baseline.patch",
+    "docs/p2-a/browser-isolate-local.mjs",
+    "docs/p2-a/check-isolate-local.mjs",
+    "docs/p2-a/final-docs-local.mjs",
+    "docs/p2-a/isolate-local.mjs",
+    "docs/p2-a/protect-local.mjs",
+    "docs/p2-a/stage-final-local.mjs",
+    "docs/p2-a/staging-local.log",
+    "docs/p2-b/baseline-local.patch",
+    "docs/p2-b/browser-first.txt",
+    "docs/p2-b/browser-second.txt",
+    "docs/p2-b/build-first.txt",
+    "docs/p2-b/isolate-local.mjs",
+    "docs/p2-b/isolation-local.json",
+    "docs/p2-b/stage-local.mjs",
+    "docs/p2-b/type-first.txt",
+    "docs/p2-b/unit-first.txt",
+    "docs/p2-b/unit.txt",
+    "docs/p2-c/baseline-local.json",
+    "docs/p2-c/baseline-local.patch",
+    "docs/p2-c/baseline/AGENTS.md",
+    "docs/p2-c/baseline/P0-CHECKLIST.md",
+    "docs/p2-c/baseline/P1-PROGRESS.md",
+    "docs/p2-c/baseline/PROJECT-STATUS.md",
+    "docs/p2-c/baseline/README.md",
+    "docs/p2-c/baseline/VALIDATION.md",
+    "docs/p2-c/baseline/docs/AUDIT_P1_FINAL.md",
+    "docs/p2-c/baseline/docs/P1-B.md",
+    "docs/p2-c/baseline/docs/P1-FINAL-REQUIREMENTS.md",
+    "docs/p2-c/baseline/docs/P2-ENTRY-ARCHITECTURE.md",
+    "docs/p2-c/baseline/docs/p1-final/baseline-browser.txt",
+    "docs/p2-c/baseline/docs/p1-final/baseline-tests.txt",
+    "docs/p2-c/baseline/docs/p1-final/baseline.json",
+    "docs/p2-c/baseline/docs/p1-final/bench.txt",
+    "docs/p2-c/baseline/docs/p1-final/browser-initial.txt",
+    "docs/p2-c/baseline/docs/p1-final/browser-results-initial.json",
+    "docs/p2-c/baseline/docs/p1-final/browser-results.json",
+    "docs/p2-c/baseline/docs/p1-final/browser.txt",
+    "docs/p2-c/baseline/docs/p1-final/build-fix.txt",
+    "docs/p2-c/baseline/docs/p1-final/build-initial.txt",
+    "docs/p2-c/baseline/docs/p1-final/check-exits.json",
+    "docs/p2-c/baseline/docs/p1-final/diff-check.txt",
+    "docs/p2-c/baseline/docs/p1-final/environment.json",
+    "docs/p2-c/baseline/docs/p1-final/final-integration-initial.txt",
+    "docs/p2-c/baseline/docs/p1-final/fixes.txt",
+    "docs/p2-c/baseline/docs/p1-final/game-ui.png",
+    "docs/p2-c/baseline/docs/p1-final/git-final.txt",
+    "docs/p2-c/baseline/docs/p1-final/highlight-cards.png",
+    "docs/p2-c/baseline/docs/p1-final/manifest.json",
+    "docs/p2-c/baseline/docs/p1-final/mixed-performance.json",
+    "docs/p2-c/baseline/docs/p1-final/mobile-physics.png",
+    "docs/p2-c/baseline/docs/p1-final/performance.json",
+    "docs/p2-c/baseline/docs/p1-final/physics-desktop.png",
+    "docs/p2-c/baseline/docs/p1-final/red.txt",
+    "docs/p2-c/baseline/docs/p1-final/reload-fix.txt",
+    "docs/p2-c/baseline/docs/p1-final/resources-performance.json",
+    "docs/p2-c/baseline/docs/p1-final/reverse-ui.png",
+    "docs/p2-c/baseline/docs/p1-final/tests.txt",
+    "docs/p2-c/baseline/docs/p1-final/typecheck.txt",
+    "docs/p2-c/baseline/docs/p1-final/user-baseline.patch.gz",
+    "docs/p2-c/baseline/docs/p2-a/baseline.patch",
+    "docs/p2-c/baseline/docs/p2-a/browser-isolate-local.mjs",
+    "docs/p2-c/baseline/docs/p2-a/check-isolate-local.mjs",
+    "docs/p2-c/baseline/docs/p2-a/final-docs-local.mjs",
+    "docs/p2-c/baseline/docs/p2-a/isolate-local.mjs",
+    "docs/p2-c/baseline/docs/p2-a/protect-local.mjs",
+    "docs/p2-c/baseline/docs/p2-a/stage-final-local.mjs",
+    "docs/p2-c/baseline/docs/p2-a/staging-local.log",
+    "docs/p2-c/baseline/docs/p2-b/baseline-local.patch",
+    "docs/p2-c/baseline/docs/p2-b/browser-first.txt",
+    "docs/p2-c/baseline/docs/p2-b/browser-second.txt",
+    "docs/p2-c/baseline/docs/p2-b/build-first.txt",
+    "docs/p2-c/baseline/docs/p2-b/isolate-local.mjs",
+    "docs/p2-c/baseline/docs/p2-b/isolation-local.json",
+    "docs/p2-c/baseline/docs/p2-b/stage-local.mjs",
+    "docs/p2-c/baseline/docs/p2-b/type-first.txt",
+    "docs/p2-c/baseline/docs/p2-b/unit-first.txt",
+    "docs/p2-c/baseline/docs/p2-b/unit.txt",
+    "docs/p2-c/baseline/docs/p2-s0-1/baseline.patch",
+    "docs/p2-c/baseline/docs/p2-s0-1/baseline.zip",
+    "docs/p2-c/baseline/docs/p2-s0-1/isolation-local.json",
+    "docs/p2-c/baseline/docs/p2-s0-1/status-section.txt",
+    "docs/p2-c/baseline/docs/reference/GlyphForge-v3.0.md",
+    "docs/p2-c/baseline/e2e/p1-final.spec.ts",
+    "docs/p2-c/baseline/e2e/p1c.spec.ts",
+    "docs/p2-c/baseline/e2e/p1d.spec.ts",
+    "docs/p2-c/baseline/scripts/p1-final-manifest.mjs",
+    "docs/p2-c/baseline/scripts/protect-p2-c.mjs",
+    "docs/p2-c/baseline/src/storage/db.ts",
+    "docs/p2-c/baseline/src/tests/p1-final.test.ts",
+    "docs/p2-c/db-self-local.patch",
+    "docs/p2-c/finalize-local.mjs",
+    "docs/p2-c/status-section-local.txt",
+    "docs/p2-d/baseline-local.json",
+    "docs/p2-d/baseline-local.patch",
+    "docs/p2-d/baseline-summary-local.mjs",
+    "docs/p2-d/browser-fix-local.py",
+    "docs/p2-d/docs-update-local.py",
+    "docs/p2-d/edit-local.py",
+    "docs/p2-d/final-docs-local.py",
+    "docs/p2-d/final-link-local.py",
+    "docs/p2-d/final-newline-local.py",
+    "docs/p2-d/finalize-local.mjs",
+    "docs/p2-d/fix-local.py",
+    "docs/p2-d/fix-tests-local.py",
+    "docs/p2-d/fix3-local.py",
+    "docs/p2-d/gate-local.py",
+    "docs/p2-d/integrate-local.py",
+    "docs/p2-d/match-local.mjs",
+    "docs/p2-d/ownership-fix-local.py",
+    "docs/p2-d/polish-local.py",
+    "docs/p2-d/post-commit-local.mjs",
+    "docs/p2-d/protect-local.mjs",
+    "docs/p2-d/stage-local.mjs",
+    "docs/p2-d/staging-local.json",
+    "docs/p2-d/startup-final-local.py",
+    "docs/p2-d/startup-fix-local.py",
+    "docs/p2-d/startup-fix2-local.py",
+    "docs/p2-d/startup-repro-local.ts",
+    "docs/p2-d/status-section-local.txt",
+    "docs/p2-d/style-local.py",
+    "docs/p2-d/trim-local.py",
+    "docs/p2-d/whitespace-local.py",
+    "docs/p2-s0-1/baseline.patch",
+    "docs/p2-s0-1/baseline.zip",
+    "docs/p2-s0-1/isolation-local.json",
+    "docs/p2-s0-1/status-section.txt",
+    "docs/reference/GlyphForge-v3.0.md",
+    "e2e/p1-final.spec.ts",
+    "scripts/p1-final-manifest.mjs",
+    "scripts/protect-p2-c.mjs",
+    "src/tests/p1-final.test.ts",
+    "P0-CHECKLIST.md",
+    "P1-PROGRESS.md",
+    "PROJECT-STATUS.md",
+    "README.md",
+    "VALIDATION.md",
+    "docs/P1-B.md",
+    "e2e/p1c.spec.ts",
+    "e2e/p1d.spec.ts",
+    "src/storage/db.ts"
+  ],
+  "sourceHashes": [
+    {
+      "file": "src/App.tsx",
+      "sha256": "448769f18a3ab596911e9ffd5cdb89b6808971474960251cb8efe8115a5a319a"
+    },
+    {
+      "file": "src/components/Results.tsx",
+      "sha256": "806bc1e4fe1f3850bf752700b55597eaea67d89aa3cdb464d4ef0f11801bec93"
+    },
+    {
+      "file": "src/components/Tools.tsx",
+      "sha256": "4c746ff9e6eb94f0e42adf96addd41793afa60c577ef5affd0d1847510ae2260"
+    },
+    {
+      "file": "src/components/LineagePanel.tsx",
+      "sha256": "2bc1b7f91a093cbc761ca0a4054596338082ef290b40c5054bfdc2f90b72e64f"
+    },
+    {
+      "file": "src/core/model.ts",
+      "sha256": "c4a34d044e882869b43e9a1a415e0e634ad9684f4652f721eef2499d3de5af59"
+    },
+    {
+      "file": "src/core/contracts.ts",
+      "sha256": "792c3a2c2dc62e680e6b18fda6b32a2af14dafdccde145c4ff7123e7b39ccd79"
+    },
+    {
+      "file": "src/core/engine.ts",
+      "sha256": "ea691c0f8881d65996c6f28ac5acd59e23eba43e790a993b97c35afd98071f39"
+    },
+    {
+      "file": "src/core/operators.ts",
+      "sha256": "5784a0d34e9efcd6194a5e0799fa159e6b001f2bc20b28d002037353965630f8"
+    },
+    {
+      "file": "src/core/lineage.ts",
+      "sha256": "850d0a8ed3001a39eba87735c5bacac9b0208ae366e7610a24eafd58729d1706"
+    },
+    {
+      "file": "src/core/relations.ts",
+      "sha256": "8b2f40892f83b243b2ba130bf807e9c5d86d1a31b733d2801216e8e62565c5fb"
+    },
+    {
+      "file": "src/core/mutation.ts",
+      "sha256": "20a40cf31423303edc4071592a677828691a303e9dd81646a1356d3fb4b181da"
+    },
+    {
+      "file": "src/storage/lineage.ts",
+      "sha256": "e1e1f7b84f855c64abf1d644f2a5375e597a48ce182736387620f83e7588992d"
+    },
+    {
+      "file": "src/storage/resource-runtime.ts",
+      "sha256": "3c15438707a90346797de136ac86dd36bd53c71683edcfaa5c953e6baf254a09"
+    },
+    {
+      "file": "src/storage/run-lifecycle.ts",
+      "sha256": "26a5be608d8894884a9bc31d9d9077b528b8a2be9da51443829bdb8ca6386b2c"
+    },
+    {
+      "file": "src/tests/lineage.test.ts",
+      "sha256": "2b116c71610097965946fa7938eb7073cad0dc453dead5803c3455ca4c8ce596"
+    },
+    {
+      "file": "src/tests/fixtures/p2e-legacy-engine.ts",
+      "sha256": "22db6d4d536c056cf6d7373e32b3187290bc44718dd1b9cee6069a04c324797c"
+    },
+    {
+      "file": "src/tests/fixtures/p2e-legacy-operators.ts",
+      "sha256": "4250d5fab3e65cb9eefaf66c5124bf539e672f5da722afeb0f18108b3750d801"
+    },
+    {
+      "file": "e2e/lineage.spec.ts",
+      "sha256": "e103cb72272c347b5348d227c5a4bebcdcc1e89bf68bdf8ae2a22ad7fdc4c739"
+    },
+    {
+      "file": "e2e/lineage-harness.ts",
+      "sha256": "f791c464f461dc56a26b85746425f3704891b1c63f7edee47a39cf301aaba2f9"
+    },
+    {
+      "file": "e2e/lineage.vite.config.ts",
+      "sha256": "7b316f9380079b647039604ecf3b221dec383591382534dbbe6c6e5c2ee95aba"
+    },
+    {
+      "file": "e2e/p1d.spec.ts",
+      "sha256": "2cc9e9b88b465e5b57e3a12d343a380b9c9093cde8a80b0cf391402d3f2bdec4"
+    },
+    {
+      "file": "scripts/protect-p2-e.mjs",
+      "sha256": "0120fe1d2252e3afcba69af72ad81808a6562316844f27c136fbd16c398cd959"
+    },
+    {
+      "file": "scripts/validate-p2-e.mjs",
+      "sha256": "89a2735bc1eb9e07a819afd405b03fdd84bc557201cb558ce5310b88dcf725a0"
+    },
+    {
+      "file": "scripts/isolate-p2-e.mjs",
+      "sha256": "e9bc2b908ccd819d9981b5eea5b68d1d9ef2a0c13b03f2b0039ce77113ac4917"
+    },
+    {
+      "file": "scripts/verify-isolated-browser-p2-e.mjs",
+      "sha256": "6a3e1bc2c3e9afc7d3d9a61e172321ff2fc3e022bffbf9dbd6b5a995079d15ae"
+    },
+    {
+      "file": "scripts/stage-p2-e.mjs",
+      "sha256": "951d9e2f3227c5ae9e5c304b4a891492389ce5d004d4097ee02989bda45732a0"
+    }
+  ]
+}

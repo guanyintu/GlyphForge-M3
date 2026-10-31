@@ -1,0 +1,106 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 102.12 ms, 40041 steps, max batch 64
+
+ ✓ src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches 105ms
+ ✓ src/tests/resource-catalog.test.ts > detects self and indirect cycles before reading entries 12ms
+ ✓ src/tests/resource-catalog.test.ts > reports exact missing dependency path 3ms
+ ✓ src/tests/resource-catalog.test.ts > deduplicates diamond vertices and includes mapping dependency in topological order 3ms
+ ✓ src/tests/resource-catalog.test.ts > bounds dependency depth 2ms
+ ✓ src/tests/resource-catalog.test.ts > rejects wrong dependency types before executing even empty resources 2ms
+ ✓ src/tests/resource-catalog.test.ts > display rename leaves content key stable; seed is included in execution key 15ms
+ ✓ src/tests/resource-catalog.test.ts > rejects computed resource references in dynamic definitions 6ms
+ ✓ src/tests/resource-catalog.test.ts > relation rows project explicitly through shared templates into dynamic text 13ms
+ ✓ src/tests/resource-catalog.test.ts > saves definitions atomically and prevents concurrent overwrite or static asset replacement 8ms
+ ✓ src/tests/resource-catalog.test.ts > rejects cyclic edits with no partial write 4ms
+ ✓ src/tests/packs.test.ts > first party declarations install enabled; unknown claimed publishers stay unverified and disabled 26ms
+ ✓ src/tests/packs.test.ts > both real operators execute through graph, NameScript and a P2-A sequence function with provenance 49ms
+ ✓ src/tests/packs.test.ts > clipboard carries precise manifests and rejects same-version content conflicts 4ms
+ ✓ src/tests/packs.test.ts > Pair and members invalidate on text changes; source parts and notes survive 3ms
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 168.98 ms, 200002 steps
+
+ ✓ src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array 170ms
+ ✓ src/tests/resource-catalog.test.ts > recomputes mapping and static source changes with new exact keys and no cache pollution 44ms
+ ✓ src/tests/resource-catalog.test.ts > source deletion source invalidates all dependent reads 6ms
+ ✓ src/tests/resource-catalog.test.ts > source deletion map invalidates all dependent reads 6ms
+ ✓ src/tests/resource-catalog.test.ts > checks versions across interleaved async readers and refuses mixed batches 8ms
+ ✓ src/tests/resource-catalog.test.ts > resource version check is inside batch persistence transaction 12ms
+ ✓ src/tests/resource-catalog.test.ts > cancels after suspension and leaves no shared mutable iterator/cache state 9ms
+ ✓ src/tests/resource-catalog.test.ts > empty sources and empty mappings retain type checks 5ms
+ ✓ src/tests/resource-catalog.test.ts > fixed seed, source versions and graph/NameScript/Chinese martian rules agree 12ms
+ ✓ src/tests/resource-catalog.test.ts > program AST resolves and packages literal Mapping references using identical semantics 20ms
+ ✓ src/tests/packs.test.ts > disabling or uninstalling leaves workflow bytes intact, stops batches/done, then recovers exact version 24ms
+ ✓ src/tests/packs.test.ts > different versions coexist; explicit migration renames params; downgrade and missing version are errors 9ms
+ ✓ src/tests/packs.test.ts > dependencies have bounded DAGs and enabled state; broken dependency blocks existing users 7ms
+ ✓ src/tests/packs.test.ts > same ID/version replacement, including forged first party content, cannot overwrite a local installation 4ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: builtin shadow without asset changes 4ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: user JS without asset changes 3ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: network permission without asset changes 4ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: arbitrary step without asset changes 4ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: hidden resource without asset changes 4ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: unknown param without asset changes 5ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: incompatible without asset changes 3ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: steps size without asset changes 4ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: huge defaults without asset changes 3ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: binding type without asset changes 6ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: duplicate op without asset changes 3ms
+ ✓ src/tests/packs.test.ts > prototype keys, deep nesting, compressed envelopes, huge input and malicious call params are rejected 2ms
+ ✓ src/tests/packs.test.ts > AST and laboratory are explicitly inapplicable and reject extension calls 4ms
+ ✓ src/tests/packs.test.ts > 1000+ combinations consume a lazy prefix and inherit cancellation/step budget 8ms
+ ✓ src/tests/packs.test.ts > v7 portable closure restores dynamic resource, Mapping, P2-A and packs into blank DB with ID collisions isolated 33ms
+ ✓ src/tests/packs.test.ts > bad v7 manifest and transactional write failure roll back every asset and pack 10ms
+ ✓ src/tests/packs.test.ts > unknown imported pack remains installed disabled, and import never reenables a local disabled first party pack 16ms
+ ✓ src/tests/packs.test.ts > real schema6 database upgrades additively to schema7 without changing existing assets 7ms
+ ✓ src/tests/packs.test.ts > dependency depth is bounded and malformed versions cannot auto select a newer installation 3ms
+ ✓ src/tests/packs.test.ts > migrated workflow does not depend on an unused disabled older manifest 5ms
+ ✓ src/tests/resource-catalog.test.ts > dynamic resource feeds reusable P2-A subgraph then P2-B mutation dictionary/mapping 23ms
+ ✓ src/tests/resource-catalog.test.ts > v6 carries transitive definitions offline and remaps all ID conflicts without overwriting assets 20ms
+ ✓ src/tests/resource-catalog.test.ts > v6 rebinds both main and dynamic-definition subgraph internals 21ms
+ ✓ src/tests/resource-catalog.test.ts > a stale editor cannot resurrect a deleted resource 5ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 cycle atomically 5ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 missing atomically 5ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 bad-map atomically 5ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 rows atomically 6ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 version atomically 6ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":100000,"rows":60,"steps":442,"ms":9.926899999999932,"staticRows":1100,"cacheRows":0}
+
+stdout | src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":1000000,"rows":60,"steps":442,"ms":8.137500000000045,"staticRows":2000,"cacheRows":0}
+
+ ✓ src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps 43ms
+ ✓ src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps 56ms
+ ✓ src/tests/resource-catalog.test.ts > shares the outer budget through nested resource executions 3ms
+ ✓ src/tests/resource-catalog.test.ts > opening existing schema6 is additive with byte-equivalent user assets 4ms
+ ✓ src/tests/lineage.test.ts > frozen e637beb / disabled / enabled concat differential: 80 seeds and versions 226ms
+ ✓ src/tests/lineage.test.ts > frozen e637beb / disabled / enabled pattern differential: 80 seeds and versions 158ms
+ ✓ src/tests/lineage.test.ts > local allocation pruning is real, with identical ticks and lazy readers 2ms
+ ✓ src/tests/lineage.test.ts > does not push across random group, reverse, unknown resource lengths, or side-effectful upstream iteration 4ms
+ ✓ src/tests/lineage.test.ts > concat boundaries, empty libraries, duplicate paths, UTF16 and grapheme seams 6ms
+ ✓ src/tests/lineage.test.ts > pattern boundaries, empty libraries, duplicate paths, UTF16 and grapheme seams 8ms
+ ✓ src/tests/lineage.test.ts > oversize text still throws original diagnostic before any rejection 3ms
+ ✓ src/tests/lineage.test.ts > step budgets at every tick and cancellation preserve exact error localization 23ms
+stdout | src/tests/lineage.test.ts > 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows
+P2-E 10k {"ms":125.26659999999993,"stats":{"steps":40041,"count":10000,"truncated":true,"safePruned":0,"duration":125.07079999999996},"maxLineageBytes":168,"totalLineageBytes":1680000}
+
+ ✓ src/tests/lineage.test.ts > nested subgraphs, Chinese, Pair/members, extensions and mutation keep old metadata and seed behavior 75ms
+ ✓ src/tests/lineage.test.ts > bounded shared references never replicate a tree and unresolved refs degrade honestly 4ms
+ ✓ src/tests/lineage.test.ts > dynamic DAG/Mapping/extension/subgraph refs resolve in run snapshot after resources change or disappear 29ms
+ ✓ src/tests/lineage.test.ts > same text in different workflows/runs never overwrites favorite source; protected history, backup/blank DB and reverse keep real identity 13ms
+ ✓ src/tests/lineage.test.ts > legacy history never fabricates operation execution; absent parent remains a derivation 2ms
+stdout | src/tests/lineage.test.ts > paired rejection benchmark preserves exact steps and avoids 10k metadata allocations
+P2-E paired allocation benchmark [{"mode":"off","ms":183.04669999999987,"steps":30304,"pruned":0},{"mode":"on","ms":77.71070000000009,"steps":30304,"pruned":10000},{"mode":"on","ms":83.40210000000025,"steps":30304,"pruned":10000},{"mode":"off","ms":194.38869999999997,"steps":30304,"pruned":0},{"mode":"off","ms":173.70949999999993,"steps":30304,"pruned":0},{"mode":"on","ms":65.4078999999997,"steps":30304,"pruned":10000},{"mode":"on","ms":72.80529999999999,"steps":30304,"pruned":10000},{"mode":"off","ms":176.04919999999993,"steps":30304,"pruned":0},{"mode":"off","ms":199.77289999999994,"steps":30304,"pruned":0},{"mode":"on","ms":76.27489999999989,"steps":30304,"pruned":10000},{"mode":"on","ms":80.33570000000009,"steps":30304,"pruned":10000},{"mode":"off","ms":190.5546000000004,"steps":30304,"pruned":0}]
+
+ ✓ src/tests/lineage.test.ts > 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows 131ms
+ ✓ src/tests/lineage.test.ts > paired rejection benchmark preserves exact steps and avoids 10k metadata allocations 1578ms
+ ✓ src/tests/lineage.test.ts > reverse evidence distinguishes deterministic matches, inference, and absence of actual history 2ms
+ ✓ src/tests/lineage.test.ts > invalid lineage backup fails before any transaction writes and old backups remain accepted 7ms
+ ✓ src/tests/lineage.test.ts > frozen nested dynamic DAG / Mapping / subgraph / extension differential across seeds and source versions 111ms
+
+ Test Files  4 passed (4)
+      Tests  80 passed (80)
+   Start at  22:09:36
+   Duration  3.77s (transform 613ms, setup 0ms, collect 2.11s, tests 3.31s, environment 1ms, prepare 1.14s)

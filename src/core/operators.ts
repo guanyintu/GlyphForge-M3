@@ -9,6 +9,8 @@ import { readPairs, renderTemplates, groupMembers } from "./relations";
 import { checkGameId, parseGameRule } from "./game-rules";
 import { mutate } from "./mutation";
 export interface OperatorContext {
+  /** Pure rejection after text bounds; upstream iteration and all ticks remain unchanged. */
+  acceptText?: (text: string) => boolean;
   resourceMetadata?: import("./contracts").ResourceMetadataReader;
   node: RuleNode;
   seed: number;
@@ -24,6 +26,9 @@ export function patternText(template: string, a: string, b: string) {
   return transformText("pattern", [a, b], normalizeParams("pattern", { template }));
 }
 export { boundedText } from "./contracts";
+export function acceptsFilter(text: string, p: RuleNode["params"]) {
+  return glyphs(text).length <= Number(p.maxLength) && text.includes(String(p.includes)) && (!p.excludes || !text.includes(String(p.excludes)));
+}
 const executors: Record<Op, RegisteredOperator["execute"]> = {
   extension: async function* () { throw new Error("扩展需要固定版本执行作用域"); },
   mutate,
@@ -62,9 +67,9 @@ const executors: Record<Op, RegisteredOperator["execute"]> = {
       c.tick();
       for await (const b of c.input(1)) {
         c.tick();
-        yield {
-          ...combineCandidates(transformText("pattern", [a.text, b.text], c.node.params), [a, b]),
-        };
+        const text = transformText("pattern", [a.text, b.text], c.node.params);
+        if (c.acceptText && !c.acceptText(text)) continue;
+        yield combineCandidates(text, [a, b]);
       }
     }
   },
@@ -73,22 +78,16 @@ const executors: Record<Op, RegisteredOperator["execute"]> = {
       c.tick();
       for await (const b of c.input(1)) {
         c.tick();
-        yield {
-          ...combineCandidates(transformText("concat", [a.text, b.text], c.node.params), [a, b]),
-        };
+        const text = transformText("concat", [a.text, b.text], c.node.params);
+        if (c.acceptText && !c.acceptText(text)) continue;
+        yield combineCandidates(text, [a, b]);
       }
     }
   },
   filter: async function* (c) {
     for await (const a of c.input(0)) {
       c.tick();
-      const p = c.node.params;
-      if (
-        glyphs(a.text).length <= Number(p.maxLength) &&
-        a.text.includes(String(p.includes)) &&
-        (!p.excludes || !a.text.includes(String(p.excludes)))
-      )
-        yield a;
+      if (acceptsFilter(a.text, c.node.params)) yield a;
     }
   },
   prefix: async function* (c) {

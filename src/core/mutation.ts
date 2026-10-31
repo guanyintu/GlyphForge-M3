@@ -1,3 +1,4 @@
+import { mergeLineage } from "./lineage";
 import { resolveMapping } from "./mapping-resource";
 import type { Candidate, Params, Workflow } from "./model";
 import { candidateText, operators } from "./model";
@@ -76,7 +77,7 @@ export async function* mutate(c: OperatorContext): AsyncGenerator<Candidate> {
   // Bounded retries also bound zero-result/all-locked/low-diversity requests.
   for (let attempt = 0; attempt < Number(p.count) * 32 && count < Number(p.count); attempt++) {
     c.tick(); let tokens = glyphs(source.text).map((text, i) => ({ text, locked: locks.includes(i) }));
-    const used: string[] = []; const parts = [...base.parts];
+    const used: string[] = []; const parts = [...base.parts]; const selectedSources: Candidate[] = [];
     for (let step = 0; step < Number(p.intensity); step++) {
       c.tick(); const op = operations[random(operations.length)];
       const free = tokens.flatMap((t, i) => t.locked ? [] : [i]);
@@ -99,7 +100,7 @@ export async function* mutate(c: OperatorContext): AsyncGenerator<Candidate> {
         const groups = wordGroups(tokens).filter(g => g.word && !g.tokens.some(t => t.locked));
         if (!words.length || !groups.length) continue; const word = words[random(words.length)], group = groups[random(groups.length)];
         tokens.splice(group.start, group.tokens.length, ...glyphs(word.text).map(text => ({ text, locked: false })));
-        parts.push(...word.parts);
+        parts.push(...word.parts); selectedSources.push(word);
       } else {
         const options = op === "replace" ? pool : await alternatives(op, tokens[index].text);
         if (!options.length) continue;
@@ -114,6 +115,7 @@ export async function* mutate(c: OperatorContext): AsyncGenerator<Candidate> {
     seen.add(text); count++;
     const finalParts = uniqueParts(parts);
     if (finalParts.length > 128) throw new ContractError({ code: "BUDGET", message: "变异来源超过128片段，请先存为词库" });
-    yield { ...candidateText(base, boundedText(text)), parts: finalParts, derivation: { kind: "mutation", version: 1, round: Math.min(1000000, (source.derivation?.round ?? 0) + 1), seed: c.seed, parent: { text: source.text, runId: source.runId, workflowId: source.workflowId, seed: source.seed }, operations: used, locks: tokens.flatMap((t, i) => t.locked ? [i] : []) } };
+    const lineage = mergeLineage(selectedSources);
+    yield { ...candidateText(base, boundedText(text)), ...(lineage ? {lineage} : {}), parts: finalParts, derivation: { kind: "mutation", version: 1, round: Math.min(1000000, (source.derivation?.round ?? 0) + 1), seed: c.seed, parent: { text: source.text, runId: source.runId, workflowId: source.workflowId, seed: source.seed }, operations: used, locks: tokens.flatMap((t, i) => t.locked ? [i] : []) } };
   }
 }

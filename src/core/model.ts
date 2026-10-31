@@ -101,6 +101,7 @@ export interface SourcePart {
   pair?: PairValue;
 }
 export interface Candidate {
+  lineage?: import("./lineage").Lineage;
   derivation?: import("./mutation").Derivation;
   text: string;
   notes?: string[];

@@ -1,0 +1,18 @@
+
+Running 3 tests using 1 worker
+
+  ok 1 e2e\lineage.spec.ts:8:1 › selected result → bounded source panel → favorite/refresh → reverse evidence → history (4.0s)
+  ok 2 e2e\lineage.spec.ts:16:1 › production dynamic Mapping/subgraph/extension → mutation → run export/blank restore/refresh preserves factual lineage (12.4s)
+  ok 3 e2e\lineage.spec.ts:28:1 › real Worker 10k/deep subgraphs/million prefix samples Worker V8 heap; concurrent cancellation has no late writes (3.6s)
+
+  3 passed (27.3s)
+[WebServer] (node:77092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:75480) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:75480) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:148096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:115108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

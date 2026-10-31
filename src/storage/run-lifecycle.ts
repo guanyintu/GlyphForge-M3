@@ -1,3 +1,4 @@
+import { validLineage } from "../core/lineage";
 import { assertWorkflowPacks } from "./packs";
 import {captureResources,assertResourcePlan} from "./resource-runtime";
 import { db, type ForgeDatabase, type RunRecord } from "./db";
@@ -83,6 +84,7 @@ export async function pinRun(id: string, pinned: boolean, target = db) {
 export async function toggleFavorite(candidate: Candidate, target = db) {
   await target.transaction("rw", target.runs, target.generated, target.favorites, async () => {
     const previous = await target.favorites.get(candidate.text);
+    if (previous && (previous.runId !== candidate.runId || previous.workflowId !== candidate.workflowId)) throw new Error("同名收藏属于另一运行；请在收藏中明确取消旧收藏后再保存，未合并或覆盖来源");
     if (previous) await target.favorites.delete(candidate.text);
     else {
       await target.favorites.add({ ...candidate, savedAt: Date.now() });
@@ -135,7 +137,7 @@ export async function restoreRun(text: string, target = db) {
   validateGraph(run.workflow);
   if (typeof run.id !== "string" || !run.id || !Number.isFinite(run.createdAt) || !Object.hasOwn(runStatusLabel, run.status) || !run.versions || Array.isArray(run.versions) || Object.values(run.versions).some(v => !Number.isInteger(v) || Number(v) < 0)) throw new Error("运行元数据无效");
   if (data.generated.length > 10000 || data.favorites.length > 10000) throw new Error("运行备份超过结果上限");
-  const valid = (c: Candidate) => c && typeof c.text === "string" && c.text.length <= 1024 && c.runId === run.id && Array.isArray(c.parts) && c.parts.every(p => typeof p.resourceId === "string" && typeof p.text === "string");
+  const valid = (c: Candidate) => c && typeof c.text === "string" && c.text.length <= 1024 && c.runId === run.id && (!c.lineage || validLineage(c.lineage)) && Array.isArray(c.parts) && c.parts.every(p => typeof p.resourceId === "string" && typeof p.text === "string");
   if (!data.generated.every(valid) || !data.favorites.every((c: Candidate & { savedAt: number }) => valid(c) && Number.isFinite(c.savedAt))) throw new Error("运行结果格式无效");
   await target.transaction("rw", target.runs, target.generated, target.favorites, async () => {
     if (await target.runs.get(run.id)) throw new Error("同 ID 运行已存在，未覆盖任何数据");

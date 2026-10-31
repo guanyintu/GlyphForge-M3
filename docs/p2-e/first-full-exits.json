@@ -1,0 +1,100 @@
+{
+  "targeted": false,
+  "exits": [
+    {
+      "name": "tests",
+      "command": [
+        "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "exit": 0,
+      "milliseconds": 6811
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exit": 0,
+      "milliseconds": 6208
+    },
+    {
+      "name": "build-types",
+      "command": [
+        "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/typescript/bin/tsc",
+        "-b"
+      ],
+      "exit": 0,
+      "milliseconds": 6292
+    },
+    {
+      "name": "build",
+      "command": [
+        "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "exit": 0,
+      "milliseconds": 31627
+    },
+    {
+      "name": "benchmark",
+      "command": [
+        "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "src/tests/performance.test.ts",
+        "src/tests/resource-catalog.test.ts",
+        "src/tests/packs.test.ts",
+        "src/tests/lineage.test.ts",
+        "--reporter=verbose"
+      ],
+      "exit": 0,
+      "milliseconds": 4838
+    },
+    {
+      "name": "browser",
+      "command": [
+        "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "node_modules/@playwright/test/cli.js",
+        "test"
+      ],
+      "exit": 1,
+      "milliseconds": 450143
+    }
+  ],
+  "historicalEvidenceBackup": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2e-evidence-ZyFp4p",
+  "restoredHistoricalFiles": [
+    "docs\\p1-final\\mixed-performance.json",
+    "docs\\p1-final\\resources-performance.json",
+    "docs\\p1c\\game-ui.png",
+    "docs\\p1c\\reverse-ui.png",
+    "docs\\p1d\\highlight-cards.png",
+    "docs\\p1d\\mobile-physics.png",
+    "docs\\p1d\\performance.json",
+    "docs\\p1d\\physics-desktop.png",
+    "docs\\p2-a\\performance.json",
+    "docs\\p2-a\\subgraph-calls.png",
+    "docs\\p2-a\\subgraph-library.png",
+    "docs\\p2-a\\watchdog.json",
+    "docs\\p2-a\\worker.json",
+    "docs\\p2-b\\mutation-locks.png",
+    "docs\\p2-b\\subgraph-reuse.png",
+    "docs\\p2-b\\worker.json",
+    "docs\\p2-c\\browser-benchmark.json",
+    "docs\\p2-c\\dynamic-preview.png",
+    "docs\\p2-c\\missing-dependency.png",
+    "docs\\p2-c\\ui-portable.json",
+    "docs\\p2-d\\browser-benchmark.json",
+    "docs\\p2-d\\installed.png",
+    "docs\\p2-d\\offline-roundtrip.json",
+    "docs\\p2-s0-1\\browser-fresh-growth.json",
+    "docs\\p2-s0-1\\browser-v5-growth.json",
+    "docs\\p2-s0-1\\history-ui.png",
+    "docs\\p2-s0-2\\worker-consistency.json"
+  ]
+}

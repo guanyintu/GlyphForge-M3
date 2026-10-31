@@ -1,3 +1,4 @@
+import LineagePanel from "./components/LineagePanel";
 import { PacksPanel } from "./components/Packs";
 import "./p2c.css";
 import { DefinedResourceEditor } from "./components/DefinedResources";
@@ -488,8 +489,8 @@ export default function App() {
   async function favorite(c: Candidate) {
     try {
       await toggleFavorite(c);
-    } catch {
-      notify("收藏保存失败");
+    } catch (error) {
+      notify(error instanceof Error ? error.message : "收藏保存失败");
     }
   }
   function addNode(op: Op) {
@@ -1438,6 +1439,7 @@ export default function App() {
             </div>
             <div className="modal-body">
               <div className="detail-name">{detail.text}</div>
+              <LineagePanel key={`${detail.runId}:${detail.text}`} candidate={detail} />
               {detail.members?.length ? <div className="detail-members">{detail.members.map((member, i) => <div key={i}><span>{i + 1}. {member}</span><button className="text-button" onClick={() => copy(member)}>复制此成员</button></div>)}</div> : null}
               <div className="detail-status">
                 <span className="tiny-dot" />
@@ -1454,7 +1456,7 @@ export default function App() {
                   </p>
                 ) : null}
                 <p className="field-note">保留工作流快照与资源版本号；没有历史资源内容快照，无法保证完整重现旧结果。</p>
-                {detail.parts.map((p, i) => (
+                {detail.parts.slice(0,32).map((p, i) => (
                   <div key={i}>
                     <b>{p.text}</b>
                     <span>

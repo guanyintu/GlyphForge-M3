@@ -79,7 +79,7 @@ export default function Results({
   const copyTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const feedback = useRef(new Map<HTMLElement, Animation>());
   const favoriteSet = useMemo(
-    () => new Set(favorites.map((f) => f.text)),
+    () => new Set(favorites.map((f) => JSON.stringify([f.text,f.runId,f.workflowId]))),
     [favorites],
   );
   const results = useMemo(() => {
@@ -87,7 +87,7 @@ export default function Results({
       (c) =>
         c.text.includes(query) &&
         (!excluded || !c.text.includes(excluded)) &&
-        (!starred || favoriteSet.has(c.text)),
+        (!starred || favoriteSet.has(JSON.stringify([c.text,c.runId,c.workflowId]))),
     );
     if (deduplicate) { const seen = new Set<string>(); result = result.filter(c => { if (seen.has(c.text)) return false; seen.add(c.text); return true; }); }
     return sort === "az"
@@ -166,6 +166,7 @@ export default function Results({
                 : candidates.length ? "已保留的创作结果" : "运行工作流，看看会发生什么"}
           </span>
         </div>
+        {stats?.safePruned ? <span className="field-note">安全省略 {stats.safePruned.toLocaleString()} 条拒绝组合的来源构造（保持读取和计步）</span> : null}
         <div className="result-actions">
           <select
             aria-label="结果导出格式"
@@ -347,7 +348,7 @@ export default function Results({
             >
               {visible.map((c, i) => (
                 <div
-                  className={`candidate ${view === "play" && motionEnabled ? "animate-card" : ""} ${view === "scatter" && motionEnabled ? "animate-scatter" : ""} ${favoriteSet.has(c.text) ? "saved" : ""}`}
+                  className={`candidate ${view === "play" && motionEnabled ? "animate-card" : ""} ${view === "scatter" && motionEnabled ? "animate-scatter" : ""} ${favoriteSet.has(JSON.stringify([c.text,c.runId,c.workflowId])) ? "saved" : ""}`}
                   key={visibleKeys[i]}
                   data-candidate-key={visibleKeys[i]}
                   data-candidate-text={c.text}
@@ -399,10 +400,10 @@ export default function Results({
                       )}
                     </button>
                     <button
-                      className={`icon-button star-button ${favoriteSet.has(c.text) ? "active" : ""}`}
+                      className={`icon-button star-button ${favoriteSet.has(JSON.stringify([c.text,c.runId,c.workflowId])) ? "active" : ""}`}
                       title="收藏名字"
                       aria-label={`收藏 ${c.text}`}
-                      aria-pressed={favoriteSet.has(c.text)}
+                      aria-pressed={favoriteSet.has(JSON.stringify([c.text,c.runId,c.workflowId]))}
                       onClick={(e) => {
                         onFavorite(c);
                         if (!motionEnabled) return;
@@ -415,7 +416,7 @@ export default function Results({
                     >
                       <Star
                         size={15}
-                        fill={favoriteSet.has(c.text) ? "currentColor" : "none"}
+                        fill={favoriteSet.has(JSON.stringify([c.text,c.runId,c.workflowId])) ? "currentColor" : "none"}
                       />
                     </button>
                   </div>

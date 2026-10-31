@@ -1,0 +1,96 @@
+{
+  "samples": [
+    {
+      "mode": "off",
+      "ms": 183.04669999999987,
+      "steps": 30304,
+      "pruned": 0
+    },
+    {
+      "mode": "on",
+      "ms": 77.71070000000009,
+      "steps": 30304,
+      "pruned": 10000
+    },
+    {
+      "mode": "on",
+      "ms": 83.40210000000025,
+      "steps": 30304,
+      "pruned": 10000
+    },
+    {
+      "mode": "off",
+      "ms": 194.38869999999997,
+      "steps": 30304,
+      "pruned": 0
+    },
+    {
+      "mode": "off",
+      "ms": 173.70949999999993,
+      "steps": 30304,
+      "pruned": 0
+    },
+    {
+      "mode": "on",
+      "ms": 65.4078999999997,
+      "steps": 30304,
+      "pruned": 10000
+    },
+    {
+      "mode": "on",
+      "ms": 72.80529999999999,
+      "steps": 30304,
+      "pruned": 10000
+    },
+    {
+      "mode": "off",
+      "ms": 176.04919999999993,
+      "steps": 30304,
+      "pruned": 0
+    },
+    {
+      "mode": "off",
+      "ms": 199.77289999999994,
+      "steps": 30304,
+      "pruned": 0
+    },
+    {
+      "mode": "on",
+      "ms": 76.27489999999989,
+      "steps": 30304,
+      "pruned": 10000
+    },
+    {
+      "mode": "on",
+      "ms": 80.33570000000009,
+      "steps": 30304,
+      "pruned": 10000
+    },
+    {
+      "mode": "off",
+      "ms": 190.5546000000004,
+      "steps": 30304,
+      "pruned": 0
+    }
+  ],
+  "offMedianMs": 186.80065000000013,
+  "onMedianMs": 76.99279999999999,
+  "speedup": 2.4262093338597914,
+  "identicalSteps": [
+    30304
+  ],
+  "prunedPerEnabledRun": 10000,
+  "worker": {
+    "ms": 1183.2999999523163,
+    "engineMs": 1130.9000000953674,
+    "steps": 50085,
+    "rows": 10000,
+    "batches": 157,
+    "maxRefs": 13,
+    "maxLineageJsonChars": 1929,
+    "workerV8SampleMaxUsed": 20709916,
+    "workerV8SampleCount": 10,
+    "concurrentWithMain": true
+  },
+  "measurement": "CDP Runtime.getHeapUsage on dedicated Worker target; sampled V8 heap, neither RSS nor absolute peak"
+}

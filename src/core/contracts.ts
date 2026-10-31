@@ -1,3 +1,4 @@
+import { mergeLineage } from "./lineage";
 import { operators } from "./model";
 import type { Candidate, Op, Params, Resource, SourcePart } from "./model";
 import { isChineseOp, validateChineseParams } from "./chinese-definitions";
@@ -127,7 +128,8 @@ export function uniqueParts(parts: SourcePart[]) {
 }
 export function combineCandidates(text: string, items: Candidate[]): Candidate {
   const notes = [...new Set(items.flatMap(c => c.notes || []))];
-  return { text, parts: uniqueParts(items.flatMap(c => c.parts)), ...(notes.length ? { notes } : {}) };
+  const lineage = mergeLineage(items);
+  return { text, ...(lineage ? {lineage} : {}), parts: uniqueParts(items.flatMap(c => c.parts)), ...(notes.length ? { notes } : {}) };
 }
 export type ResourceMetadataReader = (id: string) => Promise<(Pick<Resource, "kind"> & Partial<Resource>) | undefined>;
 export async function requireResourceKind(meta: ResourceMetadataReader, id: string, pair: boolean, mapping = false) {

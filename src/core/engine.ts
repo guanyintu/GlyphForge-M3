@@ -1,6 +1,7 @@
+import { traceCandidate } from "./lineage";
 import { ContractError, diagnose, executionBudget, nodeResourceBindings, normalizeParams, requireResourceKind } from "./contracts";
 import type { ResourceMetadataReader } from "./contracts";
-import { operatorRegistry } from "./operators";
+import { acceptsFilter, operatorRegistry } from "./operators";
 import type { Candidate, CandidateSequence, Params, RuleNode, Workflow } from "./model";
 import { callBindings, definitionFor, MAX_CALL_DEPTH } from "./subgraphs";
 import { validateGraph } from "./script";
@@ -12,12 +13,18 @@ export type ResourceReader = (
   tick?: () => void,
 ) => AsyncIterable<Candidate>;
 export interface RunStats {
+  safePruned?: number;
   steps: number;
   count: number;
   truncated: boolean;
   duration: number;
 }
 export interface RunHooks {
+  /** Disable only the pure metadata-allocation pruning for differential checks. */
+  optimize?: boolean;
+  lineage?: boolean;
+  lineageScope?: string;
+  onSafePrune?: () => void;
   signal?: AbortSignal;
   runId?: string;
   resourceMetadata?: ResourceMetadataReader;
@@ -41,6 +48,7 @@ export async function execute(
     count = 0,
     truncated = false,
     batch: Candidate[] = [];
+  let safePruned = 0;
   const seen = new Set<string>();
   function tick() {
     if (hooks.signal?.aborted) throw new ContractError({ code: "CANCELLED", message: "任务已取消" });
@@ -55,7 +63,7 @@ export async function execute(
         elapsed: performance.now() - started,
       });
   }
-  for await (const value of evaluateWorkflow(workflow, reader, tick, hooks)) {
+  for await (const value of evaluateWorkflow(workflow, reader, tick, {...hooks, onSafePrune: () => { safePruned++; hooks.onSafePrune?.(); }})) {
     if (seen.has(value.text)) continue;
     if (count >= workflow.limit) {
       truncated = true;
@@ -75,13 +83,14 @@ export async function execute(
     }
   }
   if (batch.length) await onBatch(batch);
-  return { steps, count, truncated, duration: performance.now() - started };
+  return { steps, count, truncated, safePruned, duration: performance.now() - started };
 }
 
 export async function* evaluateWorkflow(workflow: Workflow, reader: ResourceReader, tick: () => void, hooks: RunHooks = {}): AsyncGenerator<Candidate> {
   validateGraph(workflow);
   const nodes = new Map(workflow.nodes.map((n) => [n.id, n]));
-  async function* evaluate(n: RuleNode, scope = nodes, bindings: Params = {}, args: Record<string, () => CandidateSequence> = {}, depth = 0, path = ""): AsyncGenerator<Candidate> {
+  const traced = (c: Candidate, path: string) => hooks.lineage || hooks.runId ? traceCandidate(c, hooks.lineageScope ?? workflow.id, path) : c;
+  async function* evaluate(n: RuleNode, scope = nodes, bindings: Params = {}, args: Record<string, () => CandidateSequence> = {}, depth = 0, path = "", acceptText?: (text: string) => boolean): AsyncGenerator<Candidate> {
     try {
       tick();
       if (n.op === "argument") { yield* args[String(n.params.name)](); return; }
@@ -91,7 +100,7 @@ export async function* evaluateWorkflow(workflow: Workflow, reader: ResourceRead
         const local = callBindings(n, d, bindings);
         const sequences = Object.fromEntries(d.parameters.filter(p => p.type === "CandidateSequence").map((p, i) => [p.name, () => evaluate(scope.get(n.inputs[i])!, scope, bindings, args, depth, path)]));
         const inner = new Map(d.nodes.map(n => [n.id, n]));
-        yield* evaluate(inner.get(d.output)!, inner, local, sequences, depth + 1, `${path}${n.id}/`);
+        for await (const c of evaluate(inner.get(d.output)!, inner, local, sequences, depth + 1, `${path}${n.id}/`)) yield traced(c, `${path}${n.id}`);
         return;
       }
       const params = { ...n.params };
@@ -102,22 +111,35 @@ export async function* evaluateWorkflow(workflow: Workflow, reader: ResourceRead
         function pipeline(index: number): CandidateSequence {
           if (index < 0) return evaluate(scope.get(n.inputs[0])!, scope, bindings, args, depth, path);
           const step = resolved.steps[index];
-          return operatorRegistry[step.op].execute({node:{id:`${n.id}/${index}`,op:step.op,inputs:[],params:step.params},seed:workflow.seed,tick,read:(id,seed)=>reader(id,seed,tick),resourceMetadata:hooks.resourceMetadata,input:()=>pipeline(index-1)});
+          const sequence = operatorRegistry[step.op].execute({node:{id:`${n.id}/${index}`,op:step.op,inputs:[],params:step.params},seed:workflow.seed,tick,read:(id,seed)=>reader(id,seed,tick),resourceMetadata:hooks.resourceMetadata,input:()=>pipeline(index-1)});
+          return (async function* () { for await (const c of sequence) yield traced(c, `${path}${n.id}/${index}`); })();
         }
-        yield* pipeline(resolved.steps.length-1); return;
+        for await (const c of pipeline(resolved.steps.length-1)) yield traced(c, `${path}${n.id}`); return;
+      }
+      // Fuse only a direct combination → filter. Do not skip readers, transforms,
+      // random consumption, source errors, text bounds, or either node's ticks.
+      const source = scope.get(n.inputs[0]);
+      if (hooks.optimize !== false && n.op === "filter" && source && (source.op === "concat" || source.op === "pattern")) {
+        const accept = (text: string) => {
+          try { tick(); const keep = !!acceptsFilter(text, bound.params); if (!keep) hooks.onSafePrune?.(); return keep; }
+          catch (e) { throw diagnose(e, {nodeId:`${path}${n.id}`,operator:n.op,line:n.line}); }
+        };
+        for await (const c of evaluate(source, scope, bindings, args, depth, path, accept)) yield traced(c, `${path}${n.id}`);
+        return;
       }
       if (hooks.resourceMetadata) for (const binding of nodeResourceBindings(n.op, bound.params)) {
         await requireResourceKind(hooks.resourceMetadata, binding.id, binding.pair, binding.mapping);
         tick();
       }
-      yield* operatorRegistry[n.op].execute({
+      for await (const c of operatorRegistry[n.op].execute({
+        acceptText,
         node: bound,
         seed: workflow.seed,
         tick,
         read: (id, seed) => reader(id, seed, tick),
         resourceMetadata: hooks.resourceMetadata,
         input: (index) => evaluate(scope.get(n.inputs[index])!, scope, bindings, args, depth, path),
-      });
+      })) yield traced(c, `${path}${n.id}`);
     } catch (error) {
       throw diagnose(error, { nodeId: `${path}${n.id}`, operator: n.op, line: n.line });
     }

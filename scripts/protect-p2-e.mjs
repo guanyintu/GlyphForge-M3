@@ -1,0 +1,21 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const git = (...args) => execFileSync('git', args);
+const backup = fs.mkdtempSync(path.join(os.tmpdir(), 'glyphforge-p2e-baseline-'));
+const changed = new Set(git('ls-files','-m','-o','--exclude-standard','-z').toString().split('\0').filter(Boolean));
+const files = [...new Set(git('ls-files','--cached','--others','--exclude-standard','-z').toString().split('\0').filter(Boolean))];
+const manifest = files.map(file => {
+  if (!fs.existsSync(file)) return {file, missing:true, owner:'historical'};
+  const bytes=fs.readFileSync(file), target=path.join(backup,file);
+  fs.mkdirSync(path.dirname(target),{recursive:true}); fs.writeFileSync(target,bytes);
+  return {file, bytes:bytes.length, sha256:crypto.createHash('sha256').update(bytes).digest('hex'), owner:file==='scripts/protect-p2-e.mjs'?'P2-E':changed.has(file)?'historical':'HEAD'};
+});
+fs.mkdirSync('docs/p2-e',{recursive:true});
+fs.writeFileSync('docs/p2-e/baseline-local.json',JSON.stringify({head:git('rev-parse','HEAD').toString().trim(), branch:git('branch','--show-current').toString().trim(),backup,files:manifest},null,2));
+fs.writeFileSync(path.join(backup,'worktree.patch'),git('diff','--binary'));
+fs.writeFileSync(path.join(backup,'index.patch'),git('diff','--cached','--binary'));
+fs.writeFileSync('docs/p2-e/baseline-summary.json',JSON.stringify({head:git('rev-parse','HEAD').toString().trim(),files:manifest, historical:manifest.filter(f=>f.owner==='historical').length},null,2));
+console.log(JSON.stringify({backup, files:files.length, historical:manifest.filter(f=>f.owner==='historical').length}));

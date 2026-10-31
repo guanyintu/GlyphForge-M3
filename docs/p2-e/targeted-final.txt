@@ -1,0 +1,16 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+stdout | src/tests/lineage.test.ts > 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows
+P2-E 10k {"ms":148.37710000000015,"stats":{"steps":40041,"count":10000,"truncated":true,"safePruned":0,"duration":148.17470000000003},"maxLineageBytes":168,"totalLineageBytes":1680000}
+
+stdout | src/tests/lineage.test.ts > paired rejection benchmark preserves exact steps and avoids 10k metadata allocations
+P2-E paired allocation benchmark [{"mode":"off","ms":203.35779999999977,"steps":30304,"pruned":0},{"mode":"on","ms":71.37059999999974,"steps":30304,"pruned":10000},{"mode":"on","ms":76.5631000000003,"steps":30304,"pruned":10000},{"mode":"off","ms":263.27819999999974,"steps":30304,"pruned":0},{"mode":"off","ms":285.5608000000002,"steps":30304,"pruned":0},{"mode":"on","ms":136.1261999999997,"steps":30304,"pruned":10000},{"mode":"on","ms":129.9354999999996,"steps":30304,"pruned":10000},{"mode":"off","ms":323.337,"steps":30304,"pruned":0},{"mode":"off","ms":293.34180000000015,"steps":30304,"pruned":0},{"mode":"on","ms":105.76769999999988,"steps":30304,"pruned":10000},{"mode":"on","ms":127.32769999999982,"steps":30304,"pruned":10000},{"mode":"off","ms":334.9475000000002,"steps":30304,"pruned":0}]
+
+ ✓ src/tests/lineage.test.ts (18 tests) 3277ms
+   ✓ paired rejection benchmark preserves exact steps and avoids 10k metadata allocations  2362ms
+
+ Test Files  1 passed (1)
+      Tests  18 passed (18)
+   Start at  21:50:07
+   Duration  4.91s (transform 352ms, setup 0ms, collect 841ms, tests 3.28s, environment 0ms, prepare 264ms)

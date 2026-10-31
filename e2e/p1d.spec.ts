@@ -86,7 +86,7 @@ test("P1-D: stable keys, FLIP sorting/filtering, Unicode highlights and immediat
   await page.getByRole("button", { name: "爆炸散开", exact: true }).click(); await expect(page.locator(".animate-scatter")).toHaveCount(7);
   await page.getByLabel("开启动画", { exact: true }).uncheck(); await expect(page.locator(".animate-scatter")).toHaveCount(0);
   await page.getByLabel("开启动画", { exact: true }).check(); await page.emulateMedia({ reducedMotion: "reduce" }); await expect(page.locator(".animate-scatter")).toHaveCount(0);
-  await page.reload(); await expect(page.getByLabel("收藏 猫", { exact: true })).toHaveAttribute("aria-pressed", "true");
+  await page.reload(); await page.getByRole("button", { name: /^我的收藏/ }).click(); await expect(page.getByLabel("收藏 猫", { exact: true })).toHaveAttribute("aria-pressed", "true");
 });
 
 test("P1-D: visibility, resize, offscreen and unmount clean the owned RAF", async ({ page }) => {

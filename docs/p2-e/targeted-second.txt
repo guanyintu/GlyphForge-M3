@@ -1,0 +1,12 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+stdout | src/tests/lineage.test.ts > 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows
+P2-E 10k {"ms":106.38469999999984,"stats":{"steps":40041,"count":10000,"truncated":true,"safePruned":0,"duration":106.14159999999993},"maxLineageBytes":168,"totalLineageBytes":1680000}
+
+ ✓ src/tests/lineage.test.ts (14 tests) 556ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  21:43:24
+   Duration  1.85s (transform 282ms, setup 0ms, collect 665ms, tests 556ms, environment 0ms, prepare 238ms)

@@ -1,0 +1,4 @@
+src/tests/lineage.test.ts(16,9): error TS2724: '"../core/reverse-search"' has no exported member named 'ReverseSearchService'. Did you mean 'ReverseSearcher'?
+src/tests/lineage.test.ts(53,66): error TS2339: Property 'safePruned' does not exist on type 'RunStats'.
+src/tests/lineage.test.ts(57,60): error TS2339: Property 'safePruned' does not exist on type 'RunStats'.
+src/tests/lineage.test.ts(113,243): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.

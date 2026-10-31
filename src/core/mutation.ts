@@ -1,3 +1,4 @@
+import { resolveMapping } from "./mapping-resource";
 import type { Candidate, Params, Workflow } from "./model";
 import { candidateText, operators } from "./model";
 import type { GameRule } from "./game-rules";
@@ -58,13 +59,15 @@ export async function* mutate(c: OperatorContext): AsyncGenerator<Candidate> {
   let state = c.seed >>> 0;
   const random = (n: number) => { state += 0x6d2b79f5; let t = state; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) % n; };
   const pool = glyphs(String(p.pool));
+  const resolvedMapping = await resolveMapping(p, c.resourceMetadata);
+  if(resolvedMapping.resource) base.parts=uniqueParts([...base.parts,{resourceId:String(p.mappingId),version:resolvedMapping.resource.version,text:source.text}]);
   const chineseCache = new Map<string, string[]>();
   async function alternatives(op: "homophone" | "martian", text: string) {
     const key = op + text; if (chineseCache.has(key)) return chineseCache.get(key)!;
     const options: string[] = [];
     if (/^\p{Unified_Ideograph}$/u.test(text)) {
       const { transformChinese } = await import("./chinese");
-      for await (const x of transformChinese(op === "homophone" ? "homophones" : "hanconvert", { text, parts: [] }, op === "homophone" ? { matchTone: true, limit: 32 } : { mode: "martian", probability: 1, limit: 32 }, c.seed, c.tick)) { c.tick(); if (x.text !== text) options.push(x.text); }
+      for await (const x of transformChinese(op === "homophone" ? "homophones" : resolvedMapping.resource ? "mapchars" : "hanconvert", { text, parts: [] }, op === "homophone" ? { matchTone: true, limit: 32 } : { ...resolvedMapping.params, mode: "martian", probability: 1, limit: 32 }, c.seed, c.tick)) { c.tick(); if (x.text !== text) options.push(x.text); }
     }
     if (chineseCache.size >= 128) chineseCache.delete(chineseCache.keys().next().value!);
     chineseCache.set(key, options); return options;

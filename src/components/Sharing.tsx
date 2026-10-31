@@ -1,3 +1,4 @@
+import { planResources } from "../core/resource-catalog";
 import { useEffect, useRef, useState } from "react";
 import type { Resource, Workflow } from "../core/model";
 import { dependencyIds, download, exportPackage } from "../core/sharing";
@@ -11,7 +12,9 @@ export function SharePanel({
   resources: Resource[];
   notify: (s: string) => void;
 }) {
-  const [ids, setIds] = useState(() => dependencyIds(workflow));
+  let deps=dependencyIds(workflow);
+  try {deps=planResources(deps,resources).resources.map(r=>r.id);} catch { /* Keep missing roots visible. */ }
+  const [ids, setIds] = useState(() => deps);
   const [busy, setBusy] = useState(false);
   const controller=useRef<AbortController|null>(null);useEffect(()=>()=>controller.current?.abort(),[]);
   async function save(snapshot: boolean) {
@@ -41,7 +44,7 @@ export function SharePanel({
         轻量工作流保存规则、布局、资源引用和算子版本。便携包还可以包含你勾选的词库快照；未包含的资源会在导入时要求重新绑定。
       </p>
       <div className="share-resources">
-        {dependencyIds(workflow).map((id) => {
+        {deps.map((id) => {
           const r = resources.find((x) => x.id === id);
           return (
             <label key={id}>
@@ -125,7 +128,7 @@ export function ImportBindings({
             }
           >
             <option value="">选择本地词库…</option>
-            {resources.filter(r => (r.kind === "relation") === (dep.kind === "relation")).map((r) => (
+            {resources.filter(r => dep.kind === "mapping" ? r.kind === "mapping" : r.kind !== "mapping" && (r.kind === "relation") === (dep.kind === "relation")).map((r) => (
               <option value={r.id} key={r.id}>
                 {r.name} · v{r.version}
               </option>

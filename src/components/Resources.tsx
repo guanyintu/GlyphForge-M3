@@ -1,3 +1,4 @@
+import { ImportDefinedResource, newDefinedResource, ResourceDependencyNotice } from "./DefinedResources";
 import { useEffect, useRef, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import {
@@ -23,12 +24,14 @@ export function ResourcePage({
   onEdit,
   onCreate,
   onCreateRelation,
+  notify,
 }: {
   resources: Resource[];
   previews: Record<string, string[]>;
   onEdit: (r: Resource) => void;
   onCreate: () => void;
   onCreateRelation: () => void;
+  notify: (s:string) => void;
 }) {
   const [query, setQuery] = useState("");
   return (
@@ -41,7 +44,7 @@ export function ResourcePage({
           </h1>
           <p>在这里收集、整理和复用你的文字素材。</p>
         </div>
-        <div className="row relation-actions"><button className="button" onClick={onCreateRelation}>新建关系词库</button><button className="primary-button" onClick={onCreate}>
+        <div className="row relation-actions"><ImportDefinedResource onOpen={onEdit} notify={notify}/><button className="button" onClick={()=>onEdit(newDefinedResource("mapping"))}>新建 Mapping</button><button className="button" onClick={()=>onEdit(newDefinedResource("dynamic"))}>新建动态词库</button><button className="button" onClick={onCreateRelation}>新建关系词库</button><button className="primary-button" onClick={onCreate}>
           <Plus size={16} />
           新建词库
         </button></div>
@@ -87,7 +90,7 @@ export function ResourcePage({
                 ))}
               </div>
               <div className="resource-card-foot">
-                <span>{r.count} {r.kind === "relation" ? "行关系" : "个词条"}</span>
+                <span>{r.definition?.type === "dynamic" ? "动态 · 按需计算" : r.kind === "mapping" ? `${r.count} 个规则` : `${r.count} ${r.kind === "relation" ? "行关系" : "个词条"}`}</span>
                 <span>v{r.version} · 本地词库</span>
               </div>
             </button>
@@ -267,7 +270,7 @@ export function ResourceModal({
             <X size={20} />
           </button>
         </div>
-        <div className="resource-editor">
+        <ResourceDependencyNotice id={resource.id}/><div className="resource-editor">
           <div className="resource-editor-input">
             <label className="field-label">
               词库名称

@@ -1,0 +1,20 @@
+
+Running 5 tests using 1 worker
+
+  ok 1 e2e\resources.spec.ts:7:1 › real UI creates source, Mapping, dynamic preview, P2-A call, mutation, favorite/export and refresh (7.4s)
+  ok 2 e2e\resources.spec.ts:24:1 › standalone Mapping file imports offline and lab/martian mutation use the same selected rules (3.2s)
+  ok 3 e2e\resources.spec.ts:29:1 › real IndexedDB changes clear old pages; recompute and deletion show exact missing source (2.7s)
+  ok 4 e2e\resources.spec.ts:34:1 › preview worker cancellation while IndexedDB read is blocked has no late rows (12.3s)
+  ok 5 e2e\resources.spec.ts:41:1 › offline v6 import and production Worker benchmark 100k/1m logical scale (2.1s)
+
+  5 passed (35.2s)
+[WebServer] (node:134452) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:70928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:70928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:167740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:132300) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

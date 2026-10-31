@@ -14,10 +14,10 @@ export const chineseDefinitions: Record<ChineseOp, Definition> = {
     defaults: { reference: "星光", matchTone: false } },
   hanconvert: { id: "hanconvert", name: "简繁与火星文", category: "中文", color: "purple", inputs: 1,
     description: "OpenCC 简繁或项目趣味多候选映射；按种子控制逐字转换概率，未映射字符保留",
-    defaults: { mode: "traditional", probability: 1, limit: 32 } },
+    defaults: { mode: "traditional", probability: 1, limit: 32, mappingId: "" } },
   mapchars: { id: "mapchars", name: "自定义字符映射", category: "中文", color: "purple", inputs: 1,
     description: 'JSON 单字符到候选数组，例如 {"月":["玥","鈅"]}；有界枚举，固定种子可复现',
-    defaults: { mapping: '{"月":["玥","鈅"],"星":["煋","☆"]}', probability: 1, limit: 32 } },
+    defaults: { mapping: '{"月":["玥","鈅"],"星":["煋","☆"]}', probability: 1, limit: 32, mappingId: "" } },
   decompose: { id: "decompose", name: "汉字结构拆解", category: "汉字结构", color: "orange", inputs: 1,
     description: "逐字拆解左右、上下和包围结构；递归深度可调，描述与未编码部件不是真实新汉字",
     defaults: { depth: 1, structure: "any" } },
@@ -42,7 +42,7 @@ export const chineseChoices: Record<string, string[]> = {
   structure: ["any", "left-right", "top-bottom", "enclosure", "other"],
 };
 export const chineseLabels: Record<string, string> = {
-  mode: "转换方式", tone: "声调格式", separator: "分隔符", limit: "每条输入候选上限", matchTone: "区分声调",
+  mappingId: "Mapping 资源", mode: "转换方式", tone: "声调格式", separator: "分隔符", limit: "每条输入候选上限", matchTone: "区分声调",
   reference: "押韵参照词", probability: "转换概率（0–1）", mapping: "多候选映射 JSON", depth: "递归深度（1–6）",
   structure: "结构", match: "部件匹配方式", deep: "递归查找部件", minStrokes: "最少笔画", maxStrokes: "最多笔画",
 };

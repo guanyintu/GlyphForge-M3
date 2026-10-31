@@ -1,0 +1,175 @@
+
+Running 42 tests using 1 worker
+
+  ok  1 e2e\audit.spec.ts:6:1 › real UI: lab → saved resource → workflow and reload (3.3s)
+  ok  2 e2e\audit.spec.ts:47:1 › real UI: relation editor saves, edits, deletes and survives reload (2.6s)
+AUDIT_RELATION_10000 {"importMs":3395.7000000476837,"runMs":921.8999998569489,"count":10000,"maxBatch":64,"correct":true}
+  ok  3 e2e\audit.spec.ts:76:1 › real IndexedDB: import and execute 10,000 relation rows (6.0s)
+  ok  4 e2e\audit.spec.ts:122:1 › real UI: editable relation recipe runs and persists (2.1s)
+  ok  5 e2e\audit.spec.ts:135:1 › real UI: concurrent entry edits increment versions and refresh indexes (1.8s)
+AUDIT_BROWSER_WORKER {"count":1000,"maxBatch":64,"steps":10026,"milliseconds":84}
+AUDIT_BROWSER_CANCEL {"steps":1000,"lateMessages":0,"terminateMs":0}
+  ok  6 e2e\audit.spec.ts:167:1 › production Workers: bounded nested execution, persistence and hard cancellation (1.8s)
+  ok  7 e2e\contracts.spec.ts:8:1 › a delayed old autosave cannot replace the selected workflow on reload (2.8s)
+  ok  8 e2e\contracts.spec.ts:34:1 › production execution/laboratory Workers and graph/code/AST share signatures (1.3s)
+  ok  9 e2e\contracts.spec.ts:77:1 › production Worker rejects empty ordinary/relation resources in graph, AST and template (341ms)
+  ok 10 e2e\mutation.spec.ts:11:1 › Unicode locks, deterministic rerun, dedup, rollback, copy/export and truthful favorites survive refresh (5.9s)
+  ok 11 e2e\mutation.spec.ts:31:1 › saved mutation words flow through real P2-A UI subgraph and production Worker (4.0s)
+  ok 12 e2e\mutation.spec.ts:43:1 › cancel terminates blocked mutation Worker and persists cancelled state (1.8s)
+  ok 13 e2e\mutation.spec.ts:51:1 › production mutation Worker repeats seed/resources and portable package without stale Pair or members (2.3s)
+  ok 14 e2e\p1-final.spec.ts:6:1 › final UI chain: file import → AABB → code roundtrip → favorite → library → portable blank-context restore (5.6s)
+FINAL_RESOURCE_BENCH {"size":10000,"count":10000,"importMs":473.5,"exactMs":0.40000009536743164,"prefixMs":0.5,"exactFound":true,"renderedPage":60,"maxWriteBatch":1000,"browser":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","at":"2026-10-31T11:36:52.167Z","heartbeatSamples":9,"heartbeatP99Ms":63.200000047683716,"heartbeatMaxMs":63.200000047683716,"mainRendererHeapSample":9902022}
+FINAL_RESOURCE_BENCH {"size":100000,"count":100000,"importMs":4821.400000095367,"exactMs":0.39999985694885254,"prefixMs":0.9000000953674316,"exactFound":true,"renderedPage":60,"maxWriteBatch":1000,"browser":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","at":"2026-10-31T11:36:57.027Z","heartbeatSamples":96,"heartbeatP99Ms":62.5,"heartbeatMaxMs":62.5,"mainRendererHeapSample":9585765}
+FINAL_RESOURCE_BENCH {"size":1000000,"count":1000000,"importMs":49800.299999952316,"exactMs":0.6000001430511475,"prefixMs":0.6999998092651367,"exactFound":true,"renderedPage":60,"maxWriteBatch":1000,"browser":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","at":"2026-10-31T11:37:46.897Z","heartbeatSamples":998,"heartbeatP99Ms":63.200000047683716,"heartbeatMaxMs":63.799999952316284,"mainRendererHeapSample":7797893}
+  ok 15 e2e\p1-final.spec.ts:61:1 › final production resource Worker: 10k/100k/1m bounded import benchmark while renderer remains responsive (57.2s)
+FINAL_MIXED_BENCH {"importMs":5428.400000095367,"deepQueryMs":1957,"deepCount":100000,"deepRows":40,"firstDeep":"深页099960","lastDeep":"深页099999","runs":[{"ms":41,"received":2,"steps":5048},{"ms":38.700000047683716,"received":2,"steps":5048},{"ms":40.90000009536743,"received":2,"steps":5048},{"ms":34.39999985694885,"received":2,"steps":5048},{"ms":37.200000047683716,"received":2,"steps":5048},{"ms":35,"received":2,"steps":5048},{"ms":34.5,"received":2,"steps":5048},{"ms":40.89999985694885,"received":2,"steps":5048}],"concurrentReceived":2,"reverseMatches":[{"text":"深页099999","resourceId":"stress","entryId":100058,"start":0,"end":8,"utf16Start":0,"utf16End":8,"type":"exact"}],"exhausted":"节点 program：第 1 行：达到执行步数上限，请缩小词库或调整筛选条件","cancel":{"late":0,"processed":1000,"ms":0},"physicsObjects":42}
+  ok 16 e2e\p1-final.spec.ts:87:1 › final mixed load: 100k resource import, deep contains page, cancellation, repeated nested execution and animation (10.2s)
+FINAL_LOCAL_HTTP_OFFLINE {"externalBlocked":["fonts.googleapis.com"],"boundary":"local HTTP remains reachable; not a PWA cold launch"}
+  ok 17 e2e\p1-final.spec.ts:137:1 › final offline boundary: local HTTP app executes, converts Chinese and reloads with internet requests blocked (1.2s)
+  ok 18 e2e\p1c.spec.ts:4:1 › reverse UI separates provenance, opens exact resources and builds executable workflow (4.0s)
+  ok 19 e2e\p1c.spec.ts:21:1 › relation direction can be edited, persisted and queried without reversing slots (4.1s)
+  ok 20 e2e\p1c.spec.ts:31:1 › game rule presets are editable in the workbench and survive reload (3.5s)
+P1C_BROWSER_BENCH {"entries":100002,"loadMs":4711.5,"coldMs":37,"warmMs":1.4000000953674316,"cacheHit":true,"deepMs":33.700000047683716,"deepMatches":[{"text":"词099999","resourceId":"large-a","entryId":100058,"start":0,"end":7,"utf16Start":0,"utf16End":7,"type":"exact"}],"maxBatch":2,"coldMatches":[{"text":"月亮","resourceId":"large-a","entryId":100059,"start":0,"end":2,"utf16Start":0,"utf16End":2,"type":"fragment"},{"text":"邮差","resourceId":"large-b","entryId":100060,"start":2,"end":4,"utf16Start":2,"utf16End":4,"type":"fragment"}],"complete":true,"changedMatches":[{"text":"邮差","resourceId":"large-b","entryId":100060,"start":2,"end":4,"utf16Start":2,"utf16End":4,"type":"fragment"}],"changedCacheHit":false,"cancelMs":0,"cancelledAfterScanned":256,"messagesAfterCancel":0,"mainThreadSampledHeapBefore":8374575,"mainThreadSampledHeapAfter":7420363,"userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","hardwareConcurrency":20,"browserVersion":"156.0.8078.4"}
+  ok 21 e2e\p1c.spec.ts:39:1 › production reverse Worker: 100k indexed entries, batching, cache invalidation and active cancellation (6.6s)
+  ok 22 e2e\p1d.spec.ts:29:1 › P1-D: 1200 results stay bounded; pause/stop/mode switch/reduced motion preserve copy and exports (5.1s)
+  ok 23 e2e\p1d.spec.ts:64:1 › P1-D: stable keys, FLIP sorting/filtering, Unicode highlights and immediate favorites (3.6s)
+P1D_CLEANUP {"frames":"39","pending":0}
+  ok 24 e2e\p1d.spec.ts:92:1 › P1-D: visibility, resize, offscreen and unmount clean the owned RAF (3.2s)
+  ok 25 e2e\p1d.spec.ts:125:1 › P1-D: low device starts with at most twenty objects and auto-stops (21.2s)
+P1D_PERFORMANCE {"browser":"156.0.8078.4","environment":{"userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","hardwareConcurrency":20,"deviceMemory":32},"cpuRate":6,"normal":{"elapsedMs":2016.0999999046326,"rafSamples":121,"meanIntervalMs":16.636363637939954,"p95IntervalMs":16.799999999999727,"p99IntervalMs":16.800000000000182,"maxIntervalMs":16.800000000000182,"longTasks":0,"maxLongTaskMs":0,"physicsPaints":121,"objects":42,"overlaps":0,"outOfBounds":0,"quality":"full"},"throttled":{"elapsedMs":2024.2999999523163,"rafSamples":119,"meanIntervalMs":16.878151262107014,"p95IntervalMs":16.800000000000182,"p99IntervalMs":33.399999999999636,"maxIntervalMs":33.399999999999636,"longTasks":0,"maxLongTaskMs":0,"physicsPaints":119,"objects":42,"overlaps":0,"outOfBounds":0,"quality":"full"},"contention":{"injectedBusyMsPerFrame":35,"elapsedMs":6050.600000143051,"rafSamples":155,"meanIntervalMs":38.731612903533446,"p95IntervalMs":50,"p99IntervalMs":50.100000000000364,"maxIntervalMs":83.30000000000109,"longTasks":2,"maxLongTaskMs":51,"physicsPaints":36,"objects":12,"overlaps":0,"outOfBounds":0,"quality":"static"},"favoriteLatencyMs":467,"heap":{"scope":"main renderer isolate; excludes Worker/GPU/RSS","beforeAnimationSample":{"usedSize":7528412,"totalSize":8458240,"embedderHeapUsedSize":10969096,"backingStorageSize":763344},"beforeDisableGC":{"usedSize":8884896,"totalSize":13246464,"embedderHeapUsedSize":11859240,"backingStorageSize":760193},"afterUnmountGC":{"usedSize":7155992,"totalSize":7741440,"embedderHeapUsedSize":9476592,"backingStorageSize":752214}},"errors":[]}
+  ok 26 e2e\p1d.spec.ts:148:1 › P1-D: measured Chromium CPU throttling and sustained-contention fallback (15.6s)
+  ok 27 e2e\resources.spec.ts:7:1 › real UI creates source, Mapping, dynamic preview, P2-A call, mutation, favorite/export and refresh (6.0s)
+  x  28 e2e\resources.spec.ts:24:1 › standalone Mapping file imports offline and lab/martian mutation use the same selected rules (45.2s)
+  ok 29 e2e\resources.spec.ts:29:1 › real IndexedDB changes clear old pages; recompute and deletion show exact missing source (2.6s)
+  ok 30 e2e\resources.spec.ts:34:1 › preview worker cancellation while IndexedDB read is blocked has no late rows (2.1s)
+  ok 31 e2e\resources.spec.ts:39:1 › offline v6 import and production Worker benchmark 100k/1m logical scale (2.0s)
+  ok 32 e2e\run-lifecycle.spec.ts:10:46 › real IndexedDB fresh: 100 mixed production Worker runs and retention growth (4.9s)
+  ok 33 e2e\run-lifecycle.spec.ts:10:46 › real IndexedDB v5: 100 mixed production Worker runs and retention growth (4.4s)
+  x  34 e2e\run-lifecycle.spec.ts:109:1 › real UI: pin, export, cleanup, favorite source and failure feedback (2.3s)
+  x  35 e2e\run-lifecycle.spec.ts:141:1 › page reload/reopen recovers dead owners and preserves another live tab (2.1s)
+  ok 36 e2e\run-lifecycle.spec.ts:165:1 › UI startup cancellation and unexpected Worker failure persist accurate terminal states (5.1s)
+  x  37 e2e\run-lifecycle.spec.ts:219:1 › real Chromium profile survives browser process close and reopen (1.9s)
+  ok 38 e2e\subgraph-performance.spec.ts:6:1 › 300 nested call instances stream a virtual million-entry resource with sampled heap bounds (1.6s)
+  ok 39 e2e\subgraphs.spec.ts:6:1 › empty definition, copy and cross-workflow reuse survive reload (5.6s)
+  ok 40 e2e\subgraphs.spec.ts:34:1 › canvas extraction, parameter editing, execution, favorites and durable reload (6.6s)
+  ok 41 e2e\subgraphs.spec.ts:72:1 › production Worker inherits nested budgets, retains sources and terminates with partial results (4.3s)
+  ok 42 e2e\subgraphs.spec.ts:101:1 › nested production Worker watchdog expires while a resource page is blocked (11.9s)
+
+
+  1) e2e\resources.spec.ts:24:1 › standalone Mapping file imports offline and lab/martian mutation use the same selected rules 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByRole('dialog', { name: '名字变异与继续创作' }).getByLabel('火星文 Mapping', { exact: true })
+
+
+      25 |   await open(page);await resources(page);const resource={id:'external-map',name:'独立字形',description:'',kind:'mapping',version:1,count:1,color:'purple',updatedAt:0,definition:{format:1,type:'mapping',rules:'{"月":["玥"]}'}};
+      26 |   await page.getByLabel('导入资源包',{exact:true}).setInputFiles({name:'map.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({format:'glyphforge-mapping',version:1,resource}))});const panel=page.getByRole('dialog',{name:'编辑 Mapping',exact:true});await expect(panel.getByLabel('映射规则 JSON')).toHaveValue(resource.definition.rules);await panel.getByRole('button',{name:'关闭资源编辑器'}).click();await page.getByRole('button',{name:'文字实验室',exact:true}).click();await page.getByLabel('实验室输入文字').fill('月');await page.getByLabel('实验算子').selectOption('mapchars');await page.getByLabel('Mapping 资源',{exact:true}).selectOption({label:'独立字形 · v1'});await page.getByRole('button',{name:'开始实验',exact:true}).click();await expect(page.locator('.lab-candidate b')).toHaveText('玥');await page.getByLabel('实验算子').selectOption('hanconvert');await page.getByLabel('转换方式').selectOption('martian');await page.getByLabel('Mapping 资源',{exact:true}).selectOption({label:'独立字形 · v1'});await page.getByRole('button',{name:'开始实验',exact:true}).click();await expect(page.locator('.lab-candidate b')).toHaveText('玥');
+    > 27 |   await page.evaluate(async()=>{const h=await import('/resources-harness/resources.js');await h.db.favorites.put({text:'月',parts:[],savedAt:0});});await page.getByRole('button',{name:/^我的收藏/}).click();await page.getByRole('button',{name:'继续创作 月',exact:true}).click();const mutation=page.getByRole('dialog',{name:'名字变异与继续创作'});for(const name of ['替换字符','插入字符','前后缀'])await mutation.getByLabel(name,{exact:true}).uncheck();await mutation.getByLabel('火星文',{exact:true}).check();await mutation.getByLabel('火星文 Mapping',{exact:true}).selectOption({label:'独立字形 · v1'});await mutation.getByRole('button',{name:'生成变体',exact:true}).click();await expect(mutation.locator('.candidate-text')).toHaveText('玥');
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ^
+      28 | });
+      29 | test('real IndexedDB changes clear old pages; recompute and deletion show exact missing source',async({page})=>{
+      30 |   await open(page);await fixture(page);const d=page.getByRole('dialog',{name:'编辑动态词库',exact:true});await d.getByRole('button',{name:'重算预览',exact:true}).click();await expect(d.locator('.preview-words span')).toHaveCount(60);const first=await d.locator('.preview-words span').allTextContents();await d.getByRole('button',{name:'下一页',exact:true}).click();await expect(d.getByRole('status')).toContainText('第 2 页');expect(await d.locator('.preview-words span').allTextContents()).not.toEqual(first);
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\resources.spec.ts:27:530
+
+    Error Context: test-results\resources-standalone-Mappi-f152b-use-the-same-selected-rules\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\resources-standalone-Mappi-f152b-use-the-same-selected-rules\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\resources-standalone-Mappi-f152b-use-the-same-selected-rules\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) e2e\run-lifecycle.spec.ts:109:1 › real UI: pin, export, cleanup, favorite source and failure feedback 
+
+    Error: page.evaluate: r
+
+      118 |   await history.getByRole("button", { name: "取消固定", exact: true }).click();
+      119 |   await history.getByLabel("普通历史保留数量").fill("0");
+    > 120 |   await page.evaluate(async () => {
+          |              ^
+      121 |     const h = await import("/e2e-harness/lifecycle.js");
+      122 |     await h.beginRun(h.createWorkflow(), "cleanup-failure"); await h.appendRunBatch("cleanup-failure", [{ text: "事务回滚", parts: [] }]); await h.finishRun("cleanup-failure", "done");
+      123 |     const original = IDBObjectStore.prototype.delete;
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\run-lifecycle.spec.ts:120:14
+
+    Error Context: test-results\run-lifecycle-real-UI-pin--7fdd6-source-and-failure-feedback\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\run-lifecycle-real-UI-pin--7fdd6-source-and-failure-feedback\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\run-lifecycle-real-UI-pin--7fdd6-source-and-failure-feedback\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) e2e\run-lifecycle.spec.ts:141:1 › page reload/reopen recovers dead owners and preserves another live tab 
+
+    Error: page.evaluate: r
+
+      141 | test("page reload/reopen recovers dead owners and preserves another live tab", async ({ page, context }) => {
+      142 |   await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+    > 143 |   await page.evaluate(async () => {
+          |              ^
+      144 |     const h = await import("/e2e-harness/lifecycle.js");
+      145 |     (window as any).releaseLive = await h.acquireRunLock("live-tab");
+      146 |     await h.beginRun(h.createWorkflow(), "live-tab");
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\run-lifecycle.spec.ts:143:14
+
+    Error Context: test-results\run-lifecycle-page-reload--323e6--preserves-another-live-tab\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\run-lifecycle-page-reload--323e6--preserves-another-live-tab\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\run-lifecycle-page-reload--323e6--preserves-another-live-tab\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) e2e\run-lifecycle.spec.ts:219:1 › real Chromium profile survives browser process close and reopen 
+
+    Error: page.evaluate: r
+
+      222 |   try {
+      223 |     const page = await browser.newPage(); await page.goto("http://127.0.0.1:4175/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+    > 224 |     await page.evaluate(async () => {
+          |                ^
+      225 |       const h = await import("/e2e-harness/lifecycle.js");
+      226 |       (window as any).browserRunLock = await h.acquireRunLock("browser-close");
+      227 |       await h.beginRun(h.createWorkflow(), "browser-close");
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\run-lifecycle.spec.ts:224:16
+
+    Error Context: test-results\run-lifecycle-real-Chromiu-4f923-er-process-close-and-reopen\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\run-lifecycle-real-Chromiu-4f923-er-process-close-and-reopen\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\run-lifecycle-real-Chromiu-4f923-er-process-close-and-reopen\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    e2e\resources.spec.ts:24:1 › standalone Mapping file imports offline and lab/martian mutation use the same selected rules 
+    e2e\run-lifecycle.spec.ts:109:1 › real UI: pin, export, cleanup, favorite source and failure feedback 
+    e2e\run-lifecycle.spec.ts:141:1 › page reload/reopen recovers dead owners and preserves another live tab 
+    e2e\run-lifecycle.spec.ts:219:1 › real Chromium profile survives browser process close and reopen 
+  38 passed (5.4m)
+[WebServer] (node:105364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:96212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:143048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28508) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:92020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:97728) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:163152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

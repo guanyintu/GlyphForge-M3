@@ -30,12 +30,12 @@ export function RelationParams({ op, params, resources, onChange }: { op: "pairs
       <label className="field-label">绑定词库<select value={slot.resourceId} onChange={e => {
         const r = resources.find(r => r.id === e.target.value);
         updateSlot(i, { resourceId: e.target.value, kind: r?.kind === "relation" ? "pair" : "word", relation: "" });
-      }}><option value="">选择词库…</option>{!resources.some(r => r.id === slot.resourceId) ? <option value={slot.resourceId}>缺失：{slot.resourceId}</option> : null}{resources.map(r => <option value={r.id} key={r.id}>{r.name}</option>)}</select></label>
+      }}><option value="">选择词库…</option>{!resources.some(r => r.id === slot.resourceId) ? <option value={slot.resourceId}>缺失：{slot.resourceId}</option> : null}{resources.filter(r=>r.kind!=="mapping").map(r => <option value={r.id} key={r.id}>{r.name}</option>)}</select></label>
       {slot.kind === "pair" ? <label className="field-label">限定关系<RelationSelect all value={slot.relation || ""} onChange={v => updateSlot(i, { relation: v as TemplateSlot["relation"] })} /></label> : null}
       <button className="text-button" onClick={() => set("slots", JSON.stringify(slots.filter((_, index) => index !== i)))}>移除此槽位</button>
     </fieldset>)}
     <button className="button" disabled={slots.length >= 6} onClick={() => {
-      const r = resources[0]; let n = slots.length + 1; while (slots.some(s => s.name === `slot${n}`)) n++;
+      const r = resources.find(r=>r.kind!=="mapping"); let n = slots.length + 1; while (slots.some(s => s.name === `slot${n}`)) n++;
       set("slots", JSON.stringify([...slots, { name: `slot${n}`, resourceId: r?.id || "", kind: r?.kind === "relation" ? "pair" : "word", relation: "" }]));
     }}>添加共享槽位</button>
     <label className="field-label">名字模板（每行一个）<textarea rows={4} value={templates.join("\n")} maxLength={2055} onChange={e => set("templates", JSON.stringify(e.target.value.split("\n")))} /></label>

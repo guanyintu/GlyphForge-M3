@@ -1,0 +1,23 @@
+import fs from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import crypto from 'node:crypto';
+const git=(...args)=>execFileSync('git',args,{encoding:'utf8'});
+const baseline=JSON.parse(fs.readFileSync('docs/p2-c/baseline-local.json','utf8'));
+const protectedPaths=new Set(baseline.files.map(f=>f.file));
+const tracked=git('diff','--name-only').trim().split('\n').filter(p=>p&&p.startsWith('src/')&&!protectedPaths.has(p));
+const newPaths=git('ls-files','-o','--exclude-standard').trim().split('\n').filter(p=>p.startsWith('src/')||p.startsWith('e2e/resources')||p==='docs/P2-C-ARCHITECTURE.md'||p==='docs/P2-C-VALIDATION.md'||p==='scripts/validate-p2-c.mjs'||p==='scripts/stage-p2-c.mjs'||p==='scripts/isolate-p2-c.mjs'||p==='scripts/verify-isolated-browser-p2-c.mjs').filter(p=>!protectedPaths.has(p));
+const evidence=fs.readdirSync('docs/p2-c').filter(p=>!p.includes('local')&&/\.(json|txt|png)$/.test(p)).map(p=>`docs/p2-c/${p}`);
+const ancillary=['docs/P2-C-ARCHITECTURE.md','docs/P2-C-VALIDATION.md','scripts/stage-p2-c.mjs','scripts/isolate-p2-c.mjs','scripts/validate-p2-c.mjs','scripts/verify-isolated-browser-p2-c.mjs'];
+for(const p of [...tracked,...newPaths,...evidence,...ancillary])git('add','--',p);
+// Apply only this round's delta against the historical database edits.
+const dbHead=git('rev-parse','HEAD:src/storage/db.ts').trim();git('update-index','--cacheinfo',`100644,${dbHead},src/storage/db.ts`);
+git('apply','--cached','--ignore-space-change','docs/p2-c/db-self-local.patch');
+const section=fs.readFileSync('docs/p2-c/status-section-local.txt','utf8').replaceAll('\r\n','\n');
+const headStatus=git('show','HEAD:PROJECT-STATUS.md');
+const stagedStatus=headStatus.replace('\n','\n\n'+section+'\n');
+const oid=execFileSync('git',['hash-object','-w','--stdin'],{input:stagedStatus,encoding:'utf8'}).trim();
+git('update-index','--cacheinfo',`100644,${oid},PROJECT-STATUS.md`);
+const hashes=baseline.files.map(f=>({file:f.file,unchanged:crypto.createHash('sha256').update(fs.readFileSync(f.file)).digest('hex')===f.sha256}));
+fs.writeFileSync('docs/p2-c/original-files.json',JSON.stringify({base:baseline.head,files:hashes,expectedModified:['PROJECT-STATUS.md','src/storage/db.ts']},null,2));
+git('add','docs/p2-c/original-files.json');
+console.log(git('diff','--cached','--stat'));

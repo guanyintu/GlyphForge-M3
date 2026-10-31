@@ -1,0 +1,60 @@
+
+ RUN  v3.2.7 C:/Users/someb/AppData/Local/Temp/glyphforge-p2c-source-YPpoQH
+
+ ✓ src/tests/p1d-highlight.test.ts (4 tests) 5ms
+ ✓ src/tests/p1d-motion.test.ts (18 tests) 75ms
+ ✓ src/tests/core.test.ts (19 tests) 23ms
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 166.03 ms, 40041 steps, max batch 64
+
+ ✓ src/tests/p1c-game.test.ts (7 tests) 71ms
+ ✓ src/tests/p1c-relations.test.ts (5 tests) 90ms
+ ✓ src/tests/audit-worker.test.ts (1 test) 230ms
+ ✓ src/tests/storage.test.ts (8 tests) 159ms
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 288.84 ms, 200002 steps
+
+stdout | src/tests/subgraphs.test.ts > parameterized sequence functions > streams 100 call instances with constant resource residency and bounded batches
+P2-A 100 outer / 300 total calls {
+  milliseconds: 7.295999999999822,
+  produced: 201,
+  maxBatch: 1,
+  steps: 1303,
+  definitionBytes: 620
+}
+
+ ✓ src/tests/performance.test.ts (2 tests) 460ms
+ ✓ src/tests/subgraphs.test.ts (22 tests) 247ms
+ ✓ src/tests/p0.test.ts (31 tests) 532ms
+ ✓ src/tests/run-lifecycle.test.ts (9 tests) 695ms
+   ✓ 100 mixed runs bound ordinary history while preserving pins, favorites and active runs  576ms
+ ✓ src/tests/audit.test.ts (20 tests) 764ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":100000,"rows":60,"steps":442,"ms":15.288800000000265,"staticRows":1100,"cacheRows":0}
+
+stdout | src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":1000000,"rows":60,"steps":442,"ms":23.845700000000306,"staticRows":2000,"cacheRows":0}
+
+ ✓ src/tests/resource-catalog.test.ts (32 tests) 927ms
+ ✓ src/tests/p1c-search.test.ts (24 tests) 1325ms
+   ✓ optional pinyin matches real romanized or homophone candidates  318ms
+   ✓ caps ambiguous indexed hits, bounds batch sizes and the final beam  301ms
+ ✓ src/tests/relations.test.ts (31 tests) 1497ms
+ ✓ src/tests/mutation.test.ts (35 tests) 2692ms
+   ✓ homophone uses shared bounded engine and changes text  783ms
+   ✓ reorder protects independent repeated positions and entire ZWJ cluster  314ms
+ ✓ src/tests/contracts.test.ts (28 tests) 2902ms
+   ✓ homophones: node, printed code, AST and laboratory agree with omitted defaults  910ms
+   ✓ decompose: node, printed code, AST and laboratory agree with omitted defaults  874ms
+   ✓ compose: node, printed code, AST and laboratory agree with omitted defaults  731ms
+ ✓ src/tests/chinese.test.ts (20 tests) 4104ms
+   ✓ P1-A Chinese phonetics and conversion > queries actual Unihan homophones and validates single-character inputs  802ms
+   ✓ P1-A real structure data > decomposes 明 left/right and 思 top/bottom  985ms
+   ✓ P1-A real structure data > reverse-composes only actual known characters and respects duplicate counts  749ms
+   ✓ P1-A real structure data > finds characters by components and filters structure and strokes  1090ms
+
+ Test Files  18 passed (18)
+      Tests  316 passed (316)
+   Start at  19:45:47
+   Duration  6.29s (transform 5.10s, setup 0ms, collect 16.87s, tests 16.80s, environment 4ms, prepare 8.43s)
+

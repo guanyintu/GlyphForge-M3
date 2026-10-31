@@ -1,0 +1,289 @@
+{
+  "base": "ca7690602fe90f0e0b1e5576d32a157eaefa201d",
+  "files": [
+    {
+      "file": "AGENTS.md",
+      "unchanged": true
+    },
+    {
+      "file": "docs/AUDIT_P1_FINAL.md",
+      "unchanged": true
+    },
+    {
+      "file": "docs/P1-FINAL-REQUIREMENTS.md",
+      "unchanged": true
+    },
+    {
+      "file": "docs/P2-ENTRY-ARCHITECTURE.md",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/baseline-browser.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/baseline-tests.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/baseline.json",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/bench.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/browser-initial.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/browser-results-initial.json",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/browser-results.json",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/browser.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/build-fix.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/build-initial.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/check-exits.json",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/diff-check.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/environment.json",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/final-integration-initial.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/fixes.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/game-ui.png",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/git-final.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/highlight-cards.png",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/manifest.json",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/mixed-performance.json",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/mobile-physics.png",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/performance.json",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/physics-desktop.png",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/red.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/reload-fix.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/resources-performance.json",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/reverse-ui.png",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/tests.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/typecheck.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p1-final/user-baseline.patch.gz",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-a/baseline.patch",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-a/browser-isolate-local.mjs",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-a/check-isolate-local.mjs",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-a/final-docs-local.mjs",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-a/isolate-local.mjs",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-a/protect-local.mjs",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-a/stage-final-local.mjs",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-a/staging-local.log",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-b/baseline-local.patch",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-b/browser-first.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-b/browser-second.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-b/build-first.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-b/isolate-local.mjs",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-b/isolation-local.json",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-b/stage-local.mjs",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-b/type-first.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-b/unit-first.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-b/unit.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-s0-1/baseline.patch",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-s0-1/baseline.zip",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-s0-1/isolation-local.json",
+      "unchanged": true
+    },
+    {
+      "file": "docs/p2-s0-1/status-section.txt",
+      "unchanged": true
+    },
+    {
+      "file": "docs/reference/GlyphForge-v3.0.md",
+      "unchanged": true
+    },
+    {
+      "file": "e2e/p1-final.spec.ts",
+      "unchanged": true
+    },
+    {
+      "file": "scripts/p1-final-manifest.mjs",
+      "unchanged": true
+    },
+    {
+      "file": "scripts/protect-p2-c.mjs",
+      "unchanged": true
+    },
+    {
+      "file": "src/tests/p1-final.test.ts",
+      "unchanged": true
+    },
+    {
+      "file": "P0-CHECKLIST.md",
+      "unchanged": true
+    },
+    {
+      "file": "P1-PROGRESS.md",
+      "unchanged": true
+    },
+    {
+      "file": "PROJECT-STATUS.md",
+      "unchanged": false
+    },
+    {
+      "file": "README.md",
+      "unchanged": true
+    },
+    {
+      "file": "VALIDATION.md",
+      "unchanged": true
+    },
+    {
+      "file": "docs/P1-B.md",
+      "unchanged": true
+    },
+    {
+      "file": "e2e/p1c.spec.ts",
+      "unchanged": true
+    },
+    {
+      "file": "e2e/p1d.spec.ts",
+      "unchanged": true
+    },
+    {
+      "file": "src/storage/db.ts",
+      "unchanged": false
+    }
+  ],
+  "expectedModified": [
+    "PROJECT-STATUS.md",
+    "src/storage/db.ts"
+  ]
+}

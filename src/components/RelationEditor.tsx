@@ -1,3 +1,4 @@
+import { ResourceDependencyNotice } from "./DefinedResources";
 import { useEffect, useRef, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { X } from "lucide-react";
@@ -43,7 +44,7 @@ export function RelationEditor({ resource, onClose, notify }: { resource: Resour
   return <div className="modal-backdrop" onMouseDown={e => { if (e.target === e.currentTarget) onClose(); }}>
     <section className="modal relation-editor" role="dialog" aria-modal="true" aria-label="编辑关系词库">
       <div className="modal-heading"><div><span className="eyebrow">WORDS THAT BELONG TOGETHER</span><h2>让文字成对呼应</h2></div><button className="icon-button" aria-label="关闭" onClick={onClose}><X size={20} /></button></div>
-      <div className="modal-body">
+      <div className="modal-body"><ResourceDependencyNotice id={resource.id}/>
         <label className="field-label">关系词库名称<input value={name} maxLength={60} onChange={e => setName(e.target.value)} onBlur={() => { if (name.trim()) void db.resources.update(resource.id, { name: name.trim(), updatedAt: Date.now() }).catch(() => notify("词库名称保存失败")); }} /></label>
         <p className="field-note">{meta?.count || 0} 行 · v{meta?.version || resource.version} · 左右槽位不随查询方向改变。历史方向未知默认只查询左→右；对称关系可双向查询。</p>
         <fieldset disabled={busy} className="relation-form"><legend>{editing === undefined ? "添加关系" : "修改关系"}</legend>

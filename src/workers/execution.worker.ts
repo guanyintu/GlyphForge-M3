@@ -1,7 +1,9 @@
+import { captureResources, resourceSession } from "../storage/resource-runtime";
+import { dependencyIds } from "../core/sharing";
 import { diagnose, executionBudget } from "../core/contracts";
 import { execute } from "../core/engine";
 import type { Workflow } from "../core/model";
-import { db, readResource } from "../storage/db";
+import { db } from "../storage/db";
 import { acquireRunLock, beginRun, appendRunBatch, finishRun, pruneHistory } from "../storage/run-lifecycle";
 self.onmessage = async (event: MessageEvent<Workflow | { workflow: Workflow; runId: string; keep: number }>) => {
   const managed = "workflow" in event.data;
@@ -15,7 +17,9 @@ self.onmessage = async (event: MessageEvent<Workflow | { workflow: Workflow; run
     if (!managed) { release = await acquireRunLock(runId); await beginRun(workflow, runId); }
     const record = await db.runs.get(runId);
     if (!record || record.status !== "running") throw new Error("运行已停止");
-    const versions = record.versions;
+    const plan = await captureResources(dependencyIds(workflow));
+    if (JSON.stringify(plan.versions) !== JSON.stringify(record.versions)) throw new Error("源资源在启动期间发生更改，请重新生成");
+    const session = resourceSession(plan);
     self.postMessage({ type: "started", runId });
     watchdog = setTimeout(() => {
       expired = true;
@@ -24,19 +28,15 @@ self.onmessage = async (event: MessageEvent<Workflow | { workflow: Workflow; run
       self.postMessage({ type: "error", message: "达到 10 秒执行时间上限，请缩小词库或调整条件", diagnostic: { code: "BUDGET", message: "达到 10 秒执行时间上限" } });
       void finishRun(runId, "error", "达到 10 秒执行时间上限").catch(() => {}).finally(() => self.close());
     }, executionBudget.milliseconds);
-    const stats = await execute(workflow, async function* (id, seed) {
-      if ((await db.resources.get(id))?.version !== versions[id]) throw new Error("词库在运行期间发生更改，请重新生成");
-      for await (const candidate of readResource(id, seed)) {
-        if (candidate.parts[0].version !== versions[id]) throw new Error("资源版本发生变化，请重新生成");
-        yield candidate;
-      }
-    }, async batch => {
+    const stats = await execute(workflow, session.read, async batch => {
+      await session.check();
       await appendRunBatch(runId, batch);
       self.postMessage({ type: "batch", batch });
     }, { steps: executionBudget.steps, milliseconds: executionBudget.milliseconds }, {
-      resourceMetadata: id => db.resources.get(id),
+      resourceMetadata: session.metadata,
       runId, onProgress: progress => self.postMessage({ type: "progress", ...progress }),
     });
+    await session.check();
     await finishRun(runId, "done");
     let cleanupError = "";
     if (!managed) try { await pruneHistory(keep); } catch (e) { cleanupError = String(e); }

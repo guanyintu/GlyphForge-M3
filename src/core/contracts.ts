@@ -128,14 +128,18 @@ export function combineCandidates(text: string, items: Candidate[]): Candidate {
   const notes = [...new Set(items.flatMap(c => c.notes || []))];
   return { text, parts: uniqueParts(items.flatMap(c => c.parts)), ...(notes.length ? { notes } : {}) };
 }
-export type ResourceMetadataReader = (id: string) => Promise<Pick<Resource, "kind"> | undefined>;
-export async function requireResourceKind(meta: ResourceMetadataReader, id: string, pair: boolean) {
+export type ResourceMetadataReader = (id: string) => Promise<(Pick<Resource, "kind"> & Partial<Resource>) | undefined>;
+export async function requireResourceKind(meta: ResourceMetadataReader, id: string, pair: boolean, mapping = false) {
   const resource = await meta(id);
   if (!resource) throw new ContractError({ code: "RESOURCE", message: `未找到资源 ${id}，请重新绑定词库` });
+  if (mapping) { if(resource.kind !== "mapping") throw new ContractError({code:"TYPE",message:"请选择 Mapping 资源"}); return; }
+  if (resource.kind === "mapping") throw new ContractError({code:"TYPE",message:"Mapping 不能用作词库"});
   if ((resource.kind === "relation") !== pair) throw new ContractError({ code: "TYPE", message: pair ? "请选择关系词库，普通词条不能用作关系词对" : "关系词库请使用关系词对或共享变量模板节点" });
 }
-export function nodeResourceBindings(op: Op, p: Params): { id: string; pair: boolean }[] {
-  if (op === "mutate" && p.resourceId) return [{ id: String(p.resourceId), pair: false }];
+export function nodeResourceBindings(op: Op, p: Params): { id: string; pair: boolean; mapping?: boolean }[] {
+  const maps = p.mappingId && ["mapchars","hanconvert","mutate"].includes(op) ? [{id:String(p.mappingId),pair:false,mapping:true}] : [];
+  if (op === "mutate") return [...maps,...(p.resourceId ? [{id:String(p.resourceId),pair:false}] : [])];
+  if (maps.length) return maps;
   if (op === "resource" || op === "pairs") return [{ id: String(p.resourceId), pair: op === "pairs" }];
   if (op === "template") return templateConfig(p).slots.map(s => ({ id: s.resourceId, pair: s.kind === "pair" }));
   return [];

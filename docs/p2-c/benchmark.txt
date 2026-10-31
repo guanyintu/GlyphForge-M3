@@ -1,0 +1,55 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 100.68 ms, 40041 steps, max batch 64
+
+ ✓ src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches 105ms
+ ✓ src/tests/resource-catalog.test.ts > detects self and indirect cycles before reading entries 10ms
+ ✓ src/tests/resource-catalog.test.ts > reports exact missing dependency path 2ms
+ ✓ src/tests/resource-catalog.test.ts > deduplicates diamond vertices and includes mapping dependency in topological order 3ms
+ ✓ src/tests/resource-catalog.test.ts > bounds dependency depth 3ms
+ ✓ src/tests/resource-catalog.test.ts > rejects wrong dependency types before executing even empty resources 2ms
+ ✓ src/tests/resource-catalog.test.ts > display rename leaves content key stable; seed is included in execution key 14ms
+ ✓ src/tests/resource-catalog.test.ts > rejects computed resource references in dynamic definitions 6ms
+ ✓ src/tests/resource-catalog.test.ts > relation rows project explicitly through shared templates into dynamic text 13ms
+ ✓ src/tests/resource-catalog.test.ts > saves definitions atomically and prevents concurrent overwrite or static asset replacement 8ms
+ ✓ src/tests/resource-catalog.test.ts > rejects cyclic edits with no partial write 4ms
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 136.89 ms, 200002 steps
+
+ ✓ src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array 138ms
+ ✓ src/tests/resource-catalog.test.ts > recomputes mapping and static source changes with new exact keys and no cache pollution 53ms
+ ✓ src/tests/resource-catalog.test.ts > source deletion source invalidates all dependent reads 9ms
+ ✓ src/tests/resource-catalog.test.ts > source deletion map invalidates all dependent reads 4ms
+ ✓ src/tests/resource-catalog.test.ts > checks versions across interleaved async readers and refuses mixed batches 6ms
+ ✓ src/tests/resource-catalog.test.ts > resource version check is inside batch persistence transaction 9ms
+ ✓ src/tests/resource-catalog.test.ts > cancels after suspension and leaves no shared mutable iterator/cache state 7ms
+ ✓ src/tests/resource-catalog.test.ts > empty sources and empty mappings retain type checks 5ms
+ ✓ src/tests/resource-catalog.test.ts > fixed seed, source versions and graph/NameScript/Chinese martian rules agree 11ms
+ ✓ src/tests/resource-catalog.test.ts > program AST resolves and packages literal Mapping references using identical semantics 17ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":100000,"rows":60,"steps":442,"ms":10.1096,"staticRows":1100,"cacheRows":0}
+
+ ✓ src/tests/resource-catalog.test.ts > dynamic resource feeds reusable P2-A subgraph then P2-B mutation dictionary/mapping 27ms
+ ✓ src/tests/resource-catalog.test.ts > v6 carries transitive definitions offline and remaps all ID conflicts without overwriting assets 16ms
+ ✓ src/tests/resource-catalog.test.ts > v6 rebinds both main and dynamic-definition subgraph internals 9ms
+ ✓ src/tests/resource-catalog.test.ts > a stale editor cannot resurrect a deleted resource 4ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 cycle atomically 5ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 missing atomically 6ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 bad-map atomically 7ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 rows atomically 4ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 version atomically 3ms
+ ✓ src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps 40ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":1000000,"rows":60,"steps":442,"ms":6.716100000000097,"staticRows":2000,"cacheRows":0}
+
+ ✓ src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps 45ms
+ ✓ src/tests/resource-catalog.test.ts > shares the outer budget through nested resource executions 4ms
+ ✓ src/tests/resource-catalog.test.ts > opening existing schema6 is additive with byte-equivalent user assets 4ms
+
+ Test Files  2 passed (2)
+      Tests  34 passed (34)
+   Start at  19:46:02
+   Duration  1.66s (transform 347ms, setup 0ms, collect 887ms, tests 607ms, environment 0ms, prepare 585ms)
+

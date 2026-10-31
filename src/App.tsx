@@ -1,3 +1,5 @@
+import "./p2c.css";
+import { DefinedResourceEditor } from "./components/DefinedResources";
 import Subgraphs from "./components/Subgraphs";
 import Mutation from "./components/Mutation";
 import {
@@ -1106,6 +1108,7 @@ export default function App() {
           <ResourcePage
             resources={resources}
             previews={previews}
+            notify={notify}
             onEdit={r => { setResourceQueryText(""); setResource(r); }}
             onCreate={() => void createResource()}
             onCreateRelation={() => void createRelationResource()}
@@ -1165,7 +1168,7 @@ export default function App() {
           e.target.value = "";
         }}
       />
-      {resource?.kind === "relation" ? <RelationEditor key={resource.id} resource={resource} onClose={() => setResource(undefined)} notify={notify} /> : resource ? (
+      {resource?.definition ? <DefinedResourceEditor key={resource.id} resource={resource} currentWorkflow={workflow} onUse={w=>{switchWorkflow(w);setPage("workflow");}} onClose={()=>setResource(undefined)} notify={notify}/> : resource?.kind === "relation" ? <RelationEditor key={resource.id} resource={resource} onClose={() => setResource(undefined)} notify={notify} /> : resource ? (
         <ResourceModal
           key={resource.id}
           resource={resource}

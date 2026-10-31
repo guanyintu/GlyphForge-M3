@@ -1,0 +1,166 @@
+{
+  "base": "ca76906",
+  "files": [
+    {
+      "file": "e2e/resources-harness.ts",
+      "sha256": "87a842f951bcfbdd8c09a3a63abe7513f39baaae3fcb10ab10d9a661cafad248",
+      "isolatedMatches": true
+    },
+    {
+      "file": "e2e/resources.spec.ts",
+      "sha256": "e6f00ef3ffdba9d035417aa3377875959b9cfdf43a454e4680932b7e4173ef28",
+      "isolatedMatches": true
+    },
+    {
+      "file": "e2e/resources.vite.config.ts",
+      "sha256": "239b32b445312c7fef128774a610e1c754bb89822e4f674be7726c2f568c9a1e",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/App.tsx",
+      "sha256": "1200f9d4c9fd0b7b8b01193e3640c61389fab6940f8e8d899f50c24f80a85f85",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/components/ChineseParams.tsx",
+      "sha256": "66eb92248951f7dda3af4df83d4b9533ffbc421d572fa3652a4581d9a548f494",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/components/DefinedResources.tsx",
+      "sha256": "e3484b270e8c251535fc647a3d094e7829640b7118a309179e01ce434799bbca",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/components/GraphEditor.tsx",
+      "sha256": "4219cea6c5a86c3e075cb3ef23f4492c03f4a5ae22a9a736e99378adad74451f",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/components/Mutation.tsx",
+      "sha256": "0a4e991cfb0ac26b46e2c1047c5c99b768f99b9464b90a536869f766f31b151b",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/components/ProgramBuilder.tsx",
+      "sha256": "94995684dfe1f8c3fb29c1f0f66132e6171c57cd144e9a7e68d65f52597f910a",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/components/RelationEditor.tsx",
+      "sha256": "70d7a6c1fd7f0ffd2f80214408067e781cd3800a484759aa3d55813195d16aee",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/components/RelationParams.tsx",
+      "sha256": "c391390454e5ec5fc37ebafc4d62851206a6b65c1e0a4ac2edd97f1e84c4b64a",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/components/Resources.tsx",
+      "sha256": "df9ecc63a081d1a1c4de8ad4e35ac91ee352a8030b7312334b7cf86c202b4438",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/components/Sharing.tsx",
+      "sha256": "1f86bd9894a1fda81bdeb21b0cfa918d6f15683b6aa946187939ad784c7a55c6",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/core/chinese-definitions.ts",
+      "sha256": "bf6cfaa3483b811f6083604bbc789cd2819b0b3fe99e6efec777ac6513be0206",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/core/contracts.ts",
+      "sha256": "41dbbc325615c854399e5cbc86dba36989526dc29bf61642fe91b541ba27f37f",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/core/engine.ts",
+      "sha256": "eaaa9610b38640d339d6cbe55053a43a5436bc51748efab41a54dd8093460e1d",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/core/mapping-resource.ts",
+      "sha256": "cdd30f626901e11e5a79d5284548b689cdcbaea60f27d74cb3ae9c08977b8079",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/core/model.ts",
+      "sha256": "c6ce00fff42a3984efb568dd177a1818da235ce29ecad056cf2ed346a7076c5d",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/core/mutation.ts",
+      "sha256": "3e3d1b4d7a2c3a0c5b7f9a7cdba347ddefcec58cfda1fe2748684182ba27026e",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/core/operators.ts",
+      "sha256": "dd44616bd3907f86022ad814062b99c182e538d64363b361dab81de744178572",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/core/program.ts",
+      "sha256": "7c9e86e7a46ace0bea8b5bef80665e3d0e97eefd5630d66f1b1b684773cd8aa8",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/core/resource-catalog.ts",
+      "sha256": "413de204056ddf848ad39c601b1862acbdedc0471200814b79a9104d388cb9e0",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/core/resource-package.ts",
+      "sha256": "01576b4f23603e8a7388815c621025f10f5da230752b241811f50bf2960fafba",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/core/sharing.ts",
+      "sha256": "37ef92796af97de31258efcbb80b799163cb8c989cefb533e1cb81d2798c695a",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/p2c.css",
+      "sha256": "03d7cc6b938ae90655d4842ea2196b1fbfbd43a044f9bdb51936759ee2738b5a",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/storage/db.ts",
+      "sha256": "e66da74abf5d339c8042a121a2d35e216abeda8fe3920a785e29e5a280b64d93",
+      "isolatedMatches": null
+    },
+    {
+      "file": "src/storage/resource-runtime.ts",
+      "sha256": "8f4a64524170f3f94c96ce4dffb5f5ffca0e021feec5940c21371e23b4029e94",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/storage/run-lifecycle.ts",
+      "sha256": "d45e6ee6395a625c549a5f3467fc398569485aac0b2ca5fc659114172a4f20b9",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/tests/resource-catalog.test.ts",
+      "sha256": "518d0acd3b28cf270a19710cc7595f212d48832088f1a9c60c53b2235ea936db",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/workers/execution.worker.ts",
+      "sha256": "c02682d64f2a35c54f6fbfb06d15a0557e8266e3b8e1d116b54c0971e4d54a62",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/workers/lab.worker.ts",
+      "sha256": "45d64aad6cbf0609fac69099f44072f6308d2eb9ce1440117093a03760ac67b4",
+      "isolatedMatches": true
+    },
+    {
+      "file": "src/workers/resource-preview.worker.ts",
+      "sha256": "2cf0359b6ecadd8babdc76a436c8b2cf75b4909805bdf16c25b66630ece8c4e5",
+      "isolatedMatches": true
+    }
+  ],
+  "dbDifference": "Only pre-existing user relation conflict guard; see git-isolation.json"
+}

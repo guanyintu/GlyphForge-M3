@@ -1,3 +1,4 @@
+import { resolveMapping, mappingSource } from "./mapping-resource";
 import { astSignatures as signatures, astParams, boundedText, ContractError, diagnose, parameterLimit, transformText, uniqueParts, requireResourceKind } from "./contracts";
 import type { ValueType, ResourceMetadataReader } from "./contracts";
 import type { Op } from "./model";
@@ -478,6 +479,10 @@ export function programResources(program: Program): string[] {
   const ids = new Set<string>();
   visitProgramExpressions(program, (e) => {
     if (e.kind === "resource") ids.add(e.id);
+    if(e.kind === "call" && ["mapchars","hanconvert"].includes(e.name)) {
+      const index=signatures[e.name]?.parameters?.indexOf("mappingId") ?? -1;
+      if(index>=0 && e.args[index]) {const ref=e.args[index]; if(ref.kind!=="literal" || typeof ref.value!=="string")throw new Error("Mapping 引用必须使用固定 ID"); if(ref.value)ids.add(ref.value);}
+    }
     if (
       e.kind === "call" &&
       ["resource", "pairs"].includes(e.name) &&
@@ -679,7 +684,9 @@ export async function* executeProgram(
       for await (const candidate of readPairs(reader, value.id, seed, value.relation, tick)) yield { type: "pair", candidate };
     } else if (value.type === "chinese") {
       const { transformChinese } = await import("./chinese");
-      for await (const item of transformChinese(value.op, { text: String(value.input.value), parts: value.input.parts, notes: value.input.notes }, value.params, seed, tick)) {
+      const resolved = await resolveMapping(value.params, resourceMetadata);
+      for await (let item of transformChinese(resolved.resource && value.op === "hanconvert" ? "mapchars" : value.op, { text: String(value.input.value), parts: value.input.parts, notes: value.input.notes }, resolved.params, seed, tick)) {
+        if(resolved.resource)item=mappingSource(item,String(value.params.mappingId),resolved.resource.version!,String(value.input.value));
         yield atom(item.text, item.parts, item.notes);
       }
     } else if (value.type === "resource") {

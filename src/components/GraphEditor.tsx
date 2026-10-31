@@ -490,7 +490,7 @@ export function Inspector({
                 value={String(node.params.resourceId)}
                 onChange={(e) => param("resourceId", e.target.value)}
               >
-                {resources.filter(r => (r.kind === "relation") === (node.op === "pairs")).map((r) => (
+                {resources.filter(r => r.kind !== "mapping" && (r.kind === "relation") === (node.op === "pairs")).map((r) => (
                   <option key={r.id} value={r.id}>
                     {r.name} · {r.count} 词
                   </option>

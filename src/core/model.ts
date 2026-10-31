@@ -59,7 +59,8 @@ export interface Resource {
   id: string;
   name: string;
   description: string;
-  kind: "word" | "character" | "symbol" | "relation";
+  kind: "word" | "character" | "symbol" | "relation" | "mapping";
+  definition?: import("./resource-catalog").ResourceDefinition;
   color: string;
   count: number;
   version: number;
@@ -143,7 +144,7 @@ const builtinOperators: Record<
     "version" | "inputTypes" | "outputType" | "deterministic" | "streaming"
   >
 > = {
-  mutate: { id: "mutate", name: "名字变异", category: "生成", description: "按字符簇位置锁定、固定种子的有界衍生创作", inputs: 0, color: "purple", defaults: { source: '{"text":"月","parts":[]}', locks: "[]", operations: '["replace","insert","affix"]', intensity: 1, count: 64, pool: "星月云梦", prefix: "小|夜", suffix: "子|酱", resourceId: "", algorithm: 1 } },
+  mutate: { id: "mutate", name: "名字变异", category: "生成", description: "按字符簇位置锁定、固定种子的有界衍生创作", inputs: 0, color: "purple", defaults: { source: '{"text":"月","parts":[]}', locks: "[]", operations: '["replace","insert","affix"]', intensity: 1, count: 64, pool: "星月云梦", prefix: "小|夜", suffix: "子|酱", resourceId: "", mappingId: "", algorithm: 1 } },
   call: { id: "call", name: "子图调用", category: "函数", description: "调用稳定版本的参数化子图", inputs: 0, color: "purple", defaults: {} },
   argument: { id: "argument", name: "序列参数", category: "函数", description: "显式的子图序列输入", inputs: 0, color: "green", defaults: { name: "input" } },
   gamecheck: { id: "gamecheck", name: "游戏 ID 检查", category: "处理", description: "复用可配置的 Unicode 长度和字符规则，筛选或标注结果", inputs: 1, color: "orange", defaults: { rules: JSON.stringify(defaultGameRule), mode: "filter" } },

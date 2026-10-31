@@ -1,3 +1,4 @@
+import {captureResources,assertResourcePlan} from "./resource-runtime";
 import { db, type ForgeDatabase, type RunRecord } from "./db";
 import type { Candidate, Workflow } from "../core/model";
 import { dependencyIds } from "../core/sharing";
@@ -12,23 +13,27 @@ async function bucket(run: RunRecord, target: ForgeDatabase) {
   return run.status === "running" ? 2 : run.pinned || await target.favorites.where("runId").equals(run.id).count() ? 1 : 0;
 }
 export async function beginRun(workflow: Workflow, id: string, target = db) {
-  const versions: Record<string, number> = {};
-  for (const resource of await target.resources.bulkGet(dependencyIds(workflow))) if (resource) versions[resource.id] = resource.version;
-  await target.runs.add({ id, workflow, versions, createdAt: Date.now(), status: "running", count: 0, retention: 2 });
+  const roots = dependencyIds(workflow);
+  const available = await target.resources.bulkGet(roots);
+  const plan = await captureResources(roots.filter((_,i)=>available[i]), target);
+  const versions = plan.versions;
+  await target.runs.add({ id, workflow, versions, resources: plan.resources, resourceKey: plan.key, createdAt: Date.now(), status: "running", count: 0, retention: 2 });
 }
 export async function appendRunBatch(id: string, batch: Candidate[], target = db) {
-  return target.transaction("rw", target.runs, target.generated, async () => {
+  return target.transaction("rw", target.runs, target.generated, target.resources, async () => {
     const run = await target.runs.get(id);
     if (!run || run.status !== "running") throw new Error("运行已结束，拒绝写入迟到结果");
+    if(run.resources) { await assertResourcePlan({resources:run.resources,versions:run.versions,key:run.resourceKey??""},target); }
     await target.generated.bulkPut(batch.map(c => ({ ...c, runId: id })));
     // Count the unique compound keys, so replaying a batch is idempotent.
     await target.runs.put({ ...run, count: await target.generated.where("runId").equals(id).count() });
   });
 }
 export async function finishRun(id: string, status: Exclude<RunRecord["status"], "running">, message = "", target = db) {
-  await target.transaction("rw", target.runs, target.generated, target.favorites, async () => {
+  await target.transaction("rw", target.runs, target.generated, target.favorites, target.resources, async () => {
     const run = await target.runs.get(id);
     if (!run || run.status !== "running") return; // First terminal state wins.
+    if(status === "done" && run.resources) {await assertResourcePlan({resources:run.resources,versions:run.versions,key:run.resourceKey??""},target);}
     run.status = status;
     await target.runs.put({ ...run, status, endedAt: Date.now(), message, count: await target.generated.where("runId").equals(id).count(), retention: await bucket(run, target) });
   });

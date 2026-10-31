@@ -1,8 +1,10 @@
+import { workflowResourceIds as dependencyIds } from "./resource-catalog";
+import { captureResources } from "../storage/resource-runtime";
 import { allNodes, reachableDefinitions } from "./subgraphs";
-import { normalizeParams, nodeResourceBindings } from "./contracts";
+import { normalizeParams } from "./contracts";
 import { db, readResource } from "../storage/db";
 import { validateGraph } from "./script";
-import { programResources, visitProgramExpressions } from "./program";
+import { visitProgramExpressions } from "./program";
 import { operators } from "./model";
 import { isChineseOp } from "./chinese-definitions";
 import type { Op } from "./model";
@@ -26,26 +28,15 @@ function packageOperators(workflow: Workflow) {
   });
   return [...used];
 }
-export function dependencyIds(workflow: Workflow) {
-  return [
-    ...new Set(
-      allNodes(workflow).flatMap((n) =>
-        n.op === "mutate" ? nodeResourceBindings(n.op, normalizeParams(n.op, n.params)).map(b => b.id) : n.op === "resource" || n.op === "pairs"
-          ? [String(normalizeParams(n.op, n.params).resourceId)]
-          : n.op === "template" ? templateConfig(normalizeParams(n.op, n.params)).slots.map(s => s.resourceId)
-          : n.op === "program"
-            ? programResources(n.program!)
-            : [],
-      ),
-    ),
-  ];
-}
+export { workflowResourceIds as dependencyIds } from "./resource-catalog";
 export async function exportPackage(
   workflow: Workflow,
   includeResources: boolean | string[] = true,
   signal?:AbortSignal,
 ) {
   validateGraph(workflow);
+  const plan = await captureResources(dependencyIds(workflow));
+  if(plan.resources.some(r=>r.definition)) { const { exportResourcePackage } = await import("./resource-package"); return exportResourcePackage(workflow,includeResources,signal); }
   if (workflow.subgraphs?.length) workflow = { ...workflow, subgraphs: reachableDefinitions(workflow.nodes, workflow.subgraphs) };
   const ids = dependencyIds(workflow);
   const dependencies: Dependency[] = [];
@@ -93,6 +84,7 @@ export async function importPackage(
 ): Promise<Workflow> {
   if (!data || typeof data !== "object") throw new Error("无效的工作流文件");
   const pkg = data as Record<string, unknown>;
+  if(pkg.version===6){const {importResourcePackage}=await import("./resource-package");return importResourcePackage(data,bindings);}
   if (
     pkg.format !== "glyphforge" ||
     ![1, 2, 3, 4, 5].includes(Number(pkg.version)) ||

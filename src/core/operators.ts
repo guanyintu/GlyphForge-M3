@@ -1,3 +1,4 @@
+import { resolveMapping, mappingSource } from "./mapping-resource";
 import { boundedText, combineCandidates, normalizeParams, transformText, operatorContracts } from "./contracts";
 import { candidateText, glyphs, operators } from "./model";
 import type { CandidateSequence, Op, OperatorDefinition, RuleNode } from "./model";
@@ -36,10 +37,12 @@ const executors: Record<Op, RegisteredOperator["execute"]> = {
   group: c => groupMembers(c.input(0), c.node.params, c.seed, c.tick),
   ...Object.fromEntries(Object.keys(chineseDefinitions).map(op => [op, async function* (c: OperatorContext) {
     const { transformChinese } = await import("./chinese");
+    const resolved = op === "mapchars" || op === "hanconvert" ? await resolveMapping(c.node.params, c.resourceMetadata) : {params:c.node.params};
     for await (const item of c.input(0)) {
-      for await (const result of transformChinese(op as ChineseOp, item, c.node.params, c.seed, c.tick)) {
+      const actualOp = resolved.resource && op === "hanconvert" ? "mapchars" : op as ChineseOp;
+      for await (const result of transformChinese(actualOp, item, resolved.params, c.seed, c.tick)) {
         c.tick();
-        yield { ...result, text: boundedText(result.text) };
+        yield { ...(resolved.resource ? mappingSource(result, String(c.node.params.mappingId), resolved.resource.version!, item.text) : result), text: boundedText(result.text) };
       }
     }
   }])) as unknown as Record<ChineseOp, RegisteredOperator["execute"]>,

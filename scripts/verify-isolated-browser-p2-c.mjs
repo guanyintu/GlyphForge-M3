@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+const {temp}=JSON.parse(fs.readFileSync('docs/p2-c/isolated-exits.json','utf8'));
+fs.writeFileSync(path.join(temp,'playwright.p2c.config.ts'),`import base from './playwright.config';export default {...base,use:{...base.use,baseURL:'http://127.0.0.1:4176'},webServer:{...base.webServer,command:'pnpm exec vite preview --host 127.0.0.1 --port 4176 --strictPort',url:'http://127.0.0.1:4176'}};`);
+const result=spawnSync(process.execPath,['node_modules/@playwright/test/cli.js','test','e2e/resources.spec.ts','--config','playwright.p2c.config.ts'],{cwd:temp,encoding:'utf8',maxBuffer:32*1024*1024});
+fs.writeFileSync('docs/p2-c/isolated-browser.txt',(result.stdout??'')+(result.stderr??''));
+for(const [source,dest]of [['test-results/browser-results.json','isolated-browser-results.json'],['docs/p2-c/browser-benchmark.json','isolated-browser-benchmark.json']])if(fs.existsSync(path.join(temp,source)))fs.copyFileSync(path.join(temp,source),`docs/p2-c/${dest}`);
+fs.writeFileSync('docs/p2-c/isolated-browser-exits.json',JSON.stringify({temp,exit:result.status},null,2));
+console.log(`Isolated Chromium: ${result.status}`);if(result.status!==0)process.exitCode=1;

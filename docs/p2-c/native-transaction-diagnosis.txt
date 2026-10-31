@@ -1,0 +1,4 @@
+2026-10-31
+Cold standalone lifecycle harness: beginRun succeeds; appendRunBatch/finishRun with await import inside native IndexedDB transaction throws PrematureCommitError: Transaction committed too early.
+After static imports in db.ts/run-lifecycle.ts, same sequence beginRun -> appendRunBatch -> finishRun returned ok in real Chromium (5.7s test, 8.1s suite).
+Original lifecycle regression cases are retained and re-run in the final full suite. No fixture expectation was removed.

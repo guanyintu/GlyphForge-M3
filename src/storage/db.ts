@@ -1,3 +1,4 @@
+import {captureResources,resourceSession} from "./resource-runtime";
 import Dexie from "dexie";
 import type { GamePreset } from "../core/game-rules";
 import type { Table } from "dexie";
@@ -15,6 +16,8 @@ export interface RunRecord {
   id: string;
   workflow: Workflow;
   versions: Record<string, number>;
+  resources?: Resource[];
+  resourceKey?: string;
   createdAt: number;
   status: "running" | "done" | "error" | "cancelled" | "interrupted";
   count: number;
@@ -212,6 +215,7 @@ export async function addEntries(
   await target.transaction("rw", target.entries, target.resources, async () => {
     const resource = await target.resources.get(resourceId);
     if (!resource) throw new Error("词库不存在");
+    if (resource.definition || resource.kind === "mapping") throw new Error("派生资源请编辑定义");
     if (resource.kind === "relation") throw new Error("关系词库请使用关系行编辑器");
     let added = 0;
     for (let i = 0; i < unique.length; i += 500) {
@@ -244,7 +248,7 @@ export async function saveNewResource(meta: Resource, texts: string[], target: F
   });
   return (await target.resources.get(meta.id))!;
 }
-export async function* readResource(
+export async function* readStaticResource(
   id: string,
   seed: number,
   target: ForgeDatabase = db,
@@ -289,6 +293,11 @@ export async function* readResource(
       }
     }
   }
+}
+export async function* readResource(id: string, seed: number, targetOrTick: ForgeDatabase | (() => void) = db): AsyncGenerator<Candidate> {
+  const target = typeof targetOrTick === "function" ? db : targetOrTick;
+  const tick = typeof targetOrTick === "function" ? targetOrTick : undefined;
+  yield* resourceSession(await captureResources([id], target), target).read(id, seed, tick);
 }
 export function resourceQuery(
   id: string,

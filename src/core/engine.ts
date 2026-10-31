@@ -8,6 +8,7 @@ import { validateGraph } from "./script";
 export type ResourceReader = (
   id: string,
   seed: number,
+  tick?: () => void,
 ) => AsyncIterable<Candidate>;
 export interface RunStats {
   steps: number;
@@ -39,7 +40,6 @@ export async function execute(
     count = 0,
     truncated = false,
     batch: Candidate[] = [];
-  const nodes = new Map(workflow.nodes.map((n) => [n.id, n]));
   const seen = new Set<string>();
   function tick() {
     if (hooks.signal?.aborted) throw new ContractError({ code: "CANCELLED", message: "任务已取消" });
@@ -54,41 +54,7 @@ export async function execute(
         elapsed: performance.now() - started,
       });
   }
-  async function* evaluate(n: RuleNode, scope = nodes, bindings: Params = {}, args: Record<string, () => CandidateSequence> = {}, depth = 0, path = ""): AsyncGenerator<Candidate> {
-    try {
-      tick();
-      if (n.op === "argument") { yield* args[String(n.params.name)](); return; }
-      if (n.op === "call") {
-        if (depth >= MAX_CALL_DEPTH) throw new ContractError({ code: "BUDGET", message: `子图调用深度超过 ${MAX_CALL_DEPTH}` });
-        const d = definitionFor(n, workflow.subgraphs);
-        const local = callBindings(n, d, bindings);
-        const sequences = Object.fromEntries(d.parameters.filter(p => p.type === "CandidateSequence").map((p, i) => [p.name, () => evaluate(scope.get(n.inputs[i])!, scope, bindings, args, depth, path)]));
-        const inner = new Map(d.nodes.map(n => [n.id, n]));
-        yield* evaluate(inner.get(d.output)!, inner, local, sequences, depth + 1, `${path}${n.id}/`);
-        return;
-      }
-      const params = { ...n.params };
-      for (const [target, ref] of Object.entries(n.parameterBindings ?? {})) params[target] = bindings[ref];
-      const bound = { ...n, params: normalizeParams(n.op, params) };
-      if (hooks.resourceMetadata) for (const binding of nodeResourceBindings(n.op, bound.params)) {
-        await requireResourceKind(hooks.resourceMetadata, binding.id, binding.pair);
-        tick();
-      }
-      yield* operatorRegistry[n.op].execute({
-        node: bound,
-        seed: workflow.seed,
-        tick,
-        read: reader,
-        resourceMetadata: hooks.resourceMetadata,
-        input: (index) => evaluate(scope.get(n.inputs[index])!, scope, bindings, args, depth, path),
-      });
-    } catch (error) {
-      throw diagnose(error, { nodeId: `${path}${n.id}`, operator: n.op, line: n.line });
-    }
-  }
-  for await (const value of evaluate(
-    workflow.nodes.find((n) => n.op === "output")!,
-  )) {
+  for await (const value of evaluateWorkflow(workflow, reader, tick, hooks)) {
     if (seen.has(value.text)) continue;
     if (count >= workflow.limit) {
       truncated = true;
@@ -109,4 +75,42 @@ export async function execute(
   }
   if (batch.length) await onBatch(batch);
   return { steps, count, truncated, duration: performance.now() - started };
+}
+
+export async function* evaluateWorkflow(workflow: Workflow, reader: ResourceReader, tick: () => void, hooks: RunHooks = {}): AsyncGenerator<Candidate> {
+  validateGraph(workflow);
+  const nodes = new Map(workflow.nodes.map((n) => [n.id, n]));
+  async function* evaluate(n: RuleNode, scope = nodes, bindings: Params = {}, args: Record<string, () => CandidateSequence> = {}, depth = 0, path = ""): AsyncGenerator<Candidate> {
+    try {
+      tick();
+      if (n.op === "argument") { yield* args[String(n.params.name)](); return; }
+      if (n.op === "call") {
+        if (depth >= MAX_CALL_DEPTH) throw new ContractError({ code: "BUDGET", message: `子图调用深度超过 ${MAX_CALL_DEPTH}` });
+        const d = definitionFor(n, workflow.subgraphs);
+        const local = callBindings(n, d, bindings);
+        const sequences = Object.fromEntries(d.parameters.filter(p => p.type === "CandidateSequence").map((p, i) => [p.name, () => evaluate(scope.get(n.inputs[i])!, scope, bindings, args, depth, path)]));
+        const inner = new Map(d.nodes.map(n => [n.id, n]));
+        yield* evaluate(inner.get(d.output)!, inner, local, sequences, depth + 1, `${path}${n.id}/`);
+        return;
+      }
+      const params = { ...n.params };
+      for (const [target, ref] of Object.entries(n.parameterBindings ?? {})) params[target] = bindings[ref];
+      const bound = { ...n, params: normalizeParams(n.op, params) };
+      if (hooks.resourceMetadata) for (const binding of nodeResourceBindings(n.op, bound.params)) {
+        await requireResourceKind(hooks.resourceMetadata, binding.id, binding.pair, binding.mapping);
+        tick();
+      }
+      yield* operatorRegistry[n.op].execute({
+        node: bound,
+        seed: workflow.seed,
+        tick,
+        read: (id, seed) => reader(id, seed, tick),
+        resourceMetadata: hooks.resourceMetadata,
+        input: (index) => evaluate(scope.get(n.inputs[index])!, scope, bindings, args, depth, path),
+      });
+    } catch (error) {
+      throw diagnose(error, { nodeId: `${path}${n.id}`, operator: n.op, line: n.line });
+    }
+  }
+  yield* evaluate(workflow.nodes.find(n => n.op === "output")!);
 }

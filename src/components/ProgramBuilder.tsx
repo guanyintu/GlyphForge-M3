@@ -182,7 +182,7 @@ function BlockEditor({
                   }}
                 >
                   <option value="">引用词库…</option>
-                  {resources.map((r) => (
+                  {resources.filter(r=>r.kind!=="mapping").map((r) => (
                     <option value={r.id} key={r.id}>
                       {r.name}{r.kind === "relation" ? "（关系变量使用 left / right）" : ""}
                     </option>

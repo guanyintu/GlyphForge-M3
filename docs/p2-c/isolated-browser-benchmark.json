@@ -1,0 +1,52 @@
+[
+  {
+    "logical": 100000,
+    "ms": 56,
+    "steps": 442,
+    "type": "done",
+    "count": 60,
+    "sourceParts": [
+      {
+        "resourceId": "b15fe1d1-7da5-4035-9a06-7bb7ea9fd47f",
+        "text": "A42",
+        "version": 2
+      },
+      {
+        "resourceId": "95605180-b0c5-4589-94f8-d8fe6a9e3864",
+        "text": "B42",
+        "version": 2
+      },
+      {
+        "resourceId": "a0ca47e6-7656-47ad-9b93-fec3bf295b20",
+        "version": 1,
+        "text": "A42B42"
+      }
+    ],
+    "mainHeap": 11563315
+  },
+  {
+    "logical": 1000000,
+    "ms": 57.69999980926514,
+    "steps": 442,
+    "type": "done",
+    "count": 60,
+    "sourceParts": [
+      {
+        "resourceId": "31c7af56-482b-49cd-abe9-984acc7e792e",
+        "text": "A42",
+        "version": 2
+      },
+      {
+        "resourceId": "552826df-7eca-4c2d-82ed-bf9716cdf16b",
+        "text": "B42",
+        "version": 2
+      },
+      {
+        "resourceId": "c88971e6-1117-4915-9b5e-68f9b8565e07",
+        "version": 1,
+        "text": "A42B42"
+      }
+    ],
+    "mainHeap": 15895841
+  }
+]

@@ -1,0 +1,176 @@
+{
+  "sourceCommit": "7af6379f15eba14b430d9377d87d543fd8cf30db",
+  "protectedCount": 663,
+  "historicalCount": 179,
+  "allHistoricalBodiesPreserved": true,
+  "sourceMatches": [
+    {
+      "file": "src/App.tsx",
+      "sha256": "8ca07507199f15d024aeeb6342cfee8d2369b22e680916913b63299edd17e84e"
+    },
+    {
+      "file": "src/components/ExecutionEstimate.tsx",
+      "sha256": "44686c0ca30d1c04dbaac6b76b432e947187466924acd0e7c8085cc33f9d372a"
+    },
+    {
+      "file": "src/core/estimate.ts",
+      "sha256": "69cb6ace3c92e1e42a1151e10e6c395ee1ef539f0ee7dcd07097dec88946dd4f"
+    },
+    {
+      "file": "src/core/execution-metrics.ts",
+      "sha256": "fe502935b930c5bf1bafcc0fa9b759b6d742f020b0c84d631dcb9267f4223241"
+    },
+    {
+      "file": "src/core/engine.ts",
+      "sha256": "d38c8b0632071e71f23c6c9df87cc90db4662bdf307f70b4fc8f22a1adab3040"
+    },
+    {
+      "file": "src/core/operators.ts",
+      "sha256": "d07c293080e271e8669cc322b22e5fa9f21268e2f2951f2f82c4adaad5a52d65"
+    },
+    {
+      "file": "src/storage/estimate.ts",
+      "sha256": "7e5be201136a089018b22acfe4b0e2517bd936521db39437f308c416c065ed10"
+    },
+    {
+      "file": "src/storage/resource-runtime.ts",
+      "sha256": "9c7fb42990fa240abd0b8ceebf8d67b013ef394a28e3945b953349218332af73"
+    },
+    {
+      "file": "src/workers/execution.worker.ts",
+      "sha256": "100e2a35cb3c195389d2d4616ef2d4197c0abc9ed86746f7b39783537bf0a883"
+    },
+    {
+      "file": "src/tests/scale.test.ts",
+      "sha256": "fac605e9bdd693f85ec5f6075b3ea1368265331b414b518f78fc01098c538d16"
+    },
+    {
+      "file": "src/tests/fixtures/p2f-baseline-engine.ts",
+      "sha256": "db6abb6d171f7db4959e48e67116f138c7541dd29250c20311a91b21b6eda9ce"
+    },
+    {
+      "file": "src/tests/fixtures/p2f-baseline-operators.ts",
+      "sha256": "60017fb007644ee8d1eba41ddd47533668d2f870b530bde57c31a179726516a2"
+    },
+    {
+      "file": "e2e/scale.spec.ts",
+      "sha256": "be73b8ca96e4590c7bfb7733c5b9be5adcb87df7ecf30e54872d1eee38bfe02d"
+    },
+    {
+      "file": "e2e/lineage.spec.ts",
+      "sha256": "8d4a7fb95e22ef49d80e5e2b98d4065ff2a6ab6366f9157a51e39526a2035c91"
+    },
+    {
+      "file": "e2e/scale-harness.ts",
+      "sha256": "6f97bdbb09efbdd534c0d6bb1deba36d5b6838fb8f37c43102dd6513acbbc4c1"
+    },
+    {
+      "file": "e2e/scale.vite.config.ts",
+      "sha256": "58d9fb99e4290f62d1e8c714ce3123d04ff0eb856fbd1c86f00a10d534005902"
+    },
+    {
+      "file": "scripts/protect-p2-f.mjs",
+      "sha256": "762c868f3e3cd299e2f386ced6b49868e071d1efc5adf544c6a8c1a56500cca0"
+    },
+    {
+      "file": "scripts/validate-p2-f.mjs",
+      "sha256": "552599276b44533abf3f8d4da260d72833acf123a95f0bdece74e93cfa3b7fb0"
+    },
+    {
+      "file": "scripts/stage-p2-f.mjs",
+      "sha256": "29f7660cd6836a04e182c4a828c1292f09e249878ea9d25bedb13c035ea2c41d"
+    },
+    {
+      "file": "scripts/isolate-p2-f.mjs",
+      "sha256": "99c483613f57abc4e4ee8ddc237ec5e9a90d757bcaf05532c7d40db1d2c21ef7"
+    },
+    {
+      "file": "scripts/summarize-p2-f.mjs",
+      "sha256": "051beeb4e2aaad7bc6bf73076b4b573a1c856e2565c2aea450163ebae82a743a"
+    }
+  ],
+  "fullChecks": [
+    {
+      "name": "tests",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "exit": 0,
+      "ms": 5443
+    },
+    {
+      "name": "typecheck",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exit": 0,
+      "ms": 5234
+    },
+    {
+      "name": "build-types",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "-b"
+      ],
+      "exit": 0,
+      "ms": 5191
+    },
+    {
+      "name": "build",
+      "args": [
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "exit": 0,
+      "ms": 22224
+    },
+    {
+      "name": "benchmark",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "src/tests/performance.test.ts",
+        "src/tests/resource-catalog.test.ts",
+        "src/tests/packs.test.ts",
+        "src/tests/lineage.test.ts",
+        "src/tests/scale.test.ts",
+        "--reporter=verbose"
+      ],
+      "exit": 0,
+      "ms": 3860
+    },
+    {
+      "name": "browser",
+      "args": [
+        "node_modules/@playwright/test/cli.js",
+        "test"
+      ],
+      "exit": 0,
+      "ms": 586883
+    }
+  ],
+  "isolatedChecks": [
+    {
+      "name": "tests",
+      "exit": 0
+    },
+    {
+      "name": "typecheck",
+      "exit": 0
+    },
+    {
+      "name": "build-types",
+      "exit": 0
+    },
+    {
+      "name": "build",
+      "exit": 0
+    },
+    {
+      "name": "browser",
+      "exit": 0
+    }
+  ]
+}

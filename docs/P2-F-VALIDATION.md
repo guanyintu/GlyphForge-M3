@@ -1,6 +1,6 @@
 # P2-F 验收：真实瓶颈、只读估算和纯计算复用
 
-日期：2026-10-31，Asia/Shanghai。基线 `9f4087a82de4b284d022ebf7d3e6af0c346701e4`，分支 `codex/p2-f-performance`。实现/证据提交：待记录。契约和证明见 [架构](P2-F-ARCHITECTURE.md)。
+日期：2026-10-31，Asia/Shanghai。基线 `9f4087a82de4b284d022ebf7d3e6af0c346701e4`，分支 `codex/p2-f-performance`。实现/证据提交：`7af6379f15eba14b430d9377d87d543fd8cf30db`。契约和证明见 [架构](P2-F-ARCHITECTURE.md)。
 
 **结论：CONDITIONAL GO，限只读规模/风险估算和两条纯计算复用；枚举次数优化 NO-GO。** P2-E 的高级剪枝条件未解除；完整 P2 和 v3.0 未完成。没有压缩分享码、任意 JS、网络插件或社区功能。
 

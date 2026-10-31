@@ -39,6 +39,7 @@ export default function Results({
   onSave,
   onCopy,
   onDetail,
+  onMutate,
 }: {
   candidates: Candidate[];
   favorites: Favorite[];
@@ -49,6 +50,7 @@ export default function Results({
   onSave: (c: Candidate[]) => unknown;
   onCopy: (text: string) => void;
   onDetail: (c: Candidate) => void;
+  onMutate?: (c: Candidate) => void;
 }) {
   const [showRules, setShowRules] = useState(false), [gameRule, setGameRule] = useState(defaultGameRule);
   const [gameText, setGameText] = useState("月亮邮差");
@@ -161,7 +163,7 @@ export default function Results({
               ? "正在捕捉灵感…"
               : stats
                 ? `${(stats.duration / 1000).toFixed(2)}s · ${stats.truncated ? "已达到结果上限" : "生成完成"}`
-                : "运行工作流，看看会发生什么"}
+                : candidates.length ? "已保留的创作结果" : "运行工作流，看看会发生什么"}
           </span>
         </div>
         <div className="result-actions">
@@ -371,13 +373,14 @@ export default function Results({
                   >
                     <HighlightedName text={c.text} query={query} />
                     <small>
-                      {view === "list"
+                      {c.derivation ? `变异衍生 · 第 ${c.derivation.round} 轮` : view === "list"
                         ? `${c.parts.length} 个来源片段`
                         : "来自你的奇妙想法"}
                     </small>
                   </button>
                   {showRules ? <GameBadge text={c.text} rule={gameRule} onInspect={setGameText} /> : null}
                   <div className="candidate-buttons">
+                    {onMutate ? <button className="icon-button" title="变异 / 继续创作" aria-label={`继续创作 ${c.text}`} disabled={running} onClick={() => onMutate(c)}><Sparkles size={14} /></button> : null}
                     <button
                       className="icon-button"
                       title="复制名字"

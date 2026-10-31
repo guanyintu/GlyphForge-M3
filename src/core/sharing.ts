@@ -1,5 +1,5 @@
 import { allNodes, reachableDefinitions } from "./subgraphs";
-import { normalizeParams } from "./contracts";
+import { normalizeParams, nodeResourceBindings } from "./contracts";
 import { db, readResource } from "../storage/db";
 import { validateGraph } from "./script";
 import { programResources, visitProgramExpressions } from "./program";
@@ -30,7 +30,7 @@ export function dependencyIds(workflow: Workflow) {
   return [
     ...new Set(
       allNodes(workflow).flatMap((n) =>
-        n.op === "resource" || n.op === "pairs"
+        n.op === "mutate" ? nodeResourceBindings(n.op, normalizeParams(n.op, n.params)).map(b => b.id) : n.op === "resource" || n.op === "pairs"
           ? [String(normalizeParams(n.op, n.params).resourceId)]
           : n.op === "template" ? templateConfig(normalizeParams(n.op, n.params)).slots.map(s => s.resourceId)
           : n.op === "program"
@@ -257,6 +257,7 @@ export async function importPackage(
       layout[node.id] = { x: point.x, y: point.y };
     if (node.op === "resource" || node.op === "pairs")
       node.params.resourceId = mapping.get(String(node.params.resourceId))!;
+    if (node.op === "mutate" && node.params.resourceId) node.params.resourceId = mapping.get(String(node.params.resourceId)) ?? node.params.resourceId;
     if (node.op === "template") node.params.slots = JSON.stringify(templateConfig(node.params).slots.map(s => ({ ...s, resourceId: mapping.get(s.resourceId)! })));
     if (node.program)
       visitProgramExpressions(node.program, (e) => {

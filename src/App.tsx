@@ -1,4 +1,5 @@
 import Subgraphs from "./components/Subgraphs";
+import Mutation from "./components/Mutation";
 import {
   lazy,
   Suspense,
@@ -134,6 +135,7 @@ export default function App() {
     | null
   >(null);
   const [detail, setDetail] = useState<Candidate>();
+  const [mutation, setMutation] = useState<Candidate>();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [stats, setStats] = useState<RunStats>();
@@ -225,7 +227,7 @@ export default function App() {
   useEffect(() => {
     if (!resource && !modal && !detail) return;
     const previous = document.activeElement as HTMLElement | null;
-    const dialog = document.querySelector<HTMLElement>('[role="dialog"]');
+    const dialog = Array.from(document.querySelectorAll<HTMLElement>('[role="dialog"]')).at(-1);
     const focusable = () =>
       Array.from(
         dialog?.querySelectorAll<HTMLElement>(
@@ -266,7 +268,7 @@ export default function App() {
     (override?: Workflow) => {
       const executable = override || workflow;
       try {
-        if (codeDirty) throw new Error("代码已修改，请先点击「应用到节点」");
+        if (codeDirty && !override) throw new Error("代码已修改，请先点击「应用到节点」");
         validateGraph(executable);
       } catch (e) {
         notify(e instanceof Error ? e.message : "工作流错误");
@@ -1090,6 +1092,7 @@ export default function App() {
               onSave={createResource}
               onCopy={copy}
               onDetail={setDetail}
+              onMutate={setMutation}
             />
             <RunHistory onDetail={setDetail} />
             <div className="workspace-bottom-note">
@@ -1138,10 +1141,12 @@ export default function App() {
               onSave={createResource}
               onCopy={copy}
               onDetail={setDetail}
+              onMutate={setMutation}
             />
           </div>
         )}
       </main>
+      {mutation ? <Mutation initial={mutation} resources={resources} candidates={candidates} favorites={favorites} running={running} onRun={run} onStop={() => stopRun("用户取消变异")} onClose={() => setMutation(undefined)} onFavorite={favorite} onSave={createResource} onCopy={copy} onDetail={setDetail} /> : null}
       <input
         ref={fileInput}
         type="file"
@@ -1430,9 +1435,10 @@ export default function App() {
               {detail.members?.length ? <div className="detail-members">{detail.members.map((member, i) => <div key={i}><span>{i + 1}. {member}</span><button className="text-button" onClick={() => copy(member)}>复制此成员</button></div>)}</div> : null}
               <div className="detail-status">
                 <span className="tiny-dot" />
-                {detailRun ? "已知生成来源" : detail.runId || detail.workflowId ? "生成来源记录缺失" : "文字实验结果"}
+                {detail.derivation ? "名字变异衍生 · 不是原工作流产出" : detailRun ? "已知生成来源" : detail.runId || detail.workflowId ? "生成来源记录缺失" : "文字实验结果"}
               </div>
               <div className="detail-parts">
+                {detail.derivation ? <p className="field-note">衍生第 {detail.derivation.round} 轮 · 算法 v{detail.derivation.version} · 种子 {detail.derivation.seed} · 上轮输入「{detail.derivation.parent.text}」{detail.derivation.parent.runId ? ` · 原运行引用 ${detail.derivation.parent.runId}` : " · 原运行未记录"}。原片段为素材来源，不证明旧工作流生成了当前名字。</p> : null}
                 {detail.notes?.length ? <p className="field-note">{[...new Set(detail.notes)].join("；")}</p> : null}
                 {detailRun ? (
                   <p className="field-note">

@@ -6,6 +6,7 @@ import { chineseDefinitions } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
 import { readPairs, renderTemplates, groupMembers } from "./relations";
 import { checkGameId, parseGameRule } from "./game-rules";
+import { mutate } from "./mutation";
 export interface OperatorContext {
   resourceMetadata?: import("./contracts").ResourceMetadataReader;
   node: RuleNode;
@@ -23,6 +24,7 @@ export function patternText(template: string, a: string, b: string) {
 }
 export { boundedText } from "./contracts";
 const executors: Record<Op, RegisteredOperator["execute"]> = {
+  mutate,
   call: async function* () { throw new Error("子图调用需要执行器作用域"); },
   argument: async function* () { throw new Error("序列参数需要执行器作用域"); },
   gamecheck: async function* (c) {

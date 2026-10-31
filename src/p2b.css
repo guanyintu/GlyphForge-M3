@@ -1,0 +1,15 @@
+.modal.mutation-modal { width: min(1100px, 95vw); max-height: 94vh; overflow-y: auto; }
+.mutation-source { display: flex; align-items: center; gap: 20px; border-left: 3px solid var(--accent, #859c77); padding: 12px 18px; background: #f6f6ef; }
+.mutation-source strong { font-size: 28px; overflow-wrap: anywhere; flex: 1; }
+.mutation-source > span { font-size: 12px; color: #717568; }
+.mutation-locks, .mutation-operations { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+.mutation-locks button { display: flex; flex-direction: column; min-width: 56px; gap: 5px; }
+.mutation-locks button.active { background: #e3ecda; border-color: #708d5d; }
+.mutation-locks small { font-size: 10px; }
+.mutation-settings { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.mutation-operations label { display: flex; align-items: center; gap: 5px; font-size: 13px; }
+.mutation-modal fieldset { border: 1px solid #dedfd4; border-radius: 8px; margin: 18px 0; padding: 15px; }
+.mutation-modal .results-section { margin-top: 20px; }
+.mutation-modal .candidate-buttons { flex-shrink: 0; }
+.mutation-modal button:focus-visible { outline: 2px solid #607848; outline-offset: 2px; }
+@media (max-width: 650px) { .mutation-settings { grid-template-columns: 1fr; } .mutation-source { flex-wrap: wrap; } }

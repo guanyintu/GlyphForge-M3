@@ -25,6 +25,9 @@ test("empty definition, copy and cross-workflow reuse survive reload", async ({ 
   await page.getByRole("button", { name: /^运行工作流/ }).click(); await expect(page.locator(".candidate-name").first()).toBeVisible();
   const first = await page.locator(".candidate-text").first().innerText();
   await expect(page.getByText("已保存到本地", { exact: true })).toBeVisible(); await page.reload();
+  // Bootstrap automatically runs. Wait for its committed result before manually
+  // rerunning; otherwise the same toolbar button can become Stop during click.
+  await expect(page.locator(".candidate-text").first()).toHaveText(first);
   await page.getByRole("button", { name: /^运行工作流/ }).click(); await expect(page.locator(".candidate-text").first()).toHaveText(first);
 });
 

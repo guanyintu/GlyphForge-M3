@@ -1,0 +1,61 @@
+
+Running 4 tests using 1 worker
+
+  ok 1 e2e\mutation.spec.ts:11:1 › Unicode locks, deterministic rerun, dedup, rollback, copy/export and truthful favorites survive refresh (4.5s)
+  x  2 e2e\mutation.spec.ts:31:1 › saved mutation words flow through real P2-A UI subgraph and production Worker (3.1s)
+  ok 3 e2e\mutation.spec.ts:41:1 › cancel terminates blocked mutation Worker and persists cancelled state (1.8s)
+  ok 4 e2e\mutation.spec.ts:49:1 › production mutation Worker repeats seed/resources and portable package without stale Pair or members (2.2s)
+
+
+  1) e2e\mutation.spec.ts:31:1 › saved mutation words flow through real P2-A UI subgraph and production Worker
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 3
+
+      Set {
+        "云月月👩🏽‍💻星",
+    -   "星月月👩🏽‍💻星",
+    +   "星月👩🏽‍💻星",
+        "月月星星",
+    -   "月月月星",
+        "月月月👩🏽‍💻星",
+        "月月👩🏽‍💻星子",
+    +   "月月👩🏽‍💻星星",
+        "月月👩🏽‍💻星酱",
+    -   "梦月月👩🏽‍💻星",
+    +   "月月👩🏽‍💻月",
+        "梦月👩🏽‍💻星",
+      }
+
+      36 |   await sub.locator('select').filter({ has: page.locator(`option[value="${id}"]`) }).selectOption(id);
+      37 |   await sub.getByRole("button", { name: "保存子图并返回", exact: true }).click(); await sub.getByRole("button", { name: "添加调用", exact: true }).last().click(); await sub.getByRole("button", { name: /返回主图/ }).click(); await page.locator(".react-flow__node").last().click(); await page.getByRole("button", { name: "连接到结果输出", exact: true }).click(); await page.getByRole("button", { name: /^运行工作流/ }).click(); await expect(page.getByText(/生成完成/)).toBeVisible();
+    > 38 |   const actual = await page.locator(".candidate-text").allTextContents(); expect(new Set(actual)).toEqual(new Set(names)); await page.screenshot({ path: "docs/p2-b/subgraph-reuse.png", fullPage: true });
+         |                                                                                                   ^
+      39 | });
+      40 |
+      41 | test("cancel terminates blocked mutation Worker and persists cancelled state", async ({ page }) => {
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\mutation.spec.ts:38:99
+
+    Error Context: test-results\mutation-saved-mutation-wo-48ac3-graph-and-production-Worker\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\mutation-saved-mutation-wo-48ac3-graph-and-production-Worker\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\mutation-saved-mutation-wo-48ac3-graph-and-production-Worker\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\mutation.spec.ts:31:1 › saved mutation words flow through real P2-A UI subgraph and production Worker
+  3 passed (21.6s)
+[WebServer] (node:156396) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:86420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:168084) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:125080) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

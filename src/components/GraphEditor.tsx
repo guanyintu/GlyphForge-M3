@@ -39,6 +39,7 @@ import { RelationParams } from "./RelationParams";
 import { GameRuleEditor } from "./GameRuleEditor";
 import { parseGameRule, defaultGameRule } from "../core/game-rules";
 const icons: Record<Op, LucideIcon> = {
+  mutate: Sparkles,
   call: Repeat2, argument: BookOpen,
   gamecheck: Filter,
   pairs: GitMerge, template: Sparkles, group: Layers,

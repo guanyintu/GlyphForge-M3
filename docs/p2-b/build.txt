@@ -1,0 +1,26 @@
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 1851 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                               0.88 kB │ gzip:   0.54 kB
+dist/assets/chinese-CJfcvxgw.js               7.36 kB
+dist/assets/chinese-B_ElSW_T.js               7.37 kB
+dist/assets/chinese-CJsok8Q1.js               7.37 kB
+dist/assets/lab.worker-DiG9jG-S.js           42.30 kB
+dist/assets/t2cn-D2IW0CH8.js                109.07 kB
+dist/assets/resources.worker-HNTqSXrI.js    119.13 kB
+dist/assets/execution.worker-B9j0F2Zt.js    149.93 kB
+dist/assets/reverse.worker-DyFYx0XI.js      150.84 kB
+dist/assets/index-DGLEpTeg.js               313.78 kB
+dist/assets/readings-DmiNxDN8.js            633.08 kB
+dist/assets/cn2t-DDyjQPTw.js              1,100.39 kB
+dist/assets/strokes-CNWsGUWK.js           1,134.42 kB
+dist/assets/full-DZVBVfpd.js              1,195.21 kB
+dist/assets/decomposition-Qix4g1h5.js     2,456.57 kB
+dist/assets/index-Cqoj7InH.css               73.56 kB │ gzip:  15.82 kB
+dist/assets/storage-CvBhfY6t.js             109.81 kB │ gzip:  36.16 kB
+dist/assets/react-flow-C3qdJseD.js          184.87 kB │ gzip:  60.52 kB
+dist/assets/index-Bk0DJwzC.js               400.75 kB │ gzip: 130.77 kB
+dist/assets/index-hTA0NMkr.js               425.59 kB │ gzip: 138.25 kB
+✓ built in 13.17s

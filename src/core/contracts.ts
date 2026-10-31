@@ -4,6 +4,7 @@ import { isChineseOp, validateChineseParams } from "./chinese-definitions";
 import { templateConfig, validateRelationParams } from "./relations";
 import { parseGameRule } from "./game-rules";
 import { glyphs } from "./unicode";
+import { mutationConfig } from "./mutation";
 
 export type ScalarType = "string" | "number" | "boolean";
 export type ValueType = ScalarType | "strings" | "numbers" | "booleans" | "pair" | "pairs";
@@ -78,6 +79,8 @@ export const astSignatures: Record<string, AstSignature> = {
   text: { args: ["number"], result: "string", required: 1 },
 };
 export function parameterLimit(op: Op, key: string) {
+  if (op === "mutate" && key === "source") return 32768;
+  if (op === "mutate" && key === "locks") return 512;
   return (op === "gamecheck" && key === "rules") || (op === "mapchars" && key === "mapping") || (op === "template" && ["slots", "templates"].includes(key)) ? 16384 : 256;
 }
 /** Missing parameters acquire defaults; explicit wrong values never coerce. Unknown legacy fields survive. */
@@ -93,6 +96,7 @@ export function normalizeParams(op: Op, supplied: Params): Params {
         throw new ContractError({ code: "PARAMETER", operator: op, parameter: key, message: `${key} 文字参数过长` });
     }
     if (isChineseOp(op)) validateChineseParams(op, p);
+    if (op === "mutate") mutationConfig(p);
     validateRelationParams(op, p);
     if (op === "gamecheck") { parseGameRule(String(p.rules)); if (!["filter", "annotate"].includes(String(p.mode))) throw new Error("游戏检查模式无效"); }
     if (op === "pattern" && !/^[AB]{1,16}$/.test(String(p.template))) throw new Error("模式需为 1–16 个 A / B，例如 AABB");
@@ -131,6 +135,7 @@ export async function requireResourceKind(meta: ResourceMetadataReader, id: stri
   if ((resource.kind === "relation") !== pair) throw new ContractError({ code: "TYPE", message: pair ? "请选择关系词库，普通词条不能用作关系词对" : "关系词库请使用关系词对或共享变量模板节点" });
 }
 export function nodeResourceBindings(op: Op, p: Params): { id: string; pair: boolean }[] {
+  if (op === "mutate" && p.resourceId) return [{ id: String(p.resourceId), pair: false }];
   if (op === "resource" || op === "pairs") return [{ id: String(p.resourceId), pair: op === "pairs" }];
   if (op === "template") return templateConfig(p).slots.map(s => ({ id: s.resourceId, pair: s.kind === "pair" }));
   return [];

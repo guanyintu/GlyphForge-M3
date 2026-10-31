@@ -44,6 +44,7 @@ export function toScript(workflow: Workflow): string {
       return;
     }
     switch (n.op) {
+      case "mutate":
       case "gamecheck":
       case "pairs":
       case "template":

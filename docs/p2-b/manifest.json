@@ -1,0 +1,81 @@
+{
+  "base": "637333f3f3faf207522efab7914d4856b9a21cba",
+  "files": [
+    {
+      "file": "src/App.tsx",
+      "sha256": "b9541c33a4a591179cbb8483e4dd1ae0bc0c798dca6e675f81dfbeaad55bf888"
+    },
+    {
+      "file": "src/components/GraphEditor.tsx",
+      "sha256": "6a077ecc51bd4504ea2f576a00f594f56135d1705bead13336d714e572428efa"
+    },
+    {
+      "file": "src/components/Results.tsx",
+      "sha256": "11152600ecc951a78f0ef84fcb25affd38b47ce12981cdb9aad321dc05a9c281"
+    },
+    {
+      "file": "src/components/Mutation.tsx",
+      "sha256": "4e66e901ce9484e364b5a7172ab2c1e0e4c00756a0c68d7ba20a73b93941d58a"
+    },
+    {
+      "file": "src/core/contracts.ts",
+      "sha256": "79e61ab28fd733329319ea21c5d5bf536bbc2a3cd768756eb704f4178084fcd3"
+    },
+    {
+      "file": "src/core/model.ts",
+      "sha256": "352d4dbd41b14d96a6b0a5b10f81d8dd17fbe22f163d495ec44db57f93f8f4a0"
+    },
+    {
+      "file": "src/core/operators.ts",
+      "sha256": "61c4c24a68058861cffb5dfdf112263efa59670721367b5e9342db1c22db6dec"
+    },
+    {
+      "file": "src/core/script.ts",
+      "sha256": "5aef3c660b4c61df9f0db4a27f767dc129cda13cbb0ceccc09229b4434dd8852"
+    },
+    {
+      "file": "src/core/sharing.ts",
+      "sha256": "99136f6fb3b847f02ad43d7f5dabec3f34babb5c64b88924dad1cae6c20704bd"
+    },
+    {
+      "file": "src/core/mutation.ts",
+      "sha256": "79ecf830872279d22be587ef845f7a8dce2a084ff9b5203b0c970bf46758a8ab"
+    },
+    {
+      "file": "src/p2b.css",
+      "sha256": "2b10b7498f43b4c32b27a8b947b0727ca11efcedeba67b185310d6ccdd32cc9b"
+    },
+    {
+      "file": "src/tests/mutation.test.ts",
+      "sha256": "bfddd14df2cf96cb706fb61dcbb2dd1aa497a39148d350b474049f45045ce9b9"
+    },
+    {
+      "file": "e2e/mutation.spec.ts",
+      "sha256": "5940618a30f257ee25e2089ac3a705a48d07c2fbbd3f66783f012ba380a90368"
+    },
+    {
+      "file": "e2e/mutation-harness.ts",
+      "sha256": "f840402f2dded3e985f25065ea43acf2280d13fe534681e801ff413ee8f8ad8a"
+    },
+    {
+      "file": "e2e/mutation.vite.config.ts",
+      "sha256": "e5805fa28e083b1f1cd98022fb7b6a5dcbe86202edb3f4c042e6a49ac82363c0"
+    },
+    {
+      "file": "scripts/validate-p2-b.mjs",
+      "sha256": "35b22ada45fcd8663ff8b7ce01f12990fe8e99630906e693914e301592d488cd"
+    },
+    {
+      "file": "e2e/subgraphs.spec.ts",
+      "sha256": "699692bf76bab66c30a6ee543afc09f61896fe3a1238765cbe8b3bf23b9905fd"
+    },
+    {
+      "file": "docs/P2-B-ARCHITECTURE.md",
+      "sha256": "4de7f1fe2b705ea3336c4c6337157cf79704d506315928b7e31bc4167cd46f71"
+    },
+    {
+      "file": "docs/P2-B-VALIDATION.md",
+      "sha256": "f604d2a6053cfdd8e6edd467f73d2e664365e81aaf67e1577fd97160ac0c9030"
+    }
+  ]
+}

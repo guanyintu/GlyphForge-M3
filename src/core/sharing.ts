@@ -36,7 +36,7 @@ export async function exportPackage(
 ) {
   validateGraph(workflow);
   const plan = await captureResources(dependencyIds(workflow));
-  if(plan.resources.some(r=>r.definition)) { const { exportResourcePackage } = await import("./resource-package"); return exportResourcePackage(workflow,includeResources,signal); }
+  if(workflow.extensions?.length || plan.resources.some(r=>r.definition)) { const { exportResourcePackage } = await import("./resource-package"); return exportResourcePackage(workflow,includeResources,signal); }
   if (workflow.subgraphs?.length) workflow = { ...workflow, subgraphs: reachableDefinitions(workflow.nodes, workflow.subgraphs) };
   const ids = dependencyIds(workflow);
   const dependencies: Dependency[] = [];
@@ -84,7 +84,7 @@ export async function importPackage(
 ): Promise<Workflow> {
   if (!data || typeof data !== "object") throw new Error("无效的工作流文件");
   const pkg = data as Record<string, unknown>;
-  if(pkg.version===6){const {importResourcePackage}=await import("./resource-package");return importResourcePackage(data,bindings);}
+  if(pkg.version===6 || pkg.version===7){const {importResourcePackage}=await import("./resource-package");return importResourcePackage(data,bindings);}
   if (
     pkg.format !== "glyphforge" ||
     ![1, 2, 3, 4, 5].includes(Number(pkg.version)) ||
@@ -94,6 +94,7 @@ export async function importPackage(
   )
     throw new Error("文件格式或版本不受支持");
   const workflow = structuredClone(pkg.workflow) as Workflow;
+  if(workflow.extensions?.length || workflow.nodes?.some(n=>n.op==="extension") || workflow.subgraphs?.some(d=>d.nodes.some(n=>n.op==="extension")))throw new Error("扩展需要 v7 分享包");
   if (
     workflow.version !== 1 ||
     typeof workflow.name !== "string" ||

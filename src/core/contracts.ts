@@ -79,6 +79,7 @@ export const astSignatures: Record<string, AstSignature> = {
   text: { args: ["number"], result: "string", required: 1 },
 };
 export function parameterLimit(op: Op, key: string) {
+  if (op === "extension" && key === "values") return 8192;
   if (op === "mutate" && key === "source") return 32768;
   if (op === "mutate" && key === "locks") return 512;
   return (op === "gamecheck" && key === "rules") || (op === "mapchars" && key === "mapping") || (op === "template" && ["slots", "templates"].includes(key)) ? 16384 : 256;
@@ -137,7 +138,7 @@ export async function requireResourceKind(meta: ResourceMetadataReader, id: stri
   if ((resource.kind === "relation") !== pair) throw new ContractError({ code: "TYPE", message: pair ? "请选择关系词库，普通词条不能用作关系词对" : "关系词库请使用关系词对或共享变量模板节点" });
 }
 export function nodeResourceBindings(op: Op, p: Params): { id: string; pair: boolean; mapping?: boolean }[] {
-  const maps = p.mappingId && ["mapchars","hanconvert","mutate"].includes(op) ? [{id:String(p.mappingId),pair:false,mapping:true}] : [];
+  const maps = p.mappingId && ["mapchars","hanconvert","mutate","extension"].includes(op) ? [{id:String(p.mappingId),pair:false,mapping:true}] : [];
   if (op === "mutate") return [...maps,...(p.resourceId ? [{id:String(p.resourceId),pair:false}] : [])];
   if (maps.length) return maps;
   if (op === "resource" || op === "pairs") return [{ id: String(p.resourceId), pair: op === "pairs" }];

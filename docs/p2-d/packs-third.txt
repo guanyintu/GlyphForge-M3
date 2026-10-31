@@ -1,0 +1,9 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ✓ src/tests/packs.test.ts (25 tests) 177ms
+
+ Test Files  1 passed (1)
+      Tests  25 passed (25)
+   Start at  20:14:41
+   Duration  1.46s (transform 268ms, setup 0ms, collect 615ms, tests 177ms, environment 0ms, prepare 268ms)

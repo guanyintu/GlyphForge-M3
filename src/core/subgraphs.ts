@@ -69,7 +69,7 @@ export function validateScopedNode(n: RuleNode, defs: SubgraphDefinition[], scop
     const type = n.op === "call" ? definitionFor(n, defs).parameters.find(p => p.name === target)?.type : operatorContracts[n.op]?.parameters[target]?.type;
     if (!p || p.type === "CandidateSequence" || !type || type !== p.type) fail(`参数 ${target} 引用 ${ref} 越界或类型不符`, n, "SCOPE");
     // Resources are static dependencies, never opaque caller captures.
-    if (["resourceId", "slots"].includes(target)) fail("资源依赖必须为静态 ID", n, "SCOPE");
+    if (["resourceId", "slots"].includes(target) || n.op === "extension") fail("资源依赖必须为静态 ID", n, "SCOPE");
   }
   if (n.op === "argument") {
     if (!parameters.some(p => p.name === n.params.name && p.type === "CandidateSequence")) fail("序列参数超出词法作用域", n, "SCOPE");

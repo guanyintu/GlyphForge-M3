@@ -3,6 +3,7 @@ import type { Program } from "./program";
 import { chineseDefinitions } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
 export type Op =
+  | "extension"
   | "mutate"
   | "call" | "argument"
   | "gamecheck"
@@ -54,6 +55,7 @@ export interface Workflow {
   comments?: string[];
   groups?: { id: string; name: string; nodeIds: string[] }[];
   subgraphs?: SubgraphDefinition[];
+  extensions?: import("./packs").ExtensionPack[];
 }
 export interface Resource {
   id: string;
@@ -144,6 +146,7 @@ const builtinOperators: Record<
     "version" | "inputTypes" | "outputType" | "deterministic" | "streaming"
   >
 > = {
+  extension: { id: "extension", name: "扩展算子", category: "扩展", description: "固定版本的声明式流水线；AST/实验室不适用", inputs: 1, color: "purple", defaults: { pack: "glyphforge-text", version: "1.0.0", operator: "frame", values: "{}", mappingId: "" } },
   mutate: { id: "mutate", name: "名字变异", category: "生成", description: "按字符簇位置锁定、固定种子的有界衍生创作", inputs: 0, color: "purple", defaults: { source: '{"text":"月","parts":[]}', locks: "[]", operations: '["replace","insert","affix"]', intensity: 1, count: 64, pool: "星月云梦", prefix: "小|夜", suffix: "子|酱", resourceId: "", mappingId: "", algorithm: 1 } },
   call: { id: "call", name: "子图调用", category: "函数", description: "调用稳定版本的参数化子图", inputs: 0, color: "purple", defaults: {} },
   argument: { id: "argument", name: "序列参数", category: "函数", description: "显式的子图序列输入", inputs: 0, color: "green", defaults: { name: "input" } },

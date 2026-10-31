@@ -1,3 +1,4 @@
+import { assertWorkflowPacks } from "./packs";
 import { db, readStaticResource, type ForgeDatabase } from './db';
 import type { Candidate, Resource } from '../core/model';
 import { planResources, resourceDependents, validateResource, type ResourcePlan } from '../core/resource-catalog';
@@ -8,6 +9,7 @@ export async function captureResources(ids: string[], target = db) {
   return target.transaction('r',target.resources,async()=>planResources(ids,await target.resources.toArray()));
 }
 export async function assertResourcePlan(plan: ResourcePlan, target = db) {
+  for(const r of plan.resources)if(r.definition?.type==="dynamic")await assertWorkflowPacks(r.definition.workflow,[],target);
   const current = await target.resources.bulkGet(plan.resources.map(r=>r.id));
   if(current.some((r,i)=>!r || r.version!==plan.resources[i].version || r.kind!==plan.resources[i].kind || JSON.stringify(r.definition)!==JSON.stringify(plan.resources[i].definition))) throw new ContractError({code:'RESOURCE',message:'源资源在运行期间发生更改或删除，请重新计算'});
 }

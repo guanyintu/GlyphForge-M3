@@ -1,0 +1,20 @@
+
+Running 5 tests using 1 worker
+
+  ok 1 e2e\packs.spec.ts:9:1 › UI installs both operators, edits params, runs production Worker, favorites, disables/uninstalls and restores (5.1s)
+  ok 2 e2e\packs.spec.ts:19:1 › UI unverified JSON stays disabled, dependencies and malicious code are visible rejections; explicit version migration (2.4s)
+  ok 3 e2e\packs.spec.ts:27:1 › offline blank context restores v7 extension + NameScript + P2-A + dynamic Mapping + mutation favorites with exact snapshots (2.7s)
+  ok 4 e2e\packs.spec.ts:40:1 › production Worker handles million logical combinations lazily with extension rules and cancels a duplicate flood (1.8s)
+  ok 5 e2e\packs.spec.ts:48:1 › blocked beginRun explains zero-running versus pending terminal record (3.8s)
+
+  5 passed (24.2s)
+[WebServer] (node:101640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:91188) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:91188) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:6032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:119112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

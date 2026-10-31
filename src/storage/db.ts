@@ -31,6 +31,7 @@ export interface GeneratedRecord extends Candidate {
   runId: string;
 }
 export class ForgeDatabase extends Dexie {
+  extensionPacks!: Table<import("./packs").InstalledPack, string>;
   gamePresets!: Table<GamePreset, string>;
   resources!: Table<Resource, string>;
   entries!: Table<Entry, number>;
@@ -61,6 +62,7 @@ export class ForgeDatabase extends Dexie {
       row.direction ??= "unknown";
       row.reverseQueryable ??= false;
     }));
+    this.version(7).stores({ extensionPacks: "key" });
     this.version(5).stores({ gamePresets: "id,name" });
     // Additive, atomic versionchange: no history/resource deletion in migration.
     this.version(6).stores({

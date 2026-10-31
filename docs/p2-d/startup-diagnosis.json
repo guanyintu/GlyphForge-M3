@@ -1,0 +1,11 @@
+{
+  "blocked": {
+    "running": 0,
+    "cancelled": 0
+  },
+  "after": {
+    "running": 0,
+    "cancelled": 1
+  },
+  "finding": "zero running does not mean no pending beginRun; cancelled count must be awaited"
+}

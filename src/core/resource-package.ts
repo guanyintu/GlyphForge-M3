@@ -1,3 +1,5 @@
+import { guardJSON } from "./packs";
+import { workflowPacks, installPacks } from "../storage/packs";
 import { visitProgramExpressions } from "./program";
 import { operators } from "./model";
 import type { Resource, Workflow } from './model';
@@ -32,13 +34,15 @@ export async function exportResourcePackage(workflow:Workflow,includeResources:b
   }
   await assertResourcePlan(plan);
   const used = usedOperators([workflow,...plan.resources.flatMap(r=>r.definition?.type==='dynamic'?[r.definition.workflow]:[])]);
-  const result = {operatorVersions:Object.fromEntries(used.map(op=>[op,1])),format:'glyphforge',version:6,irVersion:1,resourceDefinitionVersion:1,workflow,dependencies:plan.resources.map(({id,name,kind,version})=>({id,name,kind,version})),resources};
+  const packManifest=workflowPacks(workflow,plan.resources);
+  const result = {packManifest,operatorVersions:Object.fromEntries(used.map(op=>[op,1])),format:'glyphforge',version:packManifest.length?7:6,irVersion:1,resourceDefinitionVersion:1,workflow,dependencies:plan.resources.map(({id,name,kind,version})=>({id,name,kind,version})),resources};
   if(encoder.encode(JSON.stringify(result)).length>15*1024*1024)throw new Error("便携包超过15MiB");
-  return result;
+  return JSON.parse(JSON.stringify(result)) as typeof result;
 }
 export async function importResourcePackage(data:unknown,bindings:Record<string,string>={}):Promise<Workflow> {
   const p=data as Awaited<ReturnType<typeof exportResourcePackage>>;
-  if(!p || p.format!=='glyphforge'||p.version!==6||p.irVersion!==1||p.resourceDefinitionVersion!==1||!Array.isArray(p.resources)||p.resources.length>100||!Array.isArray(p.dependencies)||p.dependencies.length>100||JSON.stringify(data).length>16*1024*1024)throw new Error('v6 资源包格式/大小无效');
+  if(!p || p.format!=='glyphforge'||![6,7].includes(p.version)||p.irVersion!==1||p.resourceDefinitionVersion!==1||!Array.isArray(p.resources)||p.resources.length>100||!Array.isArray(p.dependencies)||p.dependencies.length>100||JSON.stringify(data).length>16*1024*1024)throw new Error('v6 资源包格式/大小无效');
+  if(p.version===7)guardJSON(data,48*1024*1024,2000000);
   const workflow=structuredClone(p.workflow);validateGraph(workflow);
   if(!p.operatorVersions || Object.entries(p.operatorVersions).some(([op,v])=>!Object.hasOwn(operators,op)||v!==1))throw new Error("算子版本不兼容");
   const definitions=new Map<string,Resource>();
@@ -67,6 +71,9 @@ export async function importResourcePackage(data:unknown,bindings:Record<string,
   }
   if(missing.length){const {ResourceDependencyError}=await import('./sharing');throw new ResourceDependencyError(missing);}
   const plan=planResources(workflowResourceIds(workflow),[...definitions.values()]);
+  const packManifest=workflowPacks(workflow,plan.resources);
+  if(p.version===6 && packManifest.length)throw new Error('扩展需要 v7 分享包');
+  if(p.version===7 && JSON.stringify(packManifest)!==JSON.stringify(p.packManifest))throw new Error('扩展依赖 manifest 不匹配');
   for(const op of usedOperators([workflow,...plan.resources.flatMap(r=>r.definition?.type==="dynamic"?[r.definition.workflow]:[])]))if(p.operatorVersions[op]!==1)throw new Error("缺少算子版本");
   if(plan.resources.length!==p.dependencies.length)throw new Error('传递依赖清单不完整或包含无关资源');
   for(const item of snapshots) {
@@ -77,7 +84,8 @@ export async function importResourcePackage(data:unknown,bindings:Record<string,
   workflow.id=crypto.randomUUID();workflow.name=`${workflow.name.slice(0,90)} · 导入`;
   for(const n of allNodes(workflow))n.params=normalizeParams(n.op,n.params);
   validateGraph(workflow);
-  await db.transaction('rw',db.resources,db.entries,db.relations,db.workflows,async()=>{
+  await db.transaction('rw',db.resources,db.entries,db.relations,db.workflows,db.extensionPacks,async()=>{
+    await installPacks(packManifest);
     // Re-check local bindings while serializing all resource writers.
     for(const dep of p.dependencies)if(!seen.has(dep.id)) {const current=await db.resources.get(mapping.get(dep.id)!);if(!current||current.version!==definitions.get(dep.id)!.version)throw new Error('本地绑定资源已变化');}
     for(const item of snapshots) {

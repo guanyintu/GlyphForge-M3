@@ -1,0 +1,82 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 91.39 ms, 40041 steps, max batch 64
+
+ ✓ src/tests/resource-catalog.test.ts > detects self and indirect cycles before reading entries 10ms
+ ✓ src/tests/resource-catalog.test.ts > reports exact missing dependency path 3ms
+ ✓ src/tests/resource-catalog.test.ts > deduplicates diamond vertices and includes mapping dependency in topological order 4ms
+ ✓ src/tests/resource-catalog.test.ts > bounds dependency depth 2ms
+ ✓ src/tests/resource-catalog.test.ts > rejects wrong dependency types before executing even empty resources 1ms
+ ✓ src/tests/resource-catalog.test.ts > display rename leaves content key stable; seed is included in execution key 14ms
+ ✓ src/tests/resource-catalog.test.ts > rejects computed resource references in dynamic definitions 5ms
+ ✓ src/tests/resource-catalog.test.ts > relation rows project explicitly through shared templates into dynamic text 11ms
+ ✓ src/tests/resource-catalog.test.ts > saves definitions atomically and prevents concurrent overwrite or static asset replacement 7ms
+ ✓ src/tests/resource-catalog.test.ts > rejects cyclic edits with no partial write 6ms
+ ✓ src/tests/packs.test.ts > first party declarations install enabled; unknown claimed publishers stay unverified and disabled 30ms
+ ✓ src/tests/packs.test.ts > both real operators execute through graph, NameScript and a P2-A sequence function with provenance 45ms
+ ✓ src/tests/packs.test.ts > clipboard carries precise manifests and rejects same-version content conflicts 4ms
+ ✓ src/tests/packs.test.ts > Pair and members invalidate on text changes; source parts and notes survive 4ms
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 134.11 ms, 200002 steps
+
+ ✓ src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches 95ms
+ ✓ src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array 135ms
+ ✓ src/tests/resource-catalog.test.ts > recomputes mapping and static source changes with new exact keys and no cache pollution 51ms
+ ✓ src/tests/resource-catalog.test.ts > source deletion source invalidates all dependent reads 4ms
+ ✓ src/tests/resource-catalog.test.ts > source deletion map invalidates all dependent reads 4ms
+ ✓ src/tests/resource-catalog.test.ts > checks versions across interleaved async readers and refuses mixed batches 8ms
+ ✓ src/tests/resource-catalog.test.ts > resource version check is inside batch persistence transaction 11ms
+ ✓ src/tests/resource-catalog.test.ts > cancels after suspension and leaves no shared mutable iterator/cache state 8ms
+ ✓ src/tests/resource-catalog.test.ts > empty sources and empty mappings retain type checks 5ms
+ ✓ src/tests/resource-catalog.test.ts > fixed seed, source versions and graph/NameScript/Chinese martian rules agree 11ms
+ ✓ src/tests/resource-catalog.test.ts > program AST resolves and packages literal Mapping references using identical semantics 14ms
+ ✓ src/tests/packs.test.ts > disabling or uninstalling leaves workflow bytes intact, stops batches/done, then recovers exact version 25ms
+ ✓ src/tests/packs.test.ts > different versions coexist; explicit migration renames params; downgrade and missing version are errors 10ms
+ ✓ src/tests/packs.test.ts > dependencies have bounded DAGs and enabled state; broken dependency blocks existing users 6ms
+ ✓ src/tests/packs.test.ts > same ID/version replacement, including forged first party content, cannot overwrite a local installation 5ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: builtin shadow without asset changes 4ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: user JS without asset changes 4ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: network permission without asset changes 5ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: arbitrary step without asset changes 5ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: hidden resource without asset changes 3ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: unknown param without asset changes 5ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: incompatible without asset changes 3ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: steps size without asset changes 2ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: huge defaults without asset changes 3ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: binding type without asset changes 3ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: duplicate op without asset changes 4ms
+ ✓ src/tests/packs.test.ts > prototype keys, deep nesting, compressed envelopes, huge input and malicious call params are rejected 2ms
+ ✓ src/tests/packs.test.ts > AST and laboratory are explicitly inapplicable and reject extension calls 3ms
+ ✓ src/tests/packs.test.ts > 1000+ combinations consume a lazy prefix and inherit cancellation/step budget 6ms
+ ✓ src/tests/packs.test.ts > v7 portable closure restores dynamic resource, Mapping, P2-A and packs into blank DB with ID collisions isolated 31ms
+ ✓ src/tests/packs.test.ts > bad v7 manifest and transactional write failure roll back every asset and pack 10ms
+ ✓ src/tests/packs.test.ts > unknown imported pack remains installed disabled, and import never reenables a local disabled first party pack 14ms
+ ✓ src/tests/packs.test.ts > real schema6 database upgrades additively to schema7 without changing existing assets 7ms
+ ✓ src/tests/packs.test.ts > dependency depth is bounded and malformed versions cannot auto select a newer installation 2ms
+ ✓ src/tests/packs.test.ts > migrated workflow does not depend on an unused disabled older manifest 7ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":100000,"rows":60,"steps":442,"ms":7.6965000000000146,"staticRows":1100,"cacheRows":0}
+
+ ✓ src/tests/resource-catalog.test.ts > dynamic resource feeds reusable P2-A subgraph then P2-B mutation dictionary/mapping 24ms
+ ✓ src/tests/resource-catalog.test.ts > v6 carries transitive definitions offline and remaps all ID conflicts without overwriting assets 20ms
+ ✓ src/tests/resource-catalog.test.ts > v6 rebinds both main and dynamic-definition subgraph internals 14ms
+ ✓ src/tests/resource-catalog.test.ts > a stale editor cannot resurrect a deleted resource 4ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 cycle atomically 5ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 missing atomically 8ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 bad-map atomically 5ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 rows atomically 5ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 version atomically 4ms
+ ✓ src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps 34ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":1000000,"rows":60,"steps":442,"ms":7.143200000000206,"staticRows":2000,"cacheRows":0}
+
+ ✓ src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps 44ms
+ ✓ src/tests/resource-catalog.test.ts > shares the outer budget through nested resource executions 2ms
+ ✓ src/tests/resource-catalog.test.ts > opening existing schema6 is additive with byte-equivalent user assets 5ms
+
+ Test Files  3 passed (3)
+      Tests  62 passed (62)
+   Start at  20:33:53
+   Duration  1.71s (transform 442ms, setup 0ms, collect 1.47s, tests 836ms, environment 0ms, prepare 866ms)

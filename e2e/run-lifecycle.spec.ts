@@ -193,8 +193,9 @@ test("UI startup cancellation and unexpected Worker failure persist accurate ter
   await expect.poll(() => page.evaluate(async () => {
     const h = await import("/e2e-harness/lifecycle.js"); return h.db.runs.where("status").equals("running").count();
   })).toBe(0);
-  const cancelled = await page.evaluate(async () => { const h = await import("/e2e-harness/lifecycle.js"); return h.db.runs.where("status").equals("cancelled").count(); });
-  expect(cancelled).toBe(20);
+  // No running rows may also mean the last beginRun is still awaiting its lock.
+  // Wait for the durable terminal records, not a transient absence of active rows.
+  await expect.poll(() => page.evaluate(async () => { const h = await import("/e2e-harness/lifecycle.js"); return h.db.runs.where("status").equals("cancelled").count(); })).toBe(20);
   await expect.poll(() => page.evaluate(async () => (await navigator.locks.query()).held?.filter(l => l.name?.startsWith("glyphforge-run:")).length ?? 0)).toBe(0);
   await page.getByRole("button", { name: /^运行工作流/ }).click();
   await expect.poll(() => page.evaluate(async () => {

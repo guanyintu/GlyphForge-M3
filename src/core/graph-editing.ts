@@ -1,3 +1,4 @@
+import { mergePacks } from "../storage/packs";
 import { inputCount, mergeDefinitions, reachableDefinitions } from "./subgraphs";
 import { validateDefinitions } from "./script";
 import { normalizeParams } from "./contracts";
@@ -11,6 +12,7 @@ export interface NodeClipboard {
   layout: Workflow["layout"];
   groups: Workflow["groups"];
   subgraphs?: Workflow["subgraphs"];
+  extensions?: Workflow["extensions"];
 }
 export function copyNodes(
   workflow: Workflow,
@@ -22,6 +24,7 @@ export function copyNodes(
     format: "glyphforge-nodes",
     version: 1,
     nodes,
+    extensions: workflow.extensions,
     subgraphs: reachableDefinitions(nodes, workflow.subgraphs),
     layout: Object.fromEntries(
       nodes.map((n) => [n.id, nodePosition(workflow, n.id)]),
@@ -95,6 +98,7 @@ export function pasteNodes(
     payload.nodes.length + workflow.nodes.length > 200
   )
     throw new Error("剪贴板格式错误或节点超过 200 个");
+  const extensions = mergePacks([workflow.extensions??[],payload.extensions??[]]);
   const merged = mergeDefinitions(workflow.subgraphs, payload.subgraphs);
   validateDefinitions({ ...workflow, subgraphs: merged.definitions });
   const originalIds = new Set<string>();
@@ -149,6 +153,7 @@ export function pasteNodes(
   return {
     workflow: {
       ...workflow,
+      extensions,
       subgraphs: merged.definitions,
       nodes: [...workflow.nodes, ...nodes],
       layout,

@@ -1,0 +1,54 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ❯ src/tests/packs.test.ts (25 tests | 1 failed) 175ms
+   ✓ first party declarations install enabled; unknown claimed publishers stay unverified and disabled 23ms
+   ✓ both real operators execute through graph, NameScript and a P2-A sequence function with provenance 44ms
+   ✓ clipboard carries precise manifests and rejects same-version content conflicts 3ms
+   × Pair and members invalidate on text changes; source parts and notes survive 7ms
+     → expected [ '原始', '趣味字形替换，不保证同义同音；每条最多 32 个候选' ] to deeply equal [ '原始' ]
+   ✓ disabling or uninstalling leaves workflow bytes intact, stops batches/done, then recovers exact version 12ms
+   ✓ different versions coexist; explicit migration renames params; downgrade and missing version are errors 6ms
+   ✓ dependencies have bounded DAGs and enabled state; broken dependency blocks existing users 5ms
+   ✓ same ID/version replacement, including forged first party content, cannot overwrite a local installation 3ms
+   ✓ rejects malicious declaration: builtin shadow without asset changes 4ms
+   ✓ rejects malicious declaration: user JS without asset changes 2ms
+   ✓ rejects malicious declaration: network permission without asset changes 2ms
+   ✓ rejects malicious declaration: arbitrary step without asset changes 3ms
+   ✓ rejects malicious declaration: hidden resource without asset changes 2ms
+   ✓ rejects malicious declaration: unknown param without asset changes 2ms
+   ✓ rejects malicious declaration: incompatible without asset changes 3ms
+   ✓ rejects malicious declaration: steps size without asset changes 2ms
+   ✓ rejects malicious declaration: huge defaults without asset changes 2ms
+   ✓ rejects malicious declaration: binding type without asset changes 2ms
+   ✓ rejects malicious declaration: duplicate op without asset changes 3ms
+   ✓ prototype keys, deep nesting, compressed envelopes, huge input and malicious call params are rejected 1ms
+   ✓ AST and laboratory are explicitly inapplicable and reject extension calls 2ms
+   ✓ 1000+ combinations consume a lazy prefix and inherit cancellation/step budget 5ms
+   ✓ v7 portable closure restores dynamic resource, Mapping, P2-A and packs into blank DB with ID collisions isolated 21ms
+   ✓ bad v7 manifest and transactional write failure roll back every asset and pack 7ms
+   ✓ unknown imported pack remains installed disabled, and import never reenables a local disabled first party pack 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/packs.test.ts > Pair and members invalidate on text changes; source parts and notes survive
+AssertionError: expected [ '原始', '趣味字形替换，不保证同义同音；每条最多 32 个候选' ] to deeply equal [ '原始' ]
+
+- Expected
++ Received
+
+  [
+    "原始",
++   "趣味字形替换，不保证同义同音；每条最多 32 个候选",
+  ]
+
+ ❯ src/tests/packs.test.ts:43:135
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 passed (25)
+   Start at  20:13:58
+   Duration  1.56s (transform 282ms, setup 0ms, collect 681ms, tests 175ms, environment 0ms, prepare 236ms)

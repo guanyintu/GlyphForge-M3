@@ -1,4 +1,8 @@
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "../storage/db";
+import { packStatus } from "../storage/packs";
 import { inputCount, definitionFor } from "../core/subgraphs";
+import { ExtensionInspector } from "./Packs";
 import { CallInspector } from "./CallInspector";
 import { memo, useCallback, useEffect, useMemo } from "react";
 import {
@@ -39,6 +43,7 @@ import { RelationParams } from "./RelationParams";
 import { GameRuleEditor } from "./GameRuleEditor";
 import { parseGameRule, defaultGameRule } from "../core/game-rules";
 const icons: Record<Op, LucideIcon> = {
+  extension: Sparkles,
   mutate: Sparkles,
   call: Repeat2, argument: BookOpen,
   gamecheck: Filter,
@@ -84,6 +89,7 @@ const ForgeCard = memo(function ForgeCard({
       </div>
       <div className="node-content">
         {isChineseOp(rule.op) ? <><div className="node-field">{String(rule.params.mode || rule.params.structure || "中文文字实验")}</div><p className="node-hint">{def.description}</p></> : null}
+        {rule.op === "extension" ? <p className="node-hint">{String(rule.params.pack)}@{String(rule.params.version)}/{String(rule.params.operator)}</p> : null}
         {rule.op === "call" ? <p className="node-hint">固定版本 v{rule.call?.version} · 独立参数绑定</p> : null}
         {rule.op === "argument" ? <b>{String(rule.params.name)}</b> : null}
         {rule.op === "program" ? (
@@ -227,6 +233,7 @@ function GraphCanvas({
   onSelect,
   onChange,
 }: GraphProps) {
+  const installedPacks = useLiveQuery(()=>db.extensionPacks.toArray(),[]) ?? [];
   const initialized = useNodesInitialized();
   const { fitView } = useReactFlow();
   useEffect(() => {
@@ -247,12 +254,12 @@ function GraphCanvas({
         data: {
           rule,
           inputs: (() => { try { return inputCount(rule, workflow.subgraphs); } catch { return rule.inputs.length; } })(),
-          label: rule.op === "call" ? (() => { try { return definitionFor(rule, workflow.subgraphs).name; } catch { return "缺失子图引用"; } })() : undefined,
+          label: rule.op === "extension" ? (()=>{const p=workflow.extensions?.find(p=>p.id===rule.params.pack&&p.version===rule.params.version);return p && packStatus(p,installedPacks).includes("兼容") ? p.operators.find(o=>o.id===rule.params.operator)?.name : "缺失或禁用扩展";})() : rule.op === "call" ? (() => { try { return definitionFor(rule, workflow.subgraphs).name; } catch { return "缺失子图引用"; } })() : undefined,
           resource: resources.find((r) => r.id === rule.params.resourceId),
           words: previews[String(rule.params.resourceId)] || [],
         },
       })),
-    [workflow.nodes, workflow.layout, workflow.subgraphs, selection, resources, previews],
+    [workflow.nodes, workflow.layout, workflow.subgraphs, workflow.extensions, installedPacks, selection, resources, previews],
   );
   const edges = useMemo(
     () =>
@@ -464,6 +471,7 @@ export function Inspector({
         <h3>{def.name}</h3>
         <p className="description">{def.description}</p>
         <div className="divider" />
+        {node.op === "extension" && workflow ? <ExtensionInspector node={node} workflow={workflow} onChange={onWorkflowChange!} /> : null}
         {node.op === "call" && workflow ? <><CallInspector node={node} workflow={workflow} onUpdate={onUpdate} />{onWorkflowChange ? <button className="button" onClick={() => onWorkflowChange({ ...workflow, nodes: workflow.nodes.map(n => n.op === "output" ? { ...n, inputs: [node.id] } : n) })}>连接到结果输出</button> : null}</> : null}
         {node.op === "gamecheck" ? <><GameRuleEditor rule={(() => { try { return parseGameRule(String(node.params.rules)); } catch { return defaultGameRule; } })()} onChange={rule => param("rules", JSON.stringify(rule))} /><label className="field-label">检查模式<select value={String(node.params.mode)} onChange={e => param("mode", e.target.value)}><option value="filter">仅通过项</option><option value="annotate">保留并标注</option></select></label></> : null}
         {isChineseOp(node.op) ? <ChineseParams op={node.op} params={node.params} onChange={params => onUpdate({ ...node, params })} /> : null}
@@ -618,7 +626,7 @@ export function NodeLibrary({
       <div className="node-library">
         <p className="eyebrow">灵感工具箱</p>
         <h3>添加一个节点</h3>
-        {Object.values(operators).filter(op => !["call", "argument"].includes(op.id)).map((op) => {
+        {Object.values(operators).filter(op => !["call", "argument", "extension"].includes(op.id)).map((op) => {
           const Icon = icons[op.id];
           return (
             <button

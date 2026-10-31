@@ -1,0 +1,40 @@
+[WebServer] (node:120764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:67392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:84620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 e2e\startup-local.spec.ts:3:1 › blocked beginRun explains zero-running versus pending terminal record (45.3s)
+
+
+  1) e2e\startup-local.spec.ts:3:1 › blocked beginRun explains zero-running versus pending terminal record
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       5 |  await page.evaluate(async()=>{const h=await import('/packs-harness/packs.js');const w=window as any;await new Promise(resolve=>{w.block=h.db.transaction('rw',h.db.resources,async()=>{resolve(true);await h.db.constructor.waitFor(new Promise(r=>w.unblock=r));});});});
+       6 |  await page.getByRole('button',{name:/^运行工作流/}).click();await page.getByRole('button',{name:/^停止生成/}).click();
+    >  7 |  const read=()=>page.evaluate(async()=>{const h=await import('/packs-harness/packs.js');return {running:await h.db.runs.where('status').equals('running').count(),cancelled:await h.db.runs.where('status').equals('cancelled').count()};});
+         |                      ^
+       8 |  const blocked=await read();expect(blocked).toEqual({running:0,cancelled:0});
+       9 |  await page.evaluate(async()=>{(window as any).unblock();await(window as any).block;});await expect.poll(read).toEqual({running:0,cancelled:1});
+      10 |  writeFileSync('docs/p2-d/startup-diagnosis.json',JSON.stringify({blocked,after:await read(),finding:'zero running does not mean no pending beginRun; cancelled count must be awaited'},null,2));
+        at read (C:\Users\someb\Documents\ChatGPT\id生成\e2e\startup-local.spec.ts:7:22)
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\startup-local.spec.ts:8:22
+
+    Error Context: test-results\startup-local-blocked-begi-80ab8-sus-pending-terminal-record\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\startup-local-blocked-begi-80ab8-sus-pending-terminal-record\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\startup-local-blocked-begi-80ab8-sus-pending-terminal-record\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\startup-local.spec.ts:3:1 › blocked beginRun explains zero-running versus pending terminal record

@@ -5,6 +5,7 @@ import type { Candidate, CandidateSequence, Params, RuleNode, Workflow } from ".
 import { callBindings, definitionFor, MAX_CALL_DEPTH } from "./subgraphs";
 import { validateGraph } from "./script";
 
+import { resolveExtension } from "./packs";
 export type ResourceReader = (
   id: string,
   seed: number,
@@ -96,6 +97,15 @@ export async function* evaluateWorkflow(workflow: Workflow, reader: ResourceRead
       const params = { ...n.params };
       for (const [target, ref] of Object.entries(n.parameterBindings ?? {})) params[target] = bindings[ref];
       const bound = { ...n, params: normalizeParams(n.op, params) };
+      if (n.op === "extension") {
+        const resolved = resolveExtension(bound, workflow.extensions);
+        function pipeline(index: number): CandidateSequence {
+          if (index < 0) return evaluate(scope.get(n.inputs[0])!, scope, bindings, args, depth, path);
+          const step = resolved.steps[index];
+          return operatorRegistry[step.op].execute({node:{id:`${n.id}/${index}`,op:step.op,inputs:[],params:step.params},seed:workflow.seed,tick,read:(id,seed)=>reader(id,seed,tick),resourceMetadata:hooks.resourceMetadata,input:()=>pipeline(index-1)});
+        }
+        yield* pipeline(resolved.steps.length-1); return;
+      }
       if (hooks.resourceMetadata) for (const binding of nodeResourceBindings(n.op, bound.params)) {
         await requireResourceKind(hooks.resourceMetadata, binding.id, binding.pair, binding.mapping);
         tick();

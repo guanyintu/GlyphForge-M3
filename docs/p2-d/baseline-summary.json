@@ -1,0 +1,733 @@
+{
+  "head": "4633833052c4cda23b45ed82c350c0d5bfd7998b",
+  "branch": "codex/p2-c-resources",
+  "historicalPaths": 145,
+  "captureHelperExcludedFromHistoricalOwnership": true,
+  "files": [
+    {
+      "file": "AGENTS.md",
+      "sha256": "55778fdbc9b6cc62d7cf3c4d4c98f0283bbc5ead9d49e0088b2ba20fbf9d0001",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/AUDIT_P1_FINAL.md",
+      "sha256": "ed1d72f215f899d263bab1816be8a74c533c18b9e6214d59fcc9faaf5983240c",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/P1-FINAL-REQUIREMENTS.md",
+      "sha256": "a106292d9a7afd8f8470e67f53657faa3e987aee6a8a3aeca4b74001d22ae778",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/P2-ENTRY-ARCHITECTURE.md",
+      "sha256": "2d23548a29808e7c7f518b87629dc0887af28b722557d96288935156743a527d",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/baseline-browser.txt",
+      "sha256": "c023b446815c8a3e8326c2ec7fdca9bf4bc17dcfaa8aecff319a33f80cda4bfa",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/baseline-tests.txt",
+      "sha256": "6d759fa66a1e6221986c9b2fa0dab48cebb8bdc8aa1b879e1c84e90cee94eaa0",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/baseline.json",
+      "sha256": "5cec22a65e191e360062620158c343fed6d13eb17211d86ba9ca87c075a4eb85",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/bench.txt",
+      "sha256": "d00f23b70205d7ac7f2cd5045e54648e04bbaed5d02fa8ef04311a32ae944539",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/browser-initial.txt",
+      "sha256": "1895b3cd4af89ea7b72f563165eacf77bd58d5bd28e67a62e12a6e8ba73e8c5a",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/browser-results-initial.json",
+      "sha256": "9a4ea857373f398988d6caeea4645fb2869b46fe847f4d1d79da936e568984b6",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/browser-results.json",
+      "sha256": "99731794a248c3c4f739da94b8742ecac0578e6594400ccddaa878cb8aec169f",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/browser.txt",
+      "sha256": "24e00055cf3532ffa4feecb41eb04e86ea4a3b840531e6e4473ab1bf69a857ea",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/build-fix.txt",
+      "sha256": "5f8b5285104e0614e607a4bc29a6187a30df217ca070cfa5f3a7c1c86d8d8471",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/build-initial.txt",
+      "sha256": "8c1b64709fe06f24ee099f54e8bb426ef1d0421774271712c9b3da5cfd0e5b50",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/check-exits.json",
+      "sha256": "d3bc676e0ccffbc9713a891c3b95a761a7a66acd7708bd481b51ded42498d56d",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/diff-check.txt",
+      "sha256": "30b9e203898ffd2376d73c835cb4e2e045ff745bcaa08834c38e882756e982a3",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/environment.json",
+      "sha256": "dc8b158a6a8081a647b797b3bc56574e262a0f9e9bcd8655017a9472edd33be9",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/final-integration-initial.txt",
+      "sha256": "b8879a162021847d83d2d9f923402f8b031f4b7bb015230691f96631a7074799",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/fixes.txt",
+      "sha256": "78e1c47a8f45e8123f29fb84b1cae29033be7410a5cedfc7dcb7d1007cb32b09",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/game-ui.png",
+      "sha256": "8c5a0ff338ab033d3e2c0997fff2b17570fec8c146e837484c0b19b1c27505d9",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/git-final.txt",
+      "sha256": "31ab9649c88a1ddd8593ff3f2262dfc4b707207f136a685cfe54964c297fd261",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/highlight-cards.png",
+      "sha256": "cfe0bdaba9a616ba989efab74a8992900494eb5064b452e2ffcb67c76a0e02b9",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/manifest.json",
+      "sha256": "37683ca85595142eb76874b8ebdca173036b0f4aeaa983ba06c0098cb1fba6b3",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/mixed-performance.json",
+      "sha256": "a40534e6da2eb31905d6f894edf6ac92f20cf103a47c4bd950b3049e9a72a902",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/mobile-physics.png",
+      "sha256": "0c7e6efac2d9a690c3319a7efb23c0d463fc2918208a90382d3f7b3ccadbb121",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/performance.json",
+      "sha256": "5604d739b1506fb5b51ec55f50c04af5b1f27c8a2925e423e71b9fb8eb602c65",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/physics-desktop.png",
+      "sha256": "49763ee92f0e5784d800d47ee9a2b41a2f3be2faad6ac62ce7414be81f6dd1ea",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/red.txt",
+      "sha256": "b98dd79e04c82e66ce98a4d2f0a9c35e95c31cff9f228a675d5d8121718dbe52",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/reload-fix.txt",
+      "sha256": "8d41056141a65e85cc1018f24d1520d133d2f2a21c3b5b134e9e074c63e253d3",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/resources-performance.json",
+      "sha256": "82d35afe2c9ee88c490f8be434164d58c4aa9fa2b4e0aacd46fe2bf530048f31",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/reverse-ui.png",
+      "sha256": "3d6bb469571082aecd1e60af98a91046494678ea48d3e09fbdfb0279a52e5d45",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/tests.txt",
+      "sha256": "a1cde8bc4959ba9b90a517d3ba49655be9b6c5a8b297135627363a79ecd2fc87",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/typecheck.txt",
+      "sha256": "5a3973f79ed9becd5f23c4feff467513814de7ea381d75a4d2e339aa8b8edca9",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p1-final/user-baseline.patch.gz",
+      "sha256": "d78b76344f75c02c02e25e2565ff5f7ba8ae7b4fb21c233014ad888427b4862b",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-a/baseline.patch",
+      "sha256": "6382ce0997bd7ba44043614120ed0217c36175d58437617d9e2a467805233e9a",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-a/browser-isolate-local.mjs",
+      "sha256": "20ef006bc9f6571eb76fdc65e80891dc6c8173747c9cf7e07126c4df4ff70077",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-a/check-isolate-local.mjs",
+      "sha256": "aac1e995b64936eb3d99d6de8c4ae1aa3937f5263385c694002bf11b6166e504",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-a/final-docs-local.mjs",
+      "sha256": "f76dea44a36d88b53ccd4cc8a00bf26fb5c75ef3144a25df65733e1b9d9e0b92",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-a/isolate-local.mjs",
+      "sha256": "5970081aa2e36c9e96bb386348f70d8653f908c39e3058df75ddc826d78ebafe",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-a/protect-local.mjs",
+      "sha256": "4b9a1e8e514dc09daf32ac974bf2bcfd796c4b7a531f8885d85f1d3d9e2d6d11",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-a/stage-final-local.mjs",
+      "sha256": "a6d6bcf9059d7af3ad07bb00cacce7a4117b2f0135de98b4c810d4b1d1974a7b",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-a/staging-local.log",
+      "sha256": "8f6175f3ea1e713e4c17c6e4459be0e499ec22c18034f3f6cc4b580821394b23",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-b/baseline-local.patch",
+      "sha256": "d7eaa3a9b39723863418fe96f6a947d4ed9be05fd6fa6555f8cf6d65273b6c07",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-b/browser-first.txt",
+      "sha256": "e6629fd463ab5489af8a40b19f00ecd23015d76d131bce20b12f7f6d6f7f54a4",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-b/browser-second.txt",
+      "sha256": "634c7a0aedbaab7b31125867a63cbdd8077dc0c6ee4c5222429cbaed84720b21",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-b/build-first.txt",
+      "sha256": "5627fbdeeb45d744d2fa58273dc00e1f386c7864d280a2c450a2fbef823ee7d8",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-b/isolate-local.mjs",
+      "sha256": "01e71c4350b160fa456eb3bfef28127e05be621316ef0fb8883002575ebea85c",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-b/isolation-local.json",
+      "sha256": "4e17d20ce6eee21903916d3c18eb719d1e6d31178136389fca44b5e80054dec2",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-b/stage-local.mjs",
+      "sha256": "27045737c031d250f2073cbcab7d46403852899f58e5d1c3763f6f4c739b501b",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-b/type-first.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-b/unit-first.txt",
+      "sha256": "5dd1edfcd61f0dc7730ef2df18154280f2536a7fb1e2985e35b8184baf05bb40",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-b/unit.txt",
+      "sha256": "e07fef73b7a45bed46f7491479c894d331cef574ee4c1adae832a982a5f1e90c",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline-local.json",
+      "sha256": "828946b4628b26b6b1d3f9d5dc0ee4d198d478afe6c6ebcf8fc65d58b640246f",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline-local.patch",
+      "sha256": "c69983a4a5f31b060406f45463b4666234b60dfc485f754bca5329d5011345ea",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/AGENTS.md",
+      "sha256": "55778fdbc9b6cc62d7cf3c4d4c98f0283bbc5ead9d49e0088b2ba20fbf9d0001",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/P0-CHECKLIST.md",
+      "sha256": "d01c9b2a26d243388882b36b29eef40b582a4c7f861f2edde44abc6f7c0cce49",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/P1-PROGRESS.md",
+      "sha256": "26a11c3c39873790cbcdcb46e2629754eb568845ba2d703b278ed488f6b48d76",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/PROJECT-STATUS.md",
+      "sha256": "7f841b27d235214ccd2db754ae0a138a5f624f6ccba3fc417d698fa1eca3803e",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/README.md",
+      "sha256": "5c2f919dd7c3ddf84518a673da67817fb7a01c467e3394c1534b01813ebd9b37",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/VALIDATION.md",
+      "sha256": "183e7285b0afa2c94601fd520c3968722fd6464c9b9b262f685d0c4d57105011",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/AUDIT_P1_FINAL.md",
+      "sha256": "ed1d72f215f899d263bab1816be8a74c533c18b9e6214d59fcc9faaf5983240c",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/P1-B.md",
+      "sha256": "d63d84afb9a8f07d6025c0bbac8f7a0999ce50861d3288644bcb85e2c4e61d49",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/P1-FINAL-REQUIREMENTS.md",
+      "sha256": "a106292d9a7afd8f8470e67f53657faa3e987aee6a8a3aeca4b74001d22ae778",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/P2-ENTRY-ARCHITECTURE.md",
+      "sha256": "2d23548a29808e7c7f518b87629dc0887af28b722557d96288935156743a527d",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/baseline-browser.txt",
+      "sha256": "c023b446815c8a3e8326c2ec7fdca9bf4bc17dcfaa8aecff319a33f80cda4bfa",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/baseline-tests.txt",
+      "sha256": "6d759fa66a1e6221986c9b2fa0dab48cebb8bdc8aa1b879e1c84e90cee94eaa0",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/baseline.json",
+      "sha256": "5cec22a65e191e360062620158c343fed6d13eb17211d86ba9ca87c075a4eb85",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/bench.txt",
+      "sha256": "d00f23b70205d7ac7f2cd5045e54648e04bbaed5d02fa8ef04311a32ae944539",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/browser-initial.txt",
+      "sha256": "1895b3cd4af89ea7b72f563165eacf77bd58d5bd28e67a62e12a6e8ba73e8c5a",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/browser-results-initial.json",
+      "sha256": "9a4ea857373f398988d6caeea4645fb2869b46fe847f4d1d79da936e568984b6",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/browser-results.json",
+      "sha256": "99731794a248c3c4f739da94b8742ecac0578e6594400ccddaa878cb8aec169f",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/browser.txt",
+      "sha256": "24e00055cf3532ffa4feecb41eb04e86ea4a3b840531e6e4473ab1bf69a857ea",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/build-fix.txt",
+      "sha256": "5f8b5285104e0614e607a4bc29a6187a30df217ca070cfa5f3a7c1c86d8d8471",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/build-initial.txt",
+      "sha256": "8c1b64709fe06f24ee099f54e8bb426ef1d0421774271712c9b3da5cfd0e5b50",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/check-exits.json",
+      "sha256": "d3bc676e0ccffbc9713a891c3b95a761a7a66acd7708bd481b51ded42498d56d",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/diff-check.txt",
+      "sha256": "30b9e203898ffd2376d73c835cb4e2e045ff745bcaa08834c38e882756e982a3",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/environment.json",
+      "sha256": "dc8b158a6a8081a647b797b3bc56574e262a0f9e9bcd8655017a9472edd33be9",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/final-integration-initial.txt",
+      "sha256": "b8879a162021847d83d2d9f923402f8b031f4b7bb015230691f96631a7074799",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/fixes.txt",
+      "sha256": "78e1c47a8f45e8123f29fb84b1cae29033be7410a5cedfc7dcb7d1007cb32b09",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/game-ui.png",
+      "sha256": "8c5a0ff338ab033d3e2c0997fff2b17570fec8c146e837484c0b19b1c27505d9",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/git-final.txt",
+      "sha256": "31ab9649c88a1ddd8593ff3f2262dfc4b707207f136a685cfe54964c297fd261",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/highlight-cards.png",
+      "sha256": "cfe0bdaba9a616ba989efab74a8992900494eb5064b452e2ffcb67c76a0e02b9",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/manifest.json",
+      "sha256": "37683ca85595142eb76874b8ebdca173036b0f4aeaa983ba06c0098cb1fba6b3",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/mixed-performance.json",
+      "sha256": "a40534e6da2eb31905d6f894edf6ac92f20cf103a47c4bd950b3049e9a72a902",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/mobile-physics.png",
+      "sha256": "0c7e6efac2d9a690c3319a7efb23c0d463fc2918208a90382d3f7b3ccadbb121",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/performance.json",
+      "sha256": "5604d739b1506fb5b51ec55f50c04af5b1f27c8a2925e423e71b9fb8eb602c65",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/physics-desktop.png",
+      "sha256": "49763ee92f0e5784d800d47ee9a2b41a2f3be2faad6ac62ce7414be81f6dd1ea",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/red.txt",
+      "sha256": "b98dd79e04c82e66ce98a4d2f0a9c35e95c31cff9f228a675d5d8121718dbe52",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/reload-fix.txt",
+      "sha256": "8d41056141a65e85cc1018f24d1520d133d2f2a21c3b5b134e9e074c63e253d3",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/resources-performance.json",
+      "sha256": "82d35afe2c9ee88c490f8be434164d58c4aa9fa2b4e0aacd46fe2bf530048f31",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/reverse-ui.png",
+      "sha256": "3d6bb469571082aecd1e60af98a91046494678ea48d3e09fbdfb0279a52e5d45",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/tests.txt",
+      "sha256": "a1cde8bc4959ba9b90a517d3ba49655be9b6c5a8b297135627363a79ecd2fc87",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/typecheck.txt",
+      "sha256": "5a3973f79ed9becd5f23c4feff467513814de7ea381d75a4d2e339aa8b8edca9",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/user-baseline.patch.gz",
+      "sha256": "d78b76344f75c02c02e25e2565ff5f7ba8ae7b4fb21c233014ad888427b4862b",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/baseline.patch",
+      "sha256": "6382ce0997bd7ba44043614120ed0217c36175d58437617d9e2a467805233e9a",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/browser-isolate-local.mjs",
+      "sha256": "20ef006bc9f6571eb76fdc65e80891dc6c8173747c9cf7e07126c4df4ff70077",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/check-isolate-local.mjs",
+      "sha256": "aac1e995b64936eb3d99d6de8c4ae1aa3937f5263385c694002bf11b6166e504",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/final-docs-local.mjs",
+      "sha256": "f76dea44a36d88b53ccd4cc8a00bf26fb5c75ef3144a25df65733e1b9d9e0b92",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/isolate-local.mjs",
+      "sha256": "5970081aa2e36c9e96bb386348f70d8653f908c39e3058df75ddc826d78ebafe",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/protect-local.mjs",
+      "sha256": "4b9a1e8e514dc09daf32ac974bf2bcfd796c4b7a531f8885d85f1d3d9e2d6d11",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/stage-final-local.mjs",
+      "sha256": "a6d6bcf9059d7af3ad07bb00cacce7a4117b2f0135de98b4c810d4b1d1974a7b",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/staging-local.log",
+      "sha256": "8f6175f3ea1e713e4c17c6e4459be0e499ec22c18034f3f6cc4b580821394b23",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/baseline-local.patch",
+      "sha256": "d7eaa3a9b39723863418fe96f6a947d4ed9be05fd6fa6555f8cf6d65273b6c07",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/browser-first.txt",
+      "sha256": "e6629fd463ab5489af8a40b19f00ecd23015d76d131bce20b12f7f6d6f7f54a4",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/browser-second.txt",
+      "sha256": "634c7a0aedbaab7b31125867a63cbdd8077dc0c6ee4c5222429cbaed84720b21",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/build-first.txt",
+      "sha256": "5627fbdeeb45d744d2fa58273dc00e1f386c7864d280a2c450a2fbef823ee7d8",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/isolate-local.mjs",
+      "sha256": "01e71c4350b160fa456eb3bfef28127e05be621316ef0fb8883002575ebea85c",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/isolation-local.json",
+      "sha256": "4e17d20ce6eee21903916d3c18eb719d1e6d31178136389fca44b5e80054dec2",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/stage-local.mjs",
+      "sha256": "27045737c031d250f2073cbcab7d46403852899f58e5d1c3763f6f4c739b501b",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/type-first.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/unit-first.txt",
+      "sha256": "5dd1edfcd61f0dc7730ef2df18154280f2536a7fb1e2985e35b8184baf05bb40",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/unit.txt",
+      "sha256": "e07fef73b7a45bed46f7491479c894d331cef574ee4c1adae832a982a5f1e90c",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-s0-1/baseline.patch",
+      "sha256": "2c2fa7f1a2b77ffb5d865a270d609f5fa8598510c3fbc8a0d5e86e74d0f3b659",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-s0-1/baseline.zip",
+      "sha256": "7da6103061f0ab7f0ae5ded2b47a8076015a0c9e21b41c9fefd68973370e9338",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-s0-1/isolation-local.json",
+      "sha256": "aaf9c4474d177eb77f094c5218e0c1a292e81305fe99914ea9d677fa983e1ff7",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-s0-1/status-section.txt",
+      "sha256": "9363a643a1686f422c30c9a674624c197046757254f77b7121ff1fff9354ae3e",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/reference/GlyphForge-v3.0.md",
+      "sha256": "2a255fddedfda6762e17ee6a27971715c6fe5020f03b5028e80b13f997e701fc",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/e2e/p1-final.spec.ts",
+      "sha256": "f413be49ea86142a1ee964f15f7dd0fc06d72fe25c2593fdc8d7f77e0e1d0cd7",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/e2e/p1c.spec.ts",
+      "sha256": "21898e64deabd8cd2287ba2c6ec613279f7098baee8d67e50c73a1427f04c9c7",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/e2e/p1d.spec.ts",
+      "sha256": "b4cdc8c928c51798166c3aa3f35114ba319b6ffbdaba7385b36f0761b142b505",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/scripts/p1-final-manifest.mjs",
+      "sha256": "b82116514c654c5d57d260682a7df3a0b0386dab347a5281290693045baf5d6c",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/scripts/protect-p2-c.mjs",
+      "sha256": "cce3a385777aa37c70c4ec504289c9fa3650fa948a60d36106799967a93909da",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/src/storage/db.ts",
+      "sha256": "17d88f7fb26ad6c284c6593562bbb06cf443d90720e5612c12bfe6c674283ecf",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/baseline/src/tests/p1-final.test.ts",
+      "sha256": "7f7212b37c78229b1dd43d5b1ec596fe05b50ba94cec6c92d7e480e5743bcaf7",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/db-self-local.patch",
+      "sha256": "03e6bd8001b047b41ee1a9dd381b9b90ac9b17b5126a651b0e59daad9000bcf7",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/finalize-local.mjs",
+      "sha256": "481b5d79119b39810cb5a9f70c1f19401112f9625bcdf75b21fb47f388304fce",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-c/status-section-local.txt",
+      "sha256": "9fd01d9ec64dcd2863187883575085474488d1d99dd4fa375f6e830626a03a9f",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-s0-1/baseline.patch",
+      "sha256": "2c2fa7f1a2b77ffb5d865a270d609f5fa8598510c3fbc8a0d5e86e74d0f3b659",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-s0-1/baseline.zip",
+      "sha256": "7da6103061f0ab7f0ae5ded2b47a8076015a0c9e21b41c9fefd68973370e9338",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-s0-1/isolation-local.json",
+      "sha256": "aaf9c4474d177eb77f094c5218e0c1a292e81305fe99914ea9d677fa983e1ff7",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/p2-s0-1/status-section.txt",
+      "sha256": "9363a643a1686f422c30c9a674624c197046757254f77b7121ff1fff9354ae3e",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/reference/GlyphForge-v3.0.md",
+      "sha256": "2a255fddedfda6762e17ee6a27971715c6fe5020f03b5028e80b13f997e701fc",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "e2e/p1-final.spec.ts",
+      "sha256": "f413be49ea86142a1ee964f15f7dd0fc06d72fe25c2593fdc8d7f77e0e1d0cd7",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "scripts/p1-final-manifest.mjs",
+      "sha256": "b82116514c654c5d57d260682a7df3a0b0386dab347a5281290693045baf5d6c",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "scripts/protect-p2-c.mjs",
+      "sha256": "cce3a385777aa37c70c4ec504289c9fa3650fa948a60d36106799967a93909da",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "src/tests/p1-final.test.ts",
+      "sha256": "7f7212b37c78229b1dd43d5b1ec596fe05b50ba94cec6c92d7e480e5743bcaf7",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "P0-CHECKLIST.md",
+      "sha256": "d01c9b2a26d243388882b36b29eef40b582a4c7f861f2edde44abc6f7c0cce49",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "P1-PROGRESS.md",
+      "sha256": "26a11c3c39873790cbcdcb46e2629754eb568845ba2d703b278ed488f6b48d76",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "PROJECT-STATUS.md",
+      "sha256": "d2ce6d3e1fc7a228b117ba8820ffa7de46b058fd1bf989c42b2be4bcf3861f48",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "README.md",
+      "sha256": "5c2f919dd7c3ddf84518a673da67817fb7a01c467e3394c1534b01813ebd9b37",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "VALIDATION.md",
+      "sha256": "183e7285b0afa2c94601fd520c3968722fd6464c9b9b262f685d0c4d57105011",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "docs/P1-B.md",
+      "sha256": "d63d84afb9a8f07d6025c0bbac8f7a0999ce50861d3288644bcb85e2c4e61d49",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "e2e/p1c.spec.ts",
+      "sha256": "21898e64deabd8cd2287ba2c6ec613279f7098baee8d67e50c73a1427f04c9c7",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "e2e/p1d.spec.ts",
+      "sha256": "b4cdc8c928c51798166c3aa3f35114ba319b6ffbdaba7385b36f0761b142b505",
+      "ownership": "pre-existing user/history"
+    },
+    {
+      "file": "src/storage/db.ts",
+      "sha256": "4e4b7efeac67f2b70a12b9377095d6c2af8348d3b8f64579316f3f798e575c32",
+      "ownership": "pre-existing user/history"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { PacksPanel } from "./components/Packs";
 import "./p2c.css";
 import { DefinedResourceEditor } from "./components/DefinedResources";
 import Subgraphs from "./components/Subgraphs";
@@ -77,9 +78,10 @@ import { createRelationRecipe, ensureRecipeExamples, relationRecipes } from "./c
 import { workflowFromMatches } from "./core/reverse-workflow";
 import { relationLabels } from "./core/relations";
 
-type Page = "workflow" | "resources" | "lab" | "reverse" | "favorites";
+type Page = "packs" | "workflow" | "resources" | "lab" | "reverse" | "favorites";
 const CodeMirror = lazy(() => import("@uiw/react-codemirror"));
 const pageNames: Record<Page, string> = {
+  packs: "算子扩展包",
   workflow: "工作流工坊",
   resources: "资源中心",
   lab: "文字实验室",
@@ -597,6 +599,7 @@ export default function App() {
     notify("正在预览所选节点，最多输出 20 条");
   }
   const nav = [
+    { id: "packs", icon: Sparkles },
     { id: "workflow", icon: WorkflowIcon },
     { id: "resources", icon: BookOpen },
     { id: "lab", icon: FlaskConical },
@@ -1104,7 +1107,7 @@ export default function App() {
               </span>
             </div>
           </div>
-        ) : page === "resources" ? (
+        ) : page === "packs" ? (<PacksPanel workflow={workflow} onChange={w => { switchWorkflow(w); }} notify={notify} />) : page === "resources" ? (
           <ResourcePage
             resources={resources}
             previews={previews}

@@ -25,6 +25,7 @@ export function patternText(template: string, a: string, b: string) {
 }
 export { boundedText } from "./contracts";
 const executors: Record<Op, RegisteredOperator["execute"]> = {
+  extension: async function* () { throw new Error("扩展需要固定版本执行作用域"); },
   mutate,
   call: async function* () { throw new Error("子图调用需要执行器作用域"); },
   argument: async function* () { throw new Error("序列参数需要执行器作用域"); },

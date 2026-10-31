@@ -1,0 +1,68 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ✓ src/tests/p1d-motion.test.ts (18 tests) 99ms
+ ✓ src/tests/core.test.ts (19 tests) 26ms
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 172.29 ms, 40041 steps, max batch 64
+
+ ✓ src/tests/p1c-game.test.ts (7 tests) 125ms
+ ✓ src/tests/audit-worker.test.ts (1 test) 307ms
+   ✓ refuses a standalone resource export if its data changes between pages  305ms
+ ✓ src/tests/p1c-relations.test.ts (5 tests) 174ms
+stdout | src/tests/subgraphs.test.ts > parameterized sequence functions > streams 100 call instances with constant resource residency and bounded batches
+P2-A 100 outer / 300 total calls {
+  milliseconds: 11.897699999999986,
+  produced: 201,
+  maxBatch: 1,
+  steps: 1303,
+  definitionBytes: 620
+}
+
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 423.78 ms, 200002 steps
+
+ ✓ src/tests/storage.test.ts (8 tests) 264ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":100000,"rows":60,"steps":442,"ms":14.47059999999965,"staticRows":1100,"cacheRows":0}
+
+ ✓ src/tests/subgraphs.test.ts (22 tests) 275ms
+ ✓ src/tests/performance.test.ts (2 tests) 605ms
+   ✓ scans 100,000 source entries without expanding a result array  425ms
+ ✓ src/tests/p0.test.ts (31 tests) 566ms
+ ✓ src/tests/packs.test.ts (28 tests) 541ms
+ ✓ src/tests/p1d-highlight.test.ts (4 tests) 5ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":1000000,"rows":60,"steps":442,"ms":22.614799999999832,"staticRows":2000,"cacheRows":0}
+
+ ✓ src/tests/run-lifecycle.test.ts (9 tests) 891ms
+   ✓ 100 mixed runs bound ordinary history while preserving pins, favorites and active runs  692ms
+ ✓ src/tests/resource-catalog.test.ts (32 tests) 773ms
+ ✓ src/tests/audit.test.ts (20 tests) 1092ms
+ ✓ src/tests/p1c-search.test.ts (24 tests) 1368ms
+   ✓ matches simplified/traditional only when enabled and only real entries  384ms
+   ✓ caps ambiguous indexed hits, bounds batch sizes and the final beam  321ms
+ ✓ src/tests/relations.test.ts (31 tests) 1574ms
+   ✓ P1-B actual editable recipes > can continue through P0 and P1-A transforms without keeping stale member metadata  301ms
+ ✓ src/tests/p1-final.test.ts (11 tests) 2552ms
+   ✓ seeded generated graphs and nested scoped programs survive script/JSON roundtrips (100 cases)  1593ms
+   ✓ laboratory and workflow share decompose execution including saved output references  481ms
+ ✓ src/tests/mutation.test.ts (35 tests) 2969ms
+   ✓ homophone uses shared bounded engine and changes text  829ms
+   ✓ reorder protects independent repeated positions and entire ZWJ cluster  346ms
+ ✓ src/tests/contracts.test.ts (28 tests) 3158ms
+   ✓ homophones: node, printed code, AST and laboratory agree with omitted defaults  842ms
+   ✓ hanconvert: node, printed code, AST and laboratory agree with omitted defaults  476ms
+   ✓ decompose: node, printed code, AST and laboratory agree with omitted defaults  766ms
+   ✓ compose: node, printed code, AST and laboratory agree with omitted defaults  790ms
+ ✓ src/tests/chinese.test.ts (20 tests) 4458ms
+   ✓ P1-A Chinese phonetics and conversion > uses phrase-aware OpenCC in both directions  484ms
+   ✓ P1-A Chinese phonetics and conversion > queries actual Unihan homophones and validates single-character inputs  381ms
+   ✓ P1-A real structure data > decomposes 明 left/right and 思 top/bottom  1233ms
+   ✓ P1-A real structure data > reverse-composes only actual known characters and respects duplicate counts  843ms
+   ✓ P1-A real structure data > finds characters by components and filters structure and strokes  1245ms
+
+ Test Files  20 passed (20)
+      Tests  355 passed (355)
+   Start at  20:32:52
+   Duration  6.67s (transform 5.91s, setup 0ms, collect 21.51s, tests 21.82s, environment 4ms, prepare 9.04s)

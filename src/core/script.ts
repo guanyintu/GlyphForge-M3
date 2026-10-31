@@ -11,6 +11,7 @@ import {
   programCode,
   validateProgram,
 } from "./program";
+import { validateWorkflowExtensions } from "./packs";
 const json = JSON.stringify;
 export function toScript(workflow: Workflow): string {
   if (workflow.subgraphs?.length || workflow.nodes.some(n => n.op === "call")) return printFunctions(workflow);
@@ -44,6 +45,7 @@ export function toScript(workflow: Workflow): string {
       return;
     }
     switch (n.op) {
+      case "extension":
       case "mutate":
       case "gamecheck":
       case "pairs":
@@ -247,7 +249,7 @@ export function validateNodeParameters(n: RuleNode) {
 
 export function validateDefinitions(workflow: Workflow) { validateSubgraphs(workflow, validateGraphBody); }
 export function validateGraph(workflow: Workflow) {
-  try { validateSubgraphs(workflow, validateGraphBody); validateGraphBody(workflow); }
+  try { validateWorkflowExtensions(workflow); validateSubgraphs(workflow, validateGraphBody); validateGraphBody(workflow); }
   catch (error) { throw diagnose(error, { code: "TYPE" }); }
 }
 function validateGraphBody(workflow: Workflow, scope?: SubgraphDefinition) {

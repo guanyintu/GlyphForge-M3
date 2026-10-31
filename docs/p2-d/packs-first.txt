@@ -1,0 +1,76 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ❯ src/tests/packs.test.ts (25 tests | 2 failed) 203ms
+   ✓ first party declarations install enabled; unknown claimed publishers stay unverified and disabled 23ms
+   ✓ both real operators execute through graph, NameScript and a P2-A sequence function with provenance 54ms
+   ✓ clipboard carries precise manifests and rejects same-version content conflicts 4ms
+   × Pair and members invalidate on text changes; source parts and notes survive 7ms
+     → 节点 source：关系词库请使用关系词对或共享变量模板节点
+   ✓ disabling or uninstalling leaves workflow bytes intact, stops batches/done, then recovers exact version 14ms
+   ✓ different versions coexist; explicit migration renames params; downgrade and missing version are errors 7ms
+   ✓ dependencies have bounded DAGs and enabled state; broken dependency blocks existing users 5ms
+   ✓ same ID/version replacement, including forged first party content, cannot overwrite a local installation 3ms
+   ✓ rejects malicious declaration: builtin shadow without asset changes 4ms
+   ✓ rejects malicious declaration: user JS without asset changes 3ms
+   ✓ rejects malicious declaration: network permission without asset changes 2ms
+   ✓ rejects malicious declaration: arbitrary step without asset changes 4ms
+   ✓ rejects malicious declaration: hidden resource without asset changes 4ms
+   ✓ rejects malicious declaration: unknown param without asset changes 2ms
+   ✓ rejects malicious declaration: incompatible without asset changes 2ms
+   ✓ rejects malicious declaration: steps size without asset changes 2ms
+   ✓ rejects malicious declaration: huge defaults without asset changes 3ms
+   ✓ rejects malicious declaration: binding type without asset changes 3ms
+   ✓ rejects malicious declaration: duplicate op without asset changes 4ms
+   ✓ prototype keys, deep nesting, compressed envelopes, huge input and malicious call params are rejected 2ms
+   ✓ AST and laboratory are explicitly inapplicable and reject extension calls 2ms
+   ✓ 1000+ combinations consume a lazy prefix and inherit cancellation/step budget 6ms
+   × v7 portable closure restores dynamic resource, Mapping, P2-A and packs into blank DB with ID collisions isolated 19ms
+     → 扩展包：非 JSON 值
+   ✓ bad v7 manifest and transactional write failure roll back every asset and pack 10ms
+   ✓ unknown imported pack remains installed disabled, and import never reenables a local disabled first party pack 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/packs.test.ts > Pair and members invalidate on text changes; source parts and notes survive
+ContractError: 节点 source：关系词库请使用关系词对或共享变量模板节点
+ ❯ diagnose src/core/contracts.ts:23:10
+     21|     code: context.code ?? "EXECUTION", message: error instanceof Error…
+     22|   };
+     23|   return new ContractError({ ...context, ...diagnostic, nodeId: diagno…
+       |          ^
+     24| }
+     25| export const executionBudget = Object.freeze({ steps: 300000, millisec…
+ ❯ evaluate src/core/engine.ts:122:13
+ ❯ evaluateWorkflow src/core/engine.ts:125:3
+ ❯ execute src/core/engine.ts:58:20
+ ❯ src/tests/packs.test.ts:42:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/tests/packs.test.ts > v7 portable closure restores dynamic resource, Mapping, P2-A and packs into blank DB with ID collisions isolated
+ContractError: 扩展包：非 JSON 值
+ ❯ reject src/core/packs.ts:22:49
+     20| const safeName = (s: unknown): s is string => typeof s === 'string' &&…
+     21| const versionOK = (s: unknown): s is string => typeof s === 'string' &…
+     22| function reject(message: string): never { throw new ContractError({cod…
+       |                                                 ^
+     23| /** Bound traversal before any clone/recursive interpretation; no comp…
+     24| export function guardJSON(value: unknown, maxBytes = 131072, maxNodes …
+ ❯ walk src/core/packs.ts:33:48
+ ❯ walk src/core/packs.ts:32:124
+ ❯ walk src/core/packs.ts:32:124
+ ❯ walk src/core/packs.ts:32:124
+ ❯ walk src/core/packs.ts:32:124
+ ❯ walk src/core/packs.ts:32:124
+ ❯ walk src/core/packs.ts:32:124
+ ❯ guardJSON src/core/packs.ts:35:5
+ ❯ importResourcePackage src/core/resource-package.ts:45:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 23 passed (25)
+   Start at  20:13:32
+   Duration  1.61s (transform 285ms, setup 0ms, collect 681ms, tests 203ms, environment 0ms, prepare 221ms)

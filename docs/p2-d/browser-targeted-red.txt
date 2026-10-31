@@ -1,0 +1,77 @@
+
+Running 4 tests using 1 worker
+
+  ok 1 e2e\packs.spec.ts:9:1 › UI installs both operators, edits params, runs production Worker, favorites, disables/uninstalls and restores (6.4s)
+  x  2 e2e\packs.spec.ts:19:1 › UI unverified JSON stays disabled, dependencies and malicious code are visible rejections; explicit version migration (2.3s)
+  x  3 e2e\packs.spec.ts:27:1 › offline blank context restores v7 extension + NameScript + P2-A + dynamic Mapping + mutation favorites with exact snapshots (2.2s)
+  ok 4 e2e\packs.spec.ts:40:1 › production Worker handles million logical combinations lazily with extension rules and cancels a duplicate flood (1.8s)
+
+
+  1) e2e\packs.spec.ts:19:1 › UI unverified JSON stays disabled, dependencies and malicious code are visible rejections; explicit version migration
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: '添加有界文字结构 1.0.0', exact: true }) resolved to 2 elements:
+        1) <button class="button">添加有界文字结构 1.0.0</button> aka getByRole('button', { name: '添加有界文字结构' }).first()
+        2) <button class="button">添加有界文字结构 1.0.0</button> aka getByRole('button', { name: '添加有界文字结构' }).nth(2)
+
+    Call log:
+      - waiting for getByRole('button', { name: '添加有界文字结构 1.0.0', exact: true })
+
+
+      22 |   await page.getByLabel('导入扩展包',{exact:true}).setInputFiles({name:'user.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(declaration))});const card=page.locator('.pack-card').filter({has:page.getByRole('heading',{name:'user-text 1.0.0'})});await expect(card).toContainText('未验证发布者');await expect(card.getByRole('status')).toHaveText('已安装 / 已禁用');await card.getByRole('button',{name:'启用 1.0.0',exact:true}).click();await expect(card.getByRole('status')).toContainText('兼容');
+      23 |   await page.getByLabel('导入扩展包',{exact:true}).setInputFiles({name:'evil.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({...declaration,code:'fetch("https://evil")'}))});await expect(page.getByRole('alert')).toContainText('未知字段或权限');
+    > 24 |   await page.getByRole('button',{name:'安装 1.0.0',exact:true}).click();await page.getByRole('button',{name:'安装 2.0.0',exact:true}).click();await page.getByRole('button',{name:'添加有界文字结构 1.0.0',exact:true}).click();await page.locator('.react-flow__node').filter({hasText:'glyphforge-text@1.0.0/frame'}).click();await page.getByLabel('扩展参数 prefix',{exact:true}).fill('小');await page.getByRole('button',{name:'显式迁移至 2.0.0',exact:true}).click();await expect(page.getByLabel('扩展参数 opening',{exact:true})).toHaveValue('小');await page.getByRole('button',{name:'显式迁移至 1.0.0',exact:true}).click();await expect(page.getByRole('alert')).toContainText('禁止静默升级/降级');
+         |                                                                                                                                                                                                             ^
+      25 | });
+      26 |
+      27 | test('offline blank context restores v7 extension + NameScript + P2-A + dynamic Mapping + mutation favorites with exact snapshots',async({page,browser})=>{
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\packs.spec.ts:24:205
+
+    Error Context: test-results\packs-UI-unverified-JSON-s-ccd3d--explicit-version-migration\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\packs-UI-unverified-JSON-s-ccd3d--explicit-version-migration\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\packs-UI-unverified-JSON-s-ccd3d--explicit-version-migration\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) e2e\packs.spec.ts:27:1 › offline blank context restores v7 extension + NameScript + P2-A + dynamic Mapping + mutation favorites with exact snapshots
+
+    Error: page.evaluate: TypeError: Cannot read properties of undefined (reading 'slice')
+        at Module.Ls (http://127.0.0.1:4175/packs-harness/packs-harness-BfgnQz40.js:479:72)
+        at eval (eval at evaluate (:370:30), <anonymous>:73:24)
+        at async <anonymous>:396:30
+        at Module.Ls (http://127.0.0.1:4175/packs-harness/packs-harness-BfgnQz40.js:479:72)
+        at eval (eval at evaluate (:370:30), <anonymous>:73:24)
+        at async <anonymous>:396:30
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\packs.spec.ts:29:26
+
+    Error Context: test-results\packs-offline-blank-contex-b92f4-orites-with-exact-snapshots\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\packs-offline-blank-contex-b92f4-orites-with-exact-snapshots\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\packs-offline-blank-contex-b92f4-orites-with-exact-snapshots\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    e2e\packs.spec.ts:19:1 › UI unverified JSON stays disabled, dependencies and malicious code are visible rejections; explicit version migration
+    e2e\packs.spec.ts:27:1 › offline blank context restores v7 extension + NameScript + P2-A + dynamic Mapping + mutation favorites with exact snapshots
+  2 passed (31.8s)
+[WebServer] (node:156188) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:7992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:7992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:66664) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:59580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

@@ -1,0 +1,296 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2d-source-236yh8\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "e2e/packs.spec.ts",
+      "--config",
+      "playwright.p2d.config.ts"
+    ],
+    "configFile": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2d-source-236yh8\\playwright.p2d.config.ts",
+    "rootDir": "C:/Users/someb/AppData/Local/Temp/glyphforge-p2d-source-236yh8/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/someb/AppData/Local/Temp/glyphforge-p2d-source-236yh8/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/someb/AppData/Local/Temp/glyphforge-p2d-source-236yh8/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2d-source-236yh8\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2d-source-236yh8\\e2e",
+        "snapshotDir": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2d-source-236yh8\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "launchOptions": {
+            "args": [
+              "--enable-precise-memory-info"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4176",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "pnpm exec vite preview --host 127.0.0.1 --port 4176 --strictPort",
+      "url": "http://127.0.0.1:4176",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "packs.spec.ts",
+      "file": "packs.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "UI installs both operators, edits params, runs production Worker, favorites, disables/uninstalls and restores",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5088,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T12:32:29.573Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3447e32b56114a6de95d-f317bec368becc7a505d",
+          "file": "packs.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "UI unverified JSON stays disabled, dependencies and malicious code are visible rejections; explicit version migration",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2449,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T12:32:39.433Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3447e32b56114a6de95d-acacac1b17c7ecc04439",
+          "file": "packs.spec.ts",
+          "line": 19,
+          "column": 1
+        },
+        {
+          "title": "offline blank context restores v7 extension + NameScript + P2-A + dynamic Mapping + mutation favorites with exact snapshots",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2699,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T12:32:41.895Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3447e32b56114a6de95d-ca26952fb1b5ab10b26c",
+          "file": "packs.spec.ts",
+          "line": 27,
+          "column": 1
+        },
+        {
+          "title": "production Worker handles million logical combinations lazily with extension rules and cancels a duplicate flood",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1827,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T12:32:44.607Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3447e32b56114a6de95d-6cea2faca34e028949e9",
+          "file": "packs.spec.ts",
+          "line": 40,
+          "column": 1
+        },
+        {
+          "title": "blocked beginRun explains zero-running versus pending terminal record",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3848,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T12:32:46.445Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3447e32b56114a6de95d-c041e13522d781149f37",
+          "file": "packs.spec.ts",
+          "line": 48,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-31T12:32:27.057Z",
+    "duration": 24216.64,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

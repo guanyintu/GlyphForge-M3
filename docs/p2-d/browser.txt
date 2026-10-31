@@ -1,0 +1,73 @@
+
+Running 47 tests using 1 worker
+
+  ok  1 e2e\audit.spec.ts:6:1 › real UI: lab → saved resource → workflow and reload (3.2s)
+  ok  2 e2e\audit.spec.ts:47:1 › real UI: relation editor saves, edits, deletes and survives reload (3.3s)
+AUDIT_RELATION_10000 {"importMs":4968.600000143051,"runMs":1152.7999999523163,"count":10000,"maxBatch":64,"correct":true}
+  ok  3 e2e\audit.spec.ts:76:1 › real IndexedDB: import and execute 10,000 relation rows (11.0s)
+  ok  4 e2e\audit.spec.ts:122:1 › real UI: editable relation recipe runs and persists (3.4s)
+  ok  5 e2e\audit.spec.ts:135:1 › real UI: concurrent entry edits increment versions and refresh indexes (5.7s)
+AUDIT_BROWSER_WORKER {"count":1000,"maxBatch":64,"steps":10026,"milliseconds":103}
+AUDIT_BROWSER_CANCEL {"steps":1000,"lateMessages":0,"terminateMs":0}
+  ok  6 e2e\audit.spec.ts:167:1 › production Workers: bounded nested execution, persistence and hard cancellation (1.9s)
+  ok  7 e2e\contracts.spec.ts:8:1 › a delayed old autosave cannot replace the selected workflow on reload (3.2s)
+  ok  8 e2e\contracts.spec.ts:34:1 › production execution/laboratory Workers and graph/code/AST share signatures (1.8s)
+  ok  9 e2e\contracts.spec.ts:77:1 › production Worker rejects empty ordinary/relation resources in graph, AST and template (445ms)
+  ok 10 e2e\mutation.spec.ts:11:1 › Unicode locks, deterministic rerun, dedup, rollback, copy/export and truthful favorites survive refresh (7.4s)
+  ok 11 e2e\mutation.spec.ts:31:1 › saved mutation words flow through real P2-A UI subgraph and production Worker (4.1s)
+  ok 12 e2e\mutation.spec.ts:43:1 › cancel terminates blocked mutation Worker and persists cancelled state (2.1s)
+  ok 13 e2e\mutation.spec.ts:51:1 › production mutation Worker repeats seed/resources and portable package without stale Pair or members (2.9s)
+  ok 14 e2e\p1-final.spec.ts:6:1 › final UI chain: file import → AABB → code roundtrip → favorite → library → portable blank-context restore (9.7s)
+FINAL_RESOURCE_BENCH {"size":10000,"count":10000,"importMs":687.7999999523163,"exactMs":0.7000000476837158,"prefixMs":1,"exactFound":true,"renderedPage":60,"maxWriteBatch":1000,"browser":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","at":"2026-10-31T12:35:11.505Z","heartbeatSamples":14,"heartbeatP99Ms":63.10000014305115,"heartbeatMaxMs":63.10000014305115,"mainRendererHeapSample":9484612}
+FINAL_RESOURCE_BENCH {"size":100000,"count":100000,"importMs":6421.100000143051,"exactMs":0.7999999523162842,"prefixMs":1,"exactFound":true,"renderedPage":60,"maxWriteBatch":1000,"browser":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","at":"2026-10-31T12:35:17.978Z","heartbeatSamples":129,"heartbeatP99Ms":63.69999980926514,"heartbeatMaxMs":67.70000004768372,"mainRendererHeapSample":9294700}
+FINAL_RESOURCE_BENCH {"size":1000000,"count":1000000,"importMs":61314.5,"exactMs":0.5999999046325684,"prefixMs":1.9000000953674316,"exactFound":true,"renderedPage":60,"maxWriteBatch":1000,"browser":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","at":"2026-10-31T12:36:19.382Z","heartbeatSamples":1229,"heartbeatP99Ms":62.90000009536743,"heartbeatMaxMs":63.59999990463257,"mainRendererHeapSample":7964193}
+  ok 15 e2e\p1-final.spec.ts:61:1 › final production resource Worker: 10k/100k/1m bounded import benchmark while renderer remains responsive (1.2m)
+FINAL_MIXED_BENCH {"importMs":7180.5,"deepQueryMs":2754.5,"deepCount":100000,"deepRows":40,"firstDeep":"深页099960","lastDeep":"深页099999","runs":[{"ms":57.5,"received":2,"steps":5048},{"ms":48.80000019073486,"received":2,"steps":5048},{"ms":51.299999952316284,"received":2,"steps":5048},{"ms":47,"received":2,"steps":5048},{"ms":46.89999985694885,"received":2,"steps":5048},{"ms":48.30000019073486,"received":2,"steps":5048},{"ms":51.69999980926514,"received":2,"steps":5048},{"ms":48.60000014305115,"received":2,"steps":5048}],"concurrentReceived":2,"reverseMatches":[{"text":"深页099999","resourceId":"stress","entryId":100058,"start":0,"end":8,"utf16Start":0,"utf16End":8,"type":"exact"}],"exhausted":"节点 program：第 1 行：达到执行步数上限，请缩小词库或调整筛选条件","cancel":{"late":0,"processed":1000,"ms":0},"physicsObjects":42}
+  ok 16 e2e\p1-final.spec.ts:87:1 › final mixed load: 100k resource import, deep contains page, cancellation, repeated nested execution and animation (13.6s)
+FINAL_LOCAL_HTTP_OFFLINE {"externalBlocked":["fonts.googleapis.com"],"boundary":"local HTTP remains reachable; not a PWA cold launch"}
+  ok 17 e2e\p1-final.spec.ts:137:1 › final offline boundary: local HTTP app executes, converts Chinese and reloads with internet requests blocked (1.3s)
+  ok 18 e2e\p1c.spec.ts:4:1 › reverse UI separates provenance, opens exact resources and builds executable workflow (4.7s)
+  ok 19 e2e\p1c.spec.ts:21:1 › relation direction can be edited, persisted and queried without reversing slots (5.4s)
+  ok 20 e2e\p1c.spec.ts:31:1 › game rule presets are editable in the workbench and survive reload (3.2s)
+P1C_BROWSER_BENCH {"entries":100002,"loadMs":6144,"coldMs":49.80000019073486,"warmMs":2.3999998569488525,"cacheHit":true,"deepMs":35.799999952316284,"deepMatches":[{"text":"词099999","resourceId":"large-a","entryId":100058,"start":0,"end":7,"utf16Start":0,"utf16End":7,"type":"exact"}],"maxBatch":2,"coldMatches":[{"text":"月亮","resourceId":"large-a","entryId":100059,"start":0,"end":2,"utf16Start":0,"utf16End":2,"type":"fragment"},{"text":"邮差","resourceId":"large-b","entryId":100060,"start":2,"end":4,"utf16Start":2,"utf16End":4,"type":"fragment"}],"complete":true,"changedMatches":[{"text":"邮差","resourceId":"large-b","entryId":100060,"start":2,"end":4,"utf16Start":2,"utf16End":4,"type":"fragment"}],"changedCacheHit":false,"cancelMs":0,"cancelledAfterScanned":256,"messagesAfterCancel":0,"mainThreadSampledHeapBefore":11302626,"mainThreadSampledHeapAfter":7982589,"userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","hardwareConcurrency":20,"browserVersion":"156.0.8078.4"}
+  ok 21 e2e\p1c.spec.ts:39:1 › production reverse Worker: 100k indexed entries, batching, cache invalidation and active cancellation (8.7s)
+  ok 22 e2e\p1d.spec.ts:29:1 › P1-D: 1200 results stay bounded; pause/stop/mode switch/reduced motion preserve copy and exports (5.4s)
+  ok 23 e2e\p1d.spec.ts:64:1 › P1-D: stable keys, FLIP sorting/filtering, Unicode highlights and immediate favorites (4.9s)
+P1D_CLEANUP {"frames":"71","pending":0}
+  ok 24 e2e\p1d.spec.ts:92:1 › P1-D: visibility, resize, offscreen and unmount clean the owned RAF (6.1s)
+  ok 25 e2e\p1d.spec.ts:125:1 › P1-D: low device starts with at most twenty objects and auto-stops (20.6s)
+P1D_PERFORMANCE {"browser":"156.0.8078.4","environment":{"userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","hardwareConcurrency":20,"deviceMemory":32},"cpuRate":6,"normal":{"elapsedMs":2017.7000000476837,"rafSamples":122,"meanIntervalMs":16.51885245979809,"p95IntervalMs":16.700000000000728,"p99IntervalMs":16.800000000000182,"maxIntervalMs":16.800000000000182,"longTasks":0,"maxLongTaskMs":0,"physicsPaints":122,"objects":42,"overlaps":0,"outOfBounds":0,"quality":"full"},"throttled":{"elapsedMs":2059.7000000476837,"rafSamples":74,"meanIntervalMs":27.46891891827454,"p95IntervalMs":33.400000000000546,"p99IntervalMs":50,"maxIntervalMs":50,"longTasks":0,"maxLongTaskMs":0,"physicsPaints":74,"objects":42,"overlaps":0,"outOfBounds":0,"quality":"full"},"contention":{"injectedBusyMsPerFrame":35,"elapsedMs":6042.299999952316,"rafSamples":145,"meanIntervalMs":41.39103448374518,"p95IntervalMs":66.69999999999891,"p99IntervalMs":66.70000000000073,"maxIntervalMs":100.10000000000036,"longTasks":27,"maxLongTaskMs":72,"physicsPaints":36,"objects":12,"overlaps":0,"outOfBounds":0,"quality":"static"},"favoriteLatencyMs":656.9000000953674,"heap":{"scope":"main renderer isolate; excludes Worker/GPU/RSS","beforeAnimationSample":{"usedSize":7738308,"totalSize":8982528,"embedderHeapUsedSize":10925728,"backingStorageSize":779813},"beforeDisableGC":{"usedSize":9205748,"totalSize":13770752,"embedderHeapUsedSize":16400392,"backingStorageSize":778984},"afterUnmountGC":{"usedSize":7380404,"totalSize":7741440,"embedderHeapUsedSize":9440496,"backingStorageSize":768682}},"errors":[]}
+  ok 26 e2e\p1d.spec.ts:148:1 › P1-D: measured Chromium CPU throttling and sustained-contention fallback (20.1s)
+  ok 27 e2e\packs.spec.ts:9:1 › UI installs both operators, edits params, runs production Worker, favorites, disables/uninstalls and restores (5.5s)
+  ok 28 e2e\packs.spec.ts:19:1 › UI unverified JSON stays disabled, dependencies and malicious code are visible rejections; explicit version migration (2.4s)
+  ok 29 e2e\packs.spec.ts:27:1 › offline blank context restores v7 extension + NameScript + P2-A + dynamic Mapping + mutation favorites with exact snapshots (3.0s)
+  ok 30 e2e\packs.spec.ts:40:1 › production Worker handles million logical combinations lazily with extension rules and cancels a duplicate flood (2.1s)
+  ok 31 e2e\packs.spec.ts:48:1 › blocked beginRun explains zero-running versus pending terminal record (2.1s)
+  ok 32 e2e\resources.spec.ts:7:1 › real UI creates source, Mapping, dynamic preview, P2-A call, mutation, favorite/export and refresh (6.6s)
+  ok 33 e2e\resources.spec.ts:24:1 › standalone Mapping file imports offline and lab/martian mutation use the same selected rules (3.2s)
+  ok 34 e2e\resources.spec.ts:29:1 › real IndexedDB changes clear old pages; recompute and deletion show exact missing source (3.0s)
+  ok 35 e2e\resources.spec.ts:34:1 › preview worker cancellation while IndexedDB read is blocked has no late rows (15.2s)
+  ok 36 e2e\resources.spec.ts:41:1 › offline v6 import and production Worker benchmark 100k/1m logical scale (2.2s)
+  ok 37 e2e\run-lifecycle.spec.ts:10:46 › real IndexedDB fresh: 100 mixed production Worker runs and retention growth (6.1s)
+  ok 38 e2e\run-lifecycle.spec.ts:10:46 › real IndexedDB v5: 100 mixed production Worker runs and retention growth (5.8s)
+  ok 39 e2e\run-lifecycle.spec.ts:109:1 › real UI: pin, export, cleanup, favorite source and failure feedback (2.9s)
+  ok 40 e2e\run-lifecycle.spec.ts:141:1 › page reload/reopen recovers dead owners and preserves another live tab (4.5s)
+  ok 41 e2e\run-lifecycle.spec.ts:165:1 › UI startup cancellation and unexpected Worker failure persist accurate terminal states (4.5s)
+  ok 42 e2e\run-lifecycle.spec.ts:220:1 › real Chromium profile survives browser process close and reopen (3.3s)
+  ok 43 e2e\subgraph-performance.spec.ts:6:1 › 300 nested call instances stream a virtual million-entry resource with sampled heap bounds (1.6s)
+  ok 44 e2e\subgraphs.spec.ts:6:1 › empty definition, copy and cross-workflow reuse survive reload (4.2s)
+  ok 45 e2e\subgraphs.spec.ts:34:1 › canvas extraction, parameter editing, execution, favorites and durable reload (5.7s)
+  ok 46 e2e\subgraphs.spec.ts:72:1 › production Worker inherits nested budgets, retains sources and terminates with partial results (4.9s)
+  ok 47 e2e\subgraphs.spec.ts:101:1 › nested production Worker watchdog expires while a resource page is blocked (12.0s)
+
+  47 passed (6.0m)
+[WebServer] (node:13288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:130096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:130096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:95988) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:85076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

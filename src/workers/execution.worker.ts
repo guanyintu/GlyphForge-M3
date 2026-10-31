@@ -1,3 +1,4 @@
+import { assertWorkflowPacks } from "../storage/packs";
 import { captureResources, resourceSession } from "../storage/resource-runtime";
 import { dependencyIds } from "../core/sharing";
 import { diagnose, executionBudget } from "../core/contracts";
@@ -19,6 +20,7 @@ self.onmessage = async (event: MessageEvent<Workflow | { workflow: Workflow; run
     if (!record || record.status !== "running") throw new Error("运行已停止");
     const plan = await captureResources(dependencyIds(workflow));
     if (JSON.stringify(plan.versions) !== JSON.stringify(record.versions)) throw new Error("源资源在启动期间发生更改，请重新生成");
+    await assertWorkflowPacks(workflow,plan.resources);
     const session = resourceSession(plan);
     self.postMessage({ type: "started", runId });
     watchdog = setTimeout(() => {

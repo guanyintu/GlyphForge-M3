@@ -1,0 +1,33 @@
+[WebServer] (node:106200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:161528) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:42936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 e2e\startup-local.spec.ts:3:1 › blocked beginRun explains zero-running versus pending terminal record (1.6s)
+
+
+  1) e2e\startup-local.spec.ts:3:1 › blocked beginRun explains zero-running versus pending terminal record
+
+    Error: page.evaluate: TypeError: h.acquireRunLock is not a function
+        at eval (eval at evaluate (:370:30), <anonymous>:3:37)
+        at async <anonymous>:396:30
+        at eval (eval at evaluate (:370:30), <anonymous>:3:37)
+        at async <anonymous>:396:30
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\startup-local.spec.ts:5:13
+
+    Error Context: test-results\startup-local-blocked-begi-80ab8-sus-pending-terminal-record\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\startup-local-blocked-begi-80ab8-sus-pending-terminal-record\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\startup-local-blocked-begi-80ab8-sus-pending-terminal-record\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\startup-local.spec.ts:3:1 › blocked beginRun explains zero-running versus pending terminal record

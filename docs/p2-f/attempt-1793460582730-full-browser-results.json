@@ -1,0 +1,2097 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\playwright.config.ts",
+    "rootDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/someb/Documents/ChatGPT/id生成/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "snapshotDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "launchOptions": {
+            "args": [
+              "--enable-precise-memory-info"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4175",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "pnpm exec vite preview --host 127.0.0.1 --port 4175 --strictPort",
+      "url": "http://127.0.0.1:4175",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "audit.spec.ts",
+      "file": "audit.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "real UI: lab → saved resource → workflow and reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4287,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:19:33.737Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-afa03d360b4bf3cf3830",
+          "file": "audit.spec.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "real UI: relation editor saves, edits, deletes and survives reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4963,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:19:38.175Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-ae5baa7a4d5a752aba4b",
+          "file": "audit.spec.ts",
+          "line": 47,
+          "column": 1
+        },
+        {
+          "title": "real IndexedDB: import and execute 10,000 relation rows",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5284,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "AUDIT_RELATION_10000 {\"importMs\":2569.7999999523163,\"runMs\":709.3999998569489,\"count\":10000,\"maxBatch\":64,\"correct\":true}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:19:43.149Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-7f7718abf3c99fb2a93f",
+          "file": "audit.spec.ts",
+          "line": 76,
+          "column": 1
+        },
+        {
+          "title": "real UI: editable relation recipe runs and persists",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3308,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:19:48.442Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-0ea213302b8a087220fa",
+          "file": "audit.spec.ts",
+          "line": 122,
+          "column": 1
+        },
+        {
+          "title": "real UI: concurrent entry edits increment versions and refresh indexes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2144,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:19:51.759Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-14a56b97b6ed6c86a742",
+          "file": "audit.spec.ts",
+          "line": 135,
+          "column": 1
+        },
+        {
+          "title": "production Workers: bounded nested execution, persistence and hard cancellation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3026,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "AUDIT_BROWSER_WORKER {\"count\":1000,\"maxBatch\":64,\"steps\":10026,\"milliseconds\":76.29999995231628}\n"
+                    },
+                    {
+                      "text": "AUDIT_BROWSER_CANCEL {\"steps\":1000,\"lateMessages\":0,\"terminateMs\":0}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:19:53.910Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-0364a40be5cf67aa9e3f",
+          "file": "audit.spec.ts",
+          "line": 167,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "contracts.spec.ts",
+      "file": "contracts.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "a delayed old autosave cannot replace the selected workflow on reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4377,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:19:56.960Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "94d2a11b1fc1ed31b81d-d05809b9a241f204403d",
+          "file": "contracts.spec.ts",
+          "line": 8,
+          "column": 1
+        },
+        {
+          "title": "production execution/laboratory Workers and graph/code/AST share signatures",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1166,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:20:04.386Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "94d2a11b1fc1ed31b81d-22c84ea70fa5114d2685",
+          "file": "contracts.spec.ts",
+          "line": 34,
+          "column": 1
+        },
+        {
+          "title": "production Worker rejects empty ordinary/relation resources in graph, AST and template",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 300,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:20:05.559Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "94d2a11b1fc1ed31b81d-d3286a8161ea0e16a671",
+          "file": "contracts.spec.ts",
+          "line": 77,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "lineage.spec.ts",
+      "file": "lineage.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "selected result → bounded source panel → favorite/refresh → reverse evidence → history",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 10132,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText(/同名收藏属于另一运行/)\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText(/同名收藏属于另一运行/) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/同名收藏属于另一运行/)\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText(/同名收藏属于另一运行/)\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText(/同名收藏属于另一运行/) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/同名收藏属于另一运行/)\u001b[22m\n\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\lineage.spec.ts:12:319",
+                    "location": {
+                      "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\lineage.spec.ts",
+                      "column": 319,
+                      "line": 12
+                    },
+                    "snippet": "  10 |   const name=(await page.locator('.candidate-text').first().textContent())!;await page.getByTitle('查看名字来源',{exact:true}).first().click();const panel=page.getByRole('region',{name:'结构化来源详情'});\n  11 |   await expect(panel).toContainText('已证实');await panel.getByText(/展开操作路径/).click();await expect(panel).toContainText('pattern v1');await panel.getByRole('button',{name:'复制溯源概要',exact:true}).click();const copied=JSON.parse(await page.evaluate(()=>navigator.clipboard.readText()));expect(copied.evidence).toBe('executed');expect(copied.result).toBe(name);expect(copied.operations.length).toBeGreaterThan(2);\n> 12 |   await page.getByRole('button',{name:'关闭',exact:true}).click();await page.getByRole('button',{name:`收藏 ${name}`,exact:true}).click();await page.reload();await expect(page.getByText(/生成完成/)).toBeVisible();await page.getByRole('button',{name:`收藏 ${name}`,exact:true}).click();await expect(page.getByText(/同名收藏属于另一运行/)).toBeVisible();await page.getByRole('button',{name:/^我的收藏/}).click();await page.getByTitle('查看名字来源',{exact:true}).first().click();await expect(panel).toContainText(copied.run.id);await page.getByRole('button',{name:'逆向分析',exact:true}).click();await page.getByRole('button',{name:'寻找线索'}).click();await page.getByText('逆向来源证据概要（匹配与推断分层）',{exact:true}).click();await expect(page.getByText(/不证明外部输入采用此路径/)).toBeVisible();\n     |                                                                                                                                                                                                                                                                                                                               ^\n  13 |   await page.getByRole('button',{name:'工作流工坊',exact:true}).click();await page.getByRole('button',{name:/运行历史与留存/}).click();await page.getByRole('button',{name:'查看结果',exact:true}).first().click();await page.getByLabel('历史运行结果').getByRole('button',{name,exact:true}).click();await expect(panel).toContainText('已证实');expect(errors).toEqual([]);await page.screenshot({path:'docs/p2-e/lineage-panel.png',fullPage:true});\n  14 | });\n  15 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\lineage.spec.ts",
+                        "column": 319,
+                        "line": 12
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText(/同名收藏属于另一运行/)\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText(/同名收藏属于另一运行/) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/同名收藏属于另一运行/)\u001b[22m\n\n\n  10 |   const name=(await page.locator('.candidate-text').first().textContent())!;await page.getByTitle('查看名字来源',{exact:true}).first().click();const panel=page.getByRole('region',{name:'结构化来源详情'});\n  11 |   await expect(panel).toContainText('已证实');await panel.getByText(/展开操作路径/).click();await expect(panel).toContainText('pattern v1');await panel.getByRole('button',{name:'复制溯源概要',exact:true}).click();const copied=JSON.parse(await page.evaluate(()=>navigator.clipboard.readText()));expect(copied.evidence).toBe('executed');expect(copied.result).toBe(name);expect(copied.operations.length).toBeGreaterThan(2);\n> 12 |   await page.getByRole('button',{name:'关闭',exact:true}).click();await page.getByRole('button',{name:`收藏 ${name}`,exact:true}).click();await page.reload();await expect(page.getByText(/生成完成/)).toBeVisible();await page.getByRole('button',{name:`收藏 ${name}`,exact:true}).click();await expect(page.getByText(/同名收藏属于另一运行/)).toBeVisible();await page.getByRole('button',{name:/^我的收藏/}).click();await page.getByTitle('查看名字来源',{exact:true}).first().click();await expect(panel).toContainText(copied.run.id);await page.getByRole('button',{name:'逆向分析',exact:true}).click();await page.getByRole('button',{name:'寻找线索'}).click();await page.getByText('逆向来源证据概要（匹配与推断分层）',{exact:true}).click();await expect(page.getByText(/不证明外部输入采用此路径/)).toBeVisible();\n     |                                                                                                                                                                                                                                                                                                                               ^\n  13 |   await page.getByRole('button',{name:'工作流工坊',exact:true}).click();await page.getByRole('button',{name:/运行历史与留存/}).click();await page.getByRole('button',{name:'查看结果',exact:true}).first().click();await page.getByLabel('历史运行结果').getByRole('button',{name,exact:true}).click();await expect(panel).toContainText('已证实');expect(errors).toEqual([]);await page.screenshot({path:'docs/p2-e/lineage-panel.png',fullPage:true});\n  14 | });\n  15 |\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\lineage.spec.ts:12:319"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:20:05.874Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\lineage-selected-result-→--dd4cf--reverse-evidence-→-history\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\lineage-selected-result-→--dd4cf--reverse-evidence-→-history\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\lineage.spec.ts",
+                    "column": 319,
+                    "line": 12
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d0739e3f09ef947320db-5bd55f2f3b46039bd5d4",
+          "file": "lineage.spec.ts",
+          "line": 8,
+          "column": 1
+        },
+        {
+          "title": "production dynamic Mapping/subgraph/extension → mutation → run export/blank restore/refresh preserves factual lineage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6910,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:20:19.686Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0739e3f09ef947320db-4f39e74de8a5771f5d1a",
+          "file": "lineage.spec.ts",
+          "line": 16,
+          "column": 1
+        },
+        {
+          "title": "real Worker 10k/deep subgraphs/million prefix samples Worker V8 heap; concurrent cancellation has no late writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2565,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:20:29.969Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0739e3f09ef947320db-f9bc553139a863eb54db",
+          "file": "lineage.spec.ts",
+          "line": 28,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "mutation.spec.ts",
+      "file": "mutation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Unicode locks, deterministic rerun, dedup, rollback, copy/export and truthful favorites survive refresh",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5512,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:20:32.556Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b4e71f066e9fdd529633-f3ae1a63227e1acd1f6a",
+          "file": "mutation.spec.ts",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "saved mutation words flow through real P2-A UI subgraph and production Worker",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6617,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:20:41.164Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b4e71f066e9fdd529633-acebcd470877559125d0",
+          "file": "mutation.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "cancel terminates blocked mutation Worker and persists cancelled state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3285,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:20:47.790Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b4e71f066e9fdd529633-b4231cbddebd7f693ba2",
+          "file": "mutation.spec.ts",
+          "line": 43,
+          "column": 1
+        },
+        {
+          "title": "production mutation Worker repeats seed/resources and portable package without stale Pair or members",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10251,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:20:51.081Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b4e71f066e9fdd529633-050533979d6760263ca2",
+          "file": "mutation.spec.ts",
+          "line": 51,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "p1-final.spec.ts",
+      "file": "p1-final.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "final UI chain: file import → AABB → code roundtrip → favorite → library → portable blank-context restore",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7084,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:21:01.383Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "855174adab904f3f095f-e5f96f54996f82b31024",
+          "file": "p1-final.spec.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "final production resource Worker: 10k/100k/1m bounded import benchmark while renderer remains responsive",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 44252,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "FINAL_RESOURCE_BENCH {\"size\":10000,\"count\":10000,\"importMs\":321.7999999523163,\"exactMs\":0.2999999523162842,\"prefixMs\":0.7999999523162842,\"exactFound\":true,\"renderedPage\":60,\"maxWriteBatch\":1000,\"browser\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36\",\"at\":\"2026-10-31T15:21:16.264Z\",\"heartbeatSamples\":6,\"heartbeatP99Ms\":57.59999990463257,\"heartbeatMaxMs\":57.59999990463257,\"mainRendererHeapSample\":9113606}\n"
+                    },
+                    {
+                      "text": "FINAL_RESOURCE_BENCH {\"size\":100000,\"count\":100000,\"importMs\":3240.5,\"exactMs\":0.40000009536743164,\"prefixMs\":0.5,\"exactFound\":true,\"renderedPage\":60,\"maxWriteBatch\":1000,\"browser\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36\",\"at\":\"2026-10-31T15:21:19.539Z\",\"heartbeatSamples\":65,\"heartbeatP99Ms\":87.29999995231628,\"heartbeatMaxMs\":87.29999995231628,\"mainRendererHeapSample\":9974270}\n"
+                    },
+                    {
+                      "text": "FINAL_RESOURCE_BENCH {\"size\":1000000,\"count\":1000000,\"importMs\":33065.89999985695,\"exactMs\":0.6000001430511475,\"prefixMs\":0.5,\"exactFound\":true,\"renderedPage\":60,\"maxWriteBatch\":1000,\"browser\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36\",\"at\":\"2026-10-31T15:21:52.662Z\",\"heartbeatSamples\":663,\"heartbeatP99Ms\":63.299999952316284,\"heartbeatMaxMs\":64.09999990463257,\"mainRendererHeapSample\":8355478}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:21:08.475Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "855174adab904f3f095f-21634aa742402a253c6f",
+          "file": "p1-final.spec.ts",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "final mixed load: 100k resource import, deep contains page, cancellation, repeated nested execution and animation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12316,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "FINAL_MIXED_BENCH {\"importMs\":3638.2999999523163,\"deepQueryMs\":1465.5,\"deepCount\":100000,\"deepRows\":40,\"firstDeep\":\"深页099960\",\"lastDeep\":\"深页099999\",\"runs\":[{\"ms\":31.5,\"received\":2,\"steps\":5048},{\"ms\":30.399999856948853,\"received\":2,\"steps\":5048},{\"ms\":28.300000190734863,\"received\":2,\"steps\":5048},{\"ms\":29.09999990463257,\"received\":2,\"steps\":5048},{\"ms\":28.90000009536743,\"received\":2,\"steps\":5048},{\"ms\":28.299999952316284,\"received\":2,\"steps\":5048},{\"ms\":30.59999990463257,\"received\":2,\"steps\":5048},{\"ms\":28.5,\"received\":2,\"steps\":5048}],\"concurrentReceived\":2,\"reverseMatches\":[{\"text\":\"深页099999\",\"resourceId\":\"stress\",\"entryId\":100058,\"start\":0,\"end\":8,\"utf16Start\":0,\"utf16End\":8,\"type\":\"exact\"}],\"exhausted\":\"节点 program：第 1 行：达到执行步数上限，请缩小词库或调整筛选条件\",\"cancel\":{\"late\":0,\"processed\":1000,\"ms\":0},\"physicsObjects\":42}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:21:52.735Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "855174adab904f3f095f-ef4cd018f60329959cf5",
+          "file": "p1-final.spec.ts",
+          "line": 87,
+          "column": 1
+        },
+        {
+          "title": "final offline boundary: local HTTP app executes, converts Chinese and reloads with internet requests blocked",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1150,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "FINAL_LOCAL_HTTP_OFFLINE {\"externalBlocked\":[\"fonts.googleapis.com\"],\"boundary\":\"local HTTP remains reachable; not a PWA cold launch\"}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:22:05.060Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "855174adab904f3f095f-23ba7ccf33fea949a931",
+          "file": "p1-final.spec.ts",
+          "line": 137,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "p1c.spec.ts",
+      "file": "p1c.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "reverse UI separates provenance, opens exact resources and builds executable workflow",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2962,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:22:06.226Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "603007caf027cc633944-b80bbeff951361adcff6",
+          "file": "p1c.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "relation direction can be edited, persisted and queried without reversing slots",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6047,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:22:09.196Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "603007caf027cc633944-75ee45de460dd44962cc",
+          "file": "p1c.spec.ts",
+          "line": 21,
+          "column": 1
+        },
+        {
+          "title": "game rule presets are editable in the workbench and survive reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8337,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:22:15.249Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "603007caf027cc633944-3108817c53c95c50a74c",
+          "file": "p1c.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "production reverse Worker: 100k indexed entries, batching, cache invalidation and active cancellation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9430,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "P1C_BROWSER_BENCH {\"entries\":100002,\"loadMs\":3371.7000000476837,\"coldMs\":28.40000009536743,\"warmMs\":1.0999999046325684,\"cacheHit\":true,\"deepMs\":25.299999952316284,\"deepMatches\":[{\"text\":\"词099999\",\"resourceId\":\"large-a\",\"entryId\":100058,\"start\":0,\"end\":7,\"utf16Start\":0,\"utf16End\":7,\"type\":\"exact\"}],\"maxBatch\":2,\"coldMatches\":[{\"text\":\"月亮\",\"resourceId\":\"large-a\",\"entryId\":100059,\"start\":0,\"end\":2,\"utf16Start\":0,\"utf16End\":2,\"type\":\"fragment\"},{\"text\":\"邮差\",\"resourceId\":\"large-b\",\"entryId\":100060,\"start\":2,\"end\":4,\"utf16Start\":2,\"utf16End\":4,\"type\":\"fragment\"}],\"complete\":true,\"changedMatches\":[{\"text\":\"邮差\",\"resourceId\":\"large-b\",\"entryId\":100060,\"start\":2,\"end\":4,\"utf16Start\":2,\"utf16End\":4,\"type\":\"fragment\"}],\"changedCacheHit\":false,\"cancelMs\":0,\"cancelledAfterScanned\":256,\"messagesAfterCancel\":0,\"mainThreadSampledHeapBefore\":9800666,\"mainThreadSampledHeapAfter\":7600103,\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36\",\"hardwareConcurrency\":20,\"browserVersion\":\"156.0.8078.4\"}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:22:23.592Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "603007caf027cc633944-e04af0f8ef4c103458ed",
+          "file": "p1c.spec.ts",
+          "line": 39,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "p1d.spec.ts",
+      "file": "p1d.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "P1-D: 1200 results stay bounded; pause/stop/mode switch/reduced motion preserve copy and exports",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4811,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:22:33.040Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9536c4f5dd663ac0ff23-23b3ea8b43917e3f9e3b",
+          "file": "p1d.spec.ts",
+          "line": 29,
+          "column": 1
+        },
+        {
+          "title": "P1-D: stable keys, FLIP sorting/filtering, Unicode highlights and immediate favorites",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10081,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:22:37.858Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9536c4f5dd663ac0ff23-c23003d7f582ab2987a4",
+          "file": "p1d.spec.ts",
+          "line": 64,
+          "column": 1
+        },
+        {
+          "title": "P1-D: visibility, resize, offscreen and unmount clean the owned RAF",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 16403,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "P1D_CLEANUP {\"frames\":\"233\",\"pending\":0}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:22:47.946Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9536c4f5dd663ac0ff23-63e8ff8365531498aca0",
+          "file": "p1d.spec.ts",
+          "line": 92,
+          "column": 1
+        },
+        {
+          "title": "P1-D: low device starts with at most twenty objects and auto-stops",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 26270,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:23:04.355Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9536c4f5dd663ac0ff23-278d79232b4a1777f19e",
+          "file": "p1d.spec.ts",
+          "line": 125,
+          "column": 1
+        },
+        {
+          "title": "P1-D: measured Chromium CPU throttling and sustained-contention fallback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 20570,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "P1D_PERFORMANCE {\"browser\":\"156.0.8078.4\",\"environment\":{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36\",\"hardwareConcurrency\":20,\"deviceMemory\":32},\"cpuRate\":6,\"normal\":{\"elapsedMs\":2013.6000001430511,\"rafSamples\":121,\"meanIntervalMs\":16.628099174341884,\"p95IntervalMs\":16.799999999999272,\"p99IntervalMs\":16.80000000000109,\"maxIntervalMs\":16.80000000000109,\"longTasks\":0,\"maxLongTaskMs\":0,\"physicsPaints\":121,\"objects\":42,\"overlaps\":0,\"outOfBounds\":0,\"quality\":\"full\"},\"throttled\":{\"elapsedMs\":2015,\"rafSamples\":122,\"meanIntervalMs\":16.455737704136332,\"p95IntervalMs\":16.700000000000728,\"p99IntervalMs\":16.799999999999272,\"maxIntervalMs\":16.80000000000109,\"longTasks\":0,\"maxLongTaskMs\":0,\"physicsPaints\":122,\"objects\":42,\"overlaps\":0,\"outOfBounds\":0,\"quality\":\"full\"},\"contention\":{\"injectedBusyMsPerFrame\":35,\"elapsedMs\":6066.299999952316,\"rafSamples\":151,\"meanIntervalMs\":39.82185430495156,\"p95IntervalMs\":50.100000000000364,\"p99IntervalMs\":66.70000000000073,\"maxIntervalMs\":66.70000000000073,\"longTasks\":1,\"maxLongTaskMs\":53,\"physicsPaints\":67,\"objects\":12,\"overlaps\":0,\"outOfBounds\":0,\"quality\":\"static\"},\"favoriteLatencyMs\":358.89999985694885,\"heap\":{\"scope\":\"main renderer isolate; excludes Worker/GPU/RSS\",\"beforeAnimationSample\":{\"usedSize\":8001220,\"totalSize\":9768960,\"embedderHeapUsedSize\":11242552,\"backingStorageSize\":793250},\"beforeDisableGC\":{\"usedSize\":9939040,\"totalSize\":19013632,\"embedderHeapUsedSize\":15197248,\"backingStorageSize\":795301},\"afterUnmountGC\":{\"usedSize\":7631852,\"totalSize\":8003584,\"embedderHeapUsedSize\":9055328,\"backingStorageSize\":781930}},\"errors\":[]}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:23:30.632Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9536c4f5dd663ac0ff23-36bed2f6d5feb8c6ed6e",
+          "file": "p1d.spec.ts",
+          "line": 148,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "packs.spec.ts",
+      "file": "packs.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "UI installs both operators, edits params, runs production Worker, favorites, disables/uninstalls and restores",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11804,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:23:51.229Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3447e32b56114a6de95d-f317bec368becc7a505d",
+          "file": "packs.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "UI unverified JSON stays disabled, dependencies and malicious code are visible rejections; explicit version migration",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9389,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:24:06.049Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3447e32b56114a6de95d-acacac1b17c7ecc04439",
+          "file": "packs.spec.ts",
+          "line": 19,
+          "column": 1
+        },
+        {
+          "title": "offline blank context restores v7 extension + NameScript + P2-A + dynamic Mapping + mutation favorites with exact snapshots",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2576,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:24:15.444Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3447e32b56114a6de95d-ca26952fb1b5ab10b26c",
+          "file": "packs.spec.ts",
+          "line": 27,
+          "column": 1
+        },
+        {
+          "title": "production Worker handles million logical combinations lazily with extension rules and cancels a duplicate flood",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2786,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:24:18.027Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3447e32b56114a6de95d-6cea2faca34e028949e9",
+          "file": "packs.spec.ts",
+          "line": 40,
+          "column": 1
+        },
+        {
+          "title": "blocked beginRun explains zero-running versus pending terminal record",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2954,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:24:20.819Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3447e32b56114a6de95d-c041e13522d781149f37",
+          "file": "packs.spec.ts",
+          "line": 48,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "resources.spec.ts",
+      "file": "resources.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "real UI creates source, Mapping, dynamic preview, P2-A call, mutation, favorite/export and refresh",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6085,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:24:23.793Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c5a9a91e1b9b058112b5-1677c860eea29d7dd8b9",
+          "file": "resources.spec.ts",
+          "line": 7,
+          "column": 1
+        },
+        {
+          "title": "standalone Mapping file imports offline and lab/martian mutation use the same selected rules",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4314,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:24:32.897Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c5a9a91e1b9b058112b5-b4195ba354eac7154251",
+          "file": "resources.spec.ts",
+          "line": 24,
+          "column": 1
+        },
+        {
+          "title": "real IndexedDB changes clear old pages; recompute and deletion show exact missing source",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9816,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:24:37.218Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c5a9a91e1b9b058112b5-807b05a83230b473a70d",
+          "file": "resources.spec.ts",
+          "line": 29,
+          "column": 1
+        },
+        {
+          "title": "preview worker cancellation while IndexedDB read is blocked has no late rows",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14470,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:24:47.042Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c5a9a91e1b9b058112b5-d9d2db4532c59cbe9912",
+          "file": "resources.spec.ts",
+          "line": 34,
+          "column": 1
+        },
+        {
+          "title": "offline v6 import and production Worker benchmark 100k/1m logical scale",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3698,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:25:01.521Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c5a9a91e1b9b058112b5-4bcea6d587a9bb13b480",
+          "file": "resources.spec.ts",
+          "line": 41,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "run-lifecycle.spec.ts",
+      "file": "run-lifecycle.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "real IndexedDB fresh: 100 mixed production Worker runs and retention growth",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3931,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:25:05.237Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "80d57c9e2c73496c3fc6-23967c2d3cbba1ce4ab5",
+          "file": "run-lifecycle.spec.ts",
+          "line": 10,
+          "column": 46
+        },
+        {
+          "title": "real IndexedDB v5: 100 mixed production Worker runs and retention growth",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3813,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:25:12.240Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "80d57c9e2c73496c3fc6-368689a1df04242fa771",
+          "file": "run-lifecycle.spec.ts",
+          "line": 10,
+          "column": 46
+        },
+        {
+          "title": "real UI: pin, export, cleanup, favorite source and failure feedback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9288,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:25:16.059Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "80d57c9e2c73496c3fc6-b7f7ef6abe08a7e02dd9",
+          "file": "run-lifecycle.spec.ts",
+          "line": 109,
+          "column": 1
+        },
+        {
+          "title": "page reload/reopen recovers dead owners and preserves another live tab",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3585,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:25:25.354Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "80d57c9e2c73496c3fc6-00c141252b6c35ea51cd",
+          "file": "run-lifecycle.spec.ts",
+          "line": 141,
+          "column": 1
+        },
+        {
+          "title": "UI startup cancellation and unexpected Worker failure persist accurate terminal states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7784,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:25:28.945Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "80d57c9e2c73496c3fc6-9e17bc80b07356b4f17a",
+          "file": "run-lifecycle.spec.ts",
+          "line": 165,
+          "column": 1
+        },
+        {
+          "title": "real Chromium profile survives browser process close and reopen",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5062,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:25:36.735Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "80d57c9e2c73496c3fc6-7f8008efab774b5bf787",
+          "file": "run-lifecycle.spec.ts",
+          "line": 220,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "scale.spec.ts",
+      "file": "scale.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "readonly estimate UI and live metadata invalidation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9336,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:25:41.826Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "91c191f36fb4ad6590e3-982b74f23dfc990f564b",
+          "file": "scale.spec.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "real production Worker/IDB audit: fully enumerated expensive graphs and bounded million prefix",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 83077,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:25:54.385Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "91c191f36fb4ad6590e3-c2199404d7a0fb1f3f13",
+          "file": "scale.spec.ts",
+          "line": 19,
+          "column": 1
+        },
+        {
+          "title": "production concurrency rejects changed versions, cancels without late writes; reverse Worker cold/warm invalidation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5396,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:27:17.468Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "91c191f36fb4ad6590e3-9960b9e31233924de056",
+          "file": "scale.spec.ts",
+          "line": 51,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "subgraph-performance.spec.ts",
+      "file": "subgraph-performance.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "300 nested call instances stream a virtual million-entry resource with sampled heap bounds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2836,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:27:22.889Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7f98b347452eec20b4f7-45e634ab05c6de534d5c",
+          "file": "subgraph-performance.spec.ts",
+          "line": 6,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "subgraphs.spec.ts",
+      "file": "subgraphs.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "empty definition, copy and cross-workflow reuse survive reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5088,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:27:28.811Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9620351288a6ec27ebdf-e581b2055366a70be162",
+          "file": "subgraphs.spec.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "canvas extraction, parameter editing, execution, favorites and durable reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8275,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:27:36.922Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9620351288a6ec27ebdf-83528971e28db0bd3489",
+          "file": "subgraphs.spec.ts",
+          "line": 34,
+          "column": 1
+        },
+        {
+          "title": "production Worker inherits nested budgets, retains sources and terminates with partial results",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3157,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:27:45.204Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9620351288a6ec27ebdf-94c62b9b61ee5c6c3d8d",
+          "file": "subgraphs.spec.ts",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "nested production Worker watchdog expires while a resource page is blocked",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 40000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12331,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:27:48.366Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9620351288a6ec27ebdf-180303152f3308591fc3",
+          "file": "subgraphs.spec.ts",
+          "line": 101,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-31T15:19:32.172Z",
+    "duration": 509727.09099999996,
+    "expected": 52,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

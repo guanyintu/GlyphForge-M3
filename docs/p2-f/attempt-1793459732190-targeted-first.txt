@@ -1,0 +1,41 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ✓ src/tests/scale.test.ts > 160 seed/version four-way differential includes all fields, read events, ticks and first-path duplicates 572ms
+ ✓ src/tests/scale.test.ts > every step-budget boundary and text-bound error retains exact node/line/order with optimization on/off 56ms
+ ✓ src/tests/scale.test.ts > exact static product exceeds Number safely; limit does not pretend to prune enumeration 2ms
+ × src/tests/scale.test.ts > dynamic count zero is unknown interval, metadata reads do not materialize entries, source edits invalidate 16ms
+   → expected { upper: '10000', exact: false } to deeply equal { upper: '200', exact: false }
+ ✓ src/tests/scale.test.ts > empty static, invalid count, missing resources, cycles and depth are conservative or rejected 4ms
+ ✓ src/tests/scale.test.ts > Mapping and exact pack enablement/content are part of estimate validity; disabled pack rejects 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/scale.test.ts > dynamic count zero is unknown interval, metadata reads do not materialize entries, source edits invalidate
+AssertionError: expected { upper: '10000', exact: false } to deeply equal { upper: '200', exact: false }
+
+- Expected
++ Received
+
+  {
+    "exact": false,
+-   "upper": "200",
++   "upper": "10000",
+  }
+
+ ❯ src/tests/scale.test.ts:46:31
+     44|   await saveNewResource(meta('a'),['月','星']);await saveDefinedResource…
+     45|   const w=resourceWorkflow('dynamic'),before=await db.entries.count(),…
+     46|   expect(estimate.candidates).toEqual({upper:'200',exact:false});expec…
+       |                               ^
+     47|   await db.resources.update('a',{version:9});expect(await estimateIsCu…
+     48|   const c=new AbortController();c.abort();await expect(estimateWorkflo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 passed (6)
+   Start at  22:57:11
+   Duration  2.26s (transform 302ms, setup 0ms, collect 794ms, tests 660ms, environment 0ms, prepare 336ms)
+

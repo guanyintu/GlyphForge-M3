@@ -1,0 +1,42 @@
+
+Running 3 tests using 1 worker
+
+  ok 1 e2e\scale.spec.ts:6:1 › readonly estimate UI and live metadata invalidation (2.5s)
+  ok 2 e2e\scale.spec.ts:14:1 › real production Worker/IDB audit: fully enumerated expensive graphs and bounded million prefix (41.5s)
+  x  3 e2e\scale.spec.ts:44:1 › production concurrency rejects changed versions, cancels without late writes; reverse Worker cold/warm invalidation (14.8s)
+
+
+  1) e2e\scale.spec.ts:44:1 › production concurrency rejects changed versions, cancels without late writes; reverse Worker cold/warm invalidation 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "cancelled"
+    Received: "error"
+
+      56 |     return {changed,stale:!await h.estimateIsCurrent(w,estimate),cancelled:(await h.db.runs.get(runId)).status,noLate:before===messages&&count===await h.db.generated.where('runId').equals(runId).count(),partial:count,reverse:samples};
+      57 |   },{url:workerUrl(),reverseUrl});
+    > 58 |   writeFileSync('docs/p2-f/concurrency-reverse.json',JSON.stringify(r,null,2));expect(r.changed.type).toBe('error');expect(r.changed.message).toMatch(/更改|变化/);expect(r.stale).toBe(true);expect(r.cancelled).toBe('cancelled');expect(r.noLate).toBe(true);expect(r.reverse.map(s=>s.cacheHit)).toEqual([false,true,false]);
+         |                                                                                                                                                                                                               ^
+      59 | });
+      60 |
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\scale.spec.ts:58:207
+
+    Error Context: test-results\scale-production-concurren-c13b5-rker-cold-warm-invalidation\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\scale-production-concurren-c13b5-rker-cold-warm-invalidation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\scale-production-concurren-c13b5-rker-cold-warm-invalidation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\scale.spec.ts:44:1 › production concurrency rejects changed versions, cancels without late writes; reverse Worker cold/warm invalidation 
+  2 passed (1.1m)
+[WebServer] (node:3820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:130964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:64492) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

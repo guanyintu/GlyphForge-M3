@@ -1,0 +1,80 @@
+{
+  "started": 5958.299999952316,
+  "rows": 10000,
+  "batches": 157,
+  "maxRefs": 13,
+  "maxBytes": 1929,
+  "end": 6837.699999809265,
+  "type": "done",
+  "stats": {
+    "steps": 50085,
+    "count": 10000,
+    "truncated": true,
+    "safePruned": 0,
+    "duration": 847.0999999046326
+  },
+  "ms": 879.3999998569489,
+  "logical": 1000000,
+  "depth": 8,
+  "cancelled": "cancelled",
+  "noLate": true,
+  "concurrentWithMain": true,
+  "rendererHeapEnd": 25679621,
+  "workerV8HeapSamples": [
+    {
+      "usedSize": 380200,
+      "totalSize": 1048576,
+      "embedderHeapUsedSize": 773712,
+      "backingStorageSize": 162983
+    },
+    {
+      "usedSize": 3316136,
+      "totalSize": 8388608,
+      "embedderHeapUsedSize": 1495736,
+      "backingStorageSize": 172490
+    },
+    {
+      "usedSize": 6716168,
+      "totalSize": 13631488,
+      "embedderHeapUsedSize": 3311152,
+      "backingStorageSize": 185692
+    },
+    {
+      "usedSize": 7667924,
+      "totalSize": 15204352,
+      "embedderHeapUsedSize": 4563616,
+      "backingStorageSize": 196224
+    },
+    {
+      "usedSize": 12178088,
+      "totalSize": 23592960,
+      "embedderHeapUsedSize": 6167056,
+      "backingStorageSize": 208402
+    },
+    {
+      "usedSize": 9710584,
+      "totalSize": 24903680,
+      "embedderHeapUsedSize": 7860864,
+      "backingStorageSize": 220982
+    },
+    {
+      "usedSize": 12017724,
+      "totalSize": 26382336,
+      "embedderHeapUsedSize": 9247680,
+      "backingStorageSize": 233160
+    },
+    {
+      "usedSize": 17698556,
+      "totalSize": 27430912,
+      "embedderHeapUsedSize": 10539664,
+      "backingStorageSize": 242854
+    },
+    {
+      "usedSize": 17698556,
+      "totalSize": 27430912,
+      "embedderHeapUsedSize": 10539664,
+      "backingStorageSize": 242854
+    }
+  ],
+  "measurement": "CDP Runtime.getHeapUsage on dedicated Worker target; sampled V8 heap, neither RSS nor absolute peak"
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "source": "src/core/engine.ts",
+    "gitBase": "9f4087a82de4b284d022ebf7d3e6af0c346701e4",
+    "originalSha256": "ea691c0f8881d65996c6f28ac5acd59e23eba43e790a993b97c35afd98071f39",
+    "fixture": "src/tests/fixtures/p2f-baseline-engine.ts",
+    "fixtureSha256": "30441f0b11b5421cce83df755c7c7d87fbc040f79f5e0c39ebd20e95401bd090",
+    "adaptation": "import paths only; original bytes in external baseline"
+  },
+  {
+    "source": "src/core/operators.ts",
+    "gitBase": "9f4087a82de4b284d022ebf7d3e6af0c346701e4",
+    "originalSha256": "5784a0d34e9efcd6194a5e0799fa159e6b001f2bc20b28d002037353965630f8",
+    "fixture": "src/tests/fixtures/p2f-baseline-operators.ts",
+    "fixtureSha256": "01586379f7230cf312ace9986874dbfd35d514156fafe63efe05c330837cb345",
+    "adaptation": "import paths only; original bytes in external baseline"
+  }
+]

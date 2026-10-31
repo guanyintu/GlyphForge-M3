@@ -1,0 +1,16 @@
+src/tests/scale.test.ts(22,11): error TS7034: Variable 'outcomes' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/tests/scale.test.ts(26,76): error TS2345: Argument of type '(id: string, seed: number) => AsyncGenerator<{ pair?: { left: string; right: string; relation: string; } | undefined; text: string; parts: { resourceId: string; text: string; version: number; }[]; notes: string[]; members: string[]; }, void, unknown>' is not assignable to parameter of type 'ResourceReader'.
+  Call signature return types 'AsyncGenerator<{ pair?: { left: string; right: string; relation: string; } | undefined; text: string; parts: { resourceId: string; text: string; version: number; }[]; notes: string[]; members: string[]; }, void, unknown>' and 'AsyncIterable<Candidate>' are incompatible.
+    The types returned by '[Symbol.asyncIterator]().next(...)' are incompatible between these types.
+      Type 'Promise<IteratorResult<{ pair?: { left: string; right: string; relation: string; } | undefined; text: string; parts: { resourceId: string; text: string; version: number; }[]; notes: string[]; members: string[]; }, void>>' is not assignable to type 'Promise<IteratorResult<Candidate, any>>'.
+        Type 'IteratorResult<{ pair?: { left: string; right: string; relation: string; } | undefined; text: string; parts: { resourceId: string; text: string; version: number; }[]; notes: string[]; members: string[]; }, void>' is not assignable to type 'IteratorResult<Candidate, any>'.
+          Type 'IteratorYieldResult<{ pair?: { left: string; right: string; relation: string; } | undefined; text: string; parts: { resourceId: string; text: string; version: number; }[]; notes: string[]; members: string[]; }>' is not assignable to type 'IteratorResult<Candidate, any>'.
+            Type 'IteratorYieldResult<{ pair?: { left: string; right: string; relation: string; } | undefined; text: string; parts: { resourceId: string; text: string; version: number; }[]; notes: string[]; members: string[]; }>' is not assignable to type 'IteratorYieldResult<Candidate>'.
+              Type '{ pair?: { left: string; right: string; relation: string; } | undefined; text: string; parts: { resourceId: string; text: string; version: number; }[]; notes: string[]; members: string[]; }' is not assignable to type 'Candidate'.
+                Types of property 'pair' are incompatible.
+                  Type '{ left: string; right: string; relation: string; } | undefined' is not assignable to type 'PairValue | undefined'.
+                    Type '{ left: string; right: string; relation: string; }' is not assignable to type 'PairValue'.
+                      Types of property 'relation' are incompatible.
+                        Type 'string' is not assignable to type 'RelationKind'.
+src/tests/scale.test.ts(30,27): error TS7005: Variable 'outcomes' implicitly has an 'any[]' type.
+src/tests/scale.test.ts(30,79): error TS7031: Binding element '_' implicitly has an 'any' type.

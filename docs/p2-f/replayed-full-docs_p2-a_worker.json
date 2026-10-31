@@ -1,0 +1,243 @@
+{
+  "good": {
+    "type": "done",
+    "stats": {
+      "steps": 800,
+      "count": 144,
+      "truncated": false,
+      "safePruned": 0,
+      "duration": 41.200000047683716
+    },
+    "cleanupError": "",
+    "count": 144,
+    "examples": [
+      {
+        "text": "山海飞行员",
+        "parts": [
+          {
+            "resourceId": "nature",
+            "text": "山海",
+            "version": 1
+          },
+          {
+            "resourceId": "roles",
+            "text": "飞行员",
+            "version": 1
+          }
+        ]
+      },
+      {
+        "text": "山海观察员",
+        "parts": [
+          {
+            "resourceId": "nature",
+            "text": "山海",
+            "version": 1
+          },
+          {
+            "resourceId": "roles",
+            "text": "观察员",
+            "version": 1
+          }
+        ]
+      },
+      {
+        "text": "山海捕手",
+        "parts": [
+          {
+            "resourceId": "nature",
+            "text": "山海",
+            "version": 1
+          },
+          {
+            "resourceId": "roles",
+            "text": "捕手",
+            "version": 1
+          }
+        ]
+      }
+    ],
+    "ms": 67.70000004768372
+  },
+  "rebuilt": {
+    "type": "done",
+    "stats": {
+      "steps": 800,
+      "count": 144,
+      "truncated": false,
+      "safePruned": 0,
+      "duration": 40.30000019073486
+    },
+    "cleanupError": "",
+    "count": 144,
+    "examples": [
+      {
+        "text": "山海飞行员",
+        "parts": [
+          {
+            "resourceId": "nature",
+            "text": "山海",
+            "version": 1
+          },
+          {
+            "resourceId": "roles",
+            "text": "飞行员",
+            "version": 1
+          }
+        ]
+      },
+      {
+        "text": "山海观察员",
+        "parts": [
+          {
+            "resourceId": "nature",
+            "text": "山海",
+            "version": 1
+          },
+          {
+            "resourceId": "roles",
+            "text": "观察员",
+            "version": 1
+          }
+        ]
+      },
+      {
+        "text": "山海捕手",
+        "parts": [
+          {
+            "resourceId": "nature",
+            "text": "山海",
+            "version": 1
+          },
+          {
+            "resourceId": "roles",
+            "text": "捕手",
+            "version": 1
+          }
+        ]
+      }
+    ],
+    "ms": 63.10000014305115
+  },
+  "shared": {
+    "type": "done",
+    "stats": {
+      "steps": 800,
+      "count": 144,
+      "truncated": false,
+      "safePruned": 0,
+      "duration": 40.09999990463257
+    },
+    "cleanupError": "",
+    "count": 144,
+    "examples": [
+      {
+        "text": "山海飞行员",
+        "parts": [
+          {
+            "resourceId": "4ad5cfc1-d52a-49eb-84a1-b0e55c3ebac1",
+            "text": "山海",
+            "version": 1
+          },
+          {
+            "resourceId": "9633aef6-4998-4823-95ad-4afb4efff5a3",
+            "text": "飞行员",
+            "version": 1
+          }
+        ]
+      },
+      {
+        "text": "山海观察员",
+        "parts": [
+          {
+            "resourceId": "4ad5cfc1-d52a-49eb-84a1-b0e55c3ebac1",
+            "text": "山海",
+            "version": 1
+          },
+          {
+            "resourceId": "9633aef6-4998-4823-95ad-4afb4efff5a3",
+            "text": "观察员",
+            "version": 1
+          }
+        ]
+      },
+      {
+        "text": "山海捕手",
+        "parts": [
+          {
+            "resourceId": "4ad5cfc1-d52a-49eb-84a1-b0e55c3ebac1",
+            "text": "山海",
+            "version": 1
+          },
+          {
+            "resourceId": "9633aef6-4998-4823-95ad-4afb4efff5a3",
+            "text": "捕手",
+            "version": 1
+          }
+        ]
+      }
+    ],
+    "ms": 67.79999995231628
+  },
+  "budget": {
+    "type": "error",
+    "message": "节点 call_cc2e64891d1a/call_cc2e64891d1a/mix：达到执行步数上限，请缩小词库或调整筛选条件",
+    "diagnostic": {
+      "nodeId": "call_cc2e64891d1a/call_cc2e64891d1a/mix",
+      "operator": "pattern",
+      "code": "BUDGET",
+      "message": "达到执行步数上限，请缩小词库或调整筛选条件"
+    },
+    "cleanupError": "",
+    "count": 0,
+    "examples": [],
+    "ms": 1090.8000001907349
+  },
+  "cancelled": {
+    "type": "cancelled",
+    "count": 64,
+    "ms": 43.299999952316284
+  },
+  "versions": [
+    {
+      "status": "done",
+      "versions": {
+        "4ad5cfc1-d52a-49eb-84a1-b0e55c3ebac1": 1,
+        "9633aef6-4998-4823-95ad-4afb4efff5a3": 1
+      }
+    },
+    {
+      "status": "done",
+      "versions": {
+        "nature": 1,
+        "roles": 1
+      }
+    },
+    {
+      "status": "cancelled",
+      "versions": {
+        "big": 1
+      }
+    },
+    {
+      "status": "error",
+      "versions": {
+        "big": 1
+      }
+    },
+    {
+      "status": "done",
+      "versions": {
+        "nature": 1,
+        "roles": 1
+      }
+    },
+    {
+      "status": "done",
+      "versions": {
+        "nature": 1,
+        "roles": 1
+      }
+    }
+  ]
+}

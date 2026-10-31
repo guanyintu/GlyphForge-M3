@@ -1,0 +1,15 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ✓ src/tests/scale.test.ts > 160 seed/version four-way differential includes all fields, read events, ticks and first-path duplicates 545ms
+ ✓ src/tests/scale.test.ts > every step-budget boundary and text-bound error retains exact node/line/order with optimization on/off 52ms
+ ✓ src/tests/scale.test.ts > exact static product exceeds Number safely; limit does not pretend to prune enumeration 2ms
+ ✓ src/tests/scale.test.ts > dynamic count zero is unknown interval, metadata reads do not materialize entries, source edits invalidate 12ms
+ ✓ src/tests/scale.test.ts > empty static, invalid count, missing resources, cycles and depth are conservative or rejected 2ms
+ ✓ src/tests/scale.test.ts > Mapping and exact pack enablement/content are part of estimate validity; disabled pack rejects 9ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  22:58:55
+   Duration  2.13s (transform 285ms, setup 0ms, collect 720ms, tests 623ms, environment 0ms, prepare 246ms)
+

@@ -1,0 +1,23 @@
+{
+  "exits": [
+    {
+      "name": "tests",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "exit": 0,
+      "ms": 7535
+    },
+    {
+      "name": "typecheck",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exit": 2,
+      "ms": 5863
+    }
+  ],
+  "restored": []
+}

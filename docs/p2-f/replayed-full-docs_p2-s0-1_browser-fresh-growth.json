@@ -1,0 +1,82 @@
+{
+  "mode": "fresh",
+  "outcomes": {
+    "done": 40,
+    "error": 20,
+    "cancelled": 20,
+    "interrupted": 20
+  },
+  "samples": [
+    {
+      "round": 1,
+      "runs": 1,
+      "generated": 128,
+      "logicalBytes": 35574,
+      "browserUsage": 159744
+    },
+    {
+      "round": 25,
+      "runs": 22,
+      "generated": 1280,
+      "logicalBytes": 369681,
+      "browserUsage": 897024
+    },
+    {
+      "round": 50,
+      "runs": 22,
+      "generated": 1280,
+      "logicalBytes": 369942,
+      "browserUsage": 905216
+    },
+    {
+      "round": 75,
+      "runs": 22,
+      "generated": 1280,
+      "logicalBytes": 369942,
+      "browserUsage": 913408
+    },
+    {
+      "round": 100,
+      "runs": 22,
+      "generated": 1280,
+      "logicalBytes": 369942,
+      "browserUsage": 917504
+    }
+  ],
+  "baselineSamples": [
+    {
+      "round": 25,
+      "runs": 25,
+      "generated": 1664,
+      "logicalBytes": 476478
+    },
+    {
+      "round": 50,
+      "runs": 50,
+      "generated": 2304,
+      "logicalBytes": 673024
+    },
+    {
+      "round": 75,
+      "runs": 75,
+      "generated": 2944,
+      "logicalBytes": 869314
+    },
+    {
+      "round": 100,
+      "runs": 100,
+      "generated": 3584,
+      "logicalBytes": 1065604
+    }
+  ],
+  "normal": 20,
+  "favoriteReadable": true,
+  "restoredCount": 128,
+  "sourceBefore": null,
+  "final": {
+    "runs": 2,
+    "generated": 256,
+    "logicalBytes": 71162,
+    "browserUsage": 258048
+  }
+}

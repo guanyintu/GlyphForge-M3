@@ -1,4 +1,5 @@
 import LineagePanel from "./components/LineagePanel";
+import { ExecutionEstimate } from "./components/ExecutionEstimate";
 import { PacksPanel } from "./components/Packs";
 import "./p2c.css";
 import { DefinedResourceEditor } from "./components/DefinedResources";
@@ -820,6 +821,7 @@ export default function App() {
                 </button>
               </div>
             </div>
+            <ExecutionEstimate workflow={workflow} stats={stats} dirty={codeDirty} />
             <section className="studio">
               <div className="studio-toolbar">
                 <div className="editor-tabs">

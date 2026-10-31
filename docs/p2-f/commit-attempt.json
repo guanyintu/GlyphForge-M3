@@ -1,0 +1,5 @@
+{
+  "exit": 1,
+  "error": "Author identity unknown; fatal: unable to auto-detect email address",
+  "resolution": "Use existing repository history identity Codex <codex@openai.com> via per-command git -c only; no global/local configuration mutation"
+}

@@ -1,0 +1,518 @@
+{
+  "before": {
+    "version": 1,
+    "evidence": "executed",
+    "label": "已证实 · 已保存生成记录",
+    "run": {
+      "id": "5dc642e8-47f8-47fe-af27-904e627942a6",
+      "workflowId": "dbd5fb75-2b77-4240-a177-94ba38c92061",
+      "name": "资源复用",
+      "createdAt": 1793460682654,
+      "seed": 42,
+      "status": "done"
+    },
+    "operations": [
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"source\"]",
+        "path": "source",
+        "scope": "资源复用",
+        "summary": "resource v1"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/0\"]",
+        "path": "call_f79182625c14/ext/0",
+        "scope": "资源复用",
+        "summary": "extension glyphforge-text@1.0.0/frame · 步骤 0"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/1\"]",
+        "path": "call_f79182625c14/ext/1",
+        "scope": "资源复用",
+        "summary": "extension glyphforge-text@1.0.0/frame · 步骤 1"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/2\"]",
+        "path": "call_f79182625c14/ext/2",
+        "scope": "资源复用",
+        "summary": "extension glyphforge-text@1.0.0/frame · 步骤 2"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/3\"]",
+        "path": "call_f79182625c14/ext/3",
+        "scope": "资源复用",
+        "summary": "extension glyphforge-text@1.0.0/frame · 步骤 3"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/4\"]",
+        "path": "call_f79182625c14/ext/4",
+        "scope": "资源复用",
+        "summary": "extension glyphforge-text@1.0.0/frame · 步骤 4"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext\"]",
+        "path": "call_f79182625c14/ext",
+        "scope": "资源复用",
+        "summary": "extension v1"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14\"]",
+        "path": "call_f79182625c14",
+        "scope": "资源复用",
+        "summary": "call v1 · 6272a94d-67ba-44de-8cf3-da51991b6ef6@1"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"result\"]",
+        "path": "result",
+        "scope": "资源复用",
+        "summary": "output v1"
+      },
+      {
+        "ref": "[\"dbd5fb75-2b77-4240-a177-94ba38c92061\",\"source\"]",
+        "path": "source",
+        "scope": "资源复用",
+        "summary": "resource v1"
+      },
+      {
+        "ref": "[\"dbd5fb75-2b77-4240-a177-94ba38c92061\",\"result\"]",
+        "path": "result",
+        "scope": "资源复用",
+        "summary": "output v1"
+      }
+    ],
+    "incomplete": false,
+    "resources": [
+      {
+        "id": "lineage-source",
+        "version": 2,
+        "currentVersion": 2,
+        "state": "当前版本一致"
+      },
+      {
+        "id": "lineage-map",
+        "version": 1,
+        "currentVersion": 1,
+        "state": "当前版本一致"
+      },
+      {
+        "id": "lineage-dynamic",
+        "version": 1,
+        "currentVersion": 1,
+        "state": "当前版本一致"
+      }
+    ],
+    "extensions": [
+      {
+        "key": "glyphforge-text@1.0.0",
+        "state": "已安装 / 已启用"
+      }
+    ],
+    "fragments": [
+      {
+        "resourceId": "lineage-source",
+        "version": 2,
+        "text": "月"
+      },
+      {
+        "resourceId": "lineage-map",
+        "version": 1,
+        "text": "月"
+      },
+      {
+        "resourceId": "lineage-dynamic",
+        "version": 1,
+        "text": "「玥」"
+      }
+    ],
+    "omittedFragments": 0,
+    "result": "「玥」",
+    "limitations": [
+      "保留运行快照与资源版本；没有静态历史资源全集，无法保证完整重放。",
+      "操作按记录的依赖顺序展开；输入片段是素材快照，不是每一步的中间值。"
+    ]
+  },
+  "derived": {
+    "version": 1,
+    "evidence": "executed",
+    "label": "已证实 · 已保存生成记录",
+    "run": {
+      "id": "4700cf56-45d6-47ec-b878-194eae909e3a",
+      "workflowId": "9d61349f-e4d1-459f-9d31-59c97acabed9",
+      "name": "名字变异 · 「玥」",
+      "createdAt": 1793460682694,
+      "seed": 42,
+      "status": "done"
+    },
+    "operations": [
+      {
+        "ref": "[\"9d61349f-e4d1-459f-9d31-59c97acabed9\",\"mutation\"]",
+        "path": "mutation",
+        "scope": "名字变异 · 「玥」",
+        "summary": "mutate v1"
+      },
+      {
+        "ref": "[\"9d61349f-e4d1-459f-9d31-59c97acabed9\",\"result\"]",
+        "path": "result",
+        "scope": "名字变异 · 「玥」",
+        "summary": "output v1"
+      }
+    ],
+    "incomplete": false,
+    "resources": [
+      {
+        "id": "lineage-source",
+        "version": 2,
+        "currentVersion": 2,
+        "state": "当前版本一致"
+      },
+      {
+        "id": "lineage-map",
+        "version": 1,
+        "currentVersion": 1,
+        "state": "当前版本一致"
+      },
+      {
+        "id": "lineage-dynamic",
+        "version": 1,
+        "currentVersion": 1,
+        "state": "当前版本一致"
+      }
+    ],
+    "extensions": [],
+    "fragments": [
+      {
+        "resourceId": "lineage-source",
+        "version": 2,
+        "text": "月"
+      },
+      {
+        "resourceId": "lineage-map",
+        "version": 1,
+        "text": "月"
+      },
+      {
+        "resourceId": "lineage-dynamic",
+        "version": 1,
+        "text": "「玥」"
+      }
+    ],
+    "omittedFragments": 0,
+    "derivation": {
+      "kind": "mutation",
+      "round": 1,
+      "parent": {
+        "text": "「玥」",
+        "runId": "5dc642e8-47f8-47fe-af27-904e627942a6",
+        "workflowId": "dbd5fb75-2b77-4240-a177-94ba38c92061",
+        "seed": 42
+      },
+      "parentState": "父运行快照存在"
+    },
+    "result": "小「玥」",
+    "limitations": [
+      "保留运行快照与资源版本；没有静态历史资源全集，无法保证完整重放。",
+      "操作按记录的依赖顺序展开；输入片段是素材快照，不是每一步的中间值。"
+    ]
+  },
+  "after": {
+    "version": 1,
+    "evidence": "executed",
+    "label": "已证实 · 已保存生成记录",
+    "run": {
+      "id": "5dc642e8-47f8-47fe-af27-904e627942a6",
+      "workflowId": "dbd5fb75-2b77-4240-a177-94ba38c92061",
+      "name": "资源复用",
+      "createdAt": 1793460682654,
+      "seed": 42,
+      "status": "done"
+    },
+    "operations": [
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"source\"]",
+        "path": "source",
+        "scope": "资源复用",
+        "summary": "resource v1"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/0\"]",
+        "path": "call_f79182625c14/ext/0",
+        "scope": "资源复用",
+        "summary": "extension glyphforge-text@1.0.0/frame · 步骤 0"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/1\"]",
+        "path": "call_f79182625c14/ext/1",
+        "scope": "资源复用",
+        "summary": "extension glyphforge-text@1.0.0/frame · 步骤 1"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/2\"]",
+        "path": "call_f79182625c14/ext/2",
+        "scope": "资源复用",
+        "summary": "extension glyphforge-text@1.0.0/frame · 步骤 2"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/3\"]",
+        "path": "call_f79182625c14/ext/3",
+        "scope": "资源复用",
+        "summary": "extension glyphforge-text@1.0.0/frame · 步骤 3"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/4\"]",
+        "path": "call_f79182625c14/ext/4",
+        "scope": "资源复用",
+        "summary": "extension glyphforge-text@1.0.0/frame · 步骤 4"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext\"]",
+        "path": "call_f79182625c14/ext",
+        "scope": "资源复用",
+        "summary": "extension v1"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14\"]",
+        "path": "call_f79182625c14",
+        "scope": "资源复用",
+        "summary": "call v1 · 6272a94d-67ba-44de-8cf3-da51991b6ef6@1"
+      },
+      {
+        "ref": "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"result\"]",
+        "path": "result",
+        "scope": "资源复用",
+        "summary": "output v1"
+      },
+      {
+        "ref": "[\"dbd5fb75-2b77-4240-a177-94ba38c92061\",\"source\"]",
+        "path": "source",
+        "scope": "资源复用",
+        "summary": "resource v1"
+      },
+      {
+        "ref": "[\"dbd5fb75-2b77-4240-a177-94ba38c92061\",\"result\"]",
+        "path": "result",
+        "scope": "资源复用",
+        "summary": "output v1"
+      }
+    ],
+    "incomplete": false,
+    "resources": [
+      {
+        "id": "lineage-source",
+        "version": 2,
+        "state": "资源缺失"
+      },
+      {
+        "id": "lineage-map",
+        "version": 1,
+        "state": "资源缺失"
+      },
+      {
+        "id": "lineage-dynamic",
+        "version": 1,
+        "state": "资源缺失"
+      }
+    ],
+    "extensions": [
+      {
+        "key": "glyphforge-text@1.0.0",
+        "state": "扩展缺失（运行快照仍保留声明）"
+      }
+    ],
+    "fragments": [
+      {
+        "resourceId": "lineage-source",
+        "version": 2,
+        "text": "月"
+      },
+      {
+        "resourceId": "lineage-map",
+        "version": 1,
+        "text": "月"
+      },
+      {
+        "resourceId": "lineage-dynamic",
+        "version": 1,
+        "text": "「玥」"
+      }
+    ],
+    "omittedFragments": 0,
+    "result": "「玥」",
+    "limitations": [
+      "保留运行快照与资源版本；没有静态历史资源全集，无法保证完整重放。",
+      "操作按记录的依赖顺序展开；输入片段是素材快照，不是每一步的中间值。"
+    ]
+  },
+  "afterDerived": {
+    "version": 1,
+    "evidence": "executed",
+    "label": "已证实 · 已保存生成记录",
+    "run": {
+      "id": "4700cf56-45d6-47ec-b878-194eae909e3a",
+      "workflowId": "9d61349f-e4d1-459f-9d31-59c97acabed9",
+      "name": "名字变异 · 「玥」",
+      "createdAt": 1793460682694,
+      "seed": 42,
+      "status": "done"
+    },
+    "operations": [
+      {
+        "ref": "[\"9d61349f-e4d1-459f-9d31-59c97acabed9\",\"mutation\"]",
+        "path": "mutation",
+        "scope": "名字变异 · 「玥」",
+        "summary": "mutate v1"
+      },
+      {
+        "ref": "[\"9d61349f-e4d1-459f-9d31-59c97acabed9\",\"result\"]",
+        "path": "result",
+        "scope": "名字变异 · 「玥」",
+        "summary": "output v1"
+      }
+    ],
+    "incomplete": false,
+    "resources": [
+      {
+        "id": "lineage-source",
+        "version": 2,
+        "state": "资源缺失"
+      },
+      {
+        "id": "lineage-map",
+        "version": 1,
+        "state": "资源缺失"
+      },
+      {
+        "id": "lineage-dynamic",
+        "version": 1,
+        "state": "资源缺失"
+      }
+    ],
+    "extensions": [],
+    "fragments": [
+      {
+        "resourceId": "lineage-source",
+        "version": 2,
+        "text": "月"
+      },
+      {
+        "resourceId": "lineage-map",
+        "version": 1,
+        "text": "月"
+      },
+      {
+        "resourceId": "lineage-dynamic",
+        "version": 1,
+        "text": "「玥」"
+      }
+    ],
+    "omittedFragments": 0,
+    "derivation": {
+      "kind": "mutation",
+      "round": 1,
+      "parent": {
+        "text": "「玥」",
+        "runId": "5dc642e8-47f8-47fe-af27-904e627942a6",
+        "workflowId": "dbd5fb75-2b77-4240-a177-94ba38c92061",
+        "seed": 42
+      },
+      "parentState": "父运行快照存在"
+    },
+    "result": "小「玥」",
+    "limitations": [
+      "保留运行快照与资源版本；没有静态历史资源全集，无法保证完整重放。",
+      "操作按记录的依赖顺序展开；输入片段是素材快照，不是每一步的中间值。"
+    ]
+  },
+  "known": "5dc642e8-47f8-47fe-af27-904e627942a6",
+  "original": {
+    "text": "「玥」",
+    "parts": [
+      {
+        "resourceId": "lineage-source",
+        "text": "月",
+        "version": 2
+      },
+      {
+        "resourceId": "lineage-map",
+        "version": 1,
+        "text": "月"
+      },
+      {
+        "resourceId": "lineage-dynamic",
+        "version": 1,
+        "text": "「玥」"
+      }
+    ],
+    "lineage": {
+      "version": 1,
+      "refs": [
+        "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"source\"]",
+        "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/0\"]",
+        "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/1\"]",
+        "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/2\"]",
+        "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/3\"]",
+        "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext/4\"]",
+        "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14/ext\"]",
+        "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"call_f79182625c14\"]",
+        "[\"[\\\"resource\\\",\\\"lineage-dynamic\\\",1]\",\"result\"]",
+        "[\"dbd5fb75-2b77-4240-a177-94ba38c92061\",\"source\"]",
+        "[\"dbd5fb75-2b77-4240-a177-94ba38c92061\",\"result\"]"
+      ],
+      "incomplete": false
+    },
+    "notes": [
+      "趣味字形替换，不保证同义同音；每条最多 32 个候选"
+    ],
+    "workflowId": "dbd5fb75-2b77-4240-a177-94ba38c92061",
+    "seed": 42,
+    "runId": "5dc642e8-47f8-47fe-af27-904e627942a6"
+  },
+  "mutated": {
+    "text": "小「玥」",
+    "parts": [
+      {
+        "resourceId": "lineage-source",
+        "text": "月",
+        "version": 2
+      },
+      {
+        "resourceId": "lineage-map",
+        "version": 1,
+        "text": "月"
+      },
+      {
+        "resourceId": "lineage-dynamic",
+        "version": 1,
+        "text": "「玥」"
+      }
+    ],
+    "notes": [
+      "名字变异衍生；原片段只说明素材来源，不证明旧工作流生成此文本"
+    ],
+    "derivation": {
+      "kind": "mutation",
+      "version": 1,
+      "round": 1,
+      "seed": 42,
+      "parent": {
+        "text": "「玥」",
+        "runId": "5dc642e8-47f8-47fe-af27-904e627942a6",
+        "workflowId": "dbd5fb75-2b77-4240-a177-94ba38c92061",
+        "seed": 42
+      },
+      "operations": [
+        "affix"
+      ],
+      "locks": []
+    },
+    "lineage": {
+      "version": 1,
+      "refs": [
+        "[\"9d61349f-e4d1-459f-9d31-59c97acabed9\",\"mutation\"]",
+        "[\"9d61349f-e4d1-459f-9d31-59c97acabed9\",\"result\"]"
+      ],
+      "incomplete": false
+    },
+    "workflowId": "9d61349f-e4d1-459f-9d31-59c97acabed9",
+    "seed": 42,
+    "runId": "4700cf56-45d6-47ec-b878-194eae909e3a"
+  }
+}

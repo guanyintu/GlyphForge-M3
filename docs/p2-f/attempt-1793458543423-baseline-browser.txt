@@ -1,0 +1,27 @@
+SyntaxError: C:\Users\someb\Documents\ChatGPT\id生成\e2e\scale.spec.ts: Unexpected token, expected "," (32:440)
+
+  30 |     const samples:any[]=[];
+  31 |     for(const [name,w,logical] of [['pattern-reject-full',full,10000],['concat-reject-full',concat,10000],['tenK-output',tenK,10000],['million-prefix',million,1000000],['dynamic-mapping-extension-depth12',dynamic,10],['mutation-unicode',mutation,null]] as const){
+> 32 |       for(let round=0;round<3;round++){const pair:any[]=[];for(const optimize of round%2?[true,false]:[false,true]){const result=await run({...w,seed:[42,7,99999][round]},optimize);pair.push({optimize,...result});samples.push({name,round,seed:[42,7,99999][round],logical,optimize,...result,rows:result.rows.length,digest:Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(result.rows)))))).map(b=>b.toString(16).padStart(2,'0')).join('')});}if(JSON.stringify(pair[0].rows)!==JSON.stringify(pair[1].rows)||pair[0].stats?.steps!==pair[1].stats?.steps)throw new Error(`differential mismatch ${name}`);}
+     |                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+  33 |       const p=await run(w,true,true);samples.push({name,round:'profiled',logical,optimize:true,...p,rows:p.rows.length});
+  34 |     }
+  35 |     const reverse=[];const searcher=new h.ReverseSearcher(h.db);for(let i=0;i<3;i++){const start=performance.now(),r=await searcher.search('f-100k-99999',{resourceIds:['f-100k']});reverse.push({ms:performance.now()-start,cacheHit:r.cacheHit,matches:r.matches.length});}
+
+   at scale.spec.ts:32
+
+  30 |     const samples:any[]=[];
+  31 |     for(const [name,w,logical] of [['pattern-reject-full',full,10000],['concat-reject-full',concat,10000],['tenK-output',tenK,10000],['million-prefix',million,1000000],['dynamic-mapping-extension-depth12',dynamic,10],['mutation-unicode',mutation,null]] as const){
+> 32 |       for(let round=0;round<3;round++){const pair:any[]=[];for(const optimize of round%2?[true,false]:[false,true]){const result=await run({...w,seed:[42,7,99999][round]},optimize);pair.push({optimize,...result});samples.push({name,round,seed:[42,7,99999][round],logical,optimize,...result,rows:result.rows.length,digest:Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(result.rows)))))).map(b=>b.toString(16).padStart(2,'0')).join('')});}if(JSON.stringify(pair[0].rows)!==JSON.stringify(pair[1].rows)||pair[0].stats?.steps!==pair[1].stats?.steps)throw new Error(`differential mismatch ${name}`);}
+     |                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^
+  33 |       const p=await run(w,true,true);samples.push({name,round:'profiled',logical,optimize:true,...p,rows:p.rows.length});
+  34 |     }
+  35 |     const reverse=[];const searcher=new h.ReverseSearcher(h.db);for(let i=0;i<3;i++){const start=performance.now(),r=await searcher.search('f-100k-99999',{resourceIds:['f-100k']});reverse.push({ms:performance.now()-start,cacheHit:r.cacheHit,matches:r.matches.length});}
+Error: No tests found.
+Make sure that arguments are regular expressions matching test files.
+You may need to escape symbols like "$" or "*" and quote the arguments.
+
+[WebServer] (node:49188) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:157776) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)

@@ -1,0 +1,15 @@
+{
+  "exits": [
+    {
+      "name": "browser",
+      "args": [
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "e2e/scale.spec.ts"
+      ],
+      "exit": 1,
+      "ms": 3909
+    }
+  ],
+  "restored": []
+}

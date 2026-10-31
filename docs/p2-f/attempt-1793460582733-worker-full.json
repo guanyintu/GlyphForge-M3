@@ -1,0 +1,2312 @@
+{
+  "imports": [
+    {
+      "id": "f-left",
+      "size": 100,
+      "ms": 12.400000095367432
+    },
+    {
+      "id": "f-right",
+      "size": 100,
+      "ms": 13.900000095367432
+    },
+    {
+      "id": "f-third",
+      "size": 10,
+      "ms": 7.599999904632568
+    },
+    {
+      "id": "f-heavy-left",
+      "size": 200,
+      "ms": 13.299999952316284
+    },
+    {
+      "id": "f-heavy-right",
+      "size": 200,
+      "ms": 13.699999809265137
+    },
+    {
+      "id": "f-100k",
+      "size": 100000,
+      "ms": 3837.4000000953674
+    }
+  ],
+  "samples": [
+    {
+      "name": "heavy-reject-full",
+      "round": 0,
+      "seed": 42,
+      "logical": 40000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 1090.7999999523163
+      },
+      "wallMs": 1117.1999998092651,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "heavy-reject-full",
+      "round": 0,
+      "seed": 42,
+      "logical": 40000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 40000,
+        "duration": 970.3000001907349
+      },
+      "wallMs": 999.1000001430511,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "heavy-reject-full",
+      "round": 1,
+      "seed": 7,
+      "logical": 40000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 40000,
+        "duration": 953.5
+      },
+      "wallMs": 981.4000000953674,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "heavy-reject-full",
+      "round": 1,
+      "seed": 7,
+      "logical": 40000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 1084
+      },
+      "wallMs": 1111.8999998569489,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "heavy-reject-full",
+      "round": 2,
+      "seed": 99999,
+      "logical": 40000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 1091.4000000953674
+      },
+      "wallMs": 1121.6999998092651,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "heavy-reject-full",
+      "round": 2,
+      "seed": 99999,
+      "logical": 40000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 40000,
+        "duration": 1009.2000000476837
+      },
+      "wallMs": 1038.5,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "heavy-reject-full",
+      "round": 3,
+      "seed": 42,
+      "logical": 40000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 40000,
+        "duration": 981.8999998569489
+      },
+      "wallMs": 1008.7999999523163,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "heavy-reject-full",
+      "round": 3,
+      "seed": 42,
+      "logical": 40000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 1050.5
+      },
+      "wallMs": 1077.2000000476837,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "heavy-reject-full",
+      "round": 4,
+      "seed": 7,
+      "logical": 40000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 1043.5
+      },
+      "wallMs": 1072.2999999523163,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "heavy-reject-full",
+      "round": 4,
+      "seed": 7,
+      "logical": 40000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 40000,
+        "duration": 939.8999998569489
+      },
+      "wallMs": 966.7999999523163,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "heavy-reject-full",
+      "round": 5,
+      "seed": 99999,
+      "logical": 40000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 40000,
+        "duration": 950.4000000953674
+      },
+      "wallMs": 978.4000000953674,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "heavy-reject-full",
+      "round": 5,
+      "seed": 99999,
+      "logical": 40000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 1117.1999998092651
+      },
+      "wallMs": 1145.3999998569489,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "heavy-reject-full",
+      "round": "profiled",
+      "logical": 40000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 161206,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 40000,
+        "duration": 1032.8999998569489
+      },
+      "metrics": {
+        "prepare": {
+          "ms": 8,
+          "calls": 1
+        },
+        "readInclusive": {
+          "ms": 711.300003528595,
+          "calls": 40401
+        },
+        "lineage": {
+          "ms": 9.299999237060547,
+          "calls": 40200
+        },
+        "text": {
+          "ms": 9.199999332427979,
+          "calls": 40000
+        },
+        "filter": {
+          "ms": 245.5,
+          "calls": 40000
+        },
+        "terminalPersistence": {
+          "ms": 1.7000000476837158,
+          "calls": 1
+        },
+        "historyRetention": {
+          "ms": 0.5999999046325684,
+          "calls": 1
+        }
+      },
+      "wallMs": 1061.7999999523163,
+      "batches": 0,
+      "rows": 0
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": 0,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 2124.300000190735
+      },
+      "wallMs": 2157.600000143051,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": 0,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 2154.5
+      },
+      "wallMs": 2180.9000000953674,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": 1,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 2231.100000143051
+      },
+      "wallMs": 2255.399999856949,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": 1,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 2370.2000000476837
+      },
+      "wallMs": 2396.7999999523163,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": 2,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 2189.5
+      },
+      "wallMs": 2215.2999999523163,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": 2,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 2442.100000143051
+      },
+      "wallMs": 2470.199999809265,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": 3,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 2455.399999856949
+      },
+      "wallMs": 2490.2999999523163,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": 3,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 2119.9000000953674
+      },
+      "wallMs": 2147.899999856949,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": 4,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 2251.600000143051
+      },
+      "wallMs": 2279,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": 4,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 2141.2999999523163
+      },
+      "wallMs": 2167.7999999523163,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": 5,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 2138.9000000953674
+      },
+      "wallMs": 2166,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": 5,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 2265
+      },
+      "wallMs": 2293.7000000476837,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "three-source-reject-full",
+      "round": "profiled",
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 47607,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 2065.7000000476837
+      },
+      "metrics": {
+        "prepare": {
+          "ms": 6.5,
+          "calls": 1
+        },
+        "readInclusive": {
+          "ms": 1939.9999976158142,
+          "calls": 12201
+        },
+        "lineage": {
+          "ms": 5.70000147819519,
+          "calls": 12100
+        },
+        "text": {
+          "ms": 4.0000011920928955,
+          "calls": 11000
+        },
+        "metadata": {
+          "ms": 11.500000238418579,
+          "calls": 1000
+        },
+        "filter": {
+          "ms": 72.49999952316284,
+          "calls": 10000
+        },
+        "terminalPersistence": {
+          "ms": 2,
+          "calls": 1
+        },
+        "historyRetention": {
+          "ms": 2.299999952316284,
+          "calls": 1
+        }
+      },
+      "wallMs": 2093,
+      "batches": 0,
+      "rows": 0
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": 0,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 442.19999980926514
+      },
+      "wallMs": 468.5,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": 0,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 309.5
+      },
+      "wallMs": 338.10000014305115,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": 1,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 309.7999999523163
+      },
+      "wallMs": 338.2000000476837,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": 1,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 346.90000009536743
+      },
+      "wallMs": 375.2999999523163,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": 2,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 353.7000000476837
+      },
+      "wallMs": 383.60000014305115,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": 2,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 323.09999990463257
+      },
+      "wallMs": 351.90000009536743,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": 3,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 329.59999990463257
+      },
+      "wallMs": 358.2999999523163,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": 3,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 347.5
+      },
+      "wallMs": 375.30000019073486,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": 4,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 333.09999990463257
+      },
+      "wallMs": 360.30000019073486,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": 4,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 319.60000014305115
+      },
+      "wallMs": 347.40000009536743,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": 5,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 320.90000009536743
+      },
+      "wallMs": 348.80000019073486,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": 5,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 368.5
+      },
+      "wallMs": 397.30000019073486,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "pattern-reject-full",
+      "round": "profiled",
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 345.09999990463257
+      },
+      "metrics": {
+        "prepare": {
+          "ms": 10.399999856948853,
+          "calls": 1
+        },
+        "readInclusive": {
+          "ms": 268.2999987602234,
+          "calls": 10201
+        },
+        "lineage": {
+          "ms": 2.299999713897705,
+          "calls": 10100
+        },
+        "text": {
+          "ms": 2.200000524520874,
+          "calls": 10000
+        },
+        "filter": {
+          "ms": 55.000001668930054,
+          "calls": 10000
+        },
+        "terminalPersistence": {
+          "ms": 1.7999999523162842,
+          "calls": 1
+        },
+        "historyRetention": {
+          "ms": 2.1000001430511475,
+          "calls": 1
+        }
+      },
+      "wallMs": 377.2999999523163,
+      "batches": 0,
+      "rows": 0
+    },
+    {
+      "name": "concat-reject-full",
+      "round": 0,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 336.7999999523163
+      },
+      "wallMs": 366,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "concat-reject-full",
+      "round": 0,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 331.59999990463257
+      },
+      "wallMs": 359.80000019073486,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "concat-reject-full",
+      "round": 1,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 310.60000014305115
+      },
+      "wallMs": 339.09999990463257,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "concat-reject-full",
+      "round": 1,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 317
+      },
+      "wallMs": 345.40000009536743,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "concat-reject-full",
+      "round": 2,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 314.2000000476837
+      },
+      "wallMs": 341.39999985694885,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "concat-reject-full",
+      "round": 2,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 300.2000000476837
+      },
+      "wallMs": 328.59999990463257,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "concat-reject-full",
+      "round": 3,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 298.90000009536743
+      },
+      "wallMs": 327.7999999523163,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "concat-reject-full",
+      "round": 3,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 335.7000000476837
+      },
+      "wallMs": 363,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "concat-reject-full",
+      "round": 4,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 317.2999999523163
+      },
+      "wallMs": 345.2999999523163,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "concat-reject-full",
+      "round": 4,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 302
+      },
+      "wallMs": 329.7999999523163,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "concat-reject-full",
+      "round": 5,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 303.09999990463257
+      },
+      "wallMs": 330.2000000476837,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "concat-reject-full",
+      "round": 5,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 318.5
+      },
+      "wallMs": 347,
+      "batches": 0,
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "concat-reject-full",
+      "round": "profiled",
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 40606,
+        "count": 0,
+        "truncated": false,
+        "safePruned": 10000,
+        "duration": 315.89999985694885
+      },
+      "metrics": {
+        "prepare": {
+          "ms": 6.799999952316284,
+          "calls": 1
+        },
+        "readInclusive": {
+          "ms": 258.79999923706055,
+          "calls": 10201
+        },
+        "lineage": {
+          "ms": 1.8000001907348633,
+          "calls": 10100
+        },
+        "text": {
+          "ms": 1.5000011920928955,
+          "calls": 10000
+        },
+        "filter": {
+          "ms": 36.80000042915344,
+          "calls": 10000
+        },
+        "terminalPersistence": {
+          "ms": 1.7000000476837158,
+          "calls": 1
+        },
+        "historyRetention": {
+          "ms": 2.0999999046325684,
+          "calls": 1
+        }
+      },
+      "wallMs": 343.5,
+      "batches": 0,
+      "rows": 0
+    },
+    {
+      "name": "tenK-output",
+      "round": 0,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 878.5999999046326
+      },
+      "wallMs": 906.5999999046326,
+      "batches": 157,
+      "rows": 10000,
+      "digest": "e0b5b4d9fbf287c9e9f286813813958607b2b15f8a794f92a0f9c77ee2320fca"
+    },
+    {
+      "name": "tenK-output",
+      "round": 0,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 845.5
+      },
+      "wallMs": 877.4000000953674,
+      "batches": 157,
+      "rows": 10000,
+      "digest": "e0b5b4d9fbf287c9e9f286813813958607b2b15f8a794f92a0f9c77ee2320fca"
+    },
+    {
+      "name": "tenK-output",
+      "round": 1,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 891.2999999523163
+      },
+      "wallMs": 917.1000001430511,
+      "batches": 157,
+      "rows": 10000,
+      "digest": "9ca0afac407f375983f47579e0cf72e9fd559be009aff9eb7f2ae445de3aa5db"
+    },
+    {
+      "name": "tenK-output",
+      "round": 1,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 851.2000000476837
+      },
+      "wallMs": 877.5,
+      "batches": 157,
+      "rows": 10000,
+      "digest": "9ca0afac407f375983f47579e0cf72e9fd559be009aff9eb7f2ae445de3aa5db"
+    },
+    {
+      "name": "tenK-output",
+      "round": 2,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 897.3999998569489
+      },
+      "wallMs": 924.7999999523163,
+      "batches": 157,
+      "rows": 10000,
+      "digest": "dc4f523aaaf281be77dc82857718cd687016d20c00c89feb2f6ae5566ca0357e"
+    },
+    {
+      "name": "tenK-output",
+      "round": 2,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 1049.5
+      },
+      "wallMs": 1081.5,
+      "batches": 157,
+      "rows": 10000,
+      "digest": "dc4f523aaaf281be77dc82857718cd687016d20c00c89feb2f6ae5566ca0357e"
+    },
+    {
+      "name": "tenK-output",
+      "round": 3,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 1077.2000000476837
+      },
+      "wallMs": 1106.1999998092651,
+      "batches": 157,
+      "rows": 10000,
+      "digest": "e0b5b4d9fbf287c9e9f286813813958607b2b15f8a794f92a0f9c77ee2320fca"
+    },
+    {
+      "name": "tenK-output",
+      "round": 3,
+      "seed": 42,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 949.5999999046326
+      },
+      "wallMs": 976.9000000953674,
+      "batches": 157,
+      "rows": 10000,
+      "digest": "e0b5b4d9fbf287c9e9f286813813958607b2b15f8a794f92a0f9c77ee2320fca"
+    },
+    {
+      "name": "tenK-output",
+      "round": 4,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 945.7000000476837
+      },
+      "wallMs": 972,
+      "batches": 157,
+      "rows": 10000,
+      "digest": "9ca0afac407f375983f47579e0cf72e9fd559be009aff9eb7f2ae445de3aa5db"
+    },
+    {
+      "name": "tenK-output",
+      "round": 4,
+      "seed": 7,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 955.6999998092651
+      },
+      "wallMs": 983.3999998569489,
+      "batches": 157,
+      "rows": 10000,
+      "digest": "9ca0afac407f375983f47579e0cf72e9fd559be009aff9eb7f2ae445de3aa5db"
+    },
+    {
+      "name": "tenK-output",
+      "round": 5,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 931.7999999523163
+      },
+      "wallMs": 957.7999999523163,
+      "batches": 157,
+      "rows": 10000,
+      "digest": "dc4f523aaaf281be77dc82857718cd687016d20c00c89feb2f6ae5566ca0357e"
+    },
+    {
+      "name": "tenK-output",
+      "round": 5,
+      "seed": 99999,
+      "logical": 10000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 1014.5999999046326
+      },
+      "wallMs": 1040.9000000953674,
+      "batches": 157,
+      "rows": 10000,
+      "digest": "dc4f523aaaf281be77dc82857718cd687016d20c00c89feb2f6ae5566ca0357e"
+    },
+    {
+      "name": "tenK-output",
+      "round": "profiled",
+      "logical": 10000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 50606,
+        "count": 10000,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 1022.5999999046326
+      },
+      "metrics": {
+        "prepare": {
+          "ms": 7.599999904632568,
+          "calls": 1
+        },
+        "readInclusive": {
+          "ms": 299.2000002861023,
+          "calls": 10201
+        },
+        "lineage": {
+          "ms": 11.299998998641968,
+          "calls": 40100
+        },
+        "text": {
+          "ms": 2.499999523162842,
+          "calls": 10000
+        },
+        "filter": {
+          "ms": 50.09999942779541,
+          "calls": 10000
+        },
+        "metadata": {
+          "ms": 13.799998760223389,
+          "calls": 10000
+        },
+        "persistence": {
+          "ms": 597.1000008583069,
+          "calls": 157
+        },
+        "messageEnqueue": {
+          "ms": 11.599998474121094,
+          "calls": 157
+        },
+        "terminalPersistence": {
+          "ms": 1.5,
+          "calls": 1
+        },
+        "historyRetention": {
+          "ms": 1.9000000953674316,
+          "calls": 1
+        }
+      },
+      "wallMs": 1049.5,
+      "batches": 157,
+      "rows": 10000
+    },
+    {
+      "name": "million-prefix",
+      "round": 0,
+      "seed": 42,
+      "logical": 1000000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 23
+      },
+      "wallMs": 51.700000047683716,
+      "batches": 1,
+      "rows": 60,
+      "digest": "a2cb98a1e702a50ac252d0a4fedae68a77ea136ff9b2cec4631fd9b6fdee6bba"
+    },
+    {
+      "name": "million-prefix",
+      "round": 0,
+      "seed": 42,
+      "logical": 1000000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 22.299999952316284
+      },
+      "wallMs": 47.5,
+      "batches": 1,
+      "rows": 60,
+      "digest": "a2cb98a1e702a50ac252d0a4fedae68a77ea136ff9b2cec4631fd9b6fdee6bba"
+    },
+    {
+      "name": "million-prefix",
+      "round": 1,
+      "seed": 7,
+      "logical": 1000000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 22.40000009536743
+      },
+      "wallMs": 46.39999985694885,
+      "batches": 1,
+      "rows": 60,
+      "digest": "13393d3b1f88038cf489c100a15283c3731ebbdfbab73978aa71da5b85015a72"
+    },
+    {
+      "name": "million-prefix",
+      "round": 1,
+      "seed": 7,
+      "logical": 1000000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 20.699999809265137
+      },
+      "wallMs": 44.10000014305115,
+      "batches": 1,
+      "rows": 60,
+      "digest": "13393d3b1f88038cf489c100a15283c3731ebbdfbab73978aa71da5b85015a72"
+    },
+    {
+      "name": "million-prefix",
+      "round": 2,
+      "seed": 99999,
+      "logical": 1000000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 53.39999985694885
+      },
+      "wallMs": 77,
+      "batches": 1,
+      "rows": 60,
+      "digest": "1cf6484ed8ac02eaeffcd441ae5479d7c397d3976949a7ba30507551426d5f10"
+    },
+    {
+      "name": "million-prefix",
+      "round": 2,
+      "seed": 99999,
+      "logical": 1000000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 53.30000019073486
+      },
+      "wallMs": 77.09999990463257,
+      "batches": 1,
+      "rows": 60,
+      "digest": "1cf6484ed8ac02eaeffcd441ae5479d7c397d3976949a7ba30507551426d5f10"
+    },
+    {
+      "name": "million-prefix",
+      "round": 3,
+      "seed": 42,
+      "logical": 1000000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 23.09999990463257
+      },
+      "wallMs": 47.59999990463257,
+      "batches": 1,
+      "rows": 60,
+      "digest": "a2cb98a1e702a50ac252d0a4fedae68a77ea136ff9b2cec4631fd9b6fdee6bba"
+    },
+    {
+      "name": "million-prefix",
+      "round": 3,
+      "seed": 42,
+      "logical": 1000000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 22.299999952316284
+      },
+      "wallMs": 542.5,
+      "batches": 1,
+      "rows": 60,
+      "digest": "a2cb98a1e702a50ac252d0a4fedae68a77ea136ff9b2cec4631fd9b6fdee6bba"
+    },
+    {
+      "name": "million-prefix",
+      "round": 4,
+      "seed": 7,
+      "logical": 1000000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 21.90000009536743
+      },
+      "wallMs": 599.9000000953674,
+      "batches": 1,
+      "rows": 60,
+      "digest": "13393d3b1f88038cf489c100a15283c3731ebbdfbab73978aa71da5b85015a72"
+    },
+    {
+      "name": "million-prefix",
+      "round": 4,
+      "seed": 7,
+      "logical": 1000000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 22.299999952316284
+      },
+      "wallMs": 596.4000000953674,
+      "batches": 1,
+      "rows": 60,
+      "digest": "13393d3b1f88038cf489c100a15283c3731ebbdfbab73978aa71da5b85015a72"
+    },
+    {
+      "name": "million-prefix",
+      "round": 5,
+      "seed": 99999,
+      "logical": 1000000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 51
+      },
+      "wallMs": 607.5999999046326,
+      "batches": 1,
+      "rows": 60,
+      "digest": "1cf6484ed8ac02eaeffcd441ae5479d7c397d3976949a7ba30507551426d5f10"
+    },
+    {
+      "name": "million-prefix",
+      "round": 5,
+      "seed": 99999,
+      "logical": 1000000,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 56.09999990463257
+      },
+      "wallMs": 633.0999999046326,
+      "batches": 1,
+      "rows": 60,
+      "digest": "1cf6484ed8ac02eaeffcd441ae5479d7c397d3976949a7ba30507551426d5f10"
+    },
+    {
+      "name": "million-prefix",
+      "round": "profiled",
+      "logical": 1000000,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 291,
+        "count": 60,
+        "truncated": true,
+        "safePruned": 0,
+        "duration": 56.5
+      },
+      "metrics": {
+        "prepare": {
+          "ms": 6.3999998569488525,
+          "calls": 1
+        },
+        "readInclusive": {
+          "ms": 49.80000066757202,
+          "calls": 74
+        },
+        "lineage": {
+          "ms": 0.4999997615814209,
+          "calls": 190
+        },
+        "text": {
+          "ms": 0,
+          "calls": 61
+        },
+        "metadata": {
+          "ms": 0.6000001430511475,
+          "calls": 61
+        },
+        "persistence": {
+          "ms": 4,
+          "calls": 1
+        },
+        "messageEnqueue": {
+          "ms": 0.09999990463256836,
+          "calls": 1
+        },
+        "terminalPersistence": {
+          "ms": 3.5,
+          "calls": 1
+        },
+        "historyRetention": {
+          "ms": 497.5,
+          "calls": 1
+        }
+      },
+      "wallMs": 628.4000000953674,
+      "batches": 1,
+      "rows": 60
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": 0,
+      "seed": 42,
+      "logical": 10,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 21.299999952316284
+      },
+      "wallMs": 592.6000001430511,
+      "batches": 1,
+      "rows": 10,
+      "digest": "a503a55f02b7a3655f9d221ae7c0dfd990198ae8eef0d51dfd2a8210e2050f35"
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": 0,
+      "seed": 42,
+      "logical": 10,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 19.5
+      },
+      "wallMs": 593.7000000476837,
+      "batches": 1,
+      "rows": 10,
+      "digest": "a503a55f02b7a3655f9d221ae7c0dfd990198ae8eef0d51dfd2a8210e2050f35"
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": 1,
+      "seed": 7,
+      "logical": 10,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 20.5
+      },
+      "wallMs": 591.5,
+      "batches": 1,
+      "rows": 10,
+      "digest": "c6179567e59f418d356c2dc1e0ffe96a038024b75877fd3c19a8f4d56160ca13"
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": 1,
+      "seed": 7,
+      "logical": 10,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 19.199999809265137
+      },
+      "wallMs": 571.3999998569489,
+      "batches": 1,
+      "rows": 10,
+      "digest": "c6179567e59f418d356c2dc1e0ffe96a038024b75877fd3c19a8f4d56160ca13"
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": 2,
+      "seed": 99999,
+      "logical": 10,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 17.90000009536743
+      },
+      "wallMs": 579.0999999046326,
+      "batches": 1,
+      "rows": 10,
+      "digest": "afec75df9a9c91d4b65c736dbde43c54fb45fb8fa2c83ca10c092bf9e2ca9f5c"
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": 2,
+      "seed": 99999,
+      "logical": 10,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 20.199999809265137
+      },
+      "wallMs": 586.1999998092651,
+      "batches": 1,
+      "rows": 10,
+      "digest": "afec75df9a9c91d4b65c736dbde43c54fb45fb8fa2c83ca10c092bf9e2ca9f5c"
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": 3,
+      "seed": 42,
+      "logical": 10,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 21.100000143051147
+      },
+      "wallMs": 577.8000001907349,
+      "batches": 1,
+      "rows": 10,
+      "digest": "a503a55f02b7a3655f9d221ae7c0dfd990198ae8eef0d51dfd2a8210e2050f35"
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": 3,
+      "seed": 42,
+      "logical": 10,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 18.90000009536743
+      },
+      "wallMs": 101.5,
+      "batches": 1,
+      "rows": 10,
+      "digest": "a503a55f02b7a3655f9d221ae7c0dfd990198ae8eef0d51dfd2a8210e2050f35"
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": 4,
+      "seed": 7,
+      "logical": 10,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 18.199999809265137
+      },
+      "wallMs": 50.299999952316284,
+      "batches": 1,
+      "rows": 10,
+      "digest": "c6179567e59f418d356c2dc1e0ffe96a038024b75877fd3c19a8f4d56160ca13"
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": 4,
+      "seed": 7,
+      "logical": 10,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 19.299999952316284
+      },
+      "wallMs": 51.60000014305115,
+      "batches": 1,
+      "rows": 10,
+      "digest": "c6179567e59f418d356c2dc1e0ffe96a038024b75877fd3c19a8f4d56160ca13"
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": 5,
+      "seed": 99999,
+      "logical": 10,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 18.5
+      },
+      "wallMs": 51.200000047683716,
+      "batches": 1,
+      "rows": 10,
+      "digest": "afec75df9a9c91d4b65c736dbde43c54fb45fb8fa2c83ca10c092bf9e2ca9f5c"
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": 5,
+      "seed": 99999,
+      "logical": 10,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 19
+      },
+      "wallMs": 52.39999985694885,
+      "batches": 1,
+      "rows": 10,
+      "digest": "afec75df9a9c91d4b65c736dbde43c54fb45fb8fa2c83ca10c092bf9e2ca9f5c"
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "round": "profiled",
+      "logical": 10,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 229,
+        "count": 10,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 20.100000143051147
+      },
+      "metrics": {
+        "prepare": {
+          "ms": 10.5,
+          "calls": 1
+        },
+        "lineage": {
+          "ms": 0.9000000953674316,
+          "calls": 250
+        },
+        "readInclusive": {
+          "ms": 14.700000047683716,
+          "calls": 11
+        },
+        "persistence": {
+          "ms": 5,
+          "calls": 1
+        },
+        "messageEnqueue": {
+          "ms": 0,
+          "calls": 1
+        },
+        "terminalPersistence": {
+          "ms": 3.5,
+          "calls": 1
+        },
+        "historyRetention": {
+          "ms": 6.099999904632568,
+          "calls": 1
+        }
+      },
+      "wallMs": 53.799999952316284,
+      "batches": 1,
+      "rows": 10
+    },
+    {
+      "name": "mutation-unicode",
+      "round": 0,
+      "seed": 42,
+      "logical": null,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 22.299999952316284
+      },
+      "wallMs": 49.19999980926514,
+      "batches": 1,
+      "rows": 34,
+      "digest": "69731b0546b8e4c1adb58139be8b6e8ee4b1038c718789782ba90f6e2e19a3ed"
+    },
+    {
+      "name": "mutation-unicode",
+      "round": 0,
+      "seed": 42,
+      "logical": null,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 22.799999952316284
+      },
+      "wallMs": 52.10000014305115,
+      "batches": 1,
+      "rows": 34,
+      "digest": "69731b0546b8e4c1adb58139be8b6e8ee4b1038c718789782ba90f6e2e19a3ed"
+    },
+    {
+      "name": "mutation-unicode",
+      "round": 1,
+      "seed": 7,
+      "logical": null,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 23.199999809265137
+      },
+      "wallMs": 52.30000019073486,
+      "batches": 1,
+      "rows": 34,
+      "digest": "02da021e246e912bbb9264638b11d7f15e98c5a7aa5008e858059648a10d6f66"
+    },
+    {
+      "name": "mutation-unicode",
+      "round": 1,
+      "seed": 7,
+      "logical": null,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 23.699999809265137
+      },
+      "wallMs": 53.299999952316284,
+      "batches": 1,
+      "rows": 34,
+      "digest": "02da021e246e912bbb9264638b11d7f15e98c5a7aa5008e858059648a10d6f66"
+    },
+    {
+      "name": "mutation-unicode",
+      "round": 2,
+      "seed": 99999,
+      "logical": null,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 21.699999809265137
+      },
+      "wallMs": 50,
+      "batches": 1,
+      "rows": 34,
+      "digest": "5bb7ddb14342b833e6a6a10567a7ed71f7bd0112d9611930e4993655f2cf3ad1"
+    },
+    {
+      "name": "mutation-unicode",
+      "round": 2,
+      "seed": 99999,
+      "logical": null,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 21.40000009536743
+      },
+      "wallMs": 50.799999952316284,
+      "batches": 1,
+      "rows": 34,
+      "digest": "5bb7ddb14342b833e6a6a10567a7ed71f7bd0112d9611930e4993655f2cf3ad1"
+    },
+    {
+      "name": "mutation-unicode",
+      "round": 3,
+      "seed": 42,
+      "logical": null,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 21.5
+      },
+      "wallMs": 49.90000009536743,
+      "batches": 1,
+      "rows": 34,
+      "digest": "69731b0546b8e4c1adb58139be8b6e8ee4b1038c718789782ba90f6e2e19a3ed"
+    },
+    {
+      "name": "mutation-unicode",
+      "round": 3,
+      "seed": 42,
+      "logical": null,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 22.100000143051147
+      },
+      "wallMs": 47.5,
+      "batches": 1,
+      "rows": 34,
+      "digest": "69731b0546b8e4c1adb58139be8b6e8ee4b1038c718789782ba90f6e2e19a3ed"
+    },
+    {
+      "name": "mutation-unicode",
+      "round": 4,
+      "seed": 7,
+      "logical": null,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 22.899999856948853
+      },
+      "wallMs": 49.09999990463257,
+      "batches": 1,
+      "rows": 34,
+      "digest": "02da021e246e912bbb9264638b11d7f15e98c5a7aa5008e858059648a10d6f66"
+    },
+    {
+      "name": "mutation-unicode",
+      "round": 4,
+      "seed": 7,
+      "logical": null,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 21.90000009536743
+      },
+      "wallMs": 49.299999952316284,
+      "batches": 1,
+      "rows": 34,
+      "digest": "02da021e246e912bbb9264638b11d7f15e98c5a7aa5008e858059648a10d6f66"
+    },
+    {
+      "name": "mutation-unicode",
+      "round": 5,
+      "seed": 99999,
+      "logical": null,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 23.09999990463257
+      },
+      "wallMs": 49.90000009536743,
+      "batches": 1,
+      "rows": 34,
+      "digest": "5bb7ddb14342b833e6a6a10567a7ed71f7bd0112d9611930e4993655f2cf3ad1"
+    },
+    {
+      "name": "mutation-unicode",
+      "round": 5,
+      "seed": 99999,
+      "logical": null,
+      "optimize": false,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 22.200000047683716
+      },
+      "wallMs": 50.40000009536743,
+      "batches": 1,
+      "rows": 34,
+      "digest": "5bb7ddb14342b833e6a6a10567a7ed71f7bd0112d9611930e4993655f2cf3ad1"
+    },
+    {
+      "name": "mutation-unicode",
+      "round": "profiled",
+      "logical": null,
+      "optimize": true,
+      "type": "done",
+      "stats": {
+        "steps": 6180,
+        "count": 34,
+        "truncated": false,
+        "safePruned": 0,
+        "duration": 20.5
+      },
+      "metrics": {
+        "prepare": {
+          "ms": 6.099999904632568,
+          "calls": 1
+        },
+        "lineage": {
+          "ms": 0.09999990463256836,
+          "calls": 68
+        },
+        "persistence": {
+          "ms": 3.8999998569488525,
+          "calls": 1
+        },
+        "messageEnqueue": {
+          "ms": 0,
+          "calls": 1
+        },
+        "terminalPersistence": {
+          "ms": 1,
+          "calls": 1
+        },
+        "historyRetention": {
+          "ms": 2.6000001430511475,
+          "calls": 1
+        }
+      },
+      "wallMs": 46.30000019073486,
+      "batches": 1,
+      "rows": 34
+    }
+  ],
+  "reverse": [
+    {
+      "ms": 33.59999990463257,
+      "cacheHit": false,
+      "matches": 5
+    },
+    {
+      "ms": 1.1000001430511475,
+      "cacheHit": true,
+      "matches": 5
+    },
+    {
+      "ms": 0.7999999523162842,
+      "cacheHit": true,
+      "matches": 5
+    }
+  ],
+  "estimate": {
+    "candidates": {
+      "upper": "1000000",
+      "exact": true
+    },
+    "combinations": {
+      "upper": "1000000",
+      "exact": true
+    },
+    "limit": 60,
+    "depth": 0,
+    "risk": "high",
+    "reasons": [
+      "静态数量来自版本化元数据；字符串超限、去重和过滤可能降低输出，内部重复读取不等于候选数",
+      "输出至多 60；为确认截断可能读取下一项，拒绝项仍消耗步骤；共享 300000 步 / 10 秒"
+    ],
+    "key": "[{\"version\":1,\"id\":\"f-million\",\"name\":\"资源复用\",\"seed\":99999,\"limit\":60,\"layout\":{\"source\":{\"x\":30,\"y\":100},\"result\":{\"x\":330,\"y\":100}},\"nodes\":[{\"id\":\"source\",\"op\":\"resource\",\"inputs\":[],\"params\":{\"resourceId\":\"f-100k\"}},{\"id\":\"right\",\"op\":\"resource\",\"inputs\":[],\"params\":{\"resourceId\":\"f-third\"}},{\"id\":\"mix\",\"op\":\"concat\",\"inputs\":[\"source\",\"right\"],\"params\":{\"separator\":\"\"}},{\"id\":\"result\",\"op\":\"output\",\"inputs\":[\"mix\"],\"params\":{}}]},\"[\\\"glyphforge-resource\\\",1,[[\\\"f-100k\\\",\\\"word\\\",101,null],[\\\"f-third\\\",\\\"word\\\",2,null]]]\",[[\"f-100k\",100000],[\"f-third\",10]],[{\"key\":\"glyphforge-text@1.0.0\",\"manifest\":{\"format\":\"glyphforge-operator-pack\",\"protocol\":1,\"id\":\"glyphforge-text\",\"version\":\"1.0.0\",\"publisher\":\"GlyphForge\",\"source\":\"bundled:glyphforge-text\",\"compatibility\":{\"ir\":1,\"contract\":1},\"permissions\":[],\"mode\":\"declarative-pipeline\",\"deterministic\":true,\"streaming\":\"incremental\",\"dependencies\":[],\"migrations\":[],\"operators\":[{\"id\":\"frame\",\"name\":\"有界文字结构\",\"inputTypes\":[\"CandidateSequence\"],\"outputType\":\"CandidateSequence\",\"parameters\":{\"prefix\":{\"type\":\"string\",\"default\":\"「\"},\"suffix\":{\"type\":\"string\",\"default\":\"」\"},\"mappingId\":{\"type\":\"string\",\"default\":\"\"}},\"steps\":[{\"op\":\"mapchars\",\"params\":{\"mapping\":\"{}\"},\"bindings\":{\"mappingId\":\"mappingId\"}},{\"op\":\"prefix\",\"params\":{},\"bindings\":{\"text\":\"prefix\"}},{\"op\":\"reverse\",\"params\":{}},{\"op\":\"prefix\",\"params\":{},\"bindings\":{\"text\":\"suffix\"}},{\"op\":\"reverse\",\"params\":{}}]},{\"id\":\"select\",\"name\":\"组合条件筛选\",\"inputTypes\":[\"CandidateSequence\"],\"outputType\":\"CandidateSequence\",\"parameters\":{\"contains\":{\"type\":\"string\",\"default\":\"\"},\"excludes\":{\"type\":\"string\",\"default\":\"\"},\"maxLength\":{\"type\":\"number\",\"default\":12}},\"steps\":[{\"op\":\"filter\",\"params\":{},\"bindings\":{\"includes\":\"contains\",\"maxLength\":\"maxLength\"}},{\"op\":\"filter\",\"params\":{},\"bindings\":{\"excludes\":\"excludes\",\"maxLength\":\"maxLength\"}}]}]},\"enabled\":true}]]"
+  },
+  "estimateDynamic": {
+    "candidates": {
+      "upper": "10000",
+      "exact": false
+    },
+    "combinations": {
+      "exact": false
+    },
+    "limit": 10000,
+    "depth": 0,
+    "risk": "unknown",
+    "reasons": [
+      "动态源 f-dyn2 的 count 不是实体数量；范围 0–10000，内部枚举未知",
+      "静态数量来自版本化元数据；字符串超限、去重和过滤可能降低输出，内部重复读取不等于候选数",
+      "输出至多 10000；为确认截断可能读取下一项，拒绝项仍消耗步骤；共享 300000 步 / 10 秒"
+    ],
+    "key": "[{\"version\":1,\"id\":\"4819e48c-e6ba-45d3-9916-2d2c1852ec3d\",\"name\":\"资源复用\",\"seed\":42,\"limit\":10000,\"layout\":{\"source\":{\"x\":30,\"y\":100},\"result\":{\"x\":330,\"y\":100}},\"nodes\":[{\"id\":\"source\",\"op\":\"resource\",\"inputs\":[],\"params\":{\"resourceId\":\"f-dyn2\"}},{\"id\":\"result\",\"op\":\"output\",\"inputs\":[\"source\"],\"params\":{}}]},\"[\\\"glyphforge-resource\\\",1,[[\\\"f-dyn1\\\",\\\"word\\\",1,{\\\"format\\\":1,\\\"type\\\":\\\"dynamic\\\",\\\"workflow\\\":{\\\"version\\\":1,\\\"id\\\":\\\"96c9de9b-16ed-4bee-ac0d-8da099e3e560\\\",\\\"name\\\":\\\"资源复用\\\",\\\"seed\\\":42,\\\"limit\\\":10000,\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100},\\\"call_623f1838dd0d\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_af452b7e3acb\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_e6c67c3fd18e\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_b786cf50d791\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_1883332a2330\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_c87667a60fd1\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_5fc0dd1f08ef\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_6853474e91f2\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_63d7191ca10c\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_2152f185a470\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_b729a0eb1096\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_bc70d0c440d2\\\":{\\\"x\\\":300,\\\"y\\\":100}},\\\"nodes\\\":[{\\\"id\\\":\\\"source\\\",\\\"op\\\":\\\"resource\\\",\\\"inputs\\\":[],\\\"params\\\":{\\\"resourceId\\\":\\\"f-third\\\"}},{\\\"id\\\":\\\"result\\\",\\\"op\\\":\\\"output\\\",\\\"inputs\\\":[\\\"call_bc70d0c440d2\\\"],\\\"params\\\":{}},{\\\"id\\\":\\\"call_bc70d0c440d2\\\",\\\"op\\\":\\\"call\\\",\\\"inputs\\\":[\\\"source\\\"],\\\"params\\\":{},\\\"call\\\":{\\\"definitionId\\\":\\\"0c641fe9-d593-46e8-9176-b80ed722feb2\\\",\\\"version\\\":1,\\\"bindings\\\":{}}}],\\\"extensions\\\":[{\\\"format\\\":\\\"glyphforge-operator-pack\\\",\\\"protocol\\\":1,\\\"id\\\":\\\"glyphforge-text\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"publisher\\\":\\\"GlyphForge\\\",\\\"source\\\":\\\"bundled:glyphforge-text\\\",\\\"compatibility\\\":{\\\"ir\\\":1,\\\"contract\\\":1},\\\"permissions\\\":[],\\\"mode\\\":\\\"declarative-pipeline\\\",\\\"deterministic\\\":true,\\\"streaming\\\":\\\"incremental\\\",\\\"dependencies\\\":[],\\\"migrations\\\":[],\\\"operators\\\":[{\\\"id\\\":\\\"frame\\\",\\\"name\\\":\\\"有界文字结构\\\",\\\"inputTypes\\\":[\\\"CandidateSequence\\\"],\\\"outputType\\\":\\\"CandidateSequence\\\",\\\"parameters\\\":{\\\"prefix\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"「\\\"},\\\"suffix\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"」\\\"},\\\"mappingId\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"}},\\\"steps\\\":[{\\\"op\\\":\\\"mapchars\\\",\\\"params\\\":{\\\"mapping\\\":\\\"{}\\\"},\\\"bindings\\\":{\\\"mappingId\\\":\\\"mappingId\\\"}},{\\\"op\\\":\\\"prefix\\\",\\\"params\\\":{},\\\"bindings\\\":{\\\"text\\\":\\\"prefix\\\"}},{\\\"op\\\":\\\"reverse\\\",\\\"params\\\":{}},{\\\"op\\\":\\\"prefix\\\",\\\"params\\\":{},\\\"bindings\\\":{\\\"text\\\":\\\"suffix\\\"}},{\\\"op\\\":\\\"reverse\\\",\\\"params\\\":{}}]},{\\\"id\\\":\\\"select\\\",\\\"name\\\":\\\"组合条件筛选\\\",\\\"inputTypes\\\":[\\\"CandidateSequence\\\"],\\\"outputType\\\":\\\"CandidateSequence\\\",\\\"parameters\\\":{\\\"contains\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"excludes\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"maxLength\\\":{\\\"type\\\":\\\"number\\\",\\\"default\\\":12}},\\\"steps\\\":[{\\\"op\\\":\\\"filter\\\",\\\"params\\\":{},\\\"bindings\\\":{\\\"includes\\\":\\\"contains\\\",\\\"maxLength\\\":\\\"maxLength\\\"}},{\\\"op\\\":\\\"filter\\\",\\\"params\\\":{},\\\"bindings\\\":{\\\"excludes\\\":\\\"excludes\\\",\\\"maxLength\\\":\\\"maxLength\\\"}}]}]}],\\\"subgraphs\\\":[{\\\"id\\\":\\\"ced30a75-61ae-4a3c-a369-9f2852742961\\\",\\\"version\\\":1,\\\"name\\\":\\\"可复用命名函数\\\",\\\"parameters\\\":[{\\\"name\\\":\\\"input1\\\",\\\"type\\\":\\\"CandidateSequence\\\"}],\\\"returns\\\":\\\"CandidateSequence\\\",\\\"output\\\":\\\"ext\\\",\\\"nodes\\\":[{\\\"id\\\":\\\"arg_1\\\",\\\"op\\\":\\\"argument\\\",\\\"params\\\":{\\\"name\\\":\\\"input1\\\"},\\\"inputs\\\":[]},{\\\"id\\\":\\\"mapping\\\",\\\"op\\\":\\\"mapchars\\\",\\\"inputs\\\":[\\\"arg_1\\\"],\\\"params\\\":{\\\"mappingId\\\":\\\"f-map\\\",\\\"mapping\\\":\\\"{}\\\",\\\"mode\\\":\\\"first\\\"}},{\\\"id\\\":\\\"ext\\\",\\\"op\\\":\\\"extension\\\",\\\"inputs\\\":[\\\"mapping\\\"],\\\"params\\\":{\\\"pack\\\":\\\"glyphforge-text\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"operator\\\":\\\"frame\\\",\\\"values\\\":\\\"{}\\\"}}],\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100}}},{\\\"id\\\":\\\"2eec1a4a-da4a-42e7-9521-a7ff1a3a2196\\\",\\\"version\\\":1,\\\"name\\\":\\\"可复用命名函数\\\",\\\"parameters\\\":[{\\\"name\\\":\\\"input1\\\",\\\"type\\\":\\\"CandidateSequence\\\"}],\\\"returns\\\":\\\"CandidateSequence\\\",\\\"output\\\":\\\"call_623f1838dd0d\\\",\\\"nodes\\\":[{\\\"id\\\":\\\"arg_1\\\",\\\"op\\\":\\\"argument\\\",\\\"params\\\":{\\\"name\\\":\\\"input1\\\"},\\\"inputs\\\":[]},{\\\"id\\\":\\\"call_623f1838dd0d\\\",\\\"op\\\":\\\"call\\\",\\\"inputs\\\":[\\\"arg_1\\\"],\\\"params\\\":{},\\\"call\\\":{\\\"definitionId\\\":\\\"ced30a75-61ae-4a3c-a369-9f2852742961\\\",\\\"version\\\":1,\\\"bindings\\\":{}}}],\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100},\\\"call_623f1838dd0d\\\":{\\\"x\\\":300,\\\"y\\\":100}}},{\\\"id\\\":\\\"159ddaf6-4e6e-4d8f-b196-16bacbbd6849\\\",\\\"version\\\":1,\\\"name\\\":\\\"可复用命名函数\\\",\\\"parameters\\\":[{\\\"name\\\":\\\"input1\\\",\\\"type\\\":\\\"CandidateSequence\\\"}],\\\"returns\\\":\\\"CandidateSequence\\\",\\\"output\\\":\\\"call_af452b7e3acb\\\",\\\"nodes\\\":[{\\\"id\\\":\\\"arg_1\\\",\\\"op\\\":\\\"argument\\\",\\\"params\\\":{\\\"name\\\":\\\"input1\\\"},\\\"inputs\\\":[]},{\\\"id\\\":\\\"call_af452b7e3acb\\\",\\\"op\\\":\\\"call\\\",\\\"inputs\\\":[\\\"arg_1\\\"],\\\"params\\\":{},\\\"call\\\":{\\\"definitionId\\\":\\\"2eec1a4a-da4a-42e7-9521-a7ff1a3a2196\\\",\\\"version\\\":1,\\\"bindings\\\":{}}}],\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100},\\\"call_623f1838dd0d\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_af452b7e3acb\\\":{\\\"x\\\":300,\\\"y\\\":100}}},{\\\"id\\\":\\\"c3b239a7-d16c-46a5-8f86-10987e755594\\\",\\\"version\\\":1,\\\"name\\\":\\\"可复用命名函数\\\",\\\"parameters\\\":[{\\\"name\\\":\\\"input1\\\",\\\"type\\\":\\\"CandidateSequence\\\"}],\\\"returns\\\":\\\"CandidateSequence\\\",\\\"output\\\":\\\"call_e6c67c3fd18e\\\",\\\"nodes\\\":[{\\\"id\\\":\\\"arg_1\\\",\\\"op\\\":\\\"argument\\\",\\\"params\\\":{\\\"name\\\":\\\"input1\\\"},\\\"inputs\\\":[]},{\\\"id\\\":\\\"call_e6c67c3fd18e\\\",\\\"op\\\":\\\"call\\\",\\\"inputs\\\":[\\\"arg_1\\\"],\\\"params\\\":{},\\\"call\\\":{\\\"definitionId\\\":\\\"159ddaf6-4e6e-4d8f-b196-16bacbbd6849\\\",\\\"version\\\":1,\\\"bindings\\\":{}}}],\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100},\\\"call_623f1838dd0d\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_af452b7e3acb\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_e6c67c3fd18e\\\":{\\\"x\\\":300,\\\"y\\\":100}}},{\\\"id\\\":\\\"08d96454-99a0-4448-a648-29cabd12e773\\\",\\\"version\\\":1,\\\"name\\\":\\\"可复用命名函数\\\",\\\"parameters\\\":[{\\\"name\\\":\\\"input1\\\",\\\"type\\\":\\\"CandidateSequence\\\"}],\\\"returns\\\":\\\"CandidateSequence\\\",\\\"output\\\":\\\"call_b786cf50d791\\\",\\\"nodes\\\":[{\\\"id\\\":\\\"arg_1\\\",\\\"op\\\":\\\"argument\\\",\\\"params\\\":{\\\"name\\\":\\\"input1\\\"},\\\"inputs\\\":[]},{\\\"id\\\":\\\"call_b786cf50d791\\\",\\\"op\\\":\\\"call\\\",\\\"inputs\\\":[\\\"arg_1\\\"],\\\"params\\\":{},\\\"call\\\":{\\\"definitionId\\\":\\\"c3b239a7-d16c-46a5-8f86-10987e755594\\\",\\\"version\\\":1,\\\"bindings\\\":{}}}],\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100},\\\"call_623f1838dd0d\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_af452b7e3acb\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_e6c67c3fd18e\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_b786cf50d791\\\":{\\\"x\\\":300,\\\"y\\\":100}}},{\\\"id\\\":\\\"ba651b50-c432-47d0-8c1e-cdeffb971e10\\\",\\\"version\\\":1,\\\"name\\\":\\\"可复用命名函数\\\",\\\"parameters\\\":[{\\\"name\\\":\\\"input1\\\",\\\"type\\\":\\\"CandidateSequence\\\"}],\\\"returns\\\":\\\"CandidateSequence\\\",\\\"output\\\":\\\"call_1883332a2330\\\",\\\"nodes\\\":[{\\\"id\\\":\\\"arg_1\\\",\\\"op\\\":\\\"argument\\\",\\\"params\\\":{\\\"name\\\":\\\"input1\\\"},\\\"inputs\\\":[]},{\\\"id\\\":\\\"call_1883332a2330\\\",\\\"op\\\":\\\"call\\\",\\\"inputs\\\":[\\\"arg_1\\\"],\\\"params\\\":{},\\\"call\\\":{\\\"definitionId\\\":\\\"08d96454-99a0-4448-a648-29cabd12e773\\\",\\\"version\\\":1,\\\"bindings\\\":{}}}],\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100},\\\"call_623f1838dd0d\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_af452b7e3acb\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_e6c67c3fd18e\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_b786cf50d791\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_1883332a2330\\\":{\\\"x\\\":300,\\\"y\\\":100}}},{\\\"id\\\":\\\"03d3e1af-e4ab-4548-a113-cebe712440ed\\\",\\\"version\\\":1,\\\"name\\\":\\\"可复用命名函数\\\",\\\"parameters\\\":[{\\\"name\\\":\\\"input1\\\",\\\"type\\\":\\\"CandidateSequence\\\"}],\\\"returns\\\":\\\"CandidateSequence\\\",\\\"output\\\":\\\"call_c87667a60fd1\\\",\\\"nodes\\\":[{\\\"id\\\":\\\"arg_1\\\",\\\"op\\\":\\\"argument\\\",\\\"params\\\":{\\\"name\\\":\\\"input1\\\"},\\\"inputs\\\":[]},{\\\"id\\\":\\\"call_c87667a60fd1\\\",\\\"op\\\":\\\"call\\\",\\\"inputs\\\":[\\\"arg_1\\\"],\\\"params\\\":{},\\\"call\\\":{\\\"definitionId\\\":\\\"ba651b50-c432-47d0-8c1e-cdeffb971e10\\\",\\\"version\\\":1,\\\"bindings\\\":{}}}],\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100},\\\"call_623f1838dd0d\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_af452b7e3acb\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_e6c67c3fd18e\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_b786cf50d791\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_1883332a2330\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_c87667a60fd1\\\":{\\\"x\\\":300,\\\"y\\\":100}}},{\\\"id\\\":\\\"79ec2639-defe-4ee9-a349-7168178a6d63\\\",\\\"version\\\":1,\\\"name\\\":\\\"可复用命名函数\\\",\\\"parameters\\\":[{\\\"name\\\":\\\"input1\\\",\\\"type\\\":\\\"CandidateSequence\\\"}],\\\"returns\\\":\\\"CandidateSequence\\\",\\\"output\\\":\\\"call_5fc0dd1f08ef\\\",\\\"nodes\\\":[{\\\"id\\\":\\\"arg_1\\\",\\\"op\\\":\\\"argument\\\",\\\"params\\\":{\\\"name\\\":\\\"input1\\\"},\\\"inputs\\\":[]},{\\\"id\\\":\\\"call_5fc0dd1f08ef\\\",\\\"op\\\":\\\"call\\\",\\\"inputs\\\":[\\\"arg_1\\\"],\\\"params\\\":{},\\\"call\\\":{\\\"definitionId\\\":\\\"03d3e1af-e4ab-4548-a113-cebe712440ed\\\",\\\"version\\\":1,\\\"bindings\\\":{}}}],\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100},\\\"call_623f1838dd0d\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_af452b7e3acb\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_e6c67c3fd18e\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_b786cf50d791\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_1883332a2330\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_c87667a60fd1\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_5fc0dd1f08ef\\\":{\\\"x\\\":300,\\\"y\\\":100}}},{\\\"id\\\":\\\"644372e2-139f-4f72-bdd2-6fe7f11b910b\\\",\\\"version\\\":1,\\\"name\\\":\\\"可复用命名函数\\\",\\\"parameters\\\":[{\\\"name\\\":\\\"input1\\\",\\\"type\\\":\\\"CandidateSequence\\\"}],\\\"returns\\\":\\\"CandidateSequence\\\",\\\"output\\\":\\\"call_6853474e91f2\\\",\\\"nodes\\\":[{\\\"id\\\":\\\"arg_1\\\",\\\"op\\\":\\\"argument\\\",\\\"params\\\":{\\\"name\\\":\\\"input1\\\"},\\\"inputs\\\":[]},{\\\"id\\\":\\\"call_6853474e91f2\\\",\\\"op\\\":\\\"call\\\",\\\"inputs\\\":[\\\"arg_1\\\"],\\\"params\\\":{},\\\"call\\\":{\\\"definitionId\\\":\\\"79ec2639-defe-4ee9-a349-7168178a6d63\\\",\\\"version\\\":1,\\\"bindings\\\":{}}}],\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100},\\\"call_623f1838dd0d\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_af452b7e3acb\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_e6c67c3fd18e\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_b786cf50d791\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_1883332a2330\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_c87667a60fd1\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_5fc0dd1f08ef\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_6853474e91f2\\\":{\\\"x\\\":300,\\\"y\\\":100}}},{\\\"id\\\":\\\"4c3f6bb1-3bf8-41c0-ab48-377c7f7a920d\\\",\\\"version\\\":1,\\\"name\\\":\\\"可复用命名函数\\\",\\\"parameters\\\":[{\\\"name\\\":\\\"input1\\\",\\\"type\\\":\\\"CandidateSequence\\\"}],\\\"returns\\\":\\\"CandidateSequence\\\",\\\"output\\\":\\\"call_63d7191ca10c\\\",\\\"nodes\\\":[{\\\"id\\\":\\\"arg_1\\\",\\\"op\\\":\\\"argument\\\",\\\"params\\\":{\\\"name\\\":\\\"input1\\\"},\\\"inputs\\\":[]},{\\\"id\\\":\\\"call_63d7191ca10c\\\",\\\"op\\\":\\\"call\\\",\\\"inputs\\\":[\\\"arg_1\\\"],\\\"params\\\":{},\\\"call\\\":{\\\"definitionId\\\":\\\"644372e2-139f-4f72-bdd2-6fe7f11b910b\\\",\\\"version\\\":1,\\\"bindings\\\":{}}}],\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100},\\\"call_623f1838dd0d\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_af452b7e3acb\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_e6c67c3fd18e\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_b786cf50d791\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_1883332a2330\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_c87667a60fd1\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_5fc0dd1f08ef\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_6853474e91f2\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_63d7191ca10c\\\":{\\\"x\\\":300,\\\"y\\\":100}}},{\\\"id\\\":\\\"b6c73634-e726-4644-b104-0df20e1af461\\\",\\\"version\\\":1,\\\"name\\\":\\\"可复用命名函数\\\",\\\"parameters\\\":[{\\\"name\\\":\\\"input1\\\",\\\"type\\\":\\\"CandidateSequence\\\"}],\\\"returns\\\":\\\"CandidateSequence\\\",\\\"output\\\":\\\"call_2152f185a470\\\",\\\"nodes\\\":[{\\\"id\\\":\\\"arg_1\\\",\\\"op\\\":\\\"argument\\\",\\\"params\\\":{\\\"name\\\":\\\"input1\\\"},\\\"inputs\\\":[]},{\\\"id\\\":\\\"call_2152f185a470\\\",\\\"op\\\":\\\"call\\\",\\\"inputs\\\":[\\\"arg_1\\\"],\\\"params\\\":{},\\\"call\\\":{\\\"definitionId\\\":\\\"4c3f6bb1-3bf8-41c0-ab48-377c7f7a920d\\\",\\\"version\\\":1,\\\"bindings\\\":{}}}],\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100},\\\"call_623f1838dd0d\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_af452b7e3acb\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_e6c67c3fd18e\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_b786cf50d791\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_1883332a2330\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_c87667a60fd1\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_5fc0dd1f08ef\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_6853474e91f2\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_63d7191ca10c\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_2152f185a470\\\":{\\\"x\\\":300,\\\"y\\\":100}}},{\\\"id\\\":\\\"0c641fe9-d593-46e8-9176-b80ed722feb2\\\",\\\"version\\\":1,\\\"name\\\":\\\"可复用命名函数\\\",\\\"parameters\\\":[{\\\"name\\\":\\\"input1\\\",\\\"type\\\":\\\"CandidateSequence\\\"}],\\\"returns\\\":\\\"CandidateSequence\\\",\\\"output\\\":\\\"call_b729a0eb1096\\\",\\\"nodes\\\":[{\\\"id\\\":\\\"arg_1\\\",\\\"op\\\":\\\"argument\\\",\\\"params\\\":{\\\"name\\\":\\\"input1\\\"},\\\"inputs\\\":[]},{\\\"id\\\":\\\"call_b729a0eb1096\\\",\\\"op\\\":\\\"call\\\",\\\"inputs\\\":[\\\"arg_1\\\"],\\\"params\\\":{},\\\"call\\\":{\\\"definitionId\\\":\\\"b6c73634-e726-4644-b104-0df20e1af461\\\",\\\"version\\\":1,\\\"bindings\\\":{}}}],\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100},\\\"call_623f1838dd0d\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_af452b7e3acb\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_e6c67c3fd18e\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_b786cf50d791\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_1883332a2330\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_c87667a60fd1\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_5fc0dd1f08ef\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_6853474e91f2\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_63d7191ca10c\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_2152f185a470\\\":{\\\"x\\\":300,\\\"y\\\":100},\\\"call_b729a0eb1096\\\":{\\\"x\\\":300,\\\"y\\\":100}}}]}}],[\\\"f-dyn2\\\",\\\"word\\\",1,{\\\"format\\\":1,\\\"type\\\":\\\"dynamic\\\",\\\"workflow\\\":{\\\"version\\\":1,\\\"id\\\":\\\"5f094311-0109-4642-8bcd-424a732a313d\\\",\\\"name\\\":\\\"资源复用\\\",\\\"seed\\\":42,\\\"limit\\\":10000,\\\"layout\\\":{\\\"source\\\":{\\\"x\\\":30,\\\"y\\\":100},\\\"result\\\":{\\\"x\\\":330,\\\"y\\\":100}},\\\"nodes\\\":[{\\\"id\\\":\\\"source\\\",\\\"op\\\":\\\"resource\\\",\\\"inputs\\\":[],\\\"params\\\":{\\\"resourceId\\\":\\\"f-dyn1\\\"}},{\\\"id\\\":\\\"result\\\",\\\"op\\\":\\\"output\\\",\\\"inputs\\\":[\\\"source\\\"],\\\"params\\\":{}}]}}],[\\\"f-map\\\",\\\"mapping\\\",1,{\\\"format\\\":1,\\\"type\\\":\\\"mapping\\\",\\\"rules\\\":\\\"{\\\\\\\"f\\\\\\\":[\\\\\\\"F\\\\\\\"]}\\\"}],[\\\"f-third\\\",\\\"word\\\",2,null]]]\",[[\"f-third\",10],[\"f-map\",1],[\"f-dyn1\",0],[\"f-dyn2\",0]],[{\"key\":\"glyphforge-text@1.0.0\",\"manifest\":{\"format\":\"glyphforge-operator-pack\",\"protocol\":1,\"id\":\"glyphforge-text\",\"version\":\"1.0.0\",\"publisher\":\"GlyphForge\",\"source\":\"bundled:glyphforge-text\",\"compatibility\":{\"ir\":1,\"contract\":1},\"permissions\":[],\"mode\":\"declarative-pipeline\",\"deterministic\":true,\"streaming\":\"incremental\",\"dependencies\":[],\"migrations\":[],\"operators\":[{\"id\":\"frame\",\"name\":\"有界文字结构\",\"inputTypes\":[\"CandidateSequence\"],\"outputType\":\"CandidateSequence\",\"parameters\":{\"prefix\":{\"type\":\"string\",\"default\":\"「\"},\"suffix\":{\"type\":\"string\",\"default\":\"」\"},\"mappingId\":{\"type\":\"string\",\"default\":\"\"}},\"steps\":[{\"op\":\"mapchars\",\"params\":{\"mapping\":\"{}\"},\"bindings\":{\"mappingId\":\"mappingId\"}},{\"op\":\"prefix\",\"params\":{},\"bindings\":{\"text\":\"prefix\"}},{\"op\":\"reverse\",\"params\":{}},{\"op\":\"prefix\",\"params\":{},\"bindings\":{\"text\":\"suffix\"}},{\"op\":\"reverse\",\"params\":{}}]},{\"id\":\"select\",\"name\":\"组合条件筛选\",\"inputTypes\":[\"CandidateSequence\"],\"outputType\":\"CandidateSequence\",\"parameters\":{\"contains\":{\"type\":\"string\",\"default\":\"\"},\"excludes\":{\"type\":\"string\",\"default\":\"\"},\"maxLength\":{\"type\":\"number\",\"default\":12}},\"steps\":[{\"op\":\"filter\",\"params\":{},\"bindings\":{\"includes\":\"contains\",\"maxLength\":\"maxLength\"}},{\"op\":\"filter\",\"params\":{},\"bindings\":{\"excludes\":\"excludes\",\"maxLength\":\"maxLength\"}}]}]},\"enabled\":true}]]"
+  },
+  "stale": false,
+  "rendererV8HeapEnd": 39117360,
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36"
+}

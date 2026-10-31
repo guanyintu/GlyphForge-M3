@@ -8,7 +8,10 @@ import type { ChineseOp } from "./chinese-definitions";
 import { readPairs, renderTemplates, groupMembers } from "./relations";
 import { checkGameId, parseGameRule } from "./game-rules";
 import { mutate } from "./mutation";
+import { measure, type ExecutionMetrics } from './execution-metrics';
 export interface OperatorContext {
+  metrics?: ExecutionMetrics;
+  optimize?: boolean;
   /** Pure rejection after text bounds; upstream iteration and all ticks remain unchanged. */
   acceptText?: (text: string) => boolean;
   resourceMetadata?: import("./contracts").ResourceMetadataReader;
@@ -63,13 +66,17 @@ const executors: Record<Op, RegisteredOperator["execute"]> = {
     yield* executeProgram(c.node.program!, c.read, c.seed, c.tick, c.resourceMetadata);
   },
   pattern: async function* (c) {
+    // normalizeParams has already accepted 1–16 ASCII A/B tokens. Replacement
+    // callbacks return literal strings (including $&); joining selects the same
+    // strings and boundedText still executes at the original candidate/tick.
+    const tokens=c.optimize===false?undefined:[...String(c.node.params.template)].map(s=>s==='A'?0:1);
     for await (const a of c.input(0)) {
       c.tick();
       for await (const b of c.input(1)) {
         c.tick();
-        const text = transformText("pattern", [a.text, b.text], c.node.params);
+        const text = measure(c.metrics,'text',()=>tokens?boundedText(tokens.map(i=>i===0?a.text:b.text).join('')):transformText("pattern", [a.text, b.text], c.node.params));
         if (c.acceptText && !c.acceptText(text)) continue;
-        yield combineCandidates(text, [a, b]);
+        yield measure(c.metrics,'metadata',()=>combineCandidates(text, [a, b]));
       }
     }
   },
@@ -78,16 +85,16 @@ const executors: Record<Op, RegisteredOperator["execute"]> = {
       c.tick();
       for await (const b of c.input(1)) {
         c.tick();
-        const text = transformText("concat", [a.text, b.text], c.node.params);
+        const text = measure(c.metrics,'text',()=>transformText("concat", [a.text, b.text], c.node.params));
         if (c.acceptText && !c.acceptText(text)) continue;
-        yield combineCandidates(text, [a, b]);
+        yield measure(c.metrics,'metadata',()=>combineCandidates(text, [a, b]));
       }
     }
   },
   filter: async function* (c) {
     for await (const a of c.input(0)) {
       c.tick();
-      if (acceptsFilter(a.text, c.node.params)) yield a;
+      if (measure(c.metrics,'filter',()=>acceptsFilter(a.text, c.node.params))) yield a;
     }
   },
   prefix: async function* (c) {

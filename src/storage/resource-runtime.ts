@@ -13,7 +13,7 @@ export async function assertResourcePlan(plan: ResourcePlan, target = db) {
   const current = await target.resources.bulkGet(plan.resources.map(r=>r.id));
   if(current.some((r,i)=>!r || r.version!==plan.resources[i].version || r.kind!==plan.resources[i].kind || JSON.stringify(r.definition)!==JSON.stringify(plan.resources[i].definition))) throw new ContractError({code:'RESOURCE',message:'源资源在运行期间发生更改或删除，请重新计算'});
 }
-export function resourceSession(plan: ResourcePlan, target: ForgeDatabase = db, signal?: AbortSignal) {
+export function resourceSession(plan: ResourcePlan, target: ForgeDatabase = db, signal?: AbortSignal, options: import('../core/engine').RunHooks = {}) {
   const byId=new Map(plan.resources.map(r=>[r.id,r]));
   const started=performance.now(); let steps=0;
   const ownTick=()=>{if(signal?.aborted)throw new ContractError({code:'CANCELLED',message:'重算已取消'});if(++steps>executionBudget.steps || performance.now()-started>executionBudget.milliseconds)throw new ContractError({code:'BUDGET',message:'动态资源达到 300000 步 / 10 秒预算'});};
@@ -24,7 +24,7 @@ export function resourceSession(plan: ResourcePlan, target: ForgeDatabase = db, 
     await assertResourcePlan(plan,target);
     let count=0;
     const sequence=r.definition?.type==='dynamic'
-      ? evaluateWorkflow({...r.definition.workflow,seed},read,tick,{lineage:true,lineageScope:JSON.stringify(["resource",id,r.version]),resourceMetadata:async dep=>byId.get(dep)})
+      ? evaluateWorkflow({...r.definition.workflow,seed},read,tick,{...options,lineage:true,lineageScope:JSON.stringify(["resource",id,r.version]),resourceMetadata:async dep=>byId.get(dep)})
       : readStaticResource(id,seed,target);
     for await(const c of sequence) {
       tick(); if(signal?.aborted)ownTick();

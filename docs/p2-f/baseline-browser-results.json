@@ -1,0 +1,227 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "e2e/scale.spec.ts"
+    ],
+    "configFile": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\playwright.config.ts",
+    "rootDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/someb/Documents/ChatGPT/id生成/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "snapshotDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "launchOptions": {
+            "args": [
+              "--enable-precise-memory-info"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4175",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "pnpm exec vite preview --host 127.0.0.1 --port 4175 --strictPort",
+      "url": "http://127.0.0.1:4175",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "scale.spec.ts",
+      "file": "scale.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "readonly estimate UI and live metadata invalidation",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7710,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: '风险：高' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('status').filter({ hasText: '风险：高' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: '风险：高' })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: '风险：高' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('status').filter({ hasText: '风险：高' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: '风险：高' })\u001b[22m\n\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts:11:67",
+                    "location": {
+                      "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts",
+                      "column": 67,
+                      "line": 11
+                    },
+                    "snippet": "   9 |   await expect(page.getByRole('status').filter({hasText:'去重前候选'})).toBeVisible();\n  10 |   await page.evaluate(async()=>{const h=await import('/scale-harness/scale.js');const r=await h.db.resources.toCollection().first();await h.db.resources.update(r.id,{version:r.version+1,count:20000});});\n> 11 |   await expect(page.getByRole('status').filter({hasText:'风险：高'})).toBeVisible();\n     |                                                                   ^\n  12 |   await expect(page.getByText(/最近完成运行：/)).toBeVisible();\n  13 | });\n  14 | test('real production Worker/IDB audit: fully enumerated expensive graphs and bounded million prefix',async({page})=>{"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts",
+                        "column": 67,
+                        "line": 11
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: '风险：高' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('status').filter({ hasText: '风险：高' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: '风险：高' })\u001b[22m\n\n\n   9 |   await expect(page.getByRole('status').filter({hasText:'去重前候选'})).toBeVisible();\n  10 |   await page.evaluate(async()=>{const h=await import('/scale-harness/scale.js');const r=await h.db.resources.toCollection().first();await h.db.resources.update(r.id,{version:r.version+1,count:20000});});\n> 11 |   await expect(page.getByRole('status').filter({hasText:'风险：高'})).toBeVisible();\n     |                                                                   ^\n  12 |   await expect(page.getByText(/最近完成运行：/)).toBeVisible();\n  13 | });\n  14 | test('real production Worker/IDB audit: fully enumerated expensive graphs and bounded million prefix',async({page})=>{\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts:11:67"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T14:55:46.458Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\scale-readonly-estimate-UI-and-live-metadata-invalidation\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\scale-readonly-estimate-UI-and-live-metadata-invalidation\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts",
+                    "column": 67,
+                    "line": 11
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "91c191f36fb4ad6590e3-982b74f23dfc990f564b",
+          "file": "scale.spec.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "real production Worker/IDB audit: fully enumerated expensive graphs and bounded million prefix",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 41241,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T14:55:59.587Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "91c191f36fb4ad6590e3-c2199404d7a0fb1f3f13",
+          "file": "scale.spec.ts",
+          "line": 14,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-31T14:55:43.945Z",
+    "duration": 62688.54,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "started": 1926.2000000476837,
+  "rows": 10000,
+  "batches": 157,
+  "maxRefs": 13,
+  "maxBytes": 1929,
+  "end": 3287,
+  "type": "done",
+  "stats": {
+    "steps": 50085,
+    "count": 10000,
+    "truncated": true,
+    "safePruned": 0,
+    "duration": 1314.0999999046326
+  },
+  "ms": 1360.7999999523163,
+  "logical": 1000000,
+  "depth": 8,
+  "cancelled": "cancelled",
+  "noLate": true,
+  "concurrentWithMain": true,
+  "rendererHeapEnd": 18279543,
+  "workerV8HeapSamples": [
+    {
+      "usedSize": 1158272,
+      "totalSize": 3407872,
+      "embedderHeapUsedSize": 773712,
+      "backingStorageSize": 162944
+    },
+    {
+      "usedSize": 4073848,
+      "totalSize": 8126464,
+      "embedderHeapUsedSize": 1073768,
+      "backingStorageSize": 169283
+    },
+    {
+      "usedSize": 3700116,
+      "totalSize": 12320768,
+      "embedderHeapUsedSize": 2267768,
+      "backingStorageSize": 177465
+    },
+    {
+      "usedSize": 6316304,
+      "totalSize": 13631488,
+      "embedderHeapUsedSize": 3317080,
+      "backingStorageSize": 185035
+    },
+    {
+      "usedSize": 6755368,
+      "totalSize": 14680064,
+      "embedderHeapUsedSize": 3816296,
+      "backingStorageSize": 191069
+    },
+    {
+      "usedSize": 9511044,
+      "totalSize": 15204352,
+      "embedderHeapUsedSize": 4668616,
+      "backingStorageSize": 197615
+    },
+    {
+      "usedSize": 12214196,
+      "totalSize": 23592960,
+      "embedderHeapUsedSize": 5871984,
+      "backingStorageSize": 206225
+    },
+    {
+      "usedSize": 8502408,
+      "totalSize": 23855104,
+      "embedderHeapUsedSize": 6881520,
+      "backingStorageSize": 214803
+    },
+    {
+      "usedSize": 11621168,
+      "totalSize": 25165824,
+      "embedderHeapUsedSize": 8231184,
+      "backingStorageSize": 223397
+    },
+    {
+      "usedSize": 17749096,
+      "totalSize": 27168768,
+      "embedderHeapUsedSize": 10553928,
+      "backingStorageSize": 242709
+    }
+  ],
+  "measurement": "CDP Runtime.getHeapUsage on dedicated Worker target; sampled V8 heap, neither RSS nor absolute peak"
+}

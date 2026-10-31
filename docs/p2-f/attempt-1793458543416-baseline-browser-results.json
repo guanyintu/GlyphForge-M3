@@ -1,0 +1,124 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "e2e/scale.spec.ts"
+    ],
+    "configFile": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\playwright.config.ts",
+    "rootDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/someb/Documents/ChatGPT/id生成/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "name": "",
+        "testDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "snapshotDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "launchOptions": {
+            "args": [
+              "--enable-precise-memory-info"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4175",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "pnpm exec vite preview --host 127.0.0.1 --port 4175 --strictPort",
+      "url": "http://127.0.0.1:4175",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [],
+  "errors": [
+    {
+      "message": "SyntaxError: C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts: Unexpected token, expected \",\" (32:440)\n\n  30 |     const samples:any[]=[];\n  31 |     for(const [name,w,logical] of [['pattern-reject-full',full,10000],['concat-reject-full',concat,10000],['tenK-output',tenK,10000],['million-prefix',million,1000000],['dynamic-mapping-extension-depth12',dynamic,10],['mutation-unicode',mutation,null]] as const){\n> 32 |       for(let round=0;round<3;round++){const pair:any[]=[];for(const optimize of round%2?[true,false]:[false,true]){const result=await run({...w,seed:[42,7,99999][round]},optimize);pair.push({optimize,...result});samples.push({name,round,seed:[42,7,99999][round],logical,optimize,...result,rows:result.rows.length,digest:Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(result.rows)))))).map(b=>b.toString(16).padStart(2,'0')).join('')});}if(JSON.stringify(pair[0].rows)!==JSON.stringify(pair[1].rows)||pair[0].stats?.steps!==pair[1].stats?.steps)throw new Error(`differential mismatch ${name}`);}\n     |                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^\n  33 |       const p=await run(w,true,true);samples.push({name,round:'profiled',logical,optimize:true,...p,rows:p.rows.length});\n  34 |     }\n  35 |     const reverse=[];const searcher=new h.ReverseSearcher(h.db);for(let i=0;i<3;i++){const start=performance.now(),r=await searcher.search('f-100k-99999',{resourceIds:['f-100k']});reverse.push({ms:performance.now()-start,cacheHit:r.cacheHit,matches:r.matches.length});}",
+      "stack": "SyntaxError: C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts: Unexpected token, expected \",\" (32:440)\n\n  30 |     const samples:any[]=[];\n  31 |     for(const [name,w,logical] of [['pattern-reject-full',full,10000],['concat-reject-full',concat,10000],['tenK-output',tenK,10000],['million-prefix',million,1000000],['dynamic-mapping-extension-depth12',dynamic,10],['mutation-unicode',mutation,null]] as const){\n> 32 |       for(let round=0;round<3;round++){const pair:any[]=[];for(const optimize of round%2?[true,false]:[false,true]){const result=await run({...w,seed:[42,7,99999][round]},optimize);pair.push({optimize,...result});samples.push({name,round,seed:[42,7,99999][round],logical,optimize,...result,rows:result.rows.length,digest:Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(result.rows)))))).map(b=>b.toString(16).padStart(2,'0')).join('')});}if(JSON.stringify(pair[0].rows)!==JSON.stringify(pair[1].rows)||pair[0].stats?.steps!==pair[1].stats?.steps)throw new Error(`differential mismatch ${name}`);}\n     |                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^\n  33 |       const p=await run(w,true,true);samples.push({name,round:'profiled',logical,optimize:true,...p,rows:p.rows.length});\n  34 |     }\n  35 |     const reverse=[];const searcher=new h.ReverseSearcher(h.db);for(let i=0;i<3;i++){const start=performance.now(),r=await searcher.search('f-100k-99999',{resourceIds:['f-100k']});reverse.push({ms:performance.now()-start,cacheHit:r.cacheHit,matches:r.matches.length});}",
+      "location": {
+        "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts",
+        "line": 32,
+        "column": 440
+      },
+      "snippet": "\u001b[90m   at \u001b[39mscale.spec.ts:32\n\n  30 |     const samples:any[]=[];\n  31 |     for(const [name,w,logical] of [['pattern-reject-full',full,10000],['concat-reject-full',concat,10000],['tenK-output',tenK,10000],['million-prefix',million,1000000],['dynamic-mapping-extension-depth12',dynamic,10],['mutation-unicode',mutation,null]] as const){\n> 32 |       for(let round=0;round<3;round++){const pair:any[]=[];for(const optimize of round%2?[true,false]:[false,true]){const result=await run({...w,seed:[42,7,99999][round]},optimize);pair.push({optimize,...result});samples.push({name,round,seed:[42,7,99999][round],logical,optimize,...result,rows:result.rows.length,digest:Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(result.rows)))))).map(b=>b.toString(16).padStart(2,'0')).join('')});}if(JSON.stringify(pair[0].rows)!==JSON.stringify(pair[1].rows)||pair[0].stats?.steps!==pair[1].stats?.steps)throw new Error(`differential mismatch ${name}`);}\n     |                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^\n  33 |       const p=await run(w,true,true);samples.push({name,round:'profiled',logical,optimize:true,...p,rows:p.rows.length});\n  34 |     }\n  35 |     const reverse=[];const searcher=new h.ReverseSearcher(h.db);for(let i=0;i<3;i++){const start=performance.now(),r=await searcher.search('f-100k-99999',{resourceIds:['f-100k']});reverse.push({ms:performance.now()-start,cacheHit:r.cacheHit,matches:r.matches.length});}"
+    },
+    {
+      "message": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments.",
+      "stack": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments."
+    }
+  ],
+  "stats": {
+    "startTime": "2026-10-31T14:55:13.494Z",
+    "duration": 3066.259,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

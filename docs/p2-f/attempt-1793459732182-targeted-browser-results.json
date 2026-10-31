@@ -1,0 +1,261 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "e2e/scale.spec.ts"
+    ],
+    "configFile": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\playwright.config.ts",
+    "rootDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/someb/Documents/ChatGPT/id生成/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "snapshotDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "launchOptions": {
+            "args": [
+              "--enable-precise-memory-info"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4175",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "pnpm exec vite preview --host 127.0.0.1 --port 4175 --strictPort",
+      "url": "http://127.0.0.1:4175",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "scale.spec.ts",
+      "file": "scale.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "readonly estimate UI and live metadata invalidation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2549,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:01:48.686Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "91c191f36fb4ad6590e3-982b74f23dfc990f564b",
+          "file": "scale.spec.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "real production Worker/IDB audit: fully enumerated expensive graphs and bounded million prefix",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 41450,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:01:56.111Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "91c191f36fb4ad6590e3-c2199404d7a0fb1f3f13",
+          "file": "scale.spec.ts",
+          "line": 14,
+          "column": 1
+        },
+        {
+          "title": "production concurrency rejects changed versions, cancels without late writes; reverse Worker cold/warm invalidation",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 14760,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"cancelled\"\u001b[39m\nReceived: \u001b[31m\"error\"\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"cancelled\"\u001b[39m\nReceived: \u001b[31m\"error\"\u001b[39m\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts:58:207",
+                    "location": {
+                      "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts",
+                      "column": 207,
+                      "line": 58
+                    },
+                    "snippet": "  56 |     return {changed,stale:!await h.estimateIsCurrent(w,estimate),cancelled:(await h.db.runs.get(runId)).status,noLate:before===messages&&count===await h.db.generated.where('runId').equals(runId).count(),partial:count,reverse:samples};\n  57 |   },{url:workerUrl(),reverseUrl});\n> 58 |   writeFileSync('docs/p2-f/concurrency-reverse.json',JSON.stringify(r,null,2));expect(r.changed.type).toBe('error');expect(r.changed.message).toMatch(/更改|变化/);expect(r.stale).toBe(true);expect(r.cancelled).toBe('cancelled');expect(r.noLate).toBe(true);expect(r.reverse.map(s=>s.cacheHit)).toEqual([false,true,false]);\n     |                                                                                                                                                                                                               ^\n  59 | });\n  60 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts",
+                        "column": 207,
+                        "line": 58
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"cancelled\"\u001b[39m\nReceived: \u001b[31m\"error\"\u001b[39m\n\n  56 |     return {changed,stale:!await h.estimateIsCurrent(w,estimate),cancelled:(await h.db.runs.get(runId)).status,noLate:before===messages&&count===await h.db.generated.where('runId').equals(runId).count(),partial:count,reverse:samples};\n  57 |   },{url:workerUrl(),reverseUrl});\n> 58 |   writeFileSync('docs/p2-f/concurrency-reverse.json',JSON.stringify(r,null,2));expect(r.changed.type).toBe('error');expect(r.changed.message).toMatch(/更改|变化/);expect(r.stale).toBe(true);expect(r.cancelled).toBe('cancelled');expect(r.noLate).toBe(true);expect(r.reverse.map(s=>s.cacheHit)).toEqual([false,true,false]);\n     |                                                                                                                                                                                                               ^\n  59 | });\n  60 |\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts:58:207"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T15:02:37.577Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\scale-production-concurren-c13b5-rker-cold-warm-invalidation\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\scale-production-concurren-c13b5-rker-cold-warm-invalidation\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\scale.spec.ts",
+                    "column": 207,
+                    "line": 58
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "91c191f36fb4ad6590e3-9960b9e31233924de056",
+          "file": "scale.spec.ts",
+          "line": 44,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-31T15:01:46.122Z",
+    "duration": 67428.733,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

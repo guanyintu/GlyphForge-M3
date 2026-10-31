@@ -1,0 +1,52 @@
+[
+  {
+    "logical": 100000,
+    "ms": 40.299999952316284,
+    "steps": 442,
+    "type": "done",
+    "count": 60,
+    "sourceParts": [
+      {
+        "resourceId": "34539868-93ce-47c6-971b-68a9a455eb44",
+        "text": "A42",
+        "version": 2
+      },
+      {
+        "resourceId": "014f9de4-0017-44f9-b152-f97d320d2b19",
+        "text": "B42",
+        "version": 2
+      },
+      {
+        "resourceId": "5195c81e-b313-43fc-8724-a08776f7c947",
+        "version": 1,
+        "text": "A42B42"
+      }
+    ],
+    "mainHeap": 12339811
+  },
+  {
+    "logical": 1000000,
+    "ms": 40.5,
+    "steps": 442,
+    "type": "done",
+    "count": 60,
+    "sourceParts": [
+      {
+        "resourceId": "f18c8d0b-0c7b-4b62-8f55-54f500ff907c",
+        "text": "A42",
+        "version": 2
+      },
+      {
+        "resourceId": "0e1f408d-b6de-477f-97a1-e8b731a9ab26",
+        "text": "B42",
+        "version": 2
+      },
+      {
+        "resourceId": "2cb949e8-0ceb-4162-aa7c-8c3afa3ad7d7",
+        "version": 1,
+        "text": "A42B42"
+      }
+    ],
+    "mainHeap": 16412731
+  }
+]

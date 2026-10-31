@@ -1,0 +1,84 @@
+{
+  "importMs": 3612.4000000953674,
+  "deepQueryMs": 1436.2999999523163,
+  "deepCount": 100000,
+  "deepRows": 40,
+  "firstDeep": "深页099960",
+  "lastDeep": "深页099999",
+  "runs": [
+    {
+      "ms": 31.899999856948853,
+      "received": 2,
+      "steps": 5048
+    },
+    {
+      "ms": 29.40000009536743,
+      "received": 2,
+      "steps": 5048
+    },
+    {
+      "ms": 29.700000047683716,
+      "received": 2,
+      "steps": 5048
+    },
+    {
+      "ms": 29.5,
+      "received": 2,
+      "steps": 5048
+    },
+    {
+      "ms": 28.59999990463257,
+      "received": 2,
+      "steps": 5048
+    },
+    {
+      "ms": 29.399999856948853,
+      "received": 2,
+      "steps": 5048
+    },
+    {
+      "ms": 28.799999952316284,
+      "received": 2,
+      "steps": 5048
+    },
+    {
+      "ms": 30.300000190734863,
+      "received": 2,
+      "steps": 5048
+    }
+  ],
+  "concurrentReceived": 2,
+  "reverseMatches": [
+    {
+      "text": "深页099999",
+      "resourceId": "stress",
+      "entryId": 100058,
+      "start": 0,
+      "end": 8,
+      "utf16Start": 0,
+      "utf16End": 8,
+      "type": "exact"
+    }
+  ],
+  "exhausted": "节点 program：第 1 行：达到执行步数上限，请缩小词库或调整筛选条件",
+  "cancel": {
+    "late": 0,
+    "processed": 1000,
+    "ms": 0
+  },
+  "physicsObjects": 42,
+  "browser": "156.0.8078.4",
+  "heapBefore": {
+    "usedSize": 7879768,
+    "totalSize": 8982528,
+    "embedderHeapUsedSize": 11202008,
+    "backingStorageSize": 790777
+  },
+  "heapAfter": {
+    "usedSize": 8838400,
+    "totalSize": 10031104,
+    "embedderHeapUsedSize": 10314696,
+    "backingStorageSize": 793484
+  },
+  "heapScope": "main renderer after forced GC, excluding Worker/GPU/RSS; includes stored app results"
+}

@@ -1,0 +1,12 @@
+
+Running 3 tests using 1 worker
+
+  ok 1 e2e\scale.spec.ts:6:1 › readonly estimate UI and live metadata invalidation (9.3s)
+  ok 2 e2e\scale.spec.ts:19:1 › real production Worker/IDB audit: fully enumerated expensive graphs and bounded million prefix (1.3m)
+  ok 3 e2e\scale.spec.ts:51:1 › production concurrency rejects changed versions, cancels without late writes; reverse Worker cold/warm invalidation (11.9s)
+
+  3 passed (1.8m)
+[WebServer] (node:152720) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:103332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

@@ -1,0 +1,1226 @@
+{
+  "environment": {
+    "node": "v24.22.1",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64",
+    "cpus": "13th Gen Intel(R) Core(TM) i5-13600KF",
+    "chromium": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36"
+  },
+  "method": "Alternating on/off; six samples per mode, three seeds repeated twice. p95 is nearest-rank observed maximum with n=6, not a population estimate. All workers cold; IDB/OS caches not reset.",
+  "current": [
+    {
+      "name": "heavy-reject-full",
+      "off": {
+        "n": 6,
+        "medianWallMs": 1109.2999999523163,
+        "p95ObservedWallMs": 1264.9000000953674,
+        "minWallMs": 1061.7999999523163,
+        "maxWallMs": 1264.9000000953674,
+        "medianEngineMs": 1081.1000000238419,
+        "steps": [
+          161206
+        ],
+        "outputCounts": [
+          0
+        ],
+        "medianOutputPerSecond": 0,
+        "logical": 40000,
+        "medianCompletedOuterCombinationsPerEngineSecond": 37001.693970699045
+      },
+      "on": {
+        "n": 6,
+        "medianWallMs": 1026.3500000238419,
+        "p95ObservedWallMs": 1066.9000000953674,
+        "minWallMs": 994,
+        "maxWallMs": 1066.9000000953674,
+        "medianEngineMs": 994.2000000476837,
+        "steps": [
+          161206
+        ],
+        "outputCounts": [
+          0
+        ],
+        "medianOutputPerSecond": 0,
+        "logical": 40000,
+        "medianCompletedOuterCombinationsPerEngineSecond": 40234.00472505993
+      },
+      "onOverOff": 1.0808203828387466,
+      "profile": {
+        "name": "heavy-reject-full",
+        "round": "profiled",
+        "logical": 40000,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 161206,
+          "count": 0,
+          "truncated": false,
+          "safePruned": 40000,
+          "duration": 1014
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 8,
+            "calls": 1
+          },
+          "readInclusive": {
+            "ms": 694.4999961853027,
+            "calls": 40401
+          },
+          "lineage": {
+            "ms": 6.200000524520874,
+            "calls": 40200
+          },
+          "text": {
+            "ms": 8.700000047683716,
+            "calls": 40000
+          },
+          "filter": {
+            "ms": 249.10000371932983,
+            "calls": 40000
+          },
+          "terminalPersistence": {
+            "ms": 1.7000000476837158,
+            "calls": 1
+          },
+          "historyRetention": {
+            "ms": 0.2999999523162842,
+            "calls": 1
+          }
+        },
+        "wallMs": 1042.2000000476837,
+        "batches": 0,
+        "rows": 0
+      }
+    },
+    {
+      "name": "three-source-reject-full",
+      "off": {
+        "n": 6,
+        "medianWallMs": 2208.4499999284744,
+        "p95ObservedWallMs": 2437.4000000953674,
+        "minWallMs": 2119.600000143051,
+        "maxWallMs": 2437.4000000953674,
+        "medianEngineMs": 2182.850000023842,
+        "steps": [
+          47607
+        ],
+        "outputCounts": [
+          0
+        ],
+        "medianOutputPerSecond": 0,
+        "logical": 10000,
+        "medianCompletedOuterCombinationsPerEngineSecond": 4581.978339951449
+      },
+      "on": {
+        "n": 6,
+        "medianWallMs": 2220,
+        "p95ObservedWallMs": 2661.2999999523163,
+        "minWallMs": 2131.7000000476837,
+        "maxWallMs": 2661.2999999523163,
+        "medianEngineMs": 2181.8000000715256,
+        "steps": [
+          47607
+        ],
+        "outputCounts": [
+          0
+        ],
+        "medianOutputPerSecond": 0,
+        "logical": 10000,
+        "medianCompletedOuterCombinationsPerEngineSecond": 4586.447224053778
+      },
+      "onOverOff": 0.9947972972650786,
+      "profile": {
+        "name": "three-source-reject-full",
+        "round": "profiled",
+        "logical": 10000,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 47607,
+          "count": 0,
+          "truncated": false,
+          "safePruned": 10000,
+          "duration": 2295.5999999046326
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 6.199999809265137,
+            "calls": 1
+          },
+          "readInclusive": {
+            "ms": 2168.2000024318695,
+            "calls": 12201
+          },
+          "lineage": {
+            "ms": 5.799999713897705,
+            "calls": 12100
+          },
+          "text": {
+            "ms": 4.099999666213989,
+            "calls": 11000
+          },
+          "metadata": {
+            "ms": 8.09999966621399,
+            "calls": 1000
+          },
+          "filter": {
+            "ms": 74.29999661445618,
+            "calls": 10000
+          },
+          "terminalPersistence": {
+            "ms": 2.8000001907348633,
+            "calls": 1
+          },
+          "historyRetention": {
+            "ms": 2,
+            "calls": 1
+          }
+        },
+        "wallMs": 2323.100000143051,
+        "batches": 0,
+        "rows": 0
+      }
+    },
+    {
+      "name": "pattern-reject-full",
+      "off": {
+        "n": 6,
+        "medianWallMs": 380.4500000476837,
+        "p95ObservedWallMs": 402.90000009536743,
+        "minWallMs": 371.10000014305115,
+        "maxWallMs": 402.90000009536743,
+        "medianEngineMs": 353.2000000476837,
+        "steps": [
+          40606
+        ],
+        "outputCounts": [
+          0
+        ],
+        "medianOutputPerSecond": 0,
+        "logical": 10000,
+        "medianCompletedOuterCombinationsPerEngineSecond": 28312.591203476324
+      },
+      "on": {
+        "n": 6,
+        "medianWallMs": 342.7999999523163,
+        "p95ObservedWallMs": 371.40000009536743,
+        "minWallMs": 337.40000009536743,
+        "maxWallMs": 371.40000009536743,
+        "medianEngineMs": 313.35000002384186,
+        "steps": [
+          40606
+        ],
+        "outputCounts": [
+          0
+        ],
+        "medianOutputPerSecond": 0,
+        "logical": 10000,
+        "medianCompletedOuterCombinationsPerEngineSecond": 31914.69858263791
+      },
+      "onOverOff": 1.109830805427668,
+      "profile": {
+        "name": "pattern-reject-full",
+        "round": "profiled",
+        "logical": 10000,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 40606,
+          "count": 0,
+          "truncated": false,
+          "safePruned": 10000,
+          "duration": 339.7000000476837
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 7.299999952316284,
+            "calls": 1
+          },
+          "readInclusive": {
+            "ms": 269.80000138282776,
+            "calls": 10201
+          },
+          "lineage": {
+            "ms": 2.499999761581421,
+            "calls": 10100
+          },
+          "text": {
+            "ms": 2.40000057220459,
+            "calls": 10000
+          },
+          "filter": {
+            "ms": 48.700000286102295,
+            "calls": 10000
+          },
+          "terminalPersistence": {
+            "ms": 1.7999999523162842,
+            "calls": 1
+          },
+          "historyRetention": {
+            "ms": 1.8000001907348633,
+            "calls": 1
+          }
+        },
+        "wallMs": 367.7000000476837,
+        "batches": 0,
+        "rows": 0
+      }
+    },
+    {
+      "name": "concat-reject-full",
+      "off": {
+        "n": 6,
+        "medianWallMs": 362.85000002384186,
+        "p95ObservedWallMs": 369.7000000476837,
+        "minWallMs": 348.5,
+        "maxWallMs": 369.7000000476837,
+        "medianEngineMs": 334.9500000476837,
+        "steps": [
+          40606
+        ],
+        "outputCounts": [
+          0
+        ],
+        "medianOutputPerSecond": 0,
+        "logical": 10000,
+        "medianCompletedOuterCombinationsPerEngineSecond": 29856.3206309207
+      },
+      "on": {
+        "n": 6,
+        "medianWallMs": 334.5,
+        "p95ObservedWallMs": 349.5,
+        "minWallMs": 323,
+        "maxWallMs": 349.5,
+        "medianEngineMs": 306.3000000715256,
+        "steps": [
+          40606
+        ],
+        "outputCounts": [
+          0
+        ],
+        "medianOutputPerSecond": 0,
+        "logical": 10000,
+        "medianCompletedOuterCombinationsPerEngineSecond": 32647.730975072976
+      },
+      "onOverOff": 1.0847533632999757,
+      "profile": {
+        "name": "concat-reject-full",
+        "round": "profiled",
+        "logical": 10000,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 40606,
+          "count": 0,
+          "truncated": false,
+          "safePruned": 10000,
+          "duration": 330.7999999523163
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 7.1000001430511475,
+            "calls": 1
+          },
+          "readInclusive": {
+            "ms": 270.799996137619,
+            "calls": 10201
+          },
+          "lineage": {
+            "ms": 2.9000003337860107,
+            "calls": 10100
+          },
+          "text": {
+            "ms": 2.4000003337860107,
+            "calls": 10000
+          },
+          "filter": {
+            "ms": 36.400002002716064,
+            "calls": 10000
+          },
+          "terminalPersistence": {
+            "ms": 1.5999999046325684,
+            "calls": 1
+          },
+          "historyRetention": {
+            "ms": 2.1000001430511475,
+            "calls": 1
+          }
+        },
+        "wallMs": 358.59999990463257,
+        "batches": 0,
+        "rows": 0
+      }
+    },
+    {
+      "name": "tenK-output",
+      "off": {
+        "n": 6,
+        "medianWallMs": 954,
+        "p95ObservedWallMs": 1007.6000001430511,
+        "minWallMs": 874.2000000476837,
+        "maxWallMs": 1007.6000001430511,
+        "medianEngineMs": 927.0999999046326,
+        "steps": [
+          50606
+        ],
+        "outputCounts": [
+          10000
+        ],
+        "medianOutputPerSecond": 10484.807036490067,
+        "logical": 10000
+      },
+      "on": {
+        "n": 6,
+        "medianWallMs": 981.9000000953674,
+        "p95ObservedWallMs": 1082.4000000953674,
+        "minWallMs": 887.4000000953674,
+        "maxWallMs": 1082.4000000953674,
+        "medianEngineMs": 955.0499999523163,
+        "steps": [
+          50606
+        ],
+        "outputCounts": [
+          10000
+        ],
+        "medianOutputPerSecond": 10191.985915666934,
+        "logical": 10000
+      },
+      "onOverOff": 0.9715857010972018,
+      "profile": {
+        "name": "tenK-output",
+        "round": "profiled",
+        "logical": 10000,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 50606,
+          "count": 10000,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 1009.7999999523163
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 6.6000001430511475,
+            "calls": 1
+          },
+          "readInclusive": {
+            "ms": 290.3999993801117,
+            "calls": 10201
+          },
+          "lineage": {
+            "ms": 13.899997234344482,
+            "calls": 40100
+          },
+          "text": {
+            "ms": 2.799999952316284,
+            "calls": 10000
+          },
+          "filter": {
+            "ms": 48.19999957084656,
+            "calls": 10000
+          },
+          "metadata": {
+            "ms": 14.899999141693115,
+            "calls": 10000
+          },
+          "persistence": {
+            "ms": 588.2000002861023,
+            "calls": 157
+          },
+          "messageEnqueue": {
+            "ms": 11.900001049041748,
+            "calls": 157
+          },
+          "terminalPersistence": {
+            "ms": 1.7000000476837158,
+            "calls": 1
+          },
+          "historyRetention": {
+            "ms": 2.0999999046325684,
+            "calls": 1
+          }
+        },
+        "wallMs": 1036.8999998569489,
+        "batches": 157,
+        "rows": 10000
+      }
+    },
+    {
+      "name": "million-prefix",
+      "off": {
+        "n": 6,
+        "medianWallMs": 307.5499999523163,
+        "p95ObservedWallMs": 621.2000000476837,
+        "minWallMs": 44.799999952316284,
+        "maxWallMs": 621.2000000476837,
+        "medianEngineMs": 22.399999856948853,
+        "steps": [
+          291
+        ],
+        "outputCounts": [
+          60
+        ],
+        "medianOutputPerSecond": 449.8767616153926,
+        "logical": 1000000
+      },
+      "on": {
+        "n": 6,
+        "medianWallMs": 61.35000002384186,
+        "p95ObservedWallMs": 617.2999999523163,
+        "minWallMs": 45.09999990463257,
+        "maxWallMs": 617.2999999523163,
+        "medianEngineMs": 23.899999976158142,
+        "steps": [
+          291
+        ],
+        "outputCounts": [
+          60
+        ],
+        "medianOutputPerSecond": 1036.282558178183,
+        "logical": 1000000
+      },
+      "onOverOff": 5.013039932074916,
+      "profile": {
+        "name": "million-prefix",
+        "round": "profiled",
+        "logical": 1000000,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 291,
+          "count": 60,
+          "truncated": true,
+          "safePruned": 0,
+          "duration": 54.39999985694885
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 6.299999952316284,
+            "calls": 1
+          },
+          "readInclusive": {
+            "ms": 48.700000286102295,
+            "calls": 74
+          },
+          "lineage": {
+            "ms": 0.09999990463256836,
+            "calls": 190
+          },
+          "text": {
+            "ms": 0,
+            "calls": 61
+          },
+          "metadata": {
+            "ms": 0.5000002384185791,
+            "calls": 61
+          },
+          "persistence": {
+            "ms": 4.099999904632568,
+            "calls": 1
+          },
+          "messageEnqueue": {
+            "ms": 0.09999990463256836,
+            "calls": 1
+          },
+          "terminalPersistence": {
+            "ms": 2.4000000953674316,
+            "calls": 1
+          },
+          "historyRetention": {
+            "ms": 488.5,
+            "calls": 1
+          }
+        },
+        "wallMs": 614.5,
+        "batches": 1,
+        "rows": 60
+      }
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "off": {
+        "n": 6,
+        "medianWallMs": 339.5499999523163,
+        "p95ObservedWallMs": 582.6999998092651,
+        "minWallMs": 49.700000047683716,
+        "maxWallMs": 582.6999998092651,
+        "medianEngineMs": 18.549999952316284,
+        "steps": [
+          229
+        ],
+        "outputCounts": [
+          10
+        ],
+        "medianOutputPerSecond": 54.682535370920746,
+        "logical": 10
+      },
+      "on": {
+        "n": 6,
+        "medianWallMs": 579.6499999761581,
+        "p95ObservedWallMs": 592.0999999046326,
+        "minWallMs": 51.40000009536743,
+        "maxWallMs": 592.0999999046326,
+        "medianEngineMs": 19.649999976158142,
+        "steps": [
+          229
+        ],
+        "outputCounts": [
+          10
+        ],
+        "medianOutputPerSecond": 17.252550976329815,
+        "logical": 10
+      },
+      "onOverOff": 0.585784525086315,
+      "profile": {
+        "name": "dynamic-mapping-extension-depth12",
+        "round": "profiled",
+        "logical": 10,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 229,
+          "count": 10,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 18.700000047683716
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 11.600000143051147,
+            "calls": 1
+          },
+          "lineage": {
+            "ms": 1.0999996662139893,
+            "calls": 250
+          },
+          "readInclusive": {
+            "ms": 13.399999856948853,
+            "calls": 11
+          },
+          "persistence": {
+            "ms": 4.700000047683716,
+            "calls": 1
+          },
+          "messageEnqueue": {
+            "ms": 0.09999990463256836,
+            "calls": 1
+          },
+          "terminalPersistence": {
+            "ms": 3.5,
+            "calls": 1
+          },
+          "historyRetention": {
+            "ms": 4.700000047683716,
+            "calls": 1
+          }
+        },
+        "wallMs": 52.39999985694885,
+        "batches": 1,
+        "rows": 10
+      }
+    },
+    {
+      "name": "mutation-unicode",
+      "off": {
+        "n": 6,
+        "medianWallMs": 52.299999952316284,
+        "p95ObservedWallMs": 54.799999952316284,
+        "minWallMs": 49,
+        "maxWallMs": 54.799999952316284,
+        "medianEngineMs": 23.65000009536743,
+        "steps": [
+          6180
+        ],
+        "outputCounts": [
+          34
+        ],
+        "medianOutputPerSecond": 650.1811752210353,
+        "logical": null
+      },
+      "on": {
+        "n": 6,
+        "medianWallMs": 51.85000002384186,
+        "p95ObservedWallMs": 57.90000009536743,
+        "minWallMs": 48.200000047683716,
+        "maxWallMs": 57.90000009536743,
+        "medianEngineMs": 23.09999990463257,
+        "steps": [
+          6180
+        ],
+        "outputCounts": [
+          34
+        ],
+        "medianOutputPerSecond": 655.787100440827,
+        "logical": null
+      },
+      "onOverOff": 1.0086788800051592,
+      "profile": {
+        "name": "mutation-unicode",
+        "round": "profiled",
+        "logical": null,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 6180,
+          "count": 34,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 22
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 6.700000047683716,
+            "calls": 1
+          },
+          "lineage": {
+            "ms": 0.40000033378601074,
+            "calls": 68
+          },
+          "persistence": {
+            "ms": 4.599999904632568,
+            "calls": 1
+          },
+          "messageEnqueue": {
+            "ms": 0.10000014305114746,
+            "calls": 1
+          },
+          "terminalPersistence": {
+            "ms": 1.2000000476837158,
+            "calls": 1
+          },
+          "historyRetention": {
+            "ms": 3,
+            "calls": 1
+          }
+        },
+        "wallMs": 51.799999952316284,
+        "batches": 1,
+        "rows": 34
+      }
+    }
+  ],
+  "p2EBaseline": [
+    {
+      "name": "pattern-reject-full",
+      "off": {
+        "n": 3,
+        "medianWallMs": 794.9000000953674,
+        "p95ObservedWallMs": 798.5,
+        "minWallMs": 755.6999998092651,
+        "maxWallMs": 798.5,
+        "medianEngineMs": 720.8000001907349,
+        "steps": [
+          40606
+        ],
+        "outputCounts": [
+          0
+        ],
+        "medianOutputPerSecond": 0,
+        "logical": 10000,
+        "medianCompletedOuterCombinationsPerEngineSecond": 13873.473914197899
+      },
+      "on": {
+        "n": 3,
+        "medianWallMs": 697.5999999046326,
+        "p95ObservedWallMs": 699.2000000476837,
+        "minWallMs": 691.0999999046326,
+        "maxWallMs": 699.2000000476837,
+        "medianEngineMs": 650.3000001907349,
+        "steps": [
+          40606
+        ],
+        "outputCounts": [
+          0
+        ],
+        "medianOutputPerSecond": 0,
+        "logical": 10000,
+        "medianCompletedOuterCombinationsPerEngineSecond": 15377.51806407346
+      },
+      "onOverOff": 1.139478211301658,
+      "profile": {
+        "name": "pattern-reject-full",
+        "round": "profiled",
+        "logical": 10000,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 40606,
+          "count": 0,
+          "truncated": false,
+          "safePruned": 10000,
+          "duration": 611.5
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 11.399999856948853,
+            "calls": 1
+          },
+          "readInclusive": {
+            "ms": 489.09999680519104,
+            "calls": 10201
+          },
+          "lineage": {
+            "ms": 6.900001287460327,
+            "calls": 10100
+          },
+          "text": {
+            "ms": 6.700000762939453,
+            "calls": 10000
+          },
+          "filter": {
+            "ms": 82.30000424385071,
+            "calls": 10000
+          }
+        },
+        "wallMs": 652.5,
+        "batches": 0,
+        "rows": 0
+      }
+    },
+    {
+      "name": "concat-reject-full",
+      "off": {
+        "n": 3,
+        "medianWallMs": 656.4000000953674,
+        "p95ObservedWallMs": 704.0999999046326,
+        "minWallMs": 645.4000000953674,
+        "maxWallMs": 704.0999999046326,
+        "medianEngineMs": 613.9000000953674,
+        "steps": [
+          40606
+        ],
+        "outputCounts": [
+          0
+        ],
+        "medianOutputPerSecond": 0,
+        "logical": 10000,
+        "medianCompletedOuterCombinationsPerEngineSecond": 16289.297928728673
+      },
+      "on": {
+        "n": 3,
+        "medianWallMs": 592.5,
+        "p95ObservedWallMs": 644.5,
+        "minWallMs": 581.7000000476837,
+        "maxWallMs": 644.5,
+        "medianEngineMs": 546.7000000476837,
+        "steps": [
+          40606
+        ],
+        "outputCounts": [
+          0
+        ],
+        "medianOutputPerSecond": 0,
+        "logical": 10000,
+        "medianCompletedOuterCombinationsPerEngineSecond": 18291.567585746827
+      },
+      "onOverOff": 1.1078481014267805,
+      "profile": {
+        "name": "concat-reject-full",
+        "round": "profiled",
+        "logical": 10000,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 40606,
+          "count": 0,
+          "truncated": false,
+          "safePruned": 10000,
+          "duration": 591.2000000476837
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 13,
+            "calls": 1
+          },
+          "readInclusive": {
+            "ms": 487.09999990463257,
+            "calls": 10201
+          },
+          "lineage": {
+            "ms": 7.30000114440918,
+            "calls": 10100
+          },
+          "text": {
+            "ms": 2.5,
+            "calls": 10000
+          },
+          "filter": {
+            "ms": 65.8999993801117,
+            "calls": 10000
+          }
+        },
+        "wallMs": 633.5999999046326,
+        "batches": 0,
+        "rows": 0
+      }
+    },
+    {
+      "name": "tenK-output",
+      "off": {
+        "n": 3,
+        "medianWallMs": 1606.7000000476837,
+        "p95ObservedWallMs": 1671.5999999046326,
+        "minWallMs": 1501.5999999046326,
+        "maxWallMs": 1671.5999999046326,
+        "medianEngineMs": 1559.5,
+        "steps": [
+          50606
+        ],
+        "outputCounts": [
+          10000
+        ],
+        "medianOutputPerSecond": 6223.937262527677,
+        "logical": 10000
+      },
+      "on": {
+        "n": 3,
+        "medianWallMs": 1608.6000001430511,
+        "p95ObservedWallMs": 1661.2000000476837,
+        "minWallMs": 1598.6000001430511,
+        "maxWallMs": 1661.2000000476837,
+        "medianEngineMs": 1567.2999999523163,
+        "steps": [
+          50606
+        ],
+        "outputCounts": [
+          10000
+        ],
+        "medianOutputPerSecond": 6216.585850497769,
+        "logical": 10000
+      },
+      "onOverOff": 0.9988188486291194,
+      "profile": {
+        "name": "tenK-output",
+        "round": "profiled",
+        "logical": 10000,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 50606,
+          "count": 10000,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 1769.5
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 12.799999952316284,
+            "calls": 1
+          },
+          "readInclusive": {
+            "ms": 555.0999960899353,
+            "calls": 10201
+          },
+          "lineage": {
+            "ms": 26.399999380111694,
+            "calls": 40100
+          },
+          "text": {
+            "ms": 2.799999475479126,
+            "calls": 10000
+          },
+          "filter": {
+            "ms": 89.20000123977661,
+            "calls": 10000
+          },
+          "metadata": {
+            "ms": 27.49999976158142,
+            "calls": 10000
+          },
+          "persistence": {
+            "ms": 972.7000026702881,
+            "calls": 157
+          },
+          "messageEnqueue": {
+            "ms": 19.799999237060547,
+            "calls": 157
+          }
+        },
+        "wallMs": 1811.0999999046326,
+        "batches": 157,
+        "rows": 10000
+      }
+    },
+    {
+      "name": "million-prefix",
+      "off": {
+        "n": 3,
+        "medianWallMs": 88.5,
+        "p95ObservedWallMs": 114.90000009536743,
+        "minWallMs": 83.89999985694885,
+        "maxWallMs": 114.90000009536743,
+        "medianEngineMs": 44.799999952316284,
+        "steps": [
+          291
+        ],
+        "outputCounts": [
+          60
+        ],
+        "medianOutputPerSecond": 677.9661016949152,
+        "logical": 1000000
+      },
+      "on": {
+        "n": 3,
+        "medianWallMs": 77.59999990463257,
+        "p95ObservedWallMs": 115.40000009536743,
+        "minWallMs": 76.90000009536743,
+        "maxWallMs": 115.40000009536743,
+        "medianEngineMs": 39.30000019073486,
+        "steps": [
+          291
+        ],
+        "outputCounts": [
+          60
+        ],
+        "medianOutputPerSecond": 773.195877238888,
+        "logical": 1000000
+      },
+      "onOverOff": 1.1404639189273598,
+      "profile": {
+        "name": "million-prefix",
+        "round": "profiled",
+        "logical": 1000000,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 291,
+          "count": 60,
+          "truncated": true,
+          "safePruned": 0,
+          "duration": 83.79999995231628
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 10.200000047683716,
+            "calls": 1
+          },
+          "readInclusive": {
+            "ms": 74.09999966621399,
+            "calls": 74
+          },
+          "lineage": {
+            "ms": 0.5000002384185791,
+            "calls": 190
+          },
+          "text": {
+            "ms": 0.09999990463256836,
+            "calls": 61
+          },
+          "metadata": {
+            "ms": 0.39999985694885254,
+            "calls": 61
+          },
+          "persistence": {
+            "ms": 6.8999998569488525,
+            "calls": 1
+          },
+          "messageEnqueue": {
+            "ms": 0.20000004768371582,
+            "calls": 1
+          }
+        },
+        "wallMs": 120.10000014305115,
+        "batches": 1,
+        "rows": 60
+      }
+    },
+    {
+      "name": "dynamic-mapping-extension-depth12",
+      "off": {
+        "n": 3,
+        "medianWallMs": 74.30000019073486,
+        "p95ObservedWallMs": 76.5,
+        "minWallMs": 72.59999990463257,
+        "maxWallMs": 76.5,
+        "medianEngineMs": 29.799999952316284,
+        "steps": [
+          229
+        ],
+        "outputCounts": [
+          10
+        ],
+        "medianOutputPerSecond": 134.58950167333902,
+        "logical": 10
+      },
+      "on": {
+        "n": 3,
+        "medianWallMs": 74.10000014305115,
+        "p95ObservedWallMs": 75.79999995231628,
+        "minWallMs": 72.79999995231628,
+        "maxWallMs": 75.79999995231628,
+        "medianEngineMs": 31.299999952316284,
+        "steps": [
+          229
+        ],
+        "outputCounts": [
+          10
+        ],
+        "medianOutputPerSecond": 134.95276627118557,
+        "logical": 10
+      },
+      "onOverOff": 1.0026990559689286,
+      "profile": {
+        "name": "dynamic-mapping-extension-depth12",
+        "round": "profiled",
+        "logical": 10,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 229,
+          "count": 10,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 30.40000009536743
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 15.100000143051147,
+            "calls": 1
+          },
+          "lineage": {
+            "ms": 1.5,
+            "calls": 250
+          },
+          "readInclusive": {
+            "ms": 23.399999856948853,
+            "calls": 11
+          },
+          "persistence": {
+            "ms": 5.8999998569488525,
+            "calls": 1
+          },
+          "messageEnqueue": {
+            "ms": 0.10000014305114746,
+            "calls": 1
+          }
+        },
+        "wallMs": 1060.4000000953674,
+        "batches": 1,
+        "rows": 10
+      }
+    },
+    {
+      "name": "mutation-unicode",
+      "off": {
+        "n": 3,
+        "medianWallMs": 923.4000000953674,
+        "p95ObservedWallMs": 951.8999998569489,
+        "minWallMs": 920.5,
+        "maxWallMs": 951.8999998569489,
+        "medianEngineMs": 31,
+        "steps": [
+          6180
+        ],
+        "outputCounts": [
+          34
+        ],
+        "medianOutputPerSecond": 36.82044617336856,
+        "logical": null
+      },
+      "on": {
+        "n": 3,
+        "medianWallMs": 960,
+        "p95ObservedWallMs": 1031.5,
+        "minWallMs": 954.5,
+        "maxWallMs": 1031.5,
+        "medianEngineMs": 35,
+        "steps": [
+          6180
+        ],
+        "outputCounts": [
+          34
+        ],
+        "medianOutputPerSecond": 35.416666666666664,
+        "logical": null
+      },
+      "onOverOff": 0.9618750000993411,
+      "profile": {
+        "name": "mutation-unicode",
+        "round": "profiled",
+        "logical": null,
+        "optimize": true,
+        "type": "done",
+        "stats": {
+          "steps": 6180,
+          "count": 34,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 44.19999980926514
+        },
+        "metrics": {
+          "prepare": {
+            "ms": 12.299999952316284,
+            "calls": 1
+          },
+          "lineage": {
+            "ms": 0,
+            "calls": 68
+          },
+          "persistence": {
+            "ms": 7.5,
+            "calls": 1
+          },
+          "messageEnqueue": {
+            "ms": 0.09999990463256836,
+            "calls": 1
+          }
+        },
+        "wallMs": 179.90000009536743,
+        "batches": 1,
+        "rows": 34
+      }
+    }
+  ],
+  "imports": [
+    {
+      "id": "f-left",
+      "size": 100,
+      "ms": 15.400000095367432
+    },
+    {
+      "id": "f-right",
+      "size": 100,
+      "ms": 10.900000095367432
+    },
+    {
+      "id": "f-third",
+      "size": 10,
+      "ms": 10.699999809265137
+    },
+    {
+      "id": "f-heavy-left",
+      "size": 200,
+      "ms": 14.600000143051147
+    },
+    {
+      "id": "f-heavy-right",
+      "size": 200,
+      "ms": 14.200000047683716
+    },
+    {
+      "id": "f-100k",
+      "size": 100000,
+      "ms": 3874.899999856949
+    }
+  ],
+  "reverseRenderer": [
+    {
+      "ms": 33.799999952316284,
+      "cacheHit": false,
+      "matches": 5
+    },
+    {
+      "ms": 1.2000000476837158,
+      "cacheHit": true,
+      "matches": 5
+    },
+    {
+      "ms": 1,
+      "cacheHit": true,
+      "matches": 5
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ✓ src/tests/scale.test.ts (10 tests) 633ms
+   ✓ 192 generated seed/version four-way differential includes all fields, read events, ticks and first-path duplicates  552ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  23:13:44
+   Duration  1.77s (transform 241ms, setup 0ms, collect 619ms, tests 633ms, environment 0ms, prepare 179ms)
+

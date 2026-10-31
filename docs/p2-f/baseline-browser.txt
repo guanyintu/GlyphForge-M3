@@ -1,0 +1,51 @@
+
+Running 2 tests using 1 worker
+
+  x  1 e2e\scale.spec.ts:6:1 › readonly estimate UI and live metadata invalidation (7.7s)
+  ok 2 e2e\scale.spec.ts:14:1 › real production Worker/IDB audit: fully enumerated expensive graphs and bounded million prefix (41.2s)
+
+
+  1) e2e\scale.spec.ts:6:1 › readonly estimate UI and live metadata invalidation ───────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('status').filter({ hasText: '风险：高' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('status').filter({ hasText: '风险：高' }) with timeout 5000ms
+      - waiting for getByRole('status').filter({ hasText: '风险：高' })
+
+
+       9 |   await expect(page.getByRole('status').filter({hasText:'去重前候选'})).toBeVisible();
+      10 |   await page.evaluate(async()=>{const h=await import('/scale-harness/scale.js');const r=await h.db.resources.toCollection().first();await h.db.resources.update(r.id,{version:r.version+1,count:20000});});
+    > 11 |   await expect(page.getByRole('status').filter({hasText:'风险：高'})).toBeVisible();
+         |                                                                   ^
+      12 |   await expect(page.getByText(/最近完成运行：/)).toBeVisible();
+      13 | });
+      14 | test('real production Worker/IDB audit: fully enumerated expensive graphs and bounded million prefix',async({page})=>{
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\scale.spec.ts:11:67
+
+    Error Context: test-results\scale-readonly-estimate-UI-and-live-metadata-invalidation\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\scale-readonly-estimate-UI-and-live-metadata-invalidation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\scale-readonly-estimate-UI-and-live-metadata-invalidation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\scale.spec.ts:6:1 › readonly estimate UI and live metadata invalidation ────────────────────
+  1 passed (1.0m)
+[WebServer] (node:32248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:103888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:92432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:133016) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

@@ -1,4 +1,5 @@
-import { traceCandidate } from "./lineage";
+import { traceCandidate, mergeLineage } from "./lineage";
+import { measure, type ExecutionMetrics } from './execution-metrics';
 import { ContractError, diagnose, executionBudget, nodeResourceBindings, normalizeParams, requireResourceKind } from "./contracts";
 import type { ResourceMetadataReader } from "./contracts";
 import { acceptsFilter, operatorRegistry } from "./operators";
@@ -20,7 +21,8 @@ export interface RunStats {
   duration: number;
 }
 export interface RunHooks {
-  /** Disable only the pure metadata-allocation pruning for differential checks. */
+  metrics?: ExecutionMetrics;
+  /** Disable P2-E metadata pruning and P2-F pure computation reuse. */
   optimize?: boolean;
   lineage?: boolean;
   lineageScope?: string;
@@ -89,7 +91,22 @@ export async function execute(
 export async function* evaluateWorkflow(workflow: Workflow, reader: ResourceReader, tick: () => void, hooks: RunHooks = {}): AsyncGenerator<Candidate> {
   validateGraph(workflow);
   const nodes = new Map(workflow.nodes.map((n) => [n.id, n]));
-  const traced = (c: Candidate, path: string) => hooks.lineage || hooks.runId ? traceCandidate(c, hooks.lineageScope ?? workflow.id, path) : c;
+  // Invocation-local strings only: no candidates, resource contents or RNG state.
+  // Bound both entries and code units; scope changes never reuse an old ref.
+  const references=new Map<string,{scope:string;ref:string}>();let referenceUnits=0;
+  const traced = (c: Candidate, path: string) => {
+    if(!hooks.lineage&&!hooks.runId)return c;
+    return measure(hooks.metrics,'lineage',()=>{
+      const scope=hooks.lineageScope??workflow.id;
+      if(hooks.optimize===false)return traceCandidate(c,scope,path);
+      let cached=references.get(path);
+      if(!cached||cached.scope!==scope){
+        const ref=JSON.stringify([scope,path]);cached={scope,ref};
+        if(references.size<2048&&referenceUnits+path.length+scope.length+ref.length<=262144){references.set(path,cached);referenceUnits+=path.length+scope.length+ref.length;}
+      }
+      return {...c,lineage:mergeLineage([c],cached.ref)};
+    });
+  };
   async function* evaluate(n: RuleNode, scope = nodes, bindings: Params = {}, args: Record<string, () => CandidateSequence> = {}, depth = 0, path = "", acceptText?: (text: string) => boolean): AsyncGenerator<Candidate> {
     try {
       tick();
@@ -111,7 +128,7 @@ export async function* evaluateWorkflow(workflow: Workflow, reader: ResourceRead
         function pipeline(index: number): CandidateSequence {
           if (index < 0) return evaluate(scope.get(n.inputs[0])!, scope, bindings, args, depth, path);
           const step = resolved.steps[index];
-          const sequence = operatorRegistry[step.op].execute({node:{id:`${n.id}/${index}`,op:step.op,inputs:[],params:step.params},seed:workflow.seed,tick,read:(id,seed)=>reader(id,seed,tick),resourceMetadata:hooks.resourceMetadata,input:()=>pipeline(index-1)});
+          const sequence = operatorRegistry[step.op].execute({metrics:hooks.metrics,optimize:hooks.optimize,node:{id:`${n.id}/${index}`,op:step.op,inputs:[],params:step.params},seed:workflow.seed,tick,read:(id,seed)=>reader(id,seed,tick),resourceMetadata:hooks.resourceMetadata,input:()=>pipeline(index-1)});
           return (async function* () { for await (const c of sequence) yield traced(c, `${path}${n.id}/${index}`); })();
         }
         for await (const c of pipeline(resolved.steps.length-1)) yield traced(c, `${path}${n.id}`); return;
@@ -121,7 +138,7 @@ export async function* evaluateWorkflow(workflow: Workflow, reader: ResourceRead
       const source = scope.get(n.inputs[0]);
       if (hooks.optimize !== false && n.op === "filter" && source && (source.op === "concat" || source.op === "pattern")) {
         const accept = (text: string) => {
-          try { tick(); const keep = !!acceptsFilter(text, bound.params); if (!keep) hooks.onSafePrune?.(); return keep; }
+          try { tick(); const keep = !!measure(hooks.metrics,'filter',()=>acceptsFilter(text, bound.params)); if (!keep) hooks.onSafePrune?.(); return keep; }
           catch (e) { throw diagnose(e, {nodeId:`${path}${n.id}`,operator:n.op,line:n.line}); }
         };
         for await (const c of evaluate(source, scope, bindings, args, depth, path, accept)) yield traced(c, `${path}${n.id}`);
@@ -133,6 +150,8 @@ export async function* evaluateWorkflow(workflow: Workflow, reader: ResourceRead
       }
       for await (const c of operatorRegistry[n.op].execute({
         acceptText,
+        metrics: hooks.metrics,
+        optimize: hooks.optimize,
         node: bound,
         seed: workflow.seed,
         tick,

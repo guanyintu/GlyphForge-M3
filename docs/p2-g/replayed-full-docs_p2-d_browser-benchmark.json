@@ -1,0 +1,17 @@
+{
+  "logical": 1000000,
+  "ms": 40,
+  "totalIncludingCancelMs": 240,
+  "stats": {
+    "steps": 378,
+    "count": 60,
+    "truncated": true,
+    "safePruned": 0,
+    "duration": 10.300000190734863
+  },
+  "type": "done",
+  "count": 60,
+  "mainHeap": 12079142,
+  "cancelled": "cancelled",
+  "noLate": true
+}

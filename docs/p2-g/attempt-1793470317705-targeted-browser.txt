@@ -1,0 +1,76 @@
+
+Running 5 tests using 1 worker
+
+  ok 1 e2e\share-code.spec.ts:10:1 › UI selected portable code → copy → offline new context → readonly preview → confirm → run → refresh (2.2s)
+  x  2 e2e\share-code.spec.ts:26:1 › UI light dependency binding, unselected resources, mode/unmount cancellation and large-package file fallback (7.9s)
+  x  3 e2e\share-code.spec.ts:46:1 › production Worker exact JSON/code equivalence for simple/NameScript/nested subgraphs/mutation/dynamic Mapping/v7 in empty IDB (750ms)
+  ok 4 e2e\share-code.spec.ts:69:1 › native Chromium bomb/corruption/timeout/concurrency/rollback; bounded sharing/UI/heap samples (9.0s)
+  ok 5 e2e\share-code.spec.ts:88:1 › dedicated sharing Worker V8 heap samples for 10k snapshot; renderer stays responsive (860ms)
+
+
+  1) e2e\share-code.spec.ts:26:1 › UI light dependency binding, unselected resources, mode/unmount cancellation and large-package file fallback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('status').filter({ hasText: /1 MiB/ })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('status').filter({ hasText: /1 MiB/ }) with timeout 5000ms
+      - waiting for getByRole('status').filter({ hasText: /1 MiB/ })
+
+
+      40 |   // Import a legal >1MiB portable package via the existing JSON file UI, then try its code.
+      41 |   const big=await page.evaluate(async()=>{const h=await import('/share-harness/share.js');const id='big-code';await h.saveNewResource({id,name:'大包',kind:'word',version:1,count:0,color:'green',description:'',updatedAt:0},Array.from({length:7000},(_,i)=>`${i}-${'月'.repeat(80)}`));return h.exportPackage(h.resourceWorkflow(id));});
+    > 42 |   await page.locator('input[type=file][accept=".json"]').first().setInputFiles({name:'large.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(big))});await share(page);await page.getByLabel('分享码模式',{exact:true}).selectOption('portable');await page.getByRole('button',{name:'生成短分享码',exact:true}).click();await expect(page.getByRole('status').filter({hasText:/1 MiB/})).toBeVisible();
+         |                                                                                                                                                                                                                                                                                                                                                                                                   ^
+      43 |   const download=page.waitForEvent('download');await page.getByRole('button',{name:'导出便携包',exact:true}).click();expect((await download).suggestedFilename()).toContain('.portable.json');
+      44 | });
+      45 |
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\share-code.spec.ts:42:387
+
+    Error Context: test-results\share-code-UI-light-depend-4b843-large-package-file-fallback\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\share-code-UI-light-depend-4b843-large-package-file-fallback\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\share-code-UI-light-depend-4b843-large-package-file-fallback\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) e2e\share-code.spec.ts:46:1 › production Worker exact JSON/code equivalence for simple/NameScript/nested subgraphs/mutation/dynamic Mapping/v7 in empty IDB 
+
+    Error: page.evaluate: Error: Candidate/source differs 2
+        at eval (eval at evaluate (:370:30), <anonymous>:60:26)
+        at async <anonymous>:396:30
+        at eval (eval at evaluate (:370:30), <anonymous>:60:26)
+        at async <anonymous>:396:30
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\share-code.spec.ts:58:29
+
+    Error Context: test-results\share-code-production-Work-5216c-mic-Mapping-v7-in-empty-IDB\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\share-code-production-Work-5216c-mic-Mapping-v7-in-empty-IDB\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\share-code-production-Work-5216c-mic-Mapping-v7-in-empty-IDB\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    e2e\share-code.spec.ts:26:1 › UI light dependency binding, unselected resources, mode/unmount cancellation and large-package file fallback 
+    e2e\share-code.spec.ts:46:1 › production Worker exact JSON/code equivalence for simple/NameScript/nested subgraphs/mutation/dynamic Mapping/v7 in empty IDB 
+  3 passed (39.5s)
+[WebServer] (node:67528) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:51052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:80100) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:97204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:108784) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

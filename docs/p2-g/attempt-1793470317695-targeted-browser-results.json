@@ -1,0 +1,363 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "e2e/share-code.spec.ts"
+    ],
+    "configFile": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\playwright.config.ts",
+    "rootDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/someb/Documents/ChatGPT/id生成/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "snapshotDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "launchOptions": {
+            "args": [
+              "--enable-precise-memory-info"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4175",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "pnpm exec vite preview --host 127.0.0.1 --port 4175 --strictPort",
+      "url": "http://127.0.0.1:4175",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "share-code.spec.ts",
+      "file": "share-code.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "UI selected portable code → copy → offline new context → readonly preview → confirm → run → refresh",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2185,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T18:10:45.520Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d131d0b300a3bc46c571-26ab1b9134e511a1764e",
+          "file": "share-code.spec.ts",
+          "line": 10,
+          "column": 1
+        },
+        {
+          "title": "UI light dependency binding, unselected resources, mode/unmount cancellation and large-package file fallback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7869,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: /1 MiB/ })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('status').filter({ hasText: /1 MiB/ }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: /1 MiB/ })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: /1 MiB/ })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('status').filter({ hasText: /1 MiB/ }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: /1 MiB/ })\u001b[22m\n\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\share-code.spec.ts:42:387",
+                    "location": {
+                      "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\share-code.spec.ts",
+                      "column": 387,
+                      "line": 42
+                    },
+                    "snippet": "  40 |   // Import a legal >1MiB portable package via the existing JSON file UI, then try its code.\n  41 |   const big=await page.evaluate(async()=>{const h=await import('/share-harness/share.js');const id='big-code';await h.saveNewResource({id,name:'大包',kind:'word',version:1,count:0,color:'green',description:'',updatedAt:0},Array.from({length:7000},(_,i)=>`${i}-${'月'.repeat(80)}`));return h.exportPackage(h.resourceWorkflow(id));});\n> 42 |   await page.locator('input[type=file][accept=\".json\"]').first().setInputFiles({name:'large.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(big))});await share(page);await page.getByLabel('分享码模式',{exact:true}).selectOption('portable');await page.getByRole('button',{name:'生成短分享码',exact:true}).click();await expect(page.getByRole('status').filter({hasText:/1 MiB/})).toBeVisible();\n     |                                                                                                                                                                                                                                                                                                                                                                                                   ^\n  43 |   const download=page.waitForEvent('download');await page.getByRole('button',{name:'导出便携包',exact:true}).click();expect((await download).suggestedFilename()).toContain('.portable.json');\n  44 | });\n  45 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\share-code.spec.ts",
+                        "column": 387,
+                        "line": 42
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: /1 MiB/ })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('status').filter({ hasText: /1 MiB/ }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: /1 MiB/ })\u001b[22m\n\n\n  40 |   // Import a legal >1MiB portable package via the existing JSON file UI, then try its code.\n  41 |   const big=await page.evaluate(async()=>{const h=await import('/share-harness/share.js');const id='big-code';await h.saveNewResource({id,name:'大包',kind:'word',version:1,count:0,color:'green',description:'',updatedAt:0},Array.from({length:7000},(_,i)=>`${i}-${'月'.repeat(80)}`));return h.exportPackage(h.resourceWorkflow(id));});\n> 42 |   await page.locator('input[type=file][accept=\".json\"]').first().setInputFiles({name:'large.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(big))});await share(page);await page.getByLabel('分享码模式',{exact:true}).selectOption('portable');await page.getByRole('button',{name:'生成短分享码',exact:true}).click();await expect(page.getByRole('status').filter({hasText:/1 MiB/})).toBeVisible();\n     |                                                                                                                                                                                                                                                                                                                                                                                                   ^\n  43 |   const download=page.waitForEvent('download');await page.getByRole('button',{name:'导出便携包',exact:true}).click();expect((await download).suggestedFilename()).toContain('.portable.json');\n  44 | });\n  45 |\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\share-code.spec.ts:42:387"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T18:10:53.024Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\share-code-UI-light-depend-4b843-large-package-file-fallback\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\share-code-UI-light-depend-4b843-large-package-file-fallback\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\share-code.spec.ts",
+                    "column": 387,
+                    "line": 42
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d131d0b300a3bc46c571-41d63d8a0cf68ea63760",
+          "file": "share-code.spec.ts",
+          "line": 26,
+          "column": 1
+        },
+        {
+          "title": "production Worker exact JSON/code equivalence for simple/NameScript/nested subgraphs/mutation/dynamic Mapping/v7 in empty IDB",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 750,
+                  "error": {
+                    "message": "Error: page.evaluate: Error: Candidate/source differs 2\n    at eval (eval at evaluate (:370:30), <anonymous>:60:26)\n    at async <anonymous>:396:30",
+                    "stack": "Error: page.evaluate: Error: Candidate/source differs 2\n    at eval (eval at evaluate (:370:30), <anonymous>:60:26)\n    at async <anonymous>:396:30\n    at eval (eval at evaluate (:370:30), <anonymous>:60:26)\n    at async <anonymous>:396:30\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\share-code.spec.ts:58:29",
+                    "location": {
+                      "file": "eval at evaluate (:370:30), <anonymous>",
+                      "column": 26,
+                      "line": 60
+                    }
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "eval at evaluate (:370:30), <anonymous>",
+                        "column": 26,
+                        "line": 60
+                      },
+                      "message": "Error: page.evaluate: Error: Candidate/source differs 2\n    at eval (eval at evaluate (:370:30), <anonymous>:60:26)\n    at async <anonymous>:396:30\n    at eval (eval at evaluate (:370:30), <anonymous>:60:26)\n    at async <anonymous>:396:30\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\share-code.spec.ts:58:29"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T18:11:01.386Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\share-code-production-Work-5216c-mic-Mapping-v7-in-empty-IDB\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\test-results\\share-code-production-Work-5216c-mic-Mapping-v7-in-empty-IDB\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "eval at evaluate (:370:30), <anonymous>",
+                    "column": 26,
+                    "line": 60
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d131d0b300a3bc46c571-e8091dd9e113aad78960",
+          "file": "share-code.spec.ts",
+          "line": 46,
+          "column": 1
+        },
+        {
+          "title": "native Chromium bomb/corruption/timeout/concurrency/rollback; bounded sharing/UI/heap samples",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9007,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T18:11:07.822Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d131d0b300a3bc46c571-f229fe311a4cfc0ac124",
+          "file": "share-code.spec.ts",
+          "line": 69,
+          "column": 1
+        },
+        {
+          "title": "dedicated sharing Worker V8 heap samples for 10k snapshot; renderer stays responsive",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 860,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T18:11:22.112Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d131d0b300a3bc46c571-88e3535011f2d927e367",
+          "file": "share-code.spec.ts",
+          "line": 88,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-31T18:10:44.124Z",
+    "duration": 39503.055,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

@@ -1,3 +1,4 @@
+import { ShareCode } from "./ShareCode";
 import { planResources } from "../core/resource-catalog";
 import { useEffect, useRef, useState } from "react";
 import type { Resource, Workflow } from "../core/model";
@@ -7,21 +8,24 @@ export function SharePanel({
   workflow,
   resources,
   notify,
+  onImport,
 }: {
   workflow: Workflow;
   resources: Resource[];
   notify: (s: string) => void;
+  onImport: (data: unknown) => Promise<void>;
 }) {
   let deps=dependencyIds(workflow);
   try {deps=planResources(deps,resources).resources.map(r=>r.id);} catch { /* Keep missing roots visible. */ }
   const [ids, setIds] = useState(() => deps);
   const [busy, setBusy] = useState(false);
-  const controller=useRef<AbortController|null>(null);useEffect(()=>()=>controller.current?.abort(),[]);
+  const controller=useRef<AbortController|null>(null);useEffect(()=>()=>{const task=controller.current;controller.current=null;task?.abort();},[]);
   async function save(snapshot: boolean) {
     setBusy(true);
     const abort=new AbortController();controller.current=abort;
     try {
       const json=JSON.stringify(await exportPackage(workflow,snapshot?ids:false,abort.signal),null,2);
+      if(abort.signal.aborted)return;
       if(new Blob([json]).size>15*1024*1024)throw new Error('便携包超过 15 MB，请减少词库快照');
       download(
         `${workflow.name}.${snapshot ? "portable" : "workflow"}.json`,
@@ -33,9 +37,9 @@ export function SharePanel({
           : "轻量工作流已导出，不含词条",
       );
     } catch (e) {
-      notify(String(e));
+      if(!abort.signal.aborted)notify(String(e));
     } finally {
-      setBusy(false);
+      if(controller.current===abort){controller.current=null;setBusy(false);}
     }
   }
   return (
@@ -70,6 +74,7 @@ export function SharePanel({
         })}
       </div>
       {busy?<button className="text-button" onClick={()=>controller.current?.abort()}>停止导出</button>:null}
+      <ShareCode workflow={workflow} ids={ids} onImport={onImport} />
       <div className="row">
         <button className="button" disabled={busy} onClick={() => save(false)}>
           导出轻量工作流
@@ -86,14 +91,14 @@ export function SharePanel({
         className="text-button"
         disabled={busy}
         onClick={async () => {
+          const abort=new AbortController();controller.current=abort;setBusy(true);
           try {
-            await navigator.clipboard.writeText(
-              JSON.stringify(await exportPackage(workflow, false)),
-            );
-            notify("完整工作流已复制，可跨工作流粘贴");
-          } catch (e) {
-            notify(String(e));
-          }
+            const data=await exportPackage(workflow,false,abort.signal);
+            if(abort.signal.aborted)return;
+            await navigator.clipboard.writeText(JSON.stringify(data));
+            if(!abort.signal.aborted)notify("完整工作流已复制，可跨工作流粘贴");
+          } catch(e) {if(!abort.signal.aborted)notify(String(e));}
+          finally {if(controller.current===abort){controller.current=null;setBusy(false);}}
         }}
       >
         复制完整工作流

@@ -1,0 +1,403 @@
+{
+  "initial": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "results": [
+    {
+      "version": 2,
+      "chars": 576,
+      "jsonBytes": 681,
+      "compressedBytes": 370,
+      "rows": 2,
+      "steps": 10,
+      "exact": true,
+      "normalized": [
+        {
+          "text": "月",
+          "parts": [
+            {
+              "resourceId": "g-source",
+              "text": "月",
+              "version": 2
+            }
+          ],
+          "lineage": {
+            "version": 1,
+            "refs": [
+              "[\"IMPORTED-WORKFLOW\",\"source\"]",
+              "[\"IMPORTED-WORKFLOW\",\"result\"]"
+            ],
+            "incomplete": false
+          },
+          "seed": 42
+        },
+        {
+          "text": "星",
+          "parts": [
+            {
+              "resourceId": "g-source",
+              "text": "星",
+              "version": 2
+            }
+          ],
+          "lineage": {
+            "version": 1,
+            "refs": [
+              "[\"IMPORTED-WORKFLOW\",\"source\"]",
+              "[\"IMPORTED-WORKFLOW\",\"result\"]"
+            ],
+            "incomplete": false
+          },
+          "seed": 42
+        }
+      ]
+    },
+    {
+      "version": 2,
+      "chars": 610,
+      "jsonBytes": 766,
+      "compressedBytes": 396,
+      "rows": 2,
+      "steps": 13,
+      "exact": true,
+      "normalized": [
+        {
+          "text": "小月",
+          "parts": [
+            {
+              "resourceId": "g-source",
+              "text": "月",
+              "version": 2
+            }
+          ],
+          "lineage": {
+            "version": 1,
+            "refs": [
+              "[\"IMPORTED-WORKFLOW\",\"source\"]",
+              "[\"IMPORTED-WORKFLOW\",\"prefix\"]",
+              "[\"IMPORTED-WORKFLOW\",\"result\"]"
+            ],
+            "incomplete": false
+          },
+          "seed": 42
+        },
+        {
+          "text": "小星",
+          "parts": [
+            {
+              "resourceId": "g-source",
+              "text": "星",
+              "version": 2
+            }
+          ],
+          "lineage": {
+            "version": 1,
+            "refs": [
+              "[\"IMPORTED-WORKFLOW\",\"source\"]",
+              "[\"IMPORTED-WORKFLOW\",\"prefix\"]",
+              "[\"IMPORTED-WORKFLOW\",\"result\"]"
+            ],
+            "incomplete": false
+          },
+          "seed": 42
+        }
+      ]
+    },
+    {
+      "version": 5,
+      "chars": 1233,
+      "jsonBytes": 2695,
+      "compressedBytes": 862,
+      "rows": 2,
+      "steps": 19,
+      "exact": true,
+      "normalized": [
+        {
+          "text": "小月",
+          "parts": [
+            {
+              "resourceId": "g-source",
+              "text": "月",
+              "version": 2
+            }
+          ],
+          "lineage": {
+            "version": 1,
+            "refs": [
+              "[\"IMPORTED-WORKFLOW\",\"source\"]",
+              "[\"IMPORTED-WORKFLOW\",\"call_588625ba784f/call_813fa2a742c6/call_4e41686f0cea/prefix\"]",
+              "[\"IMPORTED-WORKFLOW\",\"call_588625ba784f/call_813fa2a742c6/call_4e41686f0cea\"]",
+              "[\"IMPORTED-WORKFLOW\",\"call_588625ba784f/call_813fa2a742c6\"]",
+              "[\"IMPORTED-WORKFLOW\",\"call_588625ba784f\"]",
+              "[\"IMPORTED-WORKFLOW\",\"result\"]"
+            ],
+            "incomplete": false
+          },
+          "seed": 42
+        },
+        {
+          "text": "小星",
+          "parts": [
+            {
+              "resourceId": "g-source",
+              "text": "星",
+              "version": 2
+            }
+          ],
+          "lineage": {
+            "version": 1,
+            "refs": [
+              "[\"IMPORTED-WORKFLOW\",\"source\"]",
+              "[\"IMPORTED-WORKFLOW\",\"call_588625ba784f/call_813fa2a742c6/call_4e41686f0cea/prefix\"]",
+              "[\"IMPORTED-WORKFLOW\",\"call_588625ba784f/call_813fa2a742c6/call_4e41686f0cea\"]",
+              "[\"IMPORTED-WORKFLOW\",\"call_588625ba784f/call_813fa2a742c6\"]",
+              "[\"IMPORTED-WORKFLOW\",\"call_588625ba784f\"]",
+              "[\"IMPORTED-WORKFLOW\",\"result\"]"
+            ],
+            "incomplete": false
+          },
+          "seed": 42
+        }
+      ]
+    },
+    {
+      "version": 2,
+      "chars": 633,
+      "jsonBytes": 660,
+      "compressedBytes": 413,
+      "rows": 4,
+      "steps": 518,
+      "exact": true,
+      "normalized": [
+        {
+          "text": "云月星",
+          "parts": [],
+          "notes": [
+            "名字变异衍生；原片段只说明素材来源，不证明旧工作流生成此文本"
+          ],
+          "derivation": {
+            "kind": "mutation",
+            "version": 1,
+            "round": 1,
+            "seed": 42,
+            "parent": {
+              "text": "月星"
+            },
+            "operations": [
+              "insert"
+            ],
+            "locks": []
+          },
+          "lineage": {
+            "version": 1,
+            "refs": [
+              "[\"IMPORTED-WORKFLOW\",\"mutation\"]",
+              "[\"IMPORTED-WORKFLOW\",\"result\"]"
+            ],
+            "incomplete": false
+          },
+          "seed": 42
+        },
+        {
+          "text": "月云星",
+          "parts": [],
+          "notes": [
+            "名字变异衍生；原片段只说明素材来源，不证明旧工作流生成此文本"
+          ],
+          "derivation": {
+            "kind": "mutation",
+            "version": 1,
+            "round": 1,
+            "seed": 42,
+            "parent": {
+              "text": "月星"
+            },
+            "operations": [
+              "insert"
+            ],
+            "locks": []
+          },
+          "lineage": {
+            "version": 1,
+            "refs": [
+              "[\"IMPORTED-WORKFLOW\",\"mutation\"]",
+              "[\"IMPORTED-WORKFLOW\",\"result\"]"
+            ],
+            "incomplete": false
+          },
+          "seed": 42
+        },
+        {
+          "text": "星月",
+          "parts": [],
+          "notes": [
+            "名字变异衍生；原片段只说明素材来源，不证明旧工作流生成此文本"
+          ],
+          "derivation": {
+            "kind": "mutation",
+            "version": 1,
+            "round": 1,
+            "seed": 42,
+            "parent": {
+              "text": "月星"
+            },
+            "operations": [
+              "reorder"
+            ],
+            "locks": []
+          },
+          "lineage": {
+            "version": 1,
+            "refs": [
+              "[\"IMPORTED-WORKFLOW\",\"mutation\"]",
+              "[\"IMPORTED-WORKFLOW\",\"result\"]"
+            ],
+            "incomplete": false
+          },
+          "seed": 42
+        },
+        {
+          "text": "月星云",
+          "parts": [],
+          "notes": [
+            "名字变异衍生；原片段只说明素材来源，不证明旧工作流生成此文本"
+          ],
+          "derivation": {
+            "kind": "mutation",
+            "version": 1,
+            "round": 1,
+            "seed": 42,
+            "parent": {
+              "text": "月星"
+            },
+            "operations": [
+              "insert"
+            ],
+            "locks": []
+          },
+          "lineage": {
+            "version": 1,
+            "refs": [
+              "[\"IMPORTED-WORKFLOW\",\"mutation\"]",
+              "[\"IMPORTED-WORKFLOW\",\"result\"]"
+            ],
+            "incomplete": false
+          },
+          "seed": 42
+        }
+      ]
+    },
+    {
+      "version": 7,
+      "chars": 2145,
+      "jsonBytes": 6480,
+      "compressedBytes": 1546,
+      "rows": 2,
+      "steps": 52,
+      "exact": true,
+      "normalized": [
+        {
+          "text": "小「玥」",
+          "parts": [
+            {
+              "resourceId": "g-source",
+              "text": "月",
+              "version": 2
+            },
+            {
+              "resourceId": "g-map",
+              "version": 1,
+              "text": "月"
+            },
+            {
+              "resourceId": "g-dag",
+              "version": 1,
+              "text": "小「玥」"
+            }
+          ],
+          "lineage": {
+            "version": 1,
+            "refs": [
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"source\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"mapped\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"ext/0\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"ext/1\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"ext/2\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"ext/3\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"ext/4\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"ext\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"call_588625ba784f/call_813fa2a742c6/call_4e41686f0cea/prefix\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"call_588625ba784f/call_813fa2a742c6/call_4e41686f0cea\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"call_588625ba784f/call_813fa2a742c6\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"call_588625ba784f\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"result\"]",
+              "[\"IMPORTED-WORKFLOW\",\"source\"]",
+              "[\"IMPORTED-WORKFLOW\",\"result\"]"
+            ],
+            "incomplete": false
+          },
+          "notes": [
+            "趣味字形替换，不保证同义同音；每条最多 32 个候选",
+            "趣味字形替换，不保证同义同音；每条最多 32 个候选"
+          ],
+          "seed": 42
+        },
+        {
+          "text": "小「☆」",
+          "parts": [
+            {
+              "resourceId": "g-source",
+              "text": "星",
+              "version": 2
+            },
+            {
+              "resourceId": "g-map",
+              "version": 1,
+              "text": "星"
+            },
+            {
+              "resourceId": "g-dag",
+              "version": 1,
+              "text": "小「☆」"
+            }
+          ],
+          "lineage": {
+            "version": 1,
+            "refs": [
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"source\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"mapped\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"ext/0\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"ext/1\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"ext/2\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"ext/3\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"ext/4\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"ext\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"call_588625ba784f/call_813fa2a742c6/call_4e41686f0cea/prefix\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"call_588625ba784f/call_813fa2a742c6/call_4e41686f0cea\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"call_588625ba784f/call_813fa2a742c6\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"call_588625ba784f\"]",
+              "[\"[\\\"resource\\\",\\\"g-dag\\\",1]\",\"result\"]",
+              "[\"IMPORTED-WORKFLOW\",\"source\"]",
+              "[\"IMPORTED-WORKFLOW\",\"result\"]"
+            ],
+            "incomplete": false
+          },
+          "notes": [
+            "趣味字形替换，不保证同义同音；每条最多 32 个候选",
+            "趣味字形替换，不保证同义同音；每条最多 32 个候选"
+          ],
+          "seed": 42
+        }
+      ]
+    }
+  ],
+  "disabled": false
+}

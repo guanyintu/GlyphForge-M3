@@ -1,0 +1,19 @@
+{
+  "attempts": [
+    {
+      "action": "stage",
+      "result": "refused before mutation",
+      "reason": "new status insertion LF versus section CRLF; rebuilt insertion from exact section bytes; historical body unchanged"
+    },
+    {
+      "action": "isolate after failed stage",
+      "result": "HEAD-only 372 unit tests/build; browser share spec absent; not accepted as P2-G isolation",
+      "reason": "shell continued after stage nonzero; preserved attempt-head-only-*; added preflight refusing HEAD-only index"
+    },
+    {
+      "action": "stage while full regression still running",
+      "result": "refused before mutation",
+      "reason": "old docs/p2-s0-2/worker-consistency.json temporarily rewritten by old regression; wait for runner byte restoration"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ✓ src/tests/share-code.test.ts (27 tests) 193ms
+
+ Test Files  1 passed (1)
+      Tests  27 passed (27)
+   Start at  02:04:38
+   Duration  1.14s (transform 190ms, setup 0ms, collect 513ms, tests 193ms, environment 0ms, prepare 137ms)
+

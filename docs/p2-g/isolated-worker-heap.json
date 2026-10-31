@@ -1,0 +1,36 @@
+{
+  "jsonBytes": 99548,
+  "compressedBytes": 23539,
+  "chars": 31470,
+  "ratio": 0.2364587937477398,
+  "entries": 10000,
+  "elapsedMs": 79.70000004768372,
+  "rendererHeapEnd": 14300000,
+  "workerV8HeapSamples": [
+    {
+      "usedSize": 799336,
+      "totalSize": 3932160,
+      "embedderHeapUsedSize": 773712,
+      "backingStorageSize": 172582
+    },
+    {
+      "usedSize": 2970240,
+      "totalSize": 7340032,
+      "embedderHeapUsedSize": 2166152,
+      "backingStorageSize": 230548
+    },
+    {
+      "usedSize": 4084792,
+      "totalSize": 11440128,
+      "embedderHeapUsedSize": 3052376,
+      "backingStorageSize": 540580
+    },
+    {
+      "usedSize": 4084792,
+      "totalSize": 11440128,
+      "embedderHeapUsedSize": 3052376,
+      "backingStorageSize": 540580
+    }
+  ],
+  "measurement": "CDP V8 heap samples, not RSS or absolute native allocation peak"
+}

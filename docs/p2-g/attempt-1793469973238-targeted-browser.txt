@@ -1,0 +1,143 @@
+
+Running 4 tests using 1 worker
+
+  x  1 e2e\share-code.spec.ts:10:1 › UI selected portable code → copy → offline new context → readonly preview → confirm → run → refresh (4.0s)
+  x  2 e2e\share-code.spec.ts:26:1 › UI light dependency binding, unselected resources, mode/unmount cancellation and large-package file fallback (45.2s)
+  x  3 e2e\share-code.spec.ts:44:1 › production Worker exact JSON/code equivalence for simple/NameScript/nested subgraphs/mutation/dynamic Mapping/v7 in empty IDB (5.6s)
+  x  4 e2e\share-code.spec.ts:67:1 › native Chromium bomb/corruption/timeout/concurrency/rollback; bounded sharing/UI/heap samples (5.7s)
+
+
+  1) e2e\share-code.spec.ts:10:1 › UI selected portable code → copy → offline new context → readonly preview → confirm → run → refresh 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Noto+Sans+SC:wght@400;450;500;550;600;650;700&display=swap",
+    +   "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Noto+Sans+SC:wght@400;450;500;550;600;650;700&display=swap",
+    + ]
+
+      20 |   await target.screenshot({path:`docs/p2-g/${process.env.P2G_SAMPLE||'targeted'}-preview.png`,fullPage:true});
+      21 |   await target.getByRole('button',{name:'确认导入工作流'}).click();await expect(target.getByRole('dialog')).not.toBeVisible();await target.getByRole('button',{name:/^运行工作流/}).click();await expect(target.getByText(/生成完成/)).toBeVisible();await expect(target.locator('.candidate-text').first()).toBeVisible();
+    > 22 |   const texts=await target.locator('.candidate-text').allTextContents();await target.reload();await expect(target.locator('.candidate-text').first()).toBeVisible();expect(await target.locator('.candidate-text').allTextContents()).toEqual(texts);expect(external).toEqual([]);
+         |                                                                                                                                                                                                                                                                       ^
+      23 |   evidence('ui',{chars:code.length,previewNoWrites:before,results:texts,external});await fresh.close();
+      24 | });
+      25 |
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\share-code.spec.ts:22:263
+
+    Error Context: test-results\share-code-UI-selected-por-611c2-w-→-confirm-→-run-→-refresh\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\share-code-UI-selected-por-611c2-w-→-confirm-→-run-→-refresh\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\share-code-UI-selected-por-611c2-w-→-confirm-→-run-→-refresh\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) e2e\share-code.spec.ts:26:1 › UI light dependency binding, unselected resources, mode/unmount cancellation and large-package file fallback 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: '取消分享任务' })
+        - locator resolved to <button class="text-button">取消分享任务</button>
+      - attempting click action
+        - waiting for element to be visible, enabled and stable
+        - element is not stable
+      - retrying click action
+        - waiting for element to be visible, enabled and stable
+      - element was detached from the DOM, retrying
+
+
+      32 |   await page.getByLabel('粘贴分享码',{exact:true}).fill(missing);await page.getByRole('button',{name:'解码并预览（不写入）'}).click();await expect(page.getByLabel('分享码导入预览',{exact:true})).toContainText('缺失');await page.getByRole('button',{name:'确认导入工作流'}).click();await expect(page.getByRole('dialog')).toHaveAccessibleName('重新绑定资源');
+      33 |   const selects=page.getByRole('dialog').locator('select');for(const select of await selects.all()){const value=await select.locator('option').nth(1).getAttribute('value');await select.selectOption(value!);}await page.getByRole('button',{name:'绑定并导入'}).click();await expect(page.getByRole('dialog')).not.toBeVisible();
+    > 34 |   await share(page);await page.getByRole('button',{name:'生成短分享码',exact:true}).click();await page.getByRole('button',{name:'取消分享任务'}).click();await expect(page.getByLabel('生成的分享码',{exact:true})).not.toBeVisible();
+         |                                                                                                                                      ^
+      35 |   await page.getByRole('button',{name:'生成短分享码',exact:true}).click();await page.getByLabel('分享码模式',{exact:true}).selectOption('portable');await expect(page.getByLabel('生成的分享码',{exact:true})).not.toBeVisible();
+      36 |   await page.getByRole('button',{name:'生成短分享码',exact:true}).click();await page.getByRole('button',{name:'关闭',exact:true}).click();await share(page);await expect(page.getByLabel('生成的分享码',{exact:true})).not.toBeVisible();
+      37 |   await page.getByRole('button',{name:'关闭',exact:true}).click();
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\share-code.spec.ts:34:134
+
+    Error Context: test-results\share-code-UI-light-depend-4b843-large-package-file-fallback\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\share-code-UI-light-depend-4b843-large-package-file-fallback\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\share-code-UI-light-depend-4b843-large-package-file-fallback\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) e2e\share-code.spec.ts:44:1 › production Worker exact JSON/code equivalence for simple/NameScript/nested subgraphs/mutation/dynamic Mapping/v7 in empty IDB 
+
+    Error: page.evaluate: ContractError: 扩展包：非 JSON 值
+        at ie (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:794:9)
+        at p (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:806:51)
+        at p (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:805:96)
+        at p (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:805:96)
+        at Jn (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:809:3)
+        at ai (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:7200:3)
+        at Module.$u (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:7207:10)
+        at eval (eval at evaluate (:370:30), <anonymous>:80:28)
+        at async <anonymous>:396:30
+        at ie (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:794:9)
+        at p (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:806:51)
+        at p (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:805:96)
+        at p (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:805:96)
+        at Jn (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:809:3)
+        at ai (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:7200:3)
+        at Module.$u (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:7207:10)
+        at eval (eval at evaluate (:370:30), <anonymous>:80:28)
+        at async <anonymous>:396:30
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\share-code.spec.ts:45:67
+
+    Error Context: test-results\share-code-production-Work-5216c-mic-Mapping-v7-in-empty-IDB\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\share-code-production-Work-5216c-mic-Mapping-v7-in-empty-IDB\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\share-code-production-Work-5216c-mic-Mapping-v7-in-empty-IDB\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) e2e\share-code.spec.ts:67:1 › native Chromium bomb/corruption/timeout/concurrency/rollback; bounded sharing/UI/heap samples 
+
+    Error: page.evaluate: Error: 分享 Worker 无法启动，请使用 JSON 文件
+        at u.onerror (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:7248:158)
+        at u.onerror (http://127.0.0.1:4175/share-harness/share-harness-B09wqiRO.js:7248:158)
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\share-code.spec.ts:68:68
+
+    Error Context: test-results\share-code-native-Chromium-9f7f2-ded-sharing-UI-heap-samples\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\share-code-native-Chromium-9f7f2-ded-sharing-UI-heap-samples\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\share-code-native-Chromium-9f7f2-ded-sharing-UI-heap-samples\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    e2e\share-code.spec.ts:10:1 › UI selected portable code → copy → offline new context → readonly preview → confirm → run → refresh 
+    e2e\share-code.spec.ts:26:1 › UI light dependency binding, unselected resources, mode/unmount cancellation and large-package file fallback 
+    e2e\share-code.spec.ts:44:1 › production Worker exact JSON/code equivalence for simple/NameScript/nested subgraphs/mutation/dynamic Mapping/v7 in empty IDB 
+    e2e\share-code.spec.ts:67:1 › native Chromium bomb/corruption/timeout/concurrency/rollback; bounded sharing/UI/heap samples 
+[WebServer] (node:58152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:158576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:60792) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14556) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:104572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:82964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

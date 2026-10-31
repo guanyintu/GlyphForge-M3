@@ -1,0 +1,16 @@
+
+Running 5 tests using 1 worker
+
+  ok 1 e2e\share-code.spec.ts:10:1 › UI selected portable code → copy → offline new context → readonly preview → confirm → run → refresh (2.2s)
+  ok 2 e2e\share-code.spec.ts:26:1 › UI light dependency binding, unselected resources, mode/unmount cancellation and large-package file fallback (3.1s)
+  ok 3 e2e\share-code.spec.ts:46:1 › production Worker exact JSON/code equivalence for simple/NameScript/nested subgraphs/mutation/dynamic Mapping/v7 in empty IDB (957ms)
+  ok 4 e2e\share-code.spec.ts:69:1 › native Chromium bomb/corruption/timeout/concurrency/rollback; bounded sharing/UI/heap samples (8.8s)
+  ok 5 e2e\share-code.spec.ts:88:1 › dedicated sharing Worker V8 heap samples for 10k snapshot; renderer stays responsive (952ms)
+
+  5 passed (23.4s)
+[WebServer] (node:40784) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:148572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:147044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

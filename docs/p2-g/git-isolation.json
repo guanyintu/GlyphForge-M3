@@ -1,0 +1,1177 @@
+{
+  "base": "e3e93b9807ff3f921e3be52137d94780d0a009df",
+  "historical": [
+    {
+      "file": "AGENTS.md",
+      "sha256": "55778fdbc9b6cc62d7cf3c4d4c98f0283bbc5ead9d49e0088b2ba20fbf9d0001",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/AUDIT_P1_FINAL.md",
+      "sha256": "ed1d72f215f899d263bab1816be8a74c533c18b9e6214d59fcc9faaf5983240c",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/P1-FINAL-REQUIREMENTS.md",
+      "sha256": "a106292d9a7afd8f8470e67f53657faa3e987aee6a8a3aeca4b74001d22ae778",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/P2-ENTRY-ARCHITECTURE.md",
+      "sha256": "2d23548a29808e7c7f518b87629dc0887af28b722557d96288935156743a527d",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/baseline-browser.txt",
+      "sha256": "c023b446815c8a3e8326c2ec7fdca9bf4bc17dcfaa8aecff319a33f80cda4bfa",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/baseline-tests.txt",
+      "sha256": "6d759fa66a1e6221986c9b2fa0dab48cebb8bdc8aa1b879e1c84e90cee94eaa0",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/baseline.json",
+      "sha256": "5cec22a65e191e360062620158c343fed6d13eb17211d86ba9ca87c075a4eb85",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/bench.txt",
+      "sha256": "d00f23b70205d7ac7f2cd5045e54648e04bbaed5d02fa8ef04311a32ae944539",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/browser-initial.txt",
+      "sha256": "1895b3cd4af89ea7b72f563165eacf77bd58d5bd28e67a62e12a6e8ba73e8c5a",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/browser-results-initial.json",
+      "sha256": "9a4ea857373f398988d6caeea4645fb2869b46fe847f4d1d79da936e568984b6",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/browser-results.json",
+      "sha256": "99731794a248c3c4f739da94b8742ecac0578e6594400ccddaa878cb8aec169f",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/browser.txt",
+      "sha256": "24e00055cf3532ffa4feecb41eb04e86ea4a3b840531e6e4473ab1bf69a857ea",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/build-fix.txt",
+      "sha256": "5f8b5285104e0614e607a4bc29a6187a30df217ca070cfa5f3a7c1c86d8d8471",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/build-initial.txt",
+      "sha256": "8c1b64709fe06f24ee099f54e8bb426ef1d0421774271712c9b3da5cfd0e5b50",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/check-exits.json",
+      "sha256": "d3bc676e0ccffbc9713a891c3b95a761a7a66acd7708bd481b51ded42498d56d",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/diff-check.txt",
+      "sha256": "30b9e203898ffd2376d73c835cb4e2e045ff745bcaa08834c38e882756e982a3",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/environment.json",
+      "sha256": "dc8b158a6a8081a647b797b3bc56574e262a0f9e9bcd8655017a9472edd33be9",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/final-integration-initial.txt",
+      "sha256": "b8879a162021847d83d2d9f923402f8b031f4b7bb015230691f96631a7074799",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/fixes.txt",
+      "sha256": "78e1c47a8f45e8123f29fb84b1cae29033be7410a5cedfc7dcb7d1007cb32b09",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/game-ui.png",
+      "sha256": "8c5a0ff338ab033d3e2c0997fff2b17570fec8c146e837484c0b19b1c27505d9",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/git-final.txt",
+      "sha256": "31ab9649c88a1ddd8593ff3f2262dfc4b707207f136a685cfe54964c297fd261",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/highlight-cards.png",
+      "sha256": "cfe0bdaba9a616ba989efab74a8992900494eb5064b452e2ffcb67c76a0e02b9",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/manifest.json",
+      "sha256": "37683ca85595142eb76874b8ebdca173036b0f4aeaa983ba06c0098cb1fba6b3",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/mixed-performance.json",
+      "sha256": "a40534e6da2eb31905d6f894edf6ac92f20cf103a47c4bd950b3049e9a72a902",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/mobile-physics.png",
+      "sha256": "0c7e6efac2d9a690c3319a7efb23c0d463fc2918208a90382d3f7b3ccadbb121",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/performance.json",
+      "sha256": "5604d739b1506fb5b51ec55f50c04af5b1f27c8a2925e423e71b9fb8eb602c65",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/physics-desktop.png",
+      "sha256": "49763ee92f0e5784d800d47ee9a2b41a2f3be2faad6ac62ce7414be81f6dd1ea",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/red.txt",
+      "sha256": "b98dd79e04c82e66ce98a4d2f0a9c35e95c31cff9f228a675d5d8121718dbe52",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/reload-fix.txt",
+      "sha256": "8d41056141a65e85cc1018f24d1520d133d2f2a21c3b5b134e9e074c63e253d3",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/resources-performance.json",
+      "sha256": "82d35afe2c9ee88c490f8be434164d58c4aa9fa2b4e0aacd46fe2bf530048f31",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/reverse-ui.png",
+      "sha256": "3d6bb469571082aecd1e60af98a91046494678ea48d3e09fbdfb0279a52e5d45",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/tests.txt",
+      "sha256": "a1cde8bc4959ba9b90a517d3ba49655be9b6c5a8b297135627363a79ecd2fc87",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/typecheck.txt",
+      "sha256": "5a3973f79ed9becd5f23c4feff467513814de7ea381d75a4d2e339aa8b8edca9",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p1-final/user-baseline.patch.gz",
+      "sha256": "d78b76344f75c02c02e25e2565ff5f7ba8ae7b4fb21c233014ad888427b4862b",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-a/baseline.patch",
+      "sha256": "6382ce0997bd7ba44043614120ed0217c36175d58437617d9e2a467805233e9a",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-a/browser-isolate-local.mjs",
+      "sha256": "20ef006bc9f6571eb76fdc65e80891dc6c8173747c9cf7e07126c4df4ff70077",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-a/check-isolate-local.mjs",
+      "sha256": "aac1e995b64936eb3d99d6de8c4ae1aa3937f5263385c694002bf11b6166e504",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-a/final-docs-local.mjs",
+      "sha256": "f76dea44a36d88b53ccd4cc8a00bf26fb5c75ef3144a25df65733e1b9d9e0b92",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-a/isolate-local.mjs",
+      "sha256": "5970081aa2e36c9e96bb386348f70d8653f908c39e3058df75ddc826d78ebafe",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-a/protect-local.mjs",
+      "sha256": "4b9a1e8e514dc09daf32ac974bf2bcfd796c4b7a531f8885d85f1d3d9e2d6d11",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-a/stage-final-local.mjs",
+      "sha256": "a6d6bcf9059d7af3ad07bb00cacce7a4117b2f0135de98b4c810d4b1d1974a7b",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-a/staging-local.log",
+      "sha256": "8f6175f3ea1e713e4c17c6e4459be0e499ec22c18034f3f6cc4b580821394b23",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-b/baseline-local.patch",
+      "sha256": "d7eaa3a9b39723863418fe96f6a947d4ed9be05fd6fa6555f8cf6d65273b6c07",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-b/browser-first.txt",
+      "sha256": "e6629fd463ab5489af8a40b19f00ecd23015d76d131bce20b12f7f6d6f7f54a4",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-b/browser-second.txt",
+      "sha256": "634c7a0aedbaab7b31125867a63cbdd8077dc0c6ee4c5222429cbaed84720b21",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-b/build-first.txt",
+      "sha256": "5627fbdeeb45d744d2fa58273dc00e1f386c7864d280a2c450a2fbef823ee7d8",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-b/isolate-local.mjs",
+      "sha256": "01e71c4350b160fa456eb3bfef28127e05be621316ef0fb8883002575ebea85c",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-b/isolation-local.json",
+      "sha256": "4e17d20ce6eee21903916d3c18eb719d1e6d31178136389fca44b5e80054dec2",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-b/stage-local.mjs",
+      "sha256": "27045737c031d250f2073cbcab7d46403852899f58e5d1c3763f6f4c739b501b",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-b/type-first.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-b/unit-first.txt",
+      "sha256": "5dd1edfcd61f0dc7730ef2df18154280f2536a7fb1e2985e35b8184baf05bb40",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-b/unit.txt",
+      "sha256": "e07fef73b7a45bed46f7491479c894d331cef574ee4c1adae832a982a5f1e90c",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline-local.json",
+      "sha256": "828946b4628b26b6b1d3f9d5dc0ee4d198d478afe6c6ebcf8fc65d58b640246f",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline-local.patch",
+      "sha256": "c69983a4a5f31b060406f45463b4666234b60dfc485f754bca5329d5011345ea",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/AGENTS.md",
+      "sha256": "55778fdbc9b6cc62d7cf3c4d4c98f0283bbc5ead9d49e0088b2ba20fbf9d0001",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/P0-CHECKLIST.md",
+      "sha256": "d01c9b2a26d243388882b36b29eef40b582a4c7f861f2edde44abc6f7c0cce49",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/P1-PROGRESS.md",
+      "sha256": "26a11c3c39873790cbcdcb46e2629754eb568845ba2d703b278ed488f6b48d76",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/PROJECT-STATUS.md",
+      "sha256": "7f841b27d235214ccd2db754ae0a138a5f624f6ccba3fc417d698fa1eca3803e",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/README.md",
+      "sha256": "5c2f919dd7c3ddf84518a673da67817fb7a01c467e3394c1534b01813ebd9b37",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/VALIDATION.md",
+      "sha256": "183e7285b0afa2c94601fd520c3968722fd6464c9b9b262f685d0c4d57105011",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/AUDIT_P1_FINAL.md",
+      "sha256": "ed1d72f215f899d263bab1816be8a74c533c18b9e6214d59fcc9faaf5983240c",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/P1-B.md",
+      "sha256": "d63d84afb9a8f07d6025c0bbac8f7a0999ce50861d3288644bcb85e2c4e61d49",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/P1-FINAL-REQUIREMENTS.md",
+      "sha256": "a106292d9a7afd8f8470e67f53657faa3e987aee6a8a3aeca4b74001d22ae778",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/P2-ENTRY-ARCHITECTURE.md",
+      "sha256": "2d23548a29808e7c7f518b87629dc0887af28b722557d96288935156743a527d",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/baseline-browser.txt",
+      "sha256": "c023b446815c8a3e8326c2ec7fdca9bf4bc17dcfaa8aecff319a33f80cda4bfa",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/baseline-tests.txt",
+      "sha256": "6d759fa66a1e6221986c9b2fa0dab48cebb8bdc8aa1b879e1c84e90cee94eaa0",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/baseline.json",
+      "sha256": "5cec22a65e191e360062620158c343fed6d13eb17211d86ba9ca87c075a4eb85",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/bench.txt",
+      "sha256": "d00f23b70205d7ac7f2cd5045e54648e04bbaed5d02fa8ef04311a32ae944539",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/browser-initial.txt",
+      "sha256": "1895b3cd4af89ea7b72f563165eacf77bd58d5bd28e67a62e12a6e8ba73e8c5a",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/browser-results-initial.json",
+      "sha256": "9a4ea857373f398988d6caeea4645fb2869b46fe847f4d1d79da936e568984b6",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/browser-results.json",
+      "sha256": "99731794a248c3c4f739da94b8742ecac0578e6594400ccddaa878cb8aec169f",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/browser.txt",
+      "sha256": "24e00055cf3532ffa4feecb41eb04e86ea4a3b840531e6e4473ab1bf69a857ea",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/build-fix.txt",
+      "sha256": "5f8b5285104e0614e607a4bc29a6187a30df217ca070cfa5f3a7c1c86d8d8471",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/build-initial.txt",
+      "sha256": "8c1b64709fe06f24ee099f54e8bb426ef1d0421774271712c9b3da5cfd0e5b50",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/check-exits.json",
+      "sha256": "d3bc676e0ccffbc9713a891c3b95a761a7a66acd7708bd481b51ded42498d56d",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/diff-check.txt",
+      "sha256": "30b9e203898ffd2376d73c835cb4e2e045ff745bcaa08834c38e882756e982a3",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/environment.json",
+      "sha256": "dc8b158a6a8081a647b797b3bc56574e262a0f9e9bcd8655017a9472edd33be9",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/final-integration-initial.txt",
+      "sha256": "b8879a162021847d83d2d9f923402f8b031f4b7bb015230691f96631a7074799",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/fixes.txt",
+      "sha256": "78e1c47a8f45e8123f29fb84b1cae29033be7410a5cedfc7dcb7d1007cb32b09",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/game-ui.png",
+      "sha256": "8c5a0ff338ab033d3e2c0997fff2b17570fec8c146e837484c0b19b1c27505d9",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/git-final.txt",
+      "sha256": "31ab9649c88a1ddd8593ff3f2262dfc4b707207f136a685cfe54964c297fd261",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/highlight-cards.png",
+      "sha256": "cfe0bdaba9a616ba989efab74a8992900494eb5064b452e2ffcb67c76a0e02b9",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/manifest.json",
+      "sha256": "37683ca85595142eb76874b8ebdca173036b0f4aeaa983ba06c0098cb1fba6b3",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/mixed-performance.json",
+      "sha256": "a40534e6da2eb31905d6f894edf6ac92f20cf103a47c4bd950b3049e9a72a902",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/mobile-physics.png",
+      "sha256": "0c7e6efac2d9a690c3319a7efb23c0d463fc2918208a90382d3f7b3ccadbb121",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/performance.json",
+      "sha256": "5604d739b1506fb5b51ec55f50c04af5b1f27c8a2925e423e71b9fb8eb602c65",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/physics-desktop.png",
+      "sha256": "49763ee92f0e5784d800d47ee9a2b41a2f3be2faad6ac62ce7414be81f6dd1ea",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/red.txt",
+      "sha256": "b98dd79e04c82e66ce98a4d2f0a9c35e95c31cff9f228a675d5d8121718dbe52",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/reload-fix.txt",
+      "sha256": "8d41056141a65e85cc1018f24d1520d133d2f2a21c3b5b134e9e074c63e253d3",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/resources-performance.json",
+      "sha256": "82d35afe2c9ee88c490f8be434164d58c4aa9fa2b4e0aacd46fe2bf530048f31",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/reverse-ui.png",
+      "sha256": "3d6bb469571082aecd1e60af98a91046494678ea48d3e09fbdfb0279a52e5d45",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/tests.txt",
+      "sha256": "a1cde8bc4959ba9b90a517d3ba49655be9b6c5a8b297135627363a79ecd2fc87",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/typecheck.txt",
+      "sha256": "5a3973f79ed9becd5f23c4feff467513814de7ea381d75a4d2e339aa8b8edca9",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p1-final/user-baseline.patch.gz",
+      "sha256": "d78b76344f75c02c02e25e2565ff5f7ba8ae7b4fb21c233014ad888427b4862b",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/baseline.patch",
+      "sha256": "6382ce0997bd7ba44043614120ed0217c36175d58437617d9e2a467805233e9a",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/browser-isolate-local.mjs",
+      "sha256": "20ef006bc9f6571eb76fdc65e80891dc6c8173747c9cf7e07126c4df4ff70077",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/check-isolate-local.mjs",
+      "sha256": "aac1e995b64936eb3d99d6de8c4ae1aa3937f5263385c694002bf11b6166e504",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/final-docs-local.mjs",
+      "sha256": "f76dea44a36d88b53ccd4cc8a00bf26fb5c75ef3144a25df65733e1b9d9e0b92",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/isolate-local.mjs",
+      "sha256": "5970081aa2e36c9e96bb386348f70d8653f908c39e3058df75ddc826d78ebafe",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/protect-local.mjs",
+      "sha256": "4b9a1e8e514dc09daf32ac974bf2bcfd796c4b7a531f8885d85f1d3d9e2d6d11",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/stage-final-local.mjs",
+      "sha256": "a6d6bcf9059d7af3ad07bb00cacce7a4117b2f0135de98b4c810d4b1d1974a7b",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-a/staging-local.log",
+      "sha256": "8f6175f3ea1e713e4c17c6e4459be0e499ec22c18034f3f6cc4b580821394b23",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/baseline-local.patch",
+      "sha256": "d7eaa3a9b39723863418fe96f6a947d4ed9be05fd6fa6555f8cf6d65273b6c07",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/browser-first.txt",
+      "sha256": "e6629fd463ab5489af8a40b19f00ecd23015d76d131bce20b12f7f6d6f7f54a4",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/browser-second.txt",
+      "sha256": "634c7a0aedbaab7b31125867a63cbdd8077dc0c6ee4c5222429cbaed84720b21",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/build-first.txt",
+      "sha256": "5627fbdeeb45d744d2fa58273dc00e1f386c7864d280a2c450a2fbef823ee7d8",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/isolate-local.mjs",
+      "sha256": "01e71c4350b160fa456eb3bfef28127e05be621316ef0fb8883002575ebea85c",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/isolation-local.json",
+      "sha256": "4e17d20ce6eee21903916d3c18eb719d1e6d31178136389fca44b5e80054dec2",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/stage-local.mjs",
+      "sha256": "27045737c031d250f2073cbcab7d46403852899f58e5d1c3763f6f4c739b501b",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/type-first.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/unit-first.txt",
+      "sha256": "5dd1edfcd61f0dc7730ef2df18154280f2536a7fb1e2985e35b8184baf05bb40",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-b/unit.txt",
+      "sha256": "e07fef73b7a45bed46f7491479c894d331cef574ee4c1adae832a982a5f1e90c",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-s0-1/baseline.patch",
+      "sha256": "2c2fa7f1a2b77ffb5d865a270d609f5fa8598510c3fbc8a0d5e86e74d0f3b659",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-s0-1/baseline.zip",
+      "sha256": "7da6103061f0ab7f0ae5ded2b47a8076015a0c9e21b41c9fefd68973370e9338",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-s0-1/isolation-local.json",
+      "sha256": "aaf9c4474d177eb77f094c5218e0c1a292e81305fe99914ea9d677fa983e1ff7",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/p2-s0-1/status-section.txt",
+      "sha256": "9363a643a1686f422c30c9a674624c197046757254f77b7121ff1fff9354ae3e",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/docs/reference/GlyphForge-v3.0.md",
+      "sha256": "2a255fddedfda6762e17ee6a27971715c6fe5020f03b5028e80b13f997e701fc",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/e2e/p1-final.spec.ts",
+      "sha256": "f413be49ea86142a1ee964f15f7dd0fc06d72fe25c2593fdc8d7f77e0e1d0cd7",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/e2e/p1c.spec.ts",
+      "sha256": "21898e64deabd8cd2287ba2c6ec613279f7098baee8d67e50c73a1427f04c9c7",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/e2e/p1d.spec.ts",
+      "sha256": "b4cdc8c928c51798166c3aa3f35114ba319b6ffbdaba7385b36f0761b142b505",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/scripts/p1-final-manifest.mjs",
+      "sha256": "b82116514c654c5d57d260682a7df3a0b0386dab347a5281290693045baf5d6c",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/scripts/protect-p2-c.mjs",
+      "sha256": "cce3a385777aa37c70c4ec504289c9fa3650fa948a60d36106799967a93909da",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/src/storage/db.ts",
+      "sha256": "17d88f7fb26ad6c284c6593562bbb06cf443d90720e5612c12bfe6c674283ecf",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/baseline/src/tests/p1-final.test.ts",
+      "sha256": "7f7212b37c78229b1dd43d5b1ec596fe05b50ba94cec6c92d7e480e5743bcaf7",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/db-self-local.patch",
+      "sha256": "03e6bd8001b047b41ee1a9dd381b9b90ac9b17b5126a651b0e59daad9000bcf7",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/finalize-local.mjs",
+      "sha256": "481b5d79119b39810cb5a9f70c1f19401112f9625bcdf75b21fb47f388304fce",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-c/status-section-local.txt",
+      "sha256": "9fd01d9ec64dcd2863187883575085474488d1d99dd4fa375f6e830626a03a9f",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/baseline-local.json",
+      "sha256": "4b1bc977f9032e15c6bfa4fe2bd322552b49bd6f0ffbc48deeed0abc14b3a850",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/baseline-local.patch",
+      "sha256": "a55cb99366413e9453e039107c6406b4a95575e33a336dd64565c8619bab138e",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/baseline-summary-local.mjs",
+      "sha256": "d839f4342e0203157287f82f0edee4a582d923884abd6a5d65d0b00c3ebdb5bc",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/browser-fix-local.py",
+      "sha256": "597cccef4714a261a6af5d3801d547b4437c1afc93bba2b45f04fe356be30d48",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/docs-update-local.py",
+      "sha256": "97e340ebcf84848731a0ce88527324498e782ec4cba9d12f1f0b731827cc94d3",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/edit-local.py",
+      "sha256": "a9f1054e817d7afcb47a3102b3269d796a1dbd2b6dd6ec4e530827bea4631ee4",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/final-docs-local.py",
+      "sha256": "902642f01f80479a31024aca48ad9f7c9ede6891cdb2ba9a67201e57878aad2f",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/final-link-local.py",
+      "sha256": "3c477575a0495f3dcaa3ec2ed380b70143388795cf7610e186826cef2d29f006",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/final-newline-local.py",
+      "sha256": "7b710279b930880614133ba6832793953ab26650bfefe54dd28b1148ea37072e",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/finalize-local.mjs",
+      "sha256": "acdd279dfc172bbd540a497146c8e3f6059ae6174d4a3ee36b6895d7ad3266c6",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/fix-local.py",
+      "sha256": "624449896811cbf27cb6a4029a2e98bf7427cc85db765ccf7bd565e2653752b1",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/fix-tests-local.py",
+      "sha256": "b268c4de4b1b393862af16a3a838dccf4ea5a83554f38588d88b1cc52ce31a57",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/fix3-local.py",
+      "sha256": "e53ecb80260eea6d1a5f6a42f5e2cfc0907c8bc3f096e86105b5d4954ab6f425",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/gate-local.py",
+      "sha256": "d0fc0a8b8adce76a8c06a8ef24f303bc036347f8595569b35b4ea6a644a4b99a",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/integrate-local.py",
+      "sha256": "7107db6f092c1894d4aa742c39c89b3abd1bf449542142123fec7a3af6528521",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/match-local.mjs",
+      "sha256": "b457833cb02fc92989fff20d969db5a46808afe0cc1a8792702b19e601289e6f",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/ownership-fix-local.py",
+      "sha256": "3abdea27e13b5daa58039e66c3e24403015514989a66c7c0eef0fc2a367113c5",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/polish-local.py",
+      "sha256": "129dd5e8762cf3fbc0bfa080264c70e5ad45f476be4f5ed1ee7d282e5a613f56",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/post-commit-local.mjs",
+      "sha256": "9302500a81f275fc0cf2d30f1f5b3167c21656a83927295824500bb6c0c80ea3",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/protect-local.mjs",
+      "sha256": "00e30b805af1568a9244ac0a663aa2676176d5eaf91289e6bd060fa02d34b13d",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/stage-local.mjs",
+      "sha256": "cc61d734f3f85b463008742a4f37b404a51af669c75b2acd4677133e14646a4a",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/staging-local.json",
+      "sha256": "4b43795ade10d6cb59818d8efbe649682ea1ef67fb587da6f5628b953f337ca0",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/startup-final-local.py",
+      "sha256": "147df7c356b82a0213603fae0ca0fd3861d39c25e709f3d55490ba6d5e34eb3a",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/startup-fix-local.py",
+      "sha256": "64a29f97b8a767316e9d480648d7875532286f0c18c1a99fd7c304468920e30d",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/startup-fix2-local.py",
+      "sha256": "b5f194bca1adee4c9ce0a464f1da3d0a79cf065e447a42a2d9f7e013833f1524",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/startup-repro-local.ts",
+      "sha256": "5f687461e541b7b3d8c0fb1843b432c09f334000a866afa521968f70d259ed1e",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/status-section-local.txt",
+      "sha256": "9e54f352d236384f7cf75f52dcc8c419b5a5e85e9929d98d73e2bb334f8c8aca",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/style-local.py",
+      "sha256": "fdc1b10336e5fa75c66b481b5a237f4a5a2a169dfbd723d8bb9b4f49a1ae84d7",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/trim-local.py",
+      "sha256": "ba612236b9c9bb9b320780953400e78af7a3626ba0a3fdf5502339a9f50cff2f",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-d/whitespace-local.py",
+      "sha256": "98b8c00db9721a5dc645da511dd6855c1b79104f0b6e93acf4a0dba69bf4295a",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-e/baseline-local.json",
+      "sha256": "d9d9454d016697face6e550b2b4a8a1006d4ea2c62e70fae818f2d0caa6b309f",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-e/finalize-local.mjs",
+      "sha256": "1502a4ee9824ddb113380623a933047d485820d0dc2a9231a725ea4b851447d8",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-e/pre-stage-isolation-local.json",
+      "sha256": "0107349a3bd3884417c6df2b84240f1beefd26c84dc15ffa3db6a0bf906dc558",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-e/status-section-local.txt",
+      "sha256": "7dc00662ad3ff47be7b63533b0b49d357d733d7d2faecb353002c0fe8f5d803e",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-f/attempt-1793458543424-baseline-local.json",
+      "sha256": "a595554e6cfc31b1cb35864666947efef73ba220a441aa7aa0339996f78ab09b",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-f/baseline-local.json",
+      "sha256": "a595554e6cfc31b1cb35864666947efef73ba220a441aa7aa0339996f78ab09b",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-f/stage-local.txt",
+      "sha256": "5d8a08338bd516977507f93540da15f044d84cd752ce08a91b227d020b15aa71",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-s0-1/baseline.patch",
+      "sha256": "2c2fa7f1a2b77ffb5d865a270d609f5fa8598510c3fbc8a0d5e86e74d0f3b659",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-s0-1/baseline.zip",
+      "sha256": "7da6103061f0ab7f0ae5ded2b47a8076015a0c9e21b41c9fefd68973370e9338",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-s0-1/isolation-local.json",
+      "sha256": "aaf9c4474d177eb77f094c5218e0c1a292e81305fe99914ea9d677fa983e1ff7",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/p2-s0-1/status-section.txt",
+      "sha256": "9363a643a1686f422c30c9a674624c197046757254f77b7121ff1fff9354ae3e",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/reference/GlyphForge-v3.0.md",
+      "sha256": "2a255fddedfda6762e17ee6a27971715c6fe5020f03b5028e80b13f997e701fc",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "e2e/p1-final.spec.ts",
+      "sha256": "f413be49ea86142a1ee964f15f7dd0fc06d72fe25c2593fdc8d7f77e0e1d0cd7",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "scripts/p1-final-manifest.mjs",
+      "sha256": "b82116514c654c5d57d260682a7df3a0b0386dab347a5281290693045baf5d6c",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "scripts/protect-p2-c.mjs",
+      "sha256": "cce3a385777aa37c70c4ec504289c9fa3650fa948a60d36106799967a93909da",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "src/tests/p1-final.test.ts",
+      "sha256": "7f7212b37c78229b1dd43d5b1ec596fe05b50ba94cec6c92d7e480e5743bcaf7",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "P0-CHECKLIST.md",
+      "sha256": "d01c9b2a26d243388882b36b29eef40b582a4c7f861f2edde44abc6f7c0cce49",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "P1-PROGRESS.md",
+      "sha256": "26a11c3c39873790cbcdcb46e2629754eb568845ba2d703b278ed488f6b48d76",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "PROJECT-STATUS.md",
+      "sha256": "bc59da2bd63d89269b7b90d17afa7c9ab5bb99e95f88d0dd8e59fce915279240",
+      "preserved": true,
+      "overlap": "only P2-G insertion"
+    },
+    {
+      "file": "README.md",
+      "sha256": "5c2f919dd7c3ddf84518a673da67817fb7a01c467e3394c1534b01813ebd9b37",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "VALIDATION.md",
+      "sha256": "183e7285b0afa2c94601fd520c3968722fd6464c9b9b262f685d0c4d57105011",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "docs/P1-B.md",
+      "sha256": "d63d84afb9a8f07d6025c0bbac8f7a0999ce50861d3288644bcb85e2c4e61d49",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "e2e/p1c.spec.ts",
+      "sha256": "21898e64deabd8cd2287ba2c6ec613279f7098baee8d67e50c73a1427f04c9c7",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "e2e/p1d.spec.ts",
+      "sha256": "2cc9e9b88b465e5b57e3a12d343a380b9c9093cde8a80b0cf391402d3f2bdec4",
+      "preserved": true,
+      "overlap": ""
+    },
+    {
+      "file": "src/storage/db.ts",
+      "sha256": "51252a11ac8572ea98868534d120c33eae36df7b12dab83587ad715737972f70",
+      "preserved": true,
+      "overlap": ""
+    }
+  ],
+  "unownedChecked": 828,
+  "sourceFiles": [
+    {
+      "file": "src/App.tsx",
+      "sha256": "2d2d39b8fdff2392c07071bd4f47502c6731fc898fa40d42f0cbbb358c7666cf"
+    },
+    {
+      "file": "src/components/Sharing.tsx",
+      "sha256": "e6bd9afc207af6fac380b731ce95ae070c04d78693a8ef9f9b6c89e675339895"
+    },
+    {
+      "file": "src/components/ShareCode.tsx",
+      "sha256": "a7f67f3f7c3a6b3a45f9beeb6ec0ea4feaa88edbb32bb2d83f0d30c378d16f1a"
+    },
+    {
+      "file": "src/core/sharing.ts",
+      "sha256": "6da3c7c3ed51900bb53b9d77c020bd6d2a46ea20317afcffe14a9acd5f14b9af"
+    },
+    {
+      "file": "src/core/resource-package.ts",
+      "sha256": "33fc328ebf9114800fc0f7fa545ae9e1686a8da3d275245f9b2965b92300ff21"
+    },
+    {
+      "file": "src/core/share-code.ts",
+      "sha256": "f1365eee5a9c7551e06933ebad430fe45c0297ec15ed91c847dd0612abfe838c"
+    },
+    {
+      "file": "src/core/share-task.ts",
+      "sha256": "2644f30224373db1e209298a277f4db288d2528fdf5b5d025c498e95b17d5ef5"
+    },
+    {
+      "file": "src/core/share-preview.ts",
+      "sha256": "87d1f3c0745521114114db41c6613b20cf39255749beaec1f042136c8c7062be"
+    },
+    {
+      "file": "src/storage/share-resources.ts",
+      "sha256": "8b7e7d11036a02a7b39f210678067227b1bf62b96b9a81173ec6043671d92037"
+    },
+    {
+      "file": "src/workers/sharing.worker.ts",
+      "sha256": "887d65d06abba623372a6a7f1f17c5c0866cafd13081553e7ce334fdeaa1bd14"
+    },
+    {
+      "file": "src/styles.css",
+      "sha256": "8153a06f0ff2806085c581f47fc4071c38bb71f4275e89b5914d041b5b417713"
+    },
+    {
+      "file": "src/tests/share-code.test.ts",
+      "sha256": "738df6704aeeb501b746eca213c69702782bcba610f180ff25bd733f6ccdfe69"
+    },
+    {
+      "file": "e2e/share-code.spec.ts",
+      "sha256": "438bc9c3f4a236a7384979044a04c5601bc5a1655b6d7f33a6842196b570ae62"
+    },
+    {
+      "file": "e2e/share-harness.ts",
+      "sha256": "2fd990388962ade818a458738e2e9692e86f605d6a867aa0d55bd5ca6d45861b"
+    },
+    {
+      "file": "e2e/share.vite.config.ts",
+      "sha256": "0ade2b522f2759cfe3cd86dea0d8a6a4b54264b5afefa18f357a3d140f963fd7"
+    },
+    {
+      "file": "scripts/protect-p2-g.mjs",
+      "sha256": "8200d9ac506b23d31000d35f6a289caee3896cbf85c48ecb89ce0794f94e79e4"
+    },
+    {
+      "file": "scripts/validate-p2-g.mjs",
+      "sha256": "a402896dd8f6fc45d19469854e104259ea448e108af687ce391fd51a3bb958c9"
+    },
+    {
+      "file": "scripts/stage-p2-g.mjs",
+      "sha256": "1223cad51568b85ac725113885b5493aaef81c25484455f069b59c768e71c5e3"
+    },
+    {
+      "file": "scripts/isolate-p2-g.mjs",
+      "sha256": "858ac181c9b0c39021a7dacb3daf0ae31d38e236426a081d22ece6f9991903eb"
+    }
+  ],
+  "allHistoricalBodiesPreserved": true
+}

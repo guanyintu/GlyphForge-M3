@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Noto+Sans+SC:wght@400;450;500;550;600;650;700&display=swap");
 :root {
   font-family: "DM Sans", "Noto Sans SC", sans-serif;
   color: #2f3933;
@@ -3164,3 +3163,10 @@ pre {
 .game-rule-editor fieldset { display:flex; flex-wrap:wrap; gap:10px; width:100%; }
 .game-check { font-size:11px; color:#526854; cursor:help; white-space:nowrap; }
 .reverse-results .match-row, .reverse-results .split-path { flex-wrap:wrap; gap:12px; }
+
+/* P2-G: local-only sharing, using the application's existing form tokens. */
+.share-code { border-block: 1px solid var(--line); padding-block: 16px; margin-block: 16px; }
+.share-code .field-label { margin-block: 12px; }
+.share-code textarea { font-family: ui-monospace, monospace; resize: vertical; }
+.share-preview { padding: 14px; margin-top: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: #f8f9f6; overflow-wrap: anywhere; }
+.share-preview ul { padding-left: 20px; }

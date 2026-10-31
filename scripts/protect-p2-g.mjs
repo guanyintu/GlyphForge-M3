@@ -1,0 +1,22 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const git=(...args)=>execFileSync('git',args,{maxBuffer:64*1024*1024});
+if(fs.existsSync('docs/p2-g/baseline-local.json'))throw new Error('Baseline exists; do not overwrite');
+if(git('diff','--cached','--name-only').length)throw new Error('Existing index; stop');
+const backup=fs.mkdtempSync(path.join(os.tmpdir(),'glyphforge-p2g-'));
+const changed=new Set(git('ls-files','-m','-o','--exclude-standard','-z').toString().split('\0').filter(Boolean));
+const files=[...new Set(git('ls-files','--cached','--others','--exclude-standard','-z').toString().split('\0').filter(Boolean))].map(file=>{
+  if(!fs.existsSync(file))return {file,missing:true};
+  const bytes=fs.readFileSync(file),target=path.join(backup,file);
+  fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,bytes);
+  return {file,bytes:bytes.length,sha256:crypto.createHash('sha256').update(bytes).digest('hex'),historical:changed.has(file)&&file!=='scripts/protect-p2-g.mjs'};
+});
+fs.writeFileSync(path.join(backup,'worktree.patch'),git('diff','--binary'));fs.writeFileSync(path.join(backup,'index.patch'),git('diff','--cached','--binary'));
+fs.mkdirSync('docs/p2-g',{recursive:true});
+const baseline={head:git('rev-parse','HEAD').toString().trim(),backup,files};
+fs.writeFileSync('docs/p2-g/baseline-local.json',JSON.stringify(baseline,null,2));
+fs.writeFileSync('docs/p2-g/baseline.json',JSON.stringify({...baseline,backup:'external; location in baseline-local.json'},null,2));
+console.log(JSON.stringify({backup,files:files.length,historical:files.filter(f=>f.historical).length}));

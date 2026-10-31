@@ -1,0 +1,176 @@
+{
+  "mode": "v5",
+  "outcomes": {
+    "done": 40,
+    "error": 20,
+    "cancelled": 20,
+    "interrupted": 20
+  },
+  "samples": [
+    {
+      "round": 1,
+      "runs": 2,
+      "generated": 129,
+      "logicalBytes": 36172,
+      "browserUsage": 163840
+    },
+    {
+      "round": 25,
+      "runs": 23,
+      "generated": 1281,
+      "logicalBytes": 370279,
+      "browserUsage": 901120
+    },
+    {
+      "round": 50,
+      "runs": 23,
+      "generated": 1281,
+      "logicalBytes": 370540,
+      "browserUsage": 909312
+    },
+    {
+      "round": 75,
+      "runs": 23,
+      "generated": 1281,
+      "logicalBytes": 370540,
+      "browserUsage": 917504
+    },
+    {
+      "round": 100,
+      "runs": 23,
+      "generated": 1281,
+      "logicalBytes": 370540,
+      "browserUsage": 913408
+    }
+  ],
+  "baselineSamples": [
+    {
+      "round": 25,
+      "runs": 25,
+      "generated": 1664,
+      "logicalBytes": 476478
+    },
+    {
+      "round": 50,
+      "runs": 50,
+      "generated": 2304,
+      "logicalBytes": 673024
+    },
+    {
+      "round": 75,
+      "runs": 75,
+      "generated": 2944,
+      "logicalBytes": 869314
+    },
+    {
+      "round": 100,
+      "runs": 100,
+      "generated": 3584,
+      "logicalBytes": 1065604
+    }
+  ],
+  "normal": 20,
+  "favoriteReadable": true,
+  "restoredCount": 128,
+  "sourceBefore": {
+    "resource": {
+      "id": "historic",
+      "name": "旧资源",
+      "kind": "word",
+      "count": 1,
+      "version": 7,
+      "description": "",
+      "color": "green",
+      "updatedAt": 1
+    },
+    "entries": 1,
+    "workflows": 1,
+    "favorite": {
+      "text": "旧内容",
+      "runId": "legacy",
+      "parts": [
+        {
+          "text": "旧内容",
+          "resourceId": "historic",
+          "version": 7
+        }
+      ],
+      "savedAt": 1
+    },
+    "run": {
+      "id": "legacy",
+      "workflow": {
+        "version": 1,
+        "id": "8337eb32-4067-4505-b5ed-dbaf48c99454",
+        "name": "宇宙浪漫命名器",
+        "seed": 42,
+        "limit": 200,
+        "nodes": [
+          {
+            "id": "l",
+            "op": "resource",
+            "inputs": [],
+            "params": {
+              "resourceId": "historic"
+            }
+          },
+          {
+            "id": "o",
+            "op": "output",
+            "inputs": [
+              "l"
+            ],
+            "params": {}
+          }
+        ],
+        "layout": {
+          "a": {
+            "x": 35,
+            "y": 65
+          },
+          "b": {
+            "x": 35,
+            "y": 255
+          },
+          "mix": {
+            "x": 280,
+            "y": 140
+          },
+          "check": {
+            "x": 525,
+            "y": 140
+          },
+          "result": {
+            "x": 770,
+            "y": 140
+          }
+        }
+      },
+      "versions": {
+        "historic": 7
+      },
+      "status": "done",
+      "count": 1,
+      "createdAt": 1,
+      "retention": 1
+    },
+    "generated": {
+      "text": "旧内容",
+      "runId": "legacy",
+      "parts": [
+        {
+          "text": "旧内容",
+          "resourceId": "historic",
+          "version": 7
+        }
+      ],
+      "savedAt": 1
+    }
+  },
+  "final": {
+    "runs": 3,
+    "generated": 257,
+    "logicalBytes": 71760,
+    "browserUsage": 253952
+  }
+}

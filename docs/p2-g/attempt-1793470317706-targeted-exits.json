@@ -1,0 +1,67 @@
+{
+  "exits": [
+    {
+      "name": "tests",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "exit": 0,
+      "ms": 4498
+    },
+    {
+      "name": "typecheck",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exit": 0,
+      "ms": 4756
+    },
+    {
+      "name": "build-types",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "-b"
+      ],
+      "exit": 0,
+      "ms": 4834
+    },
+    {
+      "name": "build",
+      "args": [
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "exit": 0,
+      "ms": 22673
+    },
+    {
+      "name": "benchmark",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "src/tests/performance.test.ts",
+        "src/tests/resource-catalog.test.ts",
+        "src/tests/packs.test.ts",
+        "src/tests/lineage.test.ts",
+        "src/tests/scale.test.ts",
+        "src/tests/share-code.test.ts",
+        "--reporter=verbose"
+      ],
+      "exit": 0,
+      "ms": 3409
+    },
+    {
+      "name": "browser",
+      "args": [
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "e2e/share-code.spec.ts"
+      ],
+      "exit": 1,
+      "ms": 39921
+    }
+  ],
+  "restored": []
+}

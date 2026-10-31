@@ -1,0 +1,57 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+ ❯ src/tests/share-code.test.ts (24 tests | 1 failed) 184ms
+   ✓ roundtrips exact existing JSON, order, versions; repeat compression is deterministic in this runtime 25ms
+   ✓ preserves old envelope payload version 1 and preview remains read-only 8ms
+   ✓ preserves old envelope payload version 2 and preview remains read-only 5ms
+   ✓ preserves old envelope payload version 3 and preview remains read-only 4ms
+   ✓ preserves old envelope payload version 4 and preview remains read-only 7ms
+   ✓ preserves old envelope payload version 5 and preview remains read-only 4ms
+   ✓ preserves old envelope payload version 6 and preview remains read-only 5ms
+   ✓ preserves old envelope payload version 7 and preview remains read-only 5ms
+   ✓ light preview reports missing dependencies without installing resources or workflows 4ms
+   × only selected snapshots; repeated imports remap IDs and leave original resource versions intact 9ms
+     → expected 4 to be 3 // Object.is equality
+   ✓ v7 disabled/unknown publishers and Mapping/DAG previews never change installation state 16ms
+   ✓ rejects malformed/version/alphabet/length before native decompression 2ms
+   ✓ rejects malformed/version/alphabet/length before native decompression 1ms
+   ✓ rejects malformed/version/alphabet/length before native decompression 1ms
+   ✓ rejects malformed/version/alphabet/length before native decompression 1ms
+   ✓ rejects malformed/version/alphabet/length before native decompression 1ms
+   ✓ rejects bombs during streaming before JSON.parse even with a false small declaration 36ms
+   ✓ rejects truncated/corrupt streams, tamper, noncanonical bits and mismatched lengths 5ms
+   ✓ rejects prototype keys, nested envelopes, history fields and excessive JSON depth 6ms
+   ✓ bounds compression input and output separately, even for very compressible input 14ms
+   ✓ pre-abort and mid-stream abort do not parse or publish results; independent concurrent tasks still finish 8ms
+   ✓ missing native APIs explain JSON fallback 2ms
+   ✓ atomic import rolls back every inserted asset on injected workflow failure 6ms
+   ✓ seeded security fuzz rejects 240 envelope mutations without database writes 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/share-code.test.ts > only selected snapshots; repeated imports remap IDs and leave original resource versions intact
+AssertionError: expected 4 to be 3 // Object.is equality
+
+- Expected
++ Received
+
+- 3
++ 4
+
+ ❯ src/tests/share-code.test.ts:46:55
+     44|   expect(decoded.resources.map((r:any)=>r.meta.id)).toEqual(['source']…
+     45|   const a = await importPackage(decoded), b = await importPackage(deco…
+     46|   expect((await db.resources.get('source'))?.version).toBe(3);
+       |                                                       ^
+     47| });
+     48| it('v7 disabled/unknown publishers and Mapping/DAG previews never chan…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 23 passed (24)
+   Start at  02:01:41
+   Duration  1.18s (transform 208ms, setup 0ms, collect 548ms, tests 184ms, environment 0ms, prepare 153ms)
+

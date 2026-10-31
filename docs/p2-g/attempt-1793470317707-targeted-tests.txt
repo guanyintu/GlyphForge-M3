@@ -1,0 +1,71 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 73.50 ms, 40041 steps, max batch 64
+
+ ✓ src/tests/audit-worker.test.ts (1 test) 78ms
+ ✓ src/tests/p1c-relations.test.ts (5 tests) 49ms
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 172.22 ms, 200002 steps
+
+ ✓ src/tests/storage.test.ts (8 tests) 134ms
+ ✓ src/tests/performance.test.ts (2 tests) 249ms
+stdout | src/tests/subgraphs.test.ts > parameterized sequence functions > streams 100 call instances with constant resource residency and bounded batches
+P2-A 100 outer / 300 total calls {
+  milliseconds: 5.697299999999814,
+  produced: 201,
+  maxBatch: 1,
+  steps: 1303,
+  definitionBytes: 620
+}
+
+ ✓ src/tests/p0.test.ts (31 tests) 290ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":100000,"rows":60,"steps":442,"ms":9.73239999999987,"staticRows":1100,"cacheRows":0}
+
+ ✓ src/tests/run-lifecycle.test.ts (9 tests) 394ms
+   ✓ 100 mixed runs bound ordinary history while preserving pins, favorites and active runs  333ms
+ ✓ src/tests/packs.test.ts (28 tests) 333ms
+ ✓ src/tests/subgraphs.test.ts (22 tests) 127ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":1000000,"rows":60,"steps":442,"ms":12.098500000000058,"staticRows":2000,"cacheRows":0}
+
+ ✓ src/tests/audit.test.ts (20 tests) 436ms
+ ✓ src/tests/resource-catalog.test.ts (32 tests) 439ms
+ ✓ src/tests/share-code.test.ts (29 tests) 692ms
+ ✓ src/tests/relations.test.ts (31 tests) 747ms
+ ✓ src/tests/p1c-search.test.ts (24 tests) 838ms
+stdout | src/tests/lineage.test.ts > 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows
+P2-E 10k {"ms":134.02250000000004,"stats":{"steps":40041,"count":10000,"truncated":true,"safePruned":0,"duration":133.76770000000033},"maxLineageBytes":168,"totalLineageBytes":1680000}
+
+ ✓ src/tests/p1d-motion.test.ts (18 tests) 59ms
+ ✓ src/tests/core.test.ts (19 tests) 19ms
+ ✓ src/tests/p1d-highlight.test.ts (4 tests) 4ms
+ ✓ src/tests/p1c-game.test.ts (7 tests) 37ms
+ ✓ src/tests/scale.test.ts (10 tests) 960ms
+   ✓ 192 generated seed/version four-way differential includes all fields, read events, ticks and first-path duplicates  862ms
+ ✓ src/tests/mutation.test.ts (35 tests) 1615ms
+   ✓ homophone uses shared bounded engine and changes text  365ms
+ ✓ src/tests/p1-final.test.ts (11 tests) 1613ms
+   ✓ seeded generated graphs and nested scoped programs survive script/JSON roundtrips (100 cases)  737ms
+   ✓ laboratory and workflow share decompose execution including saved output references  436ms
+ ✓ src/tests/contracts.test.ts (28 tests) 1790ms
+   ✓ homophones: node, printed code, AST and laboratory agree with omitted defaults  440ms
+   ✓ decompose: node, printed code, AST and laboratory agree with omitted defaults  626ms
+   ✓ compose: node, printed code, AST and laboratory agree with omitted defaults  453ms
+ ✓ src/tests/chinese.test.ts (20 tests) 2414ms
+   ✓ P1-A real structure data > decomposes 明 left/right and 思 top/bottom  709ms
+   ✓ P1-A real structure data > reverse-composes only actual known characters and respects duplicate counts  459ms
+   ✓ P1-A real structure data > finds characters by components and filters structure and strokes  607ms
+stdout | src/tests/lineage.test.ts > paired rejection benchmark preserves exact steps and avoids 10k metadata allocations
+P2-E paired allocation benchmark [{"mode":"off","ms":212.58639999999968,"steps":30304,"pruned":0},{"mode":"on","ms":77.16600000000017,"steps":30304,"pruned":10000},{"mode":"on","ms":71.39439999999968,"steps":30304,"pruned":10000},{"mode":"off","ms":162.68150000000014,"steps":30304,"pruned":0},{"mode":"off","ms":140.89240000000018,"steps":30304,"pruned":0},{"mode":"on","ms":51.897599999999784,"steps":30304,"pruned":10000},{"mode":"on","ms":64.12620000000015,"steps":30304,"pruned":10000},{"mode":"off","ms":138.55150000000003,"steps":30304,"pruned":0},{"mode":"off","ms":132.40290000000005,"steps":30304,"pruned":0},{"mode":"on","ms":50.80880000000025,"steps":30304,"pruned":10000},{"mode":"on","ms":57.977600000000166,"steps":30304,"pruned":10000},{"mode":"off","ms":139.4788999999996,"steps":30304,"pruned":0}]
+
+ ✓ src/tests/lineage.test.ts (18 tests) 2132ms
+   ✓ paired rejection benchmark preserves exact steps and avoids 10k metadata allocations  1304ms
+
+ Test Files  23 passed (23)
+      Tests  412 passed (412)
+   Start at  02:10:04
+   Duration  3.86s (transform 3.59s, setup 0ms, collect 14.97s, tests 15.45s, environment 4ms, prepare 6.02s)
+

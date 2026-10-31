@@ -1,0 +1,28 @@
+{
+  "changed": {
+    "type": "error",
+    "message": "源资源在运行期间发生更改或删除，请重新计算",
+    "updated": true
+  },
+  "stale": true,
+  "cancelled": "cancelled",
+  "noLate": true,
+  "partial": 704,
+  "reverse": [
+    {
+      "ms": 21.300000190734863,
+      "cacheHit": false,
+      "matches": 1
+    },
+    {
+      "ms": 0.7999999523162842,
+      "cacheHit": true,
+      "matches": 1
+    },
+    {
+      "ms": 4.3999998569488525,
+      "cacheHit": false,
+      "matches": 1
+    }
+  ]
+}

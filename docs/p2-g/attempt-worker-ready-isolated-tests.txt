@@ -1,0 +1,74 @@
+
+ RUN  v3.2.7 C:/Users/someb/AppData/Local/Temp/glyphforge-p2g-index-xHRVK1
+
+ ✓ src/tests/p1d-motion.test.ts (18 tests) 60ms
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 85.56 ms, 40041 steps, max batch 64
+
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 142.70 ms, 200002 steps
+
+ ✓ src/tests/performance.test.ts (2 tests) 233ms
+ ✓ src/tests/audit-worker.test.ts (1 test) 104ms
+ ✓ src/tests/p1c-relations.test.ts (5 tests) 72ms
+ ✓ src/tests/storage.test.ts (8 tests) 142ms
+stdout | src/tests/subgraphs.test.ts > parameterized sequence functions > streams 100 call instances with constant resource residency and bounded batches
+P2-A 100 outer / 300 total calls {
+  milliseconds: 6.546799999999848,
+  produced: 201,
+  maxBatch: 1,
+  steps: 1303,
+  definitionBytes: 620
+}
+
+ ✓ src/tests/subgraphs.test.ts (22 tests) 165ms
+ ✓ src/tests/p0.test.ts (31 tests) 304ms
+ ✓ src/tests/packs.test.ts (28 tests) 277ms
+ ✓ src/tests/run-lifecycle.test.ts (9 tests) 349ms
+ ✓ src/tests/p1c-game.test.ts (7 tests) 55ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":100000,"rows":60,"steps":442,"ms":19.286699999999882,"staticRows":1100,"cacheRows":0}
+
+stdout | src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":1000000,"rows":60,"steps":442,"ms":9.353700000000117,"staticRows":2000,"cacheRows":0}
+
+ ✓ src/tests/audit.test.ts (20 tests) 730ms
+stdout | src/tests/share-code.test.ts > seeded base64url/stream fuzz rejects corruption or returns the identical checksum-verified payload
+GFS1 base64 stream fuzz {"rejected":120,"identical":0}
+
+ ✓ src/tests/relations.test.ts (31 tests) 825ms
+ ✓ src/tests/resource-catalog.test.ts (32 tests) 726ms
+ ✓ src/tests/share-code.test.ts (30 tests) 746ms
+ ✓ src/tests/p1c-search.test.ts (24 tests) 1111ms
+   ✓ matches simplified/traditional only when enabled and only real entries  307ms
+   ✓ optional pinyin matches real romanized or homophone candidates  327ms
+stdout | src/tests/lineage.test.ts > 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows
+P2-E 10k {"ms":148.04389999999967,"stats":{"steps":40041,"count":10000,"truncated":true,"safePruned":0,"duration":147.7222999999999},"maxLineageBytes":168,"totalLineageBytes":1680000}
+
+ ✓ src/tests/p1d-highlight.test.ts (4 tests) 3ms
+ ✓ src/tests/core.test.ts (19 tests) 15ms
+ ✓ src/tests/scale.test.ts (10 tests) 1002ms
+   ✓ 192 generated seed/version four-way differential includes all fields, read events, ticks and first-path duplicates  894ms
+ ✓ src/tests/mutation.test.ts (35 tests) 1761ms
+   ✓ homophone uses shared bounded engine and changes text  433ms
+ ✓ src/tests/contracts.test.ts (28 tests) 1979ms
+   ✓ homophones: node, printed code, AST and laboratory agree with omitted defaults  450ms
+   ✓ decompose: node, printed code, AST and laboratory agree with omitted defaults  684ms
+   ✓ compose: node, printed code, AST and laboratory agree with omitted defaults  501ms
+stdout | src/tests/lineage.test.ts > paired rejection benchmark preserves exact steps and avoids 10k metadata allocations
+P2-E paired allocation benchmark [{"mode":"off","ms":195.26490000000013,"steps":30304,"pruned":0},{"mode":"on","ms":61.264900000000125,"steps":30304,"pruned":10000},{"mode":"on","ms":74.19790000000012,"steps":30304,"pruned":10000},{"mode":"off","ms":174.9652000000001,"steps":30304,"pruned":0},{"mode":"off","ms":172.4728,"steps":30304,"pruned":0},{"mode":"on","ms":73.57400000000007,"steps":30304,"pruned":10000},{"mode":"on","ms":80.43499999999995,"steps":30304,"pruned":10000},{"mode":"off","ms":152.7525999999998,"steps":30304,"pruned":0},{"mode":"off","ms":152.2434000000003,"steps":30304,"pruned":0},{"mode":"on","ms":53.26900000000023,"steps":30304,"pruned":10000},{"mode":"on","ms":60.36030000000028,"steps":30304,"pruned":10000},{"mode":"off","ms":159.84580000000005,"steps":30304,"pruned":0}]
+
+ ✓ src/tests/chinese.test.ts (20 tests) 2770ms
+   ✓ P1-A Chinese phonetics and conversion > queries actual Unihan homophones and validates single-character inputs  463ms
+   ✓ P1-A real structure data > decomposes 明 left/right and 思 top/bottom  751ms
+   ✓ P1-A real structure data > reverse-composes only actual known characters and respects duplicate counts  521ms
+   ✓ P1-A real structure data > finds characters by components and filters structure and strokes  780ms
+ ✓ src/tests/lineage.test.ts (18 tests) 2351ms
+   ✓ frozen e637beb / disabled / enabled concat differential: 80 seeds and versions  319ms
+   ✓ paired rejection benchmark preserves exact steps and avoids 10k metadata allocations  1415ms
+
+ Test Files  22 passed (22)
+      Tests  402 passed (402)
+   Start at  02:25:56
+   Duration  4.29s (transform 3.96s, setup 0ms, collect 16.80s, tests 15.78s, environment 4ms, prepare 6.82s)
+

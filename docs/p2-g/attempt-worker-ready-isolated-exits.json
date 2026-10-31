@@ -1,0 +1,25 @@
+{
+  "directory": "C:\\Users\\someb\\AppData\\Local\\Temp\\glyphforge-p2g-index-xHRVK1",
+  "exits": [
+    {
+      "name": "tests",
+      "exit": 0
+    },
+    {
+      "name": "typecheck",
+      "exit": 0
+    },
+    {
+      "name": "build-types",
+      "exit": 0
+    },
+    {
+      "name": "build",
+      "exit": 0
+    },
+    {
+      "name": "browser",
+      "exit": 1
+    }
+  ]
+}

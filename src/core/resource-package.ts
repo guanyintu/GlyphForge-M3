@@ -1,3 +1,4 @@
+import type { ResourcePlan } from "./resource-catalog";
 import { guardJSON } from "./packs";
 import { workflowPacks, installPacks } from "../storage/packs";
 import { visitProgramExpressions } from "./program";
@@ -14,11 +15,12 @@ import type { PairValue } from './model';
 
 function usedOperators(workflows:Workflow[]) {const used=new Set<string>();for(const w of workflows)for(const n of allNodes(w)){used.add(n.op);if(n.program)visitProgramExpressions(n.program,e=>{if(e.kind==="call" && Object.hasOwn(operators,e.name))used.add(e.name);});}return [...used];}
 interface Snapshot {meta:Resource;entries:string[];relationRows?:PairValue[]}
-export async function exportResourcePackage(workflow:Workflow,includeResources:boolean|string[]=true,signal?:AbortSignal) {
-  const plan=await captureResources(workflowResourceIds(workflow));
+export async function exportResourcePackage(workflow:Workflow,includeResources:boolean|string[]=true,signal?:AbortSignal,options?:{plan:ResourcePlan;maxBytes:number}) {
+  const plan=options?.plan??await captureResources(workflowResourceIds(workflow));
+  const maxBytes=Math.min(options?.maxBytes??15*1024*1024,15*1024*1024);
   const encoder=new TextEncoder();
   const resources:Snapshot[]=[];let bytes=encoder.encode(JSON.stringify(workflow)).length+encoder.encode(plan.key).length;
-  if(bytes>15*1024*1024)throw new Error("便携包超过15MiB");
+  if(bytes>maxBytes)throw new Error(maxBytes===1048576?"分享码 JSON 超过 1 MiB；请下载 JSON 文件或减少快照":"便携包超过15MiB");
   for(const meta of plan.resources) {
     if(signal?.aborted)throw new Error('导出已取消');
     if(includeResources!==true && (!Array.isArray(includeResources)||!includeResources.includes(meta.id)))continue;
@@ -28,7 +30,7 @@ export async function exportResourcePackage(workflow:Workflow,includeResources:b
       if(signal?.aborted)throw new Error('导出已取消');
       if(c.pair)item.relationRows!.push(c.pair);else item.entries.push(c.text);
       bytes+=encoder.encode(JSON.stringify(c.pair??c.text)).length;
-      if(bytes>5*1024*1024)throw new Error('便携资源快照超过安全大小预算');
+      if(bytes>Math.min(maxBytes,5*1024*1024))throw new Error(maxBytes===1048576?'分享码 JSON 超过 1 MiB；请下载 JSON 文件或减少快照':'便携资源快照超过安全大小预算');
     }
     resources.push(item);
   }
@@ -36,10 +38,10 @@ export async function exportResourcePackage(workflow:Workflow,includeResources:b
   const used = usedOperators([workflow,...plan.resources.flatMap(r=>r.definition?.type==='dynamic'?[r.definition.workflow]:[])]);
   const packManifest=workflowPacks(workflow,plan.resources);
   const result = {packManifest,operatorVersions:Object.fromEntries(used.map(op=>[op,1])),format:'glyphforge',version:packManifest.length?7:6,irVersion:1,resourceDefinitionVersion:1,workflow,dependencies:plan.resources.map(({id,name,kind,version})=>({id,name,kind,version})),resources};
-  if(encoder.encode(JSON.stringify(result)).length>15*1024*1024)throw new Error("便携包超过15MiB");
+  if(encoder.encode(JSON.stringify(result)).length>maxBytes)throw new Error(maxBytes===1048576?"分享码 JSON 超过 1 MiB；请下载 JSON 文件或减少快照":"便携包超过15MiB");
   return JSON.parse(JSON.stringify(result)) as typeof result;
 }
-export async function importResourcePackage(data:unknown,bindings:Record<string,string>={}):Promise<Workflow> {
+export async function importResourcePackage(data:unknown,bindings:Record<string,string>={},preview=false):Promise<Workflow> {
   const p=data as Awaited<ReturnType<typeof exportResourcePackage>>;
   if(!p || p.format!=='glyphforge'||![6,7].includes(p.version)||p.irVersion!==1||p.resourceDefinitionVersion!==1||!Array.isArray(p.resources)||p.resources.length>100||!Array.isArray(p.dependencies)||p.dependencies.length>100||JSON.stringify(data).length>16*1024*1024)throw new Error('v6 资源包格式/大小无效');
   if(p.version===7)guardJSON(data,48*1024*1024,2000000);
@@ -84,6 +86,7 @@ export async function importResourcePackage(data:unknown,bindings:Record<string,
   workflow.id=crypto.randomUUID();workflow.name=`${workflow.name.slice(0,90)} · 导入`;
   for(const n of allNodes(workflow))n.params=normalizeParams(n.op,n.params);
   validateGraph(workflow);
+  if(preview)return workflow;
   await db.transaction('rw',db.resources,db.entries,db.relations,db.workflows,db.extensionPacks,async()=>{
     await installPacks(packManifest);
     // Re-check local bindings while serializing all resource writers.

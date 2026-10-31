@@ -1,0 +1,1428 @@
+{
+  "before": {
+    "pkg": {
+      "packManifest": [
+        {
+          "format": "glyphforge-operator-pack",
+          "protocol": 1,
+          "id": "glyphforge-text",
+          "version": "1.0.0",
+          "publisher": "GlyphForge",
+          "source": "bundled:glyphforge-text",
+          "compatibility": {
+            "ir": 1,
+            "contract": 1
+          },
+          "permissions": [],
+          "mode": "declarative-pipeline",
+          "deterministic": true,
+          "streaming": "incremental",
+          "dependencies": [],
+          "migrations": [],
+          "operators": [
+            {
+              "id": "frame",
+              "name": "有界文字结构",
+              "inputTypes": [
+                "CandidateSequence"
+              ],
+              "outputType": "CandidateSequence",
+              "parameters": {
+                "prefix": {
+                  "type": "string",
+                  "default": "「"
+                },
+                "suffix": {
+                  "type": "string",
+                  "default": "」"
+                },
+                "mappingId": {
+                  "type": "string",
+                  "default": ""
+                }
+              },
+              "steps": [
+                {
+                  "op": "mapchars",
+                  "params": {
+                    "mapping": "{}"
+                  },
+                  "bindings": {
+                    "mappingId": "mappingId"
+                  }
+                },
+                {
+                  "op": "prefix",
+                  "params": {},
+                  "bindings": {
+                    "text": "prefix"
+                  }
+                },
+                {
+                  "op": "reverse",
+                  "params": {}
+                },
+                {
+                  "op": "prefix",
+                  "params": {},
+                  "bindings": {
+                    "text": "suffix"
+                  }
+                },
+                {
+                  "op": "reverse",
+                  "params": {}
+                }
+              ]
+            },
+            {
+              "id": "select",
+              "name": "组合条件筛选",
+              "inputTypes": [
+                "CandidateSequence"
+              ],
+              "outputType": "CandidateSequence",
+              "parameters": {
+                "contains": {
+                  "type": "string",
+                  "default": ""
+                },
+                "excludes": {
+                  "type": "string",
+                  "default": ""
+                },
+                "maxLength": {
+                  "type": "number",
+                  "default": 12
+                }
+              },
+              "steps": [
+                {
+                  "op": "filter",
+                  "params": {},
+                  "bindings": {
+                    "includes": "contains",
+                    "maxLength": "maxLength"
+                  }
+                },
+                {
+                  "op": "filter",
+                  "params": {},
+                  "bindings": {
+                    "excludes": "excludes",
+                    "maxLength": "maxLength"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "operatorVersions": {
+        "resource": 1,
+        "output": 1,
+        "call": 1,
+        "argument": 1,
+        "extension": 1
+      },
+      "format": "glyphforge",
+      "version": 7,
+      "irVersion": 1,
+      "resourceDefinitionVersion": 1,
+      "workflow": {
+        "version": 1,
+        "id": "0003c0d2-7e51-498c-81d6-189ecb2960ce",
+        "name": "资源复用",
+        "seed": 42,
+        "limit": 10000,
+        "layout": {
+          "source": {
+            "x": 30,
+            "y": 100
+          },
+          "result": {
+            "x": 330,
+            "y": 100
+          }
+        },
+        "nodes": [
+          {
+            "id": "source",
+            "op": "resource",
+            "inputs": [],
+            "params": {
+              "resourceId": "ext-dynamic"
+            }
+          },
+          {
+            "id": "result",
+            "op": "output",
+            "inputs": [
+              "source"
+            ],
+            "params": {}
+          }
+        ]
+      },
+      "dependencies": [
+        {
+          "id": "ext-source",
+          "name": "ext-source",
+          "kind": "word",
+          "version": 2
+        },
+        {
+          "id": "ext-map",
+          "name": "ext-map",
+          "kind": "mapping",
+          "version": 1
+        },
+        {
+          "id": "ext-dynamic",
+          "name": "ext-dynamic",
+          "kind": "word",
+          "version": 1
+        }
+      ],
+      "resources": [
+        {
+          "meta": {
+            "id": "ext-source",
+            "name": "ext-source",
+            "kind": "word",
+            "count": 2,
+            "description": "",
+            "version": 2,
+            "color": "green",
+            "updatedAt": 1793470903929
+          },
+          "entries": [
+            "月",
+            "星"
+          ]
+        },
+        {
+          "meta": {
+            "id": "ext-map",
+            "name": "ext-map",
+            "kind": "mapping",
+            "count": 2,
+            "description": "",
+            "version": 1,
+            "color": "green",
+            "updatedAt": 1793470903934,
+            "definition": {
+              "format": 1,
+              "type": "mapping",
+              "rules": "{\"月\":[\"玥\"],\"星\":[\"☆\"]}"
+            }
+          },
+          "entries": []
+        },
+        {
+          "meta": {
+            "id": "ext-dynamic",
+            "name": "ext-dynamic",
+            "kind": "word",
+            "count": 0,
+            "description": "",
+            "version": 1,
+            "color": "green",
+            "updatedAt": 1793470903943,
+            "definition": {
+              "format": 1,
+              "type": "dynamic",
+              "workflow": {
+                "version": 1,
+                "id": "1b738b29-0676-4698-89ae-d7100c31e5f3",
+                "name": "资源复用",
+                "seed": 42,
+                "limit": 10000,
+                "layout": {
+                  "source": {
+                    "x": 30,
+                    "y": 100
+                  },
+                  "result": {
+                    "x": 330,
+                    "y": 100
+                  },
+                  "call_249525406a7d": {
+                    "x": 300,
+                    "y": 100
+                  }
+                },
+                "nodes": [
+                  {
+                    "id": "source",
+                    "op": "resource",
+                    "inputs": [],
+                    "params": {
+                      "resourceId": "ext-source"
+                    },
+                    "line": 9
+                  },
+                  {
+                    "id": "call_249525406a7d",
+                    "op": "call",
+                    "inputs": [
+                      "source"
+                    ],
+                    "params": {},
+                    "line": 10,
+                    "call": {
+                      "definitionId": "d27e81f4-9d78-4135-a711-04de22cacd6a",
+                      "version": 1,
+                      "bindings": {}
+                    }
+                  },
+                  {
+                    "id": "result",
+                    "op": "output",
+                    "inputs": [
+                      "call_249525406a7d"
+                    ],
+                    "params": {},
+                    "line": 11
+                  }
+                ],
+                "extensions": [
+                  {
+                    "format": "glyphforge-operator-pack",
+                    "protocol": 1,
+                    "id": "glyphforge-text",
+                    "version": "1.0.0",
+                    "publisher": "GlyphForge",
+                    "source": "bundled:glyphforge-text",
+                    "compatibility": {
+                      "ir": 1,
+                      "contract": 1
+                    },
+                    "permissions": [],
+                    "mode": "declarative-pipeline",
+                    "deterministic": true,
+                    "streaming": "incremental",
+                    "dependencies": [],
+                    "migrations": [],
+                    "operators": [
+                      {
+                        "id": "frame",
+                        "name": "有界文字结构",
+                        "inputTypes": [
+                          "CandidateSequence"
+                        ],
+                        "outputType": "CandidateSequence",
+                        "parameters": {
+                          "prefix": {
+                            "type": "string",
+                            "default": "「"
+                          },
+                          "suffix": {
+                            "type": "string",
+                            "default": "」"
+                          },
+                          "mappingId": {
+                            "type": "string",
+                            "default": ""
+                          }
+                        },
+                        "steps": [
+                          {
+                            "op": "mapchars",
+                            "params": {
+                              "mapping": "{}"
+                            },
+                            "bindings": {
+                              "mappingId": "mappingId"
+                            }
+                          },
+                          {
+                            "op": "prefix",
+                            "params": {},
+                            "bindings": {
+                              "text": "prefix"
+                            }
+                          },
+                          {
+                            "op": "reverse",
+                            "params": {}
+                          },
+                          {
+                            "op": "prefix",
+                            "params": {},
+                            "bindings": {
+                              "text": "suffix"
+                            }
+                          },
+                          {
+                            "op": "reverse",
+                            "params": {}
+                          }
+                        ]
+                      },
+                      {
+                        "id": "select",
+                        "name": "组合条件筛选",
+                        "inputTypes": [
+                          "CandidateSequence"
+                        ],
+                        "outputType": "CandidateSequence",
+                        "parameters": {
+                          "contains": {
+                            "type": "string",
+                            "default": ""
+                          },
+                          "excludes": {
+                            "type": "string",
+                            "default": ""
+                          },
+                          "maxLength": {
+                            "type": "number",
+                            "default": 12
+                          }
+                        },
+                        "steps": [
+                          {
+                            "op": "filter",
+                            "params": {},
+                            "bindings": {
+                              "includes": "contains",
+                              "maxLength": "maxLength"
+                            }
+                          },
+                          {
+                            "op": "filter",
+                            "params": {},
+                            "bindings": {
+                              "excludes": "excludes",
+                              "maxLength": "maxLength"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "subgraphs": [
+                  {
+                    "id": "d27e81f4-9d78-4135-a711-04de22cacd6a",
+                    "version": 1,
+                    "name": "可复用命名函数",
+                    "parameters": [
+                      {
+                        "name": "input1",
+                        "type": "CandidateSequence"
+                      }
+                    ],
+                    "returns": "CandidateSequence",
+                    "nodes": [
+                      {
+                        "id": "arg_1",
+                        "op": "argument",
+                        "inputs": [],
+                        "params": {
+                          "name": "input1"
+                        },
+                        "line": 4
+                      },
+                      {
+                        "id": "ext",
+                        "op": "extension",
+                        "inputs": [
+                          "arg_1"
+                        ],
+                        "params": {
+                          "pack": "glyphforge-text",
+                          "version": "1.0.0",
+                          "operator": "frame",
+                          "values": "{}",
+                          "mappingId": "ext-map"
+                        },
+                        "line": 5
+                      }
+                    ],
+                    "output": "ext",
+                    "layout": {
+                      "source": {
+                        "x": 30,
+                        "y": 100
+                      },
+                      "result": {
+                        "x": 330,
+                        "y": 100
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "entries": []
+        }
+      ]
+    },
+    "rows": [
+      {
+        "text": "「玥」",
+        "parts": [
+          {
+            "resourceId": "ext-source",
+            "text": "月",
+            "version": 2
+          },
+          {
+            "resourceId": "ext-map",
+            "version": 1,
+            "text": "月"
+          },
+          {
+            "resourceId": "ext-dynamic",
+            "version": 1,
+            "text": "「玥」"
+          }
+        ],
+        "lineage": {
+          "version": 1,
+          "refs": [
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"source\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/0\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/1\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/2\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/3\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/4\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"result\"]",
+            "[\"0003c0d2-7e51-498c-81d6-189ecb2960ce\",\"source\"]",
+            "[\"0003c0d2-7e51-498c-81d6-189ecb2960ce\",\"result\"]"
+          ],
+          "incomplete": false
+        },
+        "notes": [
+          "趣味字形替换，不保证同义同音；每条最多 32 个候选"
+        ],
+        "workflowId": "0003c0d2-7e51-498c-81d6-189ecb2960ce",
+        "seed": 42,
+        "runId": "46375783-263e-408b-8051-902191d03a3c"
+      },
+      {
+        "text": "「☆」",
+        "parts": [
+          {
+            "resourceId": "ext-source",
+            "text": "星",
+            "version": 2
+          },
+          {
+            "resourceId": "ext-map",
+            "version": 1,
+            "text": "星"
+          },
+          {
+            "resourceId": "ext-dynamic",
+            "version": 1,
+            "text": "「☆」"
+          }
+        ],
+        "lineage": {
+          "version": 1,
+          "refs": [
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"source\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/0\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/1\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/2\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/3\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/4\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"result\"]",
+            "[\"0003c0d2-7e51-498c-81d6-189ecb2960ce\",\"source\"]",
+            "[\"0003c0d2-7e51-498c-81d6-189ecb2960ce\",\"result\"]"
+          ],
+          "incomplete": false
+        },
+        "notes": [
+          "趣味字形替换，不保证同义同音；每条最多 32 个候选"
+        ],
+        "workflowId": "0003c0d2-7e51-498c-81d6-189ecb2960ce",
+        "seed": 42,
+        "runId": "46375783-263e-408b-8051-902191d03a3c"
+      }
+    ],
+    "mutated": [
+      {
+        "text": "「「玥」」",
+        "parts": [
+          {
+            "resourceId": "ext-source",
+            "text": "月",
+            "version": 2
+          },
+          {
+            "resourceId": "ext-map",
+            "version": 1,
+            "text": "月"
+          },
+          {
+            "resourceId": "ext-dynamic",
+            "version": 1,
+            "text": "「玥」"
+          }
+        ],
+        "notes": [
+          "名字变异衍生；原片段只说明素材来源，不证明旧工作流生成此文本"
+        ],
+        "lineage": {
+          "version": 1,
+          "refs": [
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"source\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/0\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/1\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/2\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/3\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/4\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"result\"]",
+            "[\"a7ffbecb-c32a-42f5-a003-3cebffa4099f\",\"mutation\"]",
+            "[\"a7ffbecb-c32a-42f5-a003-3cebffa4099f\",\"result\"]"
+          ],
+          "incomplete": false
+        },
+        "derivation": {
+          "kind": "mutation",
+          "version": 1,
+          "round": 1,
+          "seed": 42,
+          "parent": {
+            "text": "「玥」",
+            "runId": "46375783-263e-408b-8051-902191d03a3c",
+            "workflowId": "0003c0d2-7e51-498c-81d6-189ecb2960ce",
+            "seed": 42
+          },
+          "operations": [
+            "dictionary"
+          ],
+          "locks": []
+        },
+        "workflowId": "a7ffbecb-c32a-42f5-a003-3cebffa4099f",
+        "seed": 42,
+        "runId": "05b4d338-2e80-48fb-9991-bf655e021334"
+      },
+      {
+        "text": "「「☆」」",
+        "parts": [
+          {
+            "resourceId": "ext-source",
+            "text": "月",
+            "version": 2
+          },
+          {
+            "resourceId": "ext-map",
+            "version": 1,
+            "text": "月"
+          },
+          {
+            "resourceId": "ext-dynamic",
+            "version": 1,
+            "text": "「玥」"
+          },
+          {
+            "resourceId": "ext-source",
+            "text": "星",
+            "version": 2
+          },
+          {
+            "resourceId": "ext-map",
+            "version": 1,
+            "text": "星"
+          },
+          {
+            "resourceId": "ext-dynamic",
+            "version": 1,
+            "text": "「☆」"
+          }
+        ],
+        "notes": [
+          "名字变异衍生；原片段只说明素材来源，不证明旧工作流生成此文本"
+        ],
+        "lineage": {
+          "version": 1,
+          "refs": [
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"source\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/0\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/1\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/2\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/3\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/4\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"result\"]",
+            "[\"a7ffbecb-c32a-42f5-a003-3cebffa4099f\",\"mutation\"]",
+            "[\"a7ffbecb-c32a-42f5-a003-3cebffa4099f\",\"result\"]"
+          ],
+          "incomplete": false
+        },
+        "derivation": {
+          "kind": "mutation",
+          "version": 1,
+          "round": 1,
+          "seed": 42,
+          "parent": {
+            "text": "「玥」",
+            "runId": "46375783-263e-408b-8051-902191d03a3c",
+            "workflowId": "0003c0d2-7e51-498c-81d6-189ecb2960ce",
+            "seed": 42
+          },
+          "operations": [
+            "dictionary"
+          ],
+          "locks": []
+        },
+        "workflowId": "a7ffbecb-c32a-42f5-a003-3cebffa4099f",
+        "seed": 42,
+        "runId": "05b4d338-2e80-48fb-9991-bf655e021334"
+      },
+      {
+        "text": "「玥」子",
+        "parts": [
+          {
+            "resourceId": "ext-source",
+            "text": "月",
+            "version": 2
+          },
+          {
+            "resourceId": "ext-map",
+            "version": 1,
+            "text": "月"
+          },
+          {
+            "resourceId": "ext-dynamic",
+            "version": 1,
+            "text": "「玥」"
+          }
+        ],
+        "notes": [
+          "名字变异衍生；原片段只说明素材来源，不证明旧工作流生成此文本"
+        ],
+        "derivation": {
+          "kind": "mutation",
+          "version": 1,
+          "round": 1,
+          "seed": 42,
+          "parent": {
+            "text": "「玥」",
+            "runId": "46375783-263e-408b-8051-902191d03a3c",
+            "workflowId": "0003c0d2-7e51-498c-81d6-189ecb2960ce",
+            "seed": 42
+          },
+          "operations": [
+            "affix"
+          ],
+          "locks": []
+        },
+        "lineage": {
+          "version": 1,
+          "refs": [
+            "[\"a7ffbecb-c32a-42f5-a003-3cebffa4099f\",\"mutation\"]",
+            "[\"a7ffbecb-c32a-42f5-a003-3cebffa4099f\",\"result\"]"
+          ],
+          "incomplete": false
+        },
+        "workflowId": "a7ffbecb-c32a-42f5-a003-3cebffa4099f",
+        "seed": 42,
+        "runId": "05b4d338-2e80-48fb-9991-bf655e021334"
+      },
+      {
+        "text": "小「玥」",
+        "parts": [
+          {
+            "resourceId": "ext-source",
+            "text": "月",
+            "version": 2
+          },
+          {
+            "resourceId": "ext-map",
+            "version": 1,
+            "text": "月"
+          },
+          {
+            "resourceId": "ext-dynamic",
+            "version": 1,
+            "text": "「玥」"
+          }
+        ],
+        "notes": [
+          "名字变异衍生；原片段只说明素材来源，不证明旧工作流生成此文本"
+        ],
+        "derivation": {
+          "kind": "mutation",
+          "version": 1,
+          "round": 1,
+          "seed": 42,
+          "parent": {
+            "text": "「玥」",
+            "runId": "46375783-263e-408b-8051-902191d03a3c",
+            "workflowId": "0003c0d2-7e51-498c-81d6-189ecb2960ce",
+            "seed": 42
+          },
+          "operations": [
+            "affix"
+          ],
+          "locks": []
+        },
+        "lineage": {
+          "version": 1,
+          "refs": [
+            "[\"a7ffbecb-c32a-42f5-a003-3cebffa4099f\",\"mutation\"]",
+            "[\"a7ffbecb-c32a-42f5-a003-3cebffa4099f\",\"result\"]"
+          ],
+          "incomplete": false
+        },
+        "workflowId": "a7ffbecb-c32a-42f5-a003-3cebffa4099f",
+        "seed": 42,
+        "runId": "05b4d338-2e80-48fb-9991-bf655e021334"
+      }
+    ],
+    "favorites": [
+      {
+        "text": "「「玥」」",
+        "parts": [
+          {
+            "resourceId": "ext-source",
+            "text": "月",
+            "version": 2
+          },
+          {
+            "resourceId": "ext-map",
+            "version": 1,
+            "text": "月"
+          },
+          {
+            "resourceId": "ext-dynamic",
+            "version": 1,
+            "text": "「玥」"
+          }
+        ],
+        "notes": [
+          "名字变异衍生；原片段只说明素材来源，不证明旧工作流生成此文本"
+        ],
+        "lineage": {
+          "version": 1,
+          "refs": [
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"source\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/0\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/1\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/2\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/3\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/4\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"result\"]",
+            "[\"a7ffbecb-c32a-42f5-a003-3cebffa4099f\",\"mutation\"]",
+            "[\"a7ffbecb-c32a-42f5-a003-3cebffa4099f\",\"result\"]"
+          ],
+          "incomplete": false
+        },
+        "derivation": {
+          "kind": "mutation",
+          "version": 1,
+          "round": 1,
+          "seed": 42,
+          "parent": {
+            "text": "「玥」",
+            "runId": "46375783-263e-408b-8051-902191d03a3c",
+            "workflowId": "0003c0d2-7e51-498c-81d6-189ecb2960ce",
+            "seed": 42
+          },
+          "operations": [
+            "dictionary"
+          ],
+          "locks": []
+        },
+        "workflowId": "a7ffbecb-c32a-42f5-a003-3cebffa4099f",
+        "seed": 42,
+        "runId": "05b4d338-2e80-48fb-9991-bf655e021334",
+        "savedAt": 1793470904026
+      },
+      {
+        "text": "「玥」",
+        "parts": [
+          {
+            "resourceId": "ext-source",
+            "text": "月",
+            "version": 2
+          },
+          {
+            "resourceId": "ext-map",
+            "version": 1,
+            "text": "月"
+          },
+          {
+            "resourceId": "ext-dynamic",
+            "version": 1,
+            "text": "「玥」"
+          }
+        ],
+        "lineage": {
+          "version": 1,
+          "refs": [
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"source\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/0\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/1\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/2\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/3\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext/4\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d/ext\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"call_249525406a7d\"]",
+            "[\"[\\\"resource\\\",\\\"ext-dynamic\\\",1]\",\"result\"]",
+            "[\"0003c0d2-7e51-498c-81d6-189ecb2960ce\",\"source\"]",
+            "[\"0003c0d2-7e51-498c-81d6-189ecb2960ce\",\"result\"]"
+          ],
+          "incomplete": false
+        },
+        "notes": [
+          "趣味字形替换，不保证同义同音；每条最多 32 个候选"
+        ],
+        "workflowId": "0003c0d2-7e51-498c-81d6-189ecb2960ce",
+        "seed": 42,
+        "runId": "46375783-263e-408b-8051-902191d03a3c",
+        "savedAt": 1793470903987
+      }
+    ]
+  },
+  "after": {
+    "type": "done",
+    "stats": {
+      "steps": 37,
+      "count": 2,
+      "truncated": false,
+      "safePruned": 0,
+      "duration": 14.200000047683716
+    },
+    "cleanupError": "",
+    "rows": [
+      {
+        "text": "「玥」",
+        "parts": [
+          {
+            "resourceId": "0c18ba10-9148-4d06-a60e-f10592555012",
+            "text": "月",
+            "version": 2
+          },
+          {
+            "resourceId": "a16db1fd-4721-4cff-80bb-eac8fabc53f7",
+            "version": 1,
+            "text": "月"
+          },
+          {
+            "resourceId": "c56ef703-16b9-4082-8c0d-7de2830ed6dc",
+            "version": 1,
+            "text": "「玥」"
+          }
+        ],
+        "lineage": {
+          "version": 1,
+          "refs": [
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"source\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d/ext/0\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d/ext/1\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d/ext/2\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d/ext/3\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d/ext/4\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d/ext\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"result\"]",
+            "[\"f23677f1-5fd1-419e-8e22-2a248246ed9a\",\"source\"]",
+            "[\"f23677f1-5fd1-419e-8e22-2a248246ed9a\",\"result\"]"
+          ],
+          "incomplete": false
+        },
+        "notes": [
+          "趣味字形替换，不保证同义同音；每条最多 32 个候选"
+        ],
+        "workflowId": "f23677f1-5fd1-419e-8e22-2a248246ed9a",
+        "seed": 42,
+        "runId": "4b309d09-8701-4708-a760-19212b74f951"
+      },
+      {
+        "text": "「☆」",
+        "parts": [
+          {
+            "resourceId": "0c18ba10-9148-4d06-a60e-f10592555012",
+            "text": "星",
+            "version": 2
+          },
+          {
+            "resourceId": "a16db1fd-4721-4cff-80bb-eac8fabc53f7",
+            "version": 1,
+            "text": "星"
+          },
+          {
+            "resourceId": "c56ef703-16b9-4082-8c0d-7de2830ed6dc",
+            "version": 1,
+            "text": "「☆」"
+          }
+        ],
+        "lineage": {
+          "version": 1,
+          "refs": [
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"source\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d/ext/0\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d/ext/1\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d/ext/2\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d/ext/3\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d/ext/4\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d/ext\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"call_249525406a7d\"]",
+            "[\"[\\\"resource\\\",\\\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\\\",1]\",\"result\"]",
+            "[\"f23677f1-5fd1-419e-8e22-2a248246ed9a\",\"source\"]",
+            "[\"f23677f1-5fd1-419e-8e22-2a248246ed9a\",\"result\"]"
+          ],
+          "incomplete": false
+        },
+        "notes": [
+          "趣味字形替换，不保证同义同音；每条最多 32 个候选"
+        ],
+        "workflowId": "f23677f1-5fd1-419e-8e22-2a248246ed9a",
+        "seed": 42,
+        "runId": "4b309d09-8701-4708-a760-19212b74f951"
+      }
+    ],
+    "run": {
+      "id": "4b309d09-8701-4708-a760-19212b74f951",
+      "workflow": {
+        "version": 1,
+        "id": "f23677f1-5fd1-419e-8e22-2a248246ed9a",
+        "name": "资源复用 · 导入",
+        "seed": 42,
+        "limit": 10000,
+        "layout": {
+          "source": {
+            "x": 30,
+            "y": 100
+          },
+          "result": {
+            "x": 330,
+            "y": 100
+          }
+        },
+        "nodes": [
+          {
+            "id": "source",
+            "op": "resource",
+            "inputs": [],
+            "params": {
+              "resourceId": "c56ef703-16b9-4082-8c0d-7de2830ed6dc"
+            }
+          },
+          {
+            "id": "result",
+            "op": "output",
+            "inputs": [
+              "source"
+            ],
+            "params": {}
+          }
+        ]
+      },
+      "versions": {
+        "0c18ba10-9148-4d06-a60e-f10592555012": 2,
+        "a16db1fd-4721-4cff-80bb-eac8fabc53f7": 1,
+        "c56ef703-16b9-4082-8c0d-7de2830ed6dc": 1
+      },
+      "resources": [
+        {
+          "id": "0c18ba10-9148-4d06-a60e-f10592555012",
+          "name": "ext-source · 导入",
+          "kind": "word",
+          "count": 2,
+          "description": "",
+          "version": 2,
+          "color": "green",
+          "updatedAt": 1793470904433
+        },
+        {
+          "id": "a16db1fd-4721-4cff-80bb-eac8fabc53f7",
+          "name": "ext-map · 导入",
+          "kind": "mapping",
+          "count": 2,
+          "description": "",
+          "version": 1,
+          "color": "green",
+          "updatedAt": 1793470904434,
+          "definition": {
+            "format": 1,
+            "type": "mapping",
+            "rules": "{\"月\":[\"玥\"],\"星\":[\"☆\"]}"
+          }
+        },
+        {
+          "id": "c56ef703-16b9-4082-8c0d-7de2830ed6dc",
+          "name": "ext-dynamic · 导入",
+          "kind": "word",
+          "count": 0,
+          "description": "",
+          "version": 1,
+          "color": "green",
+          "updatedAt": 1793470904435,
+          "definition": {
+            "format": 1,
+            "type": "dynamic",
+            "workflow": {
+              "version": 1,
+              "id": "1b738b29-0676-4698-89ae-d7100c31e5f3",
+              "name": "资源复用",
+              "seed": 42,
+              "limit": 10000,
+              "layout": {
+                "source": {
+                  "x": 30,
+                  "y": 100
+                },
+                "result": {
+                  "x": 330,
+                  "y": 100
+                },
+                "call_249525406a7d": {
+                  "x": 300,
+                  "y": 100
+                }
+              },
+              "nodes": [
+                {
+                  "id": "source",
+                  "op": "resource",
+                  "inputs": [],
+                  "params": {
+                    "resourceId": "0c18ba10-9148-4d06-a60e-f10592555012"
+                  },
+                  "line": 9
+                },
+                {
+                  "id": "call_249525406a7d",
+                  "op": "call",
+                  "inputs": [
+                    "source"
+                  ],
+                  "params": {},
+                  "line": 10,
+                  "call": {
+                    "definitionId": "d27e81f4-9d78-4135-a711-04de22cacd6a",
+                    "version": 1,
+                    "bindings": {}
+                  }
+                },
+                {
+                  "id": "result",
+                  "op": "output",
+                  "inputs": [
+                    "call_249525406a7d"
+                  ],
+                  "params": {},
+                  "line": 11
+                }
+              ],
+              "extensions": [
+                {
+                  "format": "glyphforge-operator-pack",
+                  "protocol": 1,
+                  "id": "glyphforge-text",
+                  "version": "1.0.0",
+                  "publisher": "GlyphForge",
+                  "source": "bundled:glyphforge-text",
+                  "compatibility": {
+                    "ir": 1,
+                    "contract": 1
+                  },
+                  "permissions": [],
+                  "mode": "declarative-pipeline",
+                  "deterministic": true,
+                  "streaming": "incremental",
+                  "dependencies": [],
+                  "migrations": [],
+                  "operators": [
+                    {
+                      "id": "frame",
+                      "name": "有界文字结构",
+                      "inputTypes": [
+                        "CandidateSequence"
+                      ],
+                      "outputType": "CandidateSequence",
+                      "parameters": {
+                        "prefix": {
+                          "type": "string",
+                          "default": "「"
+                        },
+                        "suffix": {
+                          "type": "string",
+                          "default": "」"
+                        },
+                        "mappingId": {
+                          "type": "string",
+                          "default": ""
+                        }
+                      },
+                      "steps": [
+                        {
+                          "op": "mapchars",
+                          "params": {
+                            "mapping": "{}"
+                          },
+                          "bindings": {
+                            "mappingId": "mappingId"
+                          }
+                        },
+                        {
+                          "op": "prefix",
+                          "params": {},
+                          "bindings": {
+                            "text": "prefix"
+                          }
+                        },
+                        {
+                          "op": "reverse",
+                          "params": {}
+                        },
+                        {
+                          "op": "prefix",
+                          "params": {},
+                          "bindings": {
+                            "text": "suffix"
+                          }
+                        },
+                        {
+                          "op": "reverse",
+                          "params": {}
+                        }
+                      ]
+                    },
+                    {
+                      "id": "select",
+                      "name": "组合条件筛选",
+                      "inputTypes": [
+                        "CandidateSequence"
+                      ],
+                      "outputType": "CandidateSequence",
+                      "parameters": {
+                        "contains": {
+                          "type": "string",
+                          "default": ""
+                        },
+                        "excludes": {
+                          "type": "string",
+                          "default": ""
+                        },
+                        "maxLength": {
+                          "type": "number",
+                          "default": 12
+                        }
+                      },
+                      "steps": [
+                        {
+                          "op": "filter",
+                          "params": {},
+                          "bindings": {
+                            "includes": "contains",
+                            "maxLength": "maxLength"
+                          }
+                        },
+                        {
+                          "op": "filter",
+                          "params": {},
+                          "bindings": {
+                            "excludes": "excludes",
+                            "maxLength": "maxLength"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "subgraphs": [
+                {
+                  "id": "d27e81f4-9d78-4135-a711-04de22cacd6a",
+                  "version": 1,
+                  "name": "可复用命名函数",
+                  "parameters": [
+                    {
+                      "name": "input1",
+                      "type": "CandidateSequence"
+                    }
+                  ],
+                  "returns": "CandidateSequence",
+                  "nodes": [
+                    {
+                      "id": "arg_1",
+                      "op": "argument",
+                      "inputs": [],
+                      "params": {
+                        "name": "input1"
+                      },
+                      "line": 4
+                    },
+                    {
+                      "id": "ext",
+                      "op": "extension",
+                      "inputs": [
+                        "arg_1"
+                      ],
+                      "params": {
+                        "pack": "glyphforge-text",
+                        "version": "1.0.0",
+                        "operator": "frame",
+                        "values": "{}",
+                        "mappingId": "a16db1fd-4721-4cff-80bb-eac8fabc53f7"
+                      },
+                      "line": 5
+                    }
+                  ],
+                  "output": "ext",
+                  "layout": {
+                    "source": {
+                      "x": 30,
+                      "y": 100
+                    },
+                    "result": {
+                      "x": 330,
+                      "y": 100
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "resourceKey": "[\"glyphforge-resource\",1,[[\"0c18ba10-9148-4d06-a60e-f10592555012\",\"word\",2,null],[\"a16db1fd-4721-4cff-80bb-eac8fabc53f7\",\"mapping\",1,{\"format\":1,\"type\":\"mapping\",\"rules\":\"{\\\"月\\\":[\\\"玥\\\"],\\\"星\\\":[\\\"☆\\\"]}\"}],[\"c56ef703-16b9-4082-8c0d-7de2830ed6dc\",\"word\",1,{\"format\":1,\"type\":\"dynamic\",\"workflow\":{\"version\":1,\"id\":\"1b738b29-0676-4698-89ae-d7100c31e5f3\",\"name\":\"资源复用\",\"seed\":42,\"limit\":10000,\"layout\":{\"source\":{\"x\":30,\"y\":100},\"result\":{\"x\":330,\"y\":100},\"call_249525406a7d\":{\"x\":300,\"y\":100}},\"nodes\":[{\"id\":\"source\",\"op\":\"resource\",\"inputs\":[],\"params\":{\"resourceId\":\"0c18ba10-9148-4d06-a60e-f10592555012\"},\"line\":9},{\"id\":\"call_249525406a7d\",\"op\":\"call\",\"inputs\":[\"source\"],\"params\":{},\"line\":10,\"call\":{\"definitionId\":\"d27e81f4-9d78-4135-a711-04de22cacd6a\",\"version\":1,\"bindings\":{}}},{\"id\":\"result\",\"op\":\"output\",\"inputs\":[\"call_249525406a7d\"],\"params\":{},\"line\":11}],\"extensions\":[{\"format\":\"glyphforge-operator-pack\",\"protocol\":1,\"id\":\"glyphforge-text\",\"version\":\"1.0.0\",\"publisher\":\"GlyphForge\",\"source\":\"bundled:glyphforge-text\",\"compatibility\":{\"ir\":1,\"contract\":1},\"permissions\":[],\"mode\":\"declarative-pipeline\",\"deterministic\":true,\"streaming\":\"incremental\",\"dependencies\":[],\"migrations\":[],\"operators\":[{\"id\":\"frame\",\"name\":\"有界文字结构\",\"inputTypes\":[\"CandidateSequence\"],\"outputType\":\"CandidateSequence\",\"parameters\":{\"prefix\":{\"type\":\"string\",\"default\":\"「\"},\"suffix\":{\"type\":\"string\",\"default\":\"」\"},\"mappingId\":{\"type\":\"string\",\"default\":\"\"}},\"steps\":[{\"op\":\"mapchars\",\"params\":{\"mapping\":\"{}\"},\"bindings\":{\"mappingId\":\"mappingId\"}},{\"op\":\"prefix\",\"params\":{},\"bindings\":{\"text\":\"prefix\"}},{\"op\":\"reverse\",\"params\":{}},{\"op\":\"prefix\",\"params\":{},\"bindings\":{\"text\":\"suffix\"}},{\"op\":\"reverse\",\"params\":{}}]},{\"id\":\"select\",\"name\":\"组合条件筛选\",\"inputTypes\":[\"CandidateSequence\"],\"outputType\":\"CandidateSequence\",\"parameters\":{\"contains\":{\"type\":\"string\",\"default\":\"\"},\"excludes\":{\"type\":\"string\",\"default\":\"\"},\"maxLength\":{\"type\":\"number\",\"default\":12}},\"steps\":[{\"op\":\"filter\",\"params\":{},\"bindings\":{\"includes\":\"contains\",\"maxLength\":\"maxLength\"}},{\"op\":\"filter\",\"params\":{},\"bindings\":{\"excludes\":\"excludes\",\"maxLength\":\"maxLength\"}}]}]}],\"subgraphs\":[{\"id\":\"d27e81f4-9d78-4135-a711-04de22cacd6a\",\"version\":1,\"name\":\"可复用命名函数\",\"parameters\":[{\"name\":\"input1\",\"type\":\"CandidateSequence\"}],\"returns\":\"CandidateSequence\",\"nodes\":[{\"id\":\"arg_1\",\"op\":\"argument\",\"inputs\":[],\"params\":{\"name\":\"input1\"},\"line\":4},{\"id\":\"ext\",\"op\":\"extension\",\"inputs\":[\"arg_1\"],\"params\":{\"pack\":\"glyphforge-text\",\"version\":\"1.0.0\",\"operator\":\"frame\",\"values\":\"{}\",\"mappingId\":\"a16db1fd-4721-4cff-80bb-eac8fabc53f7\"},\"line\":5}],\"output\":\"ext\",\"layout\":{\"source\":{\"x\":30,\"y\":100},\"result\":{\"x\":330,\"y\":100}}}]}}]]]",
+      "createdAt": 1793470904461,
+      "status": "done",
+      "count": 2,
+      "retention": 0,
+      "endedAt": 1793470904479,
+      "message": ""
+    },
+    "packs": [
+      {
+        "key": "glyphforge-text@1.0.0",
+        "manifest": {
+          "format": "glyphforge-operator-pack",
+          "protocol": 1,
+          "id": "glyphforge-text",
+          "version": "1.0.0",
+          "publisher": "GlyphForge",
+          "source": "bundled:glyphforge-text",
+          "compatibility": {
+            "ir": 1,
+            "contract": 1
+          },
+          "permissions": [],
+          "mode": "declarative-pipeline",
+          "deterministic": true,
+          "streaming": "incremental",
+          "dependencies": [],
+          "migrations": [],
+          "operators": [
+            {
+              "id": "frame",
+              "name": "有界文字结构",
+              "inputTypes": [
+                "CandidateSequence"
+              ],
+              "outputType": "CandidateSequence",
+              "parameters": {
+                "prefix": {
+                  "type": "string",
+                  "default": "「"
+                },
+                "suffix": {
+                  "type": "string",
+                  "default": "」"
+                },
+                "mappingId": {
+                  "type": "string",
+                  "default": ""
+                }
+              },
+              "steps": [
+                {
+                  "op": "mapchars",
+                  "params": {
+                    "mapping": "{}"
+                  },
+                  "bindings": {
+                    "mappingId": "mappingId"
+                  }
+                },
+                {
+                  "op": "prefix",
+                  "params": {},
+                  "bindings": {
+                    "text": "prefix"
+                  }
+                },
+                {
+                  "op": "reverse",
+                  "params": {}
+                },
+                {
+                  "op": "prefix",
+                  "params": {},
+                  "bindings": {
+                    "text": "suffix"
+                  }
+                },
+                {
+                  "op": "reverse",
+                  "params": {}
+                }
+              ]
+            },
+            {
+              "id": "select",
+              "name": "组合条件筛选",
+              "inputTypes": [
+                "CandidateSequence"
+              ],
+              "outputType": "CandidateSequence",
+              "parameters": {
+                "contains": {
+                  "type": "string",
+                  "default": ""
+                },
+                "excludes": {
+                  "type": "string",
+                  "default": ""
+                },
+                "maxLength": {
+                  "type": "number",
+                  "default": 12
+                }
+              },
+              "steps": [
+                {
+                  "op": "filter",
+                  "params": {},
+                  "bindings": {
+                    "includes": "contains",
+                    "maxLength": "maxLength"
+                  }
+                },
+                {
+                  "op": "filter",
+                  "params": {},
+                  "bindings": {
+                    "excludes": "excludes",
+                    "maxLength": "maxLength"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "enabled": true
+      }
+    ]
+  }
+}

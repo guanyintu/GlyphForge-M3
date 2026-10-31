@@ -1,0 +1,34 @@
+
+Running 5 tests using 1 worker
+
+  ok 1 e2e\share-code.spec.ts:10:1 › UI selected portable code → copy → offline new context → readonly preview → confirm → run → refresh (1.8s)
+  ok 2 e2e\share-code.spec.ts:26:1 › UI light dependency binding, unselected resources, mode/unmount cancellation and large-package file fallback (2.7s)
+  ok 3 e2e\share-code.spec.ts:46:1 › production Worker exact JSON/code equivalence for simple/NameScript/nested subgraphs/mutation/dynamic Mapping/v7 in empty IDB (1.1s)
+  ok 4 e2e\share-code.spec.ts:72:1 › native Chromium bomb/corruption/timeout/concurrency/rollback; bounded sharing/UI/heap samples (8.7s)
+  x  5 e2e\share-code.spec.ts:91:1 › dedicated sharing Worker V8 heap samples for 10k snapshot; renderer stays responsive (666ms)
+
+
+  1) e2e\share-code.spec.ts:91:1 › dedicated sharing Worker V8 heap samples for 10k snapshot; renderer stays responsive 
+
+    Error: expect(received).toBeTruthy()
+
+    Received: undefined
+
+       96 |     const worker=new Worker(url,{type:'module'});(window as any).sharingHeapWorker=worker;(window as any).sharingHeapInput={action:'encode',workflow:h.resourceWorkflow(id),selection:[id]};worker.onmessage=({data})=>{(window as any).sharingHeapResult={...data,finished:performance.now()};};
+       97 |   },url);
+    >  98 |   const cdp=await context.newCDPSession(page);const {targetInfos}=await cdp.send('Target.getTargets');const target=targetInfos.find((t:any)=>t.type==='worker'&&t.url.includes('sharing.worker'));expect(target).toBeTruthy();
+          |                                                                                                                                                                                                                  ^
+       99 |   const {sessionId}=await cdp.send('Target.attachToTarget',{targetId:target!.targetId,flatten:false});let id=0;
+      100 |   async function heap(){const request=++id;return new Promise<any>((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('heap sample timeout')),5000);const onMessage=(e:any)=>{if(e.sessionId!==sessionId)return;const m=JSON.parse(e.message);if(m.id===request){clearTimeout(timer);cdp.off('Target.receivedMessageFromTarget',onMessage);m.error?reject(new Error(m.error.message)):resolve(m.result);}};cdp.on('Target.receivedMessageFromTarget',onMessage);void cdp.send('Target.sendMessageToTarget',{sessionId,message:JSON.stringify({id:request,method:'Runtime.getHeapUsage'})});});}
+      101 |   const samples=[await heap()];await page.evaluate(()=>{(window as any).sharingHeapStarted=performance.now();(window as any).sharingHeapWorker.postMessage((window as any).sharingHeapInput);});
+        at C:\Users\someb\AppData\Local\Temp\glyphforge-p2g-index-xHRVK1\e2e\share-code.spec.ts:98:210
+
+    Error Context: test-results\share-code-dedicated-shari-ec3ec-t-renderer-stays-responsive\error-context.md
+
+  1 failed
+    e2e\share-code.spec.ts:91:1 › dedicated sharing Worker V8 heap samples for 10k snapshot; renderer stays responsive 
+  4 passed (21.6s)
+[WebServer] (node:2180) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:125524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

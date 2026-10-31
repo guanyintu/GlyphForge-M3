@@ -1,0 +1,95 @@
+
+Running 4 tests using 1 worker
+
+  ok 1 e2e\share-code.spec.ts:10:1 › UI selected portable code → copy → offline new context → readonly preview → confirm → run → refresh (2.3s)
+  x  2 e2e\share-code.spec.ts:26:1 › UI light dependency binding, unselected resources, mode/unmount cancellation and large-package file fallback (7.7s)
+  x  3 e2e\share-code.spec.ts:46:1 › production Worker exact JSON/code equivalence for simple/NameScript/nested subgraphs/mutation/dynamic Mapping/v7 in empty IDB (788ms)
+  x  4 e2e\share-code.spec.ts:69:1 › native Chromium bomb/corruption/timeout/concurrency/rollback; bounded sharing/UI/heap samples (708ms)
+
+
+  1) e2e\share-code.spec.ts:26:1 › UI light dependency binding, unselected resources, mode/unmount cancellation and large-package file fallback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('status').filter({ hasText: /JSON.*1 MiB/ })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('status').filter({ hasText: /JSON.*1 MiB/ }) with timeout 5000ms
+      - waiting for getByRole('status').filter({ hasText: /JSON.*1 MiB/ })
+
+
+      40 |   // Import a legal >1MiB portable package via the existing JSON file UI, then try its code.
+      41 |   const big=await page.evaluate(async()=>{const h=await import('/share-harness/share.js');const id='big-code';await h.saveNewResource({id,name:'大包',kind:'word',version:1,count:0,color:'green',description:'',updatedAt:0},Array.from({length:7000},(_,i)=>`${i}-${'月'.repeat(80)}`));return h.exportPackage(h.resourceWorkflow(id));});
+    > 42 |   await page.locator('input[type=file][accept=".json"]').first().setInputFiles({name:'large.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(big))});await share(page);await page.getByLabel('分享码模式',{exact:true}).selectOption('portable');await page.getByRole('button',{name:'生成短分享码',exact:true}).click();await expect(page.getByRole('status').filter({hasText:/JSON.*1 MiB/})).toBeVisible();
+         |                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      43 |   const download=page.waitForEvent('download');await page.getByRole('button',{name:'导出便携包',exact:true}).click();expect((await download).suggestedFilename()).toContain('.portable.json');
+      44 | });
+      45 |
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\share-code.spec.ts:42:393
+
+    Error Context: test-results\share-code-UI-light-depend-4b843-large-package-file-fallback\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\share-code-UI-light-depend-4b843-large-package-file-fallback\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\share-code-UI-light-depend-4b843-large-package-file-fallback\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) e2e\share-code.spec.ts:46:1 › production Worker exact JSON/code equivalence for simple/NameScript/nested subgraphs/mutation/dynamic Mapping/v7 in empty IDB 
+
+    Error: page.evaluate: TypeError: h.dependencyIds is not a function
+        at normalized (eval at evaluate (:370:30), <anonymous>:32:47)
+        at eval (eval at evaluate (:370:30), <anonymous>:58:23)
+        at async <anonymous>:396:30
+        at normalized (eval at evaluate (:370:30), <anonymous>:32:47)
+        at eval (eval at evaluate (:370:30), <anonymous>:58:23)
+        at async <anonymous>:396:30
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\share-code.spec.ts:58:29
+
+    Error Context: test-results\share-code-production-Work-5216c-mic-Mapping-v7-in-empty-IDB\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\share-code-production-Work-5216c-mic-Mapping-v7-in-empty-IDB\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\share-code-production-Work-5216c-mic-Mapping-v7-in-empty-IDB\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) e2e\share-code.spec.ts:69:1 › native Chromium bomb/corruption/timeout/concurrency/rollback; bounded sharing/UI/heap samples 
+
+    Error: page.evaluate: Error: 分享 Worker 无法启动，请使用 JSON 文件
+        at u.onerror (http://127.0.0.1:4175/share-harness/share-harness-D07ce7Cy.js:7251:158)
+        at u.onerror (http://127.0.0.1:4175/share-harness/share-harness-D07ce7Cy.js:7251:158)
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\share-code.spec.ts:70:68
+
+    Error Context: test-results\share-code-native-Chromium-9f7f2-ded-sharing-UI-heap-samples\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\share-code-native-Chromium-9f7f2-ded-sharing-UI-heap-samples\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\share-code-native-Chromium-9f7f2-ded-sharing-UI-heap-samples\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    e2e\share-code.spec.ts:26:1 › UI light dependency binding, unselected resources, mode/unmount cancellation and large-package file fallback 
+    e2e\share-code.spec.ts:46:1 › production Worker exact JSON/code equivalence for simple/NameScript/nested subgraphs/mutation/dynamic Mapping/v7 in empty IDB 
+    e2e\share-code.spec.ts:69:1 › native Chromium bomb/corruption/timeout/concurrency/rollback; bounded sharing/UI/heap samples 
+  1 passed (30.6s)
+[WebServer] (node:17132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:130044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:147204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:49172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:77900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

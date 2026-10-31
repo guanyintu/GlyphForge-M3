@@ -1240,6 +1240,7 @@ export default function App() {
             {modal === "share" ? (
               <div className="modal-body">
                 <SharePanel
+                  onImport={receiveImport}
                   workflow={workflow}
                   resources={resources}
                   notify={notify}

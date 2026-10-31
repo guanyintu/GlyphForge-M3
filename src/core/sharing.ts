@@ -1,8 +1,9 @@
+import type { ResourcePlan } from "./resource-catalog";
 import { workflowResourceIds as dependencyIds } from "./resource-catalog";
-import { captureResources } from "../storage/resource-runtime";
+import { captureResources, assertResourcePlan } from "../storage/resource-runtime";
 import { allNodes, reachableDefinitions } from "./subgraphs";
 import { normalizeParams } from "./contracts";
-import { db, readResource } from "../storage/db";
+import { db, readResource, readStaticResource } from "../storage/db";
 import { validateGraph } from "./script";
 import { visitProgramExpressions } from "./program";
 import { operators } from "./model";
@@ -33,10 +34,12 @@ export async function exportPackage(
   workflow: Workflow,
   includeResources: boolean | string[] = true,
   signal?:AbortSignal,
+  options?: { plan: ResourcePlan; maxBytes: number },
 ) {
   validateGraph(workflow);
-  const plan = await captureResources(dependencyIds(workflow));
-  if(workflow.extensions?.length || plan.resources.some(r=>r.definition)) { const { exportResourcePackage } = await import("./resource-package"); return exportResourcePackage(workflow,includeResources,signal); }
+  const plan = options?.plan ?? await captureResources(dependencyIds(workflow));
+  const maxBytes = Math.min(options?.maxBytes ?? 15*1024*1024,15*1024*1024);
+  if(workflow.extensions?.length || plan.resources.some(r=>r.definition)) { const { exportResourcePackage } = await import("./resource-package"); return exportResourcePackage(workflow,includeResources,signal,options); }
   if (workflow.subgraphs?.length) workflow = { ...workflow, subgraphs: reachableDefinitions(workflow.nodes, workflow.subgraphs) };
   const ids = dependencyIds(workflow);
   const dependencies: Dependency[] = [];
@@ -62,10 +65,11 @@ export async function exportPackage(
         );
       if(resources.length>=100)throw new Error('便携包最多包含 100 个词库快照');
       const entries:string[]=[], relationRows: PairValue[] = [];budget+=new TextEncoder().encode(JSON.stringify(meta)).length+512;
-      for await(const item of readResource(id,0)){if(signal?.aborted)throw new Error('导出已取消');if(item.parts[0].version!==meta.version)throw new Error('词库在导出期间变化，请重新导出');budget+=new TextEncoder().encode(JSON.stringify(item.pair || item.text)).length+16;if(budget>15*1024*1024)throw new Error('便携包超过 15 MB，请减少快照或使用轻量工作流');if(item.pair) relationRows.push(item.pair); else entries.push(item.text);}
+      for await(const item of (options ? readStaticResource(id,0) : readResource(id,0))){if(signal?.aborted)throw new Error('导出已取消');if(item.parts[0].version!==meta.version)throw new Error('词库在导出期间变化，请重新导出');budget+=new TextEncoder().encode(JSON.stringify(item.pair || item.text)).length+16;if(budget>maxBytes)throw new Error(`便携包超过 ${maxBytes===1048576?'分享码 1 MiB':'15 MB'} 预算，请下载 JSON 文件或减少快照`);if(item.pair) relationRows.push(item.pair); else entries.push(item.text);}
       resources.push({meta,entries,...(meta.kind === "relation" ? {relationRows} : {})});
     }
   }
+  if(options)await assertResourcePlan(plan);
   return {
     format: "glyphforge",
     version: workflow.subgraphs?.length ? 5 : dependencies.some(d => d.kind === "relation") ? 4 : 2,
@@ -81,10 +85,11 @@ export async function exportPackage(
 export async function importPackage(
   data: unknown,
   bindings: Record<string, string> = {},
+  preview = false,
 ): Promise<Workflow> {
   if (!data || typeof data !== "object") throw new Error("无效的工作流文件");
   const pkg = data as Record<string, unknown>;
-  if(pkg.version===6 || pkg.version===7){const {importResourcePackage}=await import("./resource-package");return importResourcePackage(data,bindings);}
+  if(pkg.version===6 || pkg.version===7){const {importResourcePackage}=await import("./resource-package");return importResourcePackage(data,bindings,preview);}
   if (
     pkg.format !== "glyphforge" ||
     ![1, 2, 3, 4, 5].includes(Number(pkg.version)) ||
@@ -289,6 +294,7 @@ export async function importPackage(
           ),
         }))
     : [];
+  if (preview) return workflow;
   await db.transaction(
     "rw",
     db.resources,

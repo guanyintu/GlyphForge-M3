@@ -1,0 +1,98 @@
+{
+  "date": "2026-11-01 Asia/Shanghai",
+  "runtimeCommit": "86b101d",
+  "securityCommit": "bf333eb",
+  "m3": {
+    "reviewedFalsePositives": [
+      {
+        "file": "docs/m2/full-1793533425390/source.json",
+        "line": 175,
+        "rule": "generic-api-key",
+        "reason": "Reviewed SHA-256 source-file fingerprint, verified against the named scanner source; no credential content."
+      },
+      {
+        "file": "docs/m2/full-1793533425390/source.json",
+        "line": 184,
+        "rule": "generic-api-key",
+        "reason": "Reviewed SHA-256 source-file fingerprint, verified against the named scanner source; no credential content."
+      }
+    ],
+    "scanner": "gitleaks",
+    "version": "8.30.1",
+    "tracked": 1040,
+    "workspaceFiles": 1655,
+    "workspaceBytes": 203169903,
+    "excluded": [
+      ".git",
+      "node_modules"
+    ],
+    "archiveDepth": 5,
+    "decodeDepth": 5,
+    "findings": [],
+    "scopes": [
+      {
+        "scope": "history-all-refs",
+        "exit": 0,
+        "findings": 0
+      },
+      {
+        "scope": "staged",
+        "exit": 0,
+        "findings": 0
+      },
+      {
+        "scope": "workspace-including-dist-workflows",
+        "exit": 1,
+        "findings": 2
+      },
+      {
+        "scope": "commit-messages",
+        "exit": 0,
+        "findings": 0
+      }
+    ],
+    "forbiddenTracked": []
+  },
+  "originalWorkspace": {
+    "scanner": "gitleaks",
+    "version": "8.30.1",
+    "tracked": 986,
+    "workspaceFiles": 1531,
+    "workspaceBytes": 90879028,
+    "excluded": [
+      ".git",
+      "node_modules"
+    ],
+    "archiveDepth": 5,
+    "decodeDepth": 5,
+    "findings": [],
+    "scopes": [
+      {
+        "scope": "history-all-refs",
+        "exit": 0,
+        "findings": 0
+      },
+      {
+        "scope": "staged",
+        "exit": 0,
+        "findings": 0
+      },
+      {
+        "scope": "workspace-including-dist-workflows",
+        "exit": 0,
+        "findings": 0
+      },
+      {
+        "scope": "commit-messages",
+        "exit": 0,
+        "findings": 0
+      }
+    ],
+    "forbiddenTracked": []
+  },
+  "scannerTests": "3/3",
+  "buildRejections": "7/7",
+  "sqlChecks": 42,
+  "supabaseRlsAccepted": false,
+  "deployExecuted": false
+}

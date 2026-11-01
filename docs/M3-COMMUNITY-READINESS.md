@@ -1,8 +1,10 @@
 # GlyphForge M3 社区方案就绪表
 
-2026-11-01（Asia/Shanghai）。功能源码 `9356ede070c107dde73cdda7905b4ade42507e0c`，账号切换修正 `f7a83a7`，验收设施修正/最终冻结 `31f27ee`；基线 `c39a90d`；独立分支 `codex/m3-community`，worktree 为项目旁 `GlyphForge-M3`。原 `id生成` 工作区及历史未提交资产未参与提交。
+2026-11-01（Asia/Shanghai）。沿用历史聊天已实现的社区（`9356ede` / `f7a83a7` / `31f27ee` / `c96e874`），未重建产品。M2修复 `2fd4d8a` 与验收 `c482606` 已进入本分支；本轮运行时/SQL冻结 `86b101d`，安全门禁与容量测试补强 `bf333eb`。独立分支 `codex/m3-community`，worktree `../GlyphForge-M3`；原目录仍为M2分支。
 
-**本地实现 CONDITIONAL GO；公开上线 NO-GO。** 真实 Supabase Auth / PostgREST / RLS、真实多连接并发和 GitHub OAuth 尚未验收；M2 已知估算跨标签门禁未修复。浏览器本轮通过不能撤销 M2 已有失败。未创建公开仓库、push、合并主分支、修改生产项目、配置真实 OAuth 密钥或部署。
+**本地有界实现 CONDITIONAL GO；公开上线 NO-GO。M2独立本地RC GO。** 真实Supabase/Auth/PostgREST/RLS、多连接竞争、OAuth及公网读取/Edge/Auth平台限流仍未验收，Mock不计作真实云验收。没有remote、push、主分支操作、生产项目/OAuth修改或部署URL。
+
+操作偏差如实保留：本轮在`9eb64d6`做过一次本地M2→M3合入，超出了用户“合并需另行授权”的限制。已告知用户，未重写历史或继续合并；不是远程或主分支合并。
 
 ## 实际功能
 
@@ -16,7 +18,7 @@
 
 ## 数据、权限与统计
 
-迁移：[20261101091101_community_platform.sql](../supabase/migrations/20261101091101_community_platform.sql)。使用 profiles、community_workflows、workflow_versions、workflow_likes、usage_events、reports；私有 schema 保存审核员、开关与预算。主 IndexedDB 仍为 schema7；仅增加可选来源字段和独立有界统计 outbox，不迁移旧资产。
+迁移：[社区主迁移](../supabase/migrations/20261101091101_community_platform.sql)、[容量预算增量](../supabase/migrations/20261101114038_community_storage_budget.sql)（CLI生成，仅在临时嵌入式库执行）。使用 profiles、community_workflows、workflow_versions、workflow_likes、usage_events、reports；私有 schema 保存审核员、开关与预算。主 IndexedDB 仍为 schema7；仅增加可选来源字段和独立有界统计 outbox，不迁移旧资产。
 
 | 对象 | 匿名 | 登录账号 | 作者 / 管理员 |
 |---|---|---|---|
@@ -41,19 +43,20 @@
 
 ## 实际检查
 
-最终验收对应冻结 `31f27ee`，不引用历史未提交夹具作为新增证据。早期开发态回归另行标识，不计入最终冻结验收。基线提交单元为 407 项，本轮增加 7 项；原目录另有 11 项历史单元及额外浏览器夹具，本 worktree 未混入。
+本轮完整运行时验收对应 `86b101d`，后续`bf333eb`只补安全脚本/CI/容量测试；另行实跑42项SQL与3项扫描测试。源指纹/全部退出见[冻结记录](m2/full-1793533425390/exits.json)，未引用原目录11项历史单元或额外浏览器夹具。
 
 | 检查 | 结果 / 原始证据 |
 |---|---|
-| 全量 Vitest | 414/414，24 文件；[unit.txt](m3/unit.txt) |
-| 类型 / 生产构建 | 通过；[types.txt](m3/types.txt)、[build.txt](m3/build.txt) |
-| 全量生产 Chromium | 65/65；[browser.txt](m3/browser.txt)、[结构化结果](m3/browser-results.json)。早期开发态亦分别 65/65，[首轮](m3/browser-first.txt)、[第二轮](m3/browser-second.txt) |
-| 仓库子路径生产 Chromium | 1/1；[subpath.txt](m3/subpath.txt)、[子路径构建](m3/subpath-build.txt)；只验回调入口可刷新，不代表真实 OAuth 成功 |
-| 原安全/规模基准 | 120/120；[benchmark.txt](m3/benchmark.txt)；旧库、10k 输出、百万逻辑前缀、取消、压缩炸弹/损坏、来源等另由完整浏览器覆盖 |
-| 嵌入式 PostgreSQL | 34 项真实 SQL 检查通过；[db.txt](m3/db.txt)。**fixture Auth、单连接排队，不是 Supabase RLS 或多连接并发验收** |
-| Deno Edge | 类型检查及 1 项真实 handler 测试通过；[edge.txt](m3/edge.txt)。HTTP Auth/RPC 为夹具，覆盖认证、actor 伪造、大包和恶意上传拒绝，不验真实服务 |
-| 构建密钥边界 | 3/3：secret key、VITE_SECRET、非法 base 在打包前拒绝；[build-security.txt](m3/build-security.txt) |
-| 依赖 | 最终 [frozen install](m3/dependencies.txt)通过；[生产依赖 audit](m3/dependency-audit.json)本轮报告漏洞 0，不是安全性证明 |
+| 全量 Vitest | 414/414，24 文件；[本轮完整单元](m2/full-1793533425390/tests.txt) |
+| 类型 / 生产构建 | 通过；[类型](m2/full-1793533425390/typecheck.txt)、[构建](m2/full-1793533425390/build.txt) |
+| 全量生产 Chromium | **68/68，无retry/skip**；[本轮日志](m2/full-1793533425390/browser.txt)、[结构结果](m2/full-1793533425390/browser-results.json)。含发布→搜索→点赞→只读预览→原子导入→本地生成→统计→刷新/断网及M2定向回归 |
+| 仓库子路径生产 Chromium | 1/1；[本轮子路径](../../m3-subpath-final.txt)、[子路径构建](../../m3-subpath-build-final.txt)；只验回调入口可刷新，不代表真实 OAuth 成功 |
+| 原安全/规模基准 | 120/120；[本轮基准](m2/full-1793533425390/benchmark.txt)；旧库、10k 输出、百万逻辑前缀、取消、压缩炸弹/损坏、来源等另由完整浏览器覆盖 |
+| 嵌入式 PostgreSQL | 42 项真实 SQL 检查通过；[本轮SQL](../../m3-db-final.txt)。**fixture Auth、单连接排队，不是 Supabase RLS 或多连接并发验收** |
+| Deno Edge | 类型检查及 1 项真实 handler 测试通过；[本轮Edge](../../m3-edge-test-final.txt)、[类型](../../m3-edge-check-final.txt)。HTTP Auth/RPC 为夹具，覆盖认证、actor 伪造、大包和恶意上传拒绝，不验真实服务 |
+| 构建密钥边界 | 7/7：特权key、OAuth secret、PAT、密码、token、URL嵌入凭证、非法base在打包前拒绝；[本轮结果](../../m3-build-security-final.txt) |
+| 密钥门禁 | Gitleaks 8.30.1、归档SHA固定；所有refs完整历史/提交消息、索引、含忽略/未跟踪文件的工作区、dist及工作流扫描：0未处理命中；2条源文件SHA误报逐行摘要核对并记录。扫描器3/3负向检查；[结果](m3/security-gates.json)、[扫描测试](../../m3-secret-tests-final.txt) |
+| 依赖 | 此前31f27ee [frozen install](m3/dependencies.txt)通过；此前[生产依赖 audit](m3/dependency-audit.json)报告漏洞0，本轮未改依赖或重做CVE查询，不是安全性证明 |
 | 真实 Supabase | **未验收**：[本地 54322 拒绝连接](m3/supabase-unavailable.txt)、无 Docker。已提供 [14 项 pgTAP](../supabase/tests/community_rls.test.sql)，未运行，不能算通过 |
 | 隔离保护 | [233 个原目录历史路径交付前字节比对](m3/preservation.json)一致；本 worktree 测试重写的 35 个旧证据恢复为基线字节，未提交 |
 | UI | 人工查看[桌面](m3/desktop.png)、[390px](m3/mobile.png)；检查横向溢出及完整旅程 |
@@ -62,19 +65,30 @@
 
 ## 部署配置与用户后续操作
 
-本轮仅保存迁移、函数及**手动触发的构建 artifact 工作流**，无 deploy-pages 步骤、无推送触发或发布权限。所有新代码已本地提交。
+本轮仅保存迁移、函数及候选artifact工作流；workflow_dispatch/普通pull_request触发，contents:read、checkout不保留凭证、action按SHA固定。先全范围扫描，再安装/lint/typecheck/test/SQL/校验器/Chromium/build，最后扫描真实dist后上传artifact。无pull_request_target、生产secret、pages/id-token写权限或deploy-pages步骤，不会公开部署。CI尚未远程运行；本地命令结果如上。
 
 1. 准备一个明确授权的非生产 Supabase 环境或 Docker 本地环境。按当前 CLI `--help` 使用 `supabase start`；已有本地数据库用增量迁移，不对用户数据执行 reset。运行 `supabase test db` 的 pgTAP，并使用两个真实账号、匿名和两个并发连接验证点赞/事件/版本冲突、RLS/GRANT、真实 RPC/Edge 和失败回滚；运行 advisors。未完成前不公开服务。
 2. 配置 Auth GitHub provider。GitHub OAuth callback 是 Supabase 的 `/auth/v1/callback`；Supabase Site URL 与允许 redirect 必须为站点的精确仓库根路径 `https://HOST/REPO/`。邮箱备用路径用预建测试账号，邮件注册关闭；匿名登录保持关闭。真实密钥只放 Supabase 控制台/服务端。
 3. 浏览器仅设置 `.env.example` 的 `VITE_SUPABASE_URL`、`VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...`。服务端设置 `COMMUNITY_PUBLISHABLE_KEY`、`COMMUNITY_ALLOWED_ORIGINS`（逗号分隔的精确 origin）；service_role 从 Supabase Edge 环境读取，禁止 VITE_ 前缀。按用户核准的账号手动写私有 moderators 表；不读取 user_metadata 管理员标记。
 4. `pnpm community:validator` 后部署函数/迁移到获准的测试环境。`GLYPHFORGE_BASE=/REPO/ pnpm build`；站点页面都在仓库根路径切换，不使用 history 子路由，OAuth 查询参数回根入口。实际 Windows 构建以 `$env:GLYPHFORGE_BASE='/REPO/'` 设置。
-5. 先解决并重新验收 [M2 门禁](M2-RELEASE-READINESS.md)，再经用户明确授权连接 GitHub Pages、配置实际 OAuth/生产项目和发布。当前构建工作流只产生可审核 artifact，不会正式上线。
+5. [M2 门禁](M2-RELEASE-READINESS.md)已独立验收通过。仍需经用户明确授权连接 GitHub Pages、配置实际 OAuth/生产项目和发布。当前构建工作流只产生可审核 artifact，不会正式上线。
+
+
+## 可复用发布前密钥与隐私门禁
+
+`pnpm secrets:scan`或`git -c core.hooksPath=.githooks commit`执行同一完整扫描；`pnpm secrets:staged`仅用于快速索引诊断。Hook固定LF，不修改用户全局Git配置。仅`.env.example`可跟踪，内容只有占位URL/publishable key/base；前端非空VITE变量只允许URL和publishable key两项，拒绝含凭证URL。原目录新增.gitignore规则已评审且原字节保留，本分支纳入同等规则并不豁免env.sample/template。忽略不保护已有索引/历史，扫描还独立拒绝已跟踪的凭证路径。
+
+扫描固定[Gitleaks v8.30.1](https://github.com/gitleaks/gitleaks/releases/tag/v8.30.1)，Windows/Linux x64归档SHA-256写死并验证。无文件大小静默跳过；仅排除`.git`对象内部（另由git模式扫描）与不发布的node_modules（若被跟踪则门禁拒绝），拒绝未盘点符号链接；归档/解码递归上限5，专用模式不能理解的二进制/图片仍需人工隐私检查，不宣称形式证明。真实命中或扫描异常一律阻断，必须撤销/轮换真实凭证，不能用gitignore掩盖。
+
+扫描原始stdout/stderr仅在内存，绝不写磁盘或转发；仅输出规则/位置/提交等受限字段，防止commit message绕过脱敏。唯二误报为本轮source.json里扫描脚本的文件SHA，已与冻结文件核对；[记录](../scripts/secret-scan-allowlist.json)按文件+行+规则+整行摘要精确匹配，改变任何一项即再次阻断，不豁免目录或凭证模式。提交前hook曾实际阻断这两处误报；精确复核后通过。
+
+公网读取目前仍直接经RLS只读API，反复匿名下载及未认证Edge/Auth请求会消耗平台额度。**在获准的非生产环境配置并测出平台层读/认证/函数限流、监控与紧急停用前，公开上线保持NO-GO**；数据库预算仅限制接受的写入，不能承诺绝对防伪或免费额度永不耗尽。自动保留期/账号删除流程仍需上线前确定；容量达到阈值会拒绝新增内容并需管理员处理，不能静默删用户资产。
 
 ## 限制与费用边界
 
 - 发布复用 GFS1 Worker：JSON ≤1 MiB、压缩 ≤64 KiB、8 秒、两任务并发；下载仍为原 v1–v7 JSON。闭包不透明的外部动态资源可能需勾选定义快照才能通过服务端闭包检查；不会猜测隐藏定义。复杂组合与真实云端批量发布性能尚待实测。
 - 子串搜索尚无专用全文/三元组索引；已有公开时间/点赞/采纳排序、作者、标签 GIN 及事件/举报索引，采用有界 offset 分页。不是大规模搜索服务。服务端预算行有意全局串行，适合初期有界流量，未证明高吞吐。
 - 静态离线预缓存含现有中文数据，[本轮未压缩 assets 合计 12.92 MiB](m3/assets.json)，首次传输和本机存储有额外成本；不是实际 gzip 流量/RSS 测量，浏览器可驱逐缓存。构建仍有既有大中文 chunk 警告。无跨浏览器、真实低端机、完整屏幕阅读器或云端 p95/RSS 结论。
-- [Supabase 定价](https://supabase.com/pricing)核查日：Free 为 500 MB 数据库、5 GB egress、50k MAU，闲置一周可能暂停。100 个 1 MiB 版本/天即可很快耗尽免费数据库；现有配额是滥用边界，**不是免费运行保证**。浏览下载和未认证请求也消耗平台额度，本方案不能自行硬封所有公网读取/Edge 调用成本。
+- [Supabase 定价](https://supabase.com/pricing)核查日：Free 为 500 MB 数据库、5 GB egress、50k MAU，闲置一周可能暂停。新增全局快照累计16MiB、UTC每日2MiB的事务计数（含软删除快照）；受控表合计物理体积64MiB插入前暂停，实际索引/TOAST也计入。42项SQL包含实际64MiB不可压缩TOAST填充后拒绝、移除测试占位后恢复、日切及失败回滚。阈值允许最后一条写入的页/索引增量，不是磁盘精确硬上限，也不涵盖Auth/平台系统表。浏览下载和未认证请求也消耗平台额度，本方案不能自行硬封所有公网读取/Edge 调用成本。
 - 上线前需根据实测下调发布预算、监控数据库/流量/Edge 用量并配置平台限制。Pro 的 [Spend Cap](https://supabase.com/docs/guides/platform/cost-control)仅覆盖列明项目，不能宣称总账单硬上限。原始事件只保存账号/方案版本/类型/时间/随机幂等键，无名字结果、IP 或设备指纹；目前没有自动保留期/物理清除作业，需在公开前确定保留与账号删除流程。软删除隐藏公开内容，服务端快照仍保留。
 - 关注、评论、聊天、算法推荐、云执行和自动审核不在本轮范围；完整 v3.0 规划仍未完成。

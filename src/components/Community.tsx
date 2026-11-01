@@ -47,7 +47,7 @@ export default function Community({
     [versions, setVersions] = useState<Version[]>([]),
     [downloaded, setDownloaded] = useState<Version | null>(null),
     [preview, setPreview] = useState<SharePreview | null>(null),
-    [liked, setLiked] = useState(false);
+    [liked, setLiked] = useState<boolean | null>(null);
   const [publish, setPublish] = useState(false),
     [target, setTarget] = useState<Listing | null>(null),
     [title, setTitle] = useState(workflow.name),
@@ -133,6 +133,22 @@ export default function Community({
   }, [revision, user]);
   useEffect(() => {
     let alive = true;
+    setLiked(null);
+    if (detail && user)
+      void api
+        .liked(detail.id)
+        .then((value) => {
+          if (alive) setLiked(value);
+        })
+        .catch((e) => {
+          if (alive) setError(String(e));
+        });
+    return () => {
+      alive = false;
+    };
+  }, [api, user?.id, detail?.id]);
+  useEffect(() => {
+    let alive = true;
     setError("");
     void api
       .list(q, tag, sort, page, mine)
@@ -166,6 +182,7 @@ export default function Community({
   }
   async function login(method: "github" | "password") {
     await api.login(method, email, password);
+    setPassword("");
     refresh((v) => v + 1);
     await flushUsage();
   }
@@ -292,6 +309,9 @@ export default function Community({
                 void task(async () => {
                   await api.logout();
                   setUser(null);
+                  setMine(false);
+                  setPage(0);
+                  setPublish(false);
                   refresh((v) => v + 1);
                 })
               }
@@ -528,19 +548,16 @@ export default function Community({
           <div className="row">
             <button
               className="button"
-              disabled={!user || busy}
-              aria-pressed={liked}
+              disabled={!user || busy || liked === null}
+              aria-pressed={!!liked}
               onClick={() =>
                 void task(async () => {
-                  await api.write("like", {
+                  const updated = await api.write("like", {
                     workflow_id: detail.id,
                     liked: !liked,
                   });
                   setLiked(!liked);
-                  setDetail({
-                    ...detail,
-                    likes: detail.likes + (liked ? -1 : 1),
-                  });
+                  setDetail(updated as Listing);
                   refresh((v) => v + 1);
                 })
               }

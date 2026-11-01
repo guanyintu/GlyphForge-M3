@@ -123,9 +123,24 @@ test("immutable versions, owner edits, alternate account, report and local hidin
   await expect(
     page.getByRole("button", { name: "下载并预览 v2" }),
   ).toBeVisible();
+  await page.getByRole("button", { name: "点赞", exact: true }).click();
+  await page.getByRole("checkbox", { name: "我的发布", exact: true }).check();
   await page.getByRole("button", { name: "退出登录", exact: true }).click();
+  await expect(
+    page.getByRole("checkbox", { name: "我的发布", exact: true }),
+  ).not.toBeChecked();
+  await expect(
+    page.getByRole("button", { name: "点赞", exact: true }),
+  ).toBeDisabled();
   await page.getByLabel("社区登录邮箱").fill("visitor");
   await page.getByRole("button", { name: "演示登录", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "点赞", exact: true }),
+  ).toBeEnabled();
+  await page.getByRole("button", { name: "点赞", exact: true }).click();
+  await expect(page.getByLabel("社区方案详情", { exact: true })).toContainText(
+    "点赞 2",
+  );
   await expect(
     page.getByRole("button", { name: "保存描述", exact: true }),
   ).not.toBeVisible();
@@ -142,7 +157,7 @@ test("immutable versions, owner edits, alternate account, report and local hidin
   await page.screenshot({
     path: "test-results/community-mobile.png",
     fullPage: true,
-    animations: 'disabled',
+    animations: "disabled",
   });
   expect(
     await page.evaluate(

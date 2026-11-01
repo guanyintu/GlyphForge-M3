@@ -1,5 +1,6 @@
 import { defineConfig } from "@playwright/test";
 export default defineConfig({
+  outputDir: 'test-results-subpath',
   testDir: "./e2e",
   testMatch: "community-subpath.check.ts",
   workers: 1,

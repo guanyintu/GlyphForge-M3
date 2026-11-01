@@ -4,6 +4,7 @@ dist/
 .sites-runtime/
 .openai/
 test-results/
+test-results-subpath/
 .env
 .env.*
 !.env.example

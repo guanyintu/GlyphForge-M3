@@ -150,7 +150,9 @@ test("P1-D: measured Chromium CPU throttling and sustained-contention fallback",
   test.setTimeout(60000);
   const errors: string[] = []; page.on("pageerror", e => errors.push(e.message));
   await fixture(page, Array.from({ length: 2000 }, (_, i) => `性能猫${i}`));
-  await page.getByRole("button", { name: "漂浮碰撞", exact: true }).click(); await expect(field(page)).toHaveAttribute("data-physics-running", "true");
+  await page.getByRole("button", { name: "漂浮碰撞", exact: true }).click();
+  await field(page).scrollIntoViewIfNeeded();
+  await expect(field(page)).toHaveAttribute("data-physics-running", "true");
   // Controls may be visible while the field is below the fold. A RAF timer alone
   // does not prove physics ran, particularly after full-page screenshot layout.
   await field(page).scrollIntoViewIfNeeded();

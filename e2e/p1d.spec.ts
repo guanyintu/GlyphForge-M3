@@ -134,6 +134,7 @@ async function sample(page: Page, milliseconds: number) {
   return page.evaluate(async milliseconds => {
     const intervals: number[] = [], tasks: number[] = []; let previous = performance.now();
     const grid = document.querySelector<HTMLElement>(".physics-grid")!;
+    const transforms = [...grid.querySelectorAll<HTMLElement>(".candidate")].map(n => n.style.transform);
     const startFrames = Number(grid.dataset.physicsFrames ?? 0), start = performance.now();
     const observer = new PerformanceObserver(list => list.getEntries().forEach(e => tasks.push(e.duration))); observer.observe({ type: "longtask" });
     await new Promise<void>(resolve => { const tick = (now: number) => { intervals.push(now - previous); previous = now; if (now - start < milliseconds) requestAnimationFrame(tick); else resolve(); }; requestAnimationFrame(tick); });
@@ -141,7 +142,7 @@ async function sample(page: Page, milliseconds: number) {
     const rect = grid.getBoundingClientRect(), cards = [...grid.querySelectorAll(".candidate")].map(n => n.getBoundingClientRect());
     let overlaps = 0;
     for (let i = 0; i < cards.length; i++) for (let j = i + 1; j < cards.length; j++) { const a = cards[i], b = cards[j]; if (Math.min(a.right, b.right) - Math.max(a.left, b.left) > 1 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 1) overlaps++; }
-    return { elapsedMs: performance.now() - start, rafSamples: intervals.length, meanIntervalMs: intervals.reduce((s, n) => s + n, 0) / intervals.length, p95IntervalMs: sorted[Math.floor(sorted.length * .95)], maxIntervalMs: Math.max(...intervals), longTasks: tasks.length, maxLongTaskMs: Math.max(0, ...tasks), physicsPaints: Number(grid.dataset.physicsFrames ?? 0) - startFrames, objects: cards.length, overlaps, outOfBounds: cards.filter(c => c.left < rect.left - 1 || c.top < rect.top - 1 || c.right > rect.right + 1 || c.bottom > rect.bottom + 1).length, quality: grid.dataset.quality };
+    return { movedObjects: [...grid.querySelectorAll<HTMLElement>(".candidate")].filter((n, i) => n.style.transform !== transforms[i]).length, hidden: document.hidden, rect: rect.toJSON(), viewport: { width: innerWidth, height: innerHeight }, running: grid.dataset.physicsRunning, elapsedMs: performance.now() - start, rafSamples: intervals.length, meanIntervalMs: intervals.reduce((s, n) => s + n, 0) / intervals.length, p95IntervalMs: sorted[Math.floor(sorted.length * .95)], maxIntervalMs: Math.max(...intervals), longTasks: tasks.length, maxLongTaskMs: Math.max(0, ...tasks), physicsPaints: Number(grid.dataset.physicsFrames ?? 0) - startFrames, objects: cards.length, overlaps, outOfBounds: cards.filter(c => c.left < rect.left - 1 || c.top < rect.top - 1 || c.right > rect.right + 1 || c.bottom > rect.bottom + 1).length, quality: grid.dataset.quality };
   }, milliseconds);
 }
 
@@ -150,11 +151,16 @@ test("P1-D: measured Chromium CPU throttling and sustained-contention fallback",
   const errors: string[] = []; page.on("pageerror", e => errors.push(e.message));
   await fixture(page, Array.from({ length: 2000 }, (_, i) => `性能猫${i}`));
   await page.getByRole("button", { name: "漂浮碰撞", exact: true }).click(); await expect(field(page)).toHaveAttribute("data-physics-running", "true");
+  // Controls may be visible while the field is below the fold. A RAF timer alone
+  // does not prove physics ran, particularly after full-page screenshot layout.
+  await field(page).scrollIntoViewIfNeeded();
+  await expect(field(page)).toHaveAttribute("data-physics-running", "true");
   const normal = await sample(page, 2000);
+  expect(normal.physicsPaints).toBeGreaterThan(0); expect(normal.movedObjects).toBeGreaterThan(0);
   expect(normal.overlaps).toBe(0); expect(normal.outOfBounds).toBe(0);
-  await page.screenshot({ path: "docs/p1d/physics-desktop.png", fullPage: true });
   const cdp = await context.newCDPSession(page); await cdp.send("Emulation.setCPUThrottlingRate", { rate: 6 });
   const throttled = await sample(page, 2000);
+  expect(throttled.physicsPaints).toBeGreaterThan(0); expect(throttled.movedObjects).toBeGreaterThan(0);
   const favorite = page.locator(".physics-grid .star-button").first();
   await favorite.evaluate(node => node.addEventListener("click", () => {
     const start = performance.now();
@@ -168,9 +174,13 @@ test("P1-D: measured Chromium CPU throttling and sustained-contention fallback",
     const busy = () => { if (!(window as unknown as { __contention: boolean }).__contention) return; const start = performance.now(); while (performance.now() - start < 35) { /* controlled benchmark workload */ } requestAnimationFrame(busy); }; requestAnimationFrame(busy);
   });
   const contention = await sample(page, 6000);
+  console.log("M2_MOTION_SAMPLES", JSON.stringify({normal, throttled, contention}));
+  expect(contention.physicsPaints).toBeGreaterThan(0);
   await expect(field(page)).toHaveAttribute("data-quality", "static"); await frozen(page);
   await page.evaluate(() => Object.assign(window, { __contention: false })); await cdp.send("Emulation.setCPUThrottlingRate", { rate: 1 });
   await page.getByLabel("开启动画", { exact: true }).uncheck(); await frozen(page);
+  // Capture after the timing experiment so screenshot viewport changes are not sampled.
+  await page.screenshot({ path: "docs/p1d/physics-desktop.png", fullPage: true });
   const environment = await page.evaluate(() => ({ userAgent: navigator.userAgent, hardwareConcurrency: navigator.hardwareConcurrency, deviceMemory: (navigator as Navigator & { deviceMemory?: number }).deviceMemory }));
   const report = { browser: browser.version(), environment, cpuRate: 6, normal, throttled, contention: { injectedBusyMsPerFrame: 35, ...contention }, favoriteLatencyMs, errors };
   writeFileSync("docs/p1d/performance.json", JSON.stringify(report, null, 2)); console.log("P1D_PERFORMANCE", JSON.stringify(report)); expect(errors).toEqual([]);

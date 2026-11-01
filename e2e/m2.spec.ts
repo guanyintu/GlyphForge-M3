@@ -8,6 +8,37 @@ async function open(page: import('@playwright/test').Page) {
   await expect(page.locator('.result-timing')).toContainText('生成完成');
 }
 
+test('M2: conflicting relation edits preserve native IndexedDB rows and metadata across reload', async ({ page }) => {
+  await open(page);
+  await page.getByRole('button', { name: /^资源中心/ }).click();
+  await page.getByRole('button', { name: '新建关系词库', exact: true }).click();
+  const dialog = page.getByRole('dialog', { name: '编辑关系词库' });
+  await dialog.getByLabel('关系词库名称').fill('M2关系保护');
+  for (const [left, right] of [['朝', '暮'], ['山', '海']]) {
+    await dialog.getByLabel('左词 A').fill(left); await dialog.getByLabel('右词 B').fill(right);
+    await dialog.getByRole('button', { name: '添加词对', exact: true }).click();
+  }
+  await expect(dialog.locator('.relation-row')).toHaveCount(2);
+  const snapshot = () => page.evaluate(async () => {
+    const db = await new Promise<IDBDatabase>((resolve, reject) => { const r = indexedDB.open('glyphforge-v1'); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error); });
+    try {
+      const tx = db.transaction(['resources', 'relations']);
+      const read = <T,>(request: IDBRequest<T>) => new Promise<T>((resolve, reject) => { request.onsuccess = () => resolve(request.result); request.onerror = () => reject(request.error); });
+      const [resources, rows] = await Promise.all([read(tx.objectStore('resources').getAll()), read(tx.objectStore('relations').getAll())]);
+      const resource = resources.find(r => r.name === 'M2关系保护');
+      return { schema: db.version, resource, rows: rows.filter(r => r.resourceId === resource.id) };
+    } finally { db.close(); }
+  });
+  const before = await snapshot();
+  await dialog.locator('.relation-row').filter({ hasText: '朝' }).getByRole('button', { name: '修改', exact: true }).click();
+  await dialog.getByLabel('左词 A').fill(' 山 '); await dialog.getByLabel('右词 B').fill('海');
+  await dialog.getByRole('button', { name: '保存修改', exact: true }).click();
+  await expect(dialog.getByText('相同关系已存在，原关系未修改', { exact: true })).toBeVisible();
+  expect(await snapshot()).toEqual(before);
+  await page.reload();
+  expect(await snapshot()).toEqual(before);
+});
+
 test('M2: selecting the current workflow cannot overwrite an unsaved rename or clear results', async ({ page }) => {
   await open(page);
   const count = await page.locator('.candidate').count();

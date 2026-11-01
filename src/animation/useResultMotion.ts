@@ -54,7 +54,12 @@ export function usePhysicsField(ref: RefObject<HTMLDivElement | null>, keys: str
       paint(); element.dataset.physicsFrames = String(++paints);
     }, () => { element.dataset.physicsRunning = "false"; expired.current(); });
     loop.current = current;
-    const observer = new IntersectionObserver(([entry]) => setIntersecting(entry.isIntersecting));
+    const observer = new IntersectionObserver(entries => {
+      // One target can cross the viewport more than once before a queued delivery.
+      // The last record is its current state; the first can leave motion paused.
+      const latest = entries[entries.length - 1];
+      if (latest) setIntersecting(latest.isIntersecting);
+    });
     observer.observe(element);
     return () => {
       observer.disconnect(); current.dispose(); element.dataset.physicsRunning = "false";

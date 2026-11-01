@@ -332,6 +332,10 @@ export async function saveRelationRows(resourceId: string, rows: PairValue[], re
     if (meta?.kind !== "relation") throw new Error("请选择关系词库");
     if (replaceId !== undefined) {
       if (normalized.length !== 1 || (await target.relations.get(replaceId))?.resourceId !== resourceId) throw new Error("待修改关系不存在");
+      const row = normalized[0];
+      const conflict = await target.relations.where("[resourceId+left+right+relation+direction]")
+        .equals([resourceId, row.left, row.right, row.relation, row.direction!]).first();
+      if (conflict && conflict.id !== replaceId) throw new Error("相同关系已存在，原关系未修改");
       await target.relations.delete(replaceId);
     }
     const unique = [...new Map(normalized.map(r => [JSON.stringify([r.left, r.right, r.relation, r.direction]), r])).values()];

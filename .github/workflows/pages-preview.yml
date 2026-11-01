@@ -1,26 +1,44 @@
-name: Build Pages candidate (no deployment)
-on: workflow_dispatch
+name: Verify Pages candidate (publication disabled)
+on:
+  workflow_dispatch:
+  pull_request:
 permissions:
   contents: read
+concurrency:
+  group: candidate-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          node-version: 22
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
           cache: pnpm
+      - name: Secret scan before executing project/dependency code
+        run: node scripts/secret-scan.mjs
       - run: pnpm install --frozen-lockfile
-      - run: pnpm test && pnpm typecheck
+      - run: pnpm lint && pnpm typecheck && pnpm test
+      - run: pnpm community:db-test && node scripts/test-community-build.mjs && node scripts/test-secret-scan.mjs
       - run: pnpm community:validator && git diff --exit-code supabase/functions/community/validator.js
       - run: pnpm build
         env:
           GLYPHFORGE_BASE: /${{ github.event.repository.name }}/
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
-      - uses: actions/upload-artifact@v4
+      - name: Scan actual Pages assets and all repository scopes
+        run: pnpm secrets:scan
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: pages-candidate-NOT-RELEASED
           path: dist
+          if-no-files-found: error
+          retention-days: 7
+      # No pages:write/id-token:write, deployment job, production credentials or
+      # deploy-pages action. Publishing requires separate explicit authorization.

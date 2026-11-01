@@ -10,3 +10,22 @@ test-results-subpath/
 !.env.example
 dist-subpath/
 supabase/.temp/
+
+# Reviewed local credential/privacy gate. Only the public example is exempt.
+.npmrc
+.pypirc
+.netrc
+*.pem
+*.p12
+*.pfx
+*.key
+*.keystore
+*.jks
+.secrets/
+secrets/
+.credentials/
+credentials/
+**/service-account*.json
+**/*-service-account.json
+**/credentials.json
+**/private-key.json

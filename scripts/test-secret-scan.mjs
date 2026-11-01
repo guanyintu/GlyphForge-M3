@@ -1,0 +1,19 @@
+import assert from 'node:assert/strict';
+import {spawnSync} from 'node:child_process';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
+import {safeFindings} from './secret-scan.mjs';
+const bin=process.env.GITLEAKS_BIN||path.join(tmpdir(),'glyphforge-gitleaks-8.30.1',process.platform==='win32'?'gitleaks.exe':'gitleaks');
+// Synthetic value exists only in memory. It is never printed or written.
+const synthetic='sb_'+'secret_'+crypto.randomUUID().replaceAll('-','');
+const r=spawnSync(bin,['stdin','--config','scripts/gitleaks.toml','--no-banner','--log-level=error','--redact=100','--report-format=json','--report-path=-'],{input:synthetic,encoding:'utf8'});
+assert.equal(r.status,1,'privileged credentials must block the gate');
+assert.ok(!r.stdout.includes(synthetic),'scanner report must redact detected content');
+const rows=JSON.parse(r.stdout);
+assert.ok(rows.some(r=>r.RuleID==='supabase-secret-key'));
+const safe=JSON.stringify(safeFindings([{...rows[0],Secret:synthetic,Match:synthetic,Message:synthetic,Author:synthetic}]));
+assert.ok(!safe.includes(synthetic));
+const wrong=spawnSync(process.execPath,['scripts/secret-scan.mjs','--staged-only'],{env:{...process.env,GITLEAKS_BIN:'missing-scanner-8.30.1'},encoding:'utf8'});
+assert.notEqual(wrong.status,0,'missing scanner must fail closed');
+assert.ok(!wrong.stdout.includes(synthetic));
+console.log('3/3 secret gates: detection/redaction, safe metadata, missing scanner fail-closed');

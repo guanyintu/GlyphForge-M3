@@ -9,14 +9,17 @@ export default defineConfig(({ mode }) => {
     throw new Error(
       "Only a Supabase publishable key may enter the browser build",
     );
-  if (
-    Object.keys(env).some(
-      (k) => /^VITE_.*(SECRET|SERVICE_ROLE)/i.test(k) && env[k],
-    )
-  )
-    throw new Error(
-      "Secret environment variables must not use the VITE_ prefix",
-    );
+  const publicNames=new Set(['VITE_SUPABASE_URL','VITE_SUPABASE_PUBLISHABLE_KEY']);
+  if(Object.keys(env).some(k=>k.startsWith('VITE_') && env[k] && !publicNames.has(k)))
+    throw new Error('Only approved public Supabase variables may use VITE_');
+  if(key && !/^sb_publishable_[A-Za-z0-9_-]+$/.test(key))
+    throw new Error('Invalid publishable key format');
+  if(env.VITE_SUPABASE_URL) {
+    const url=new URL(env.VITE_SUPABASE_URL);
+    if(url.username||url.password||url.search||url.hash||
+      (url.protocol!=='https:' && !(url.protocol==='http:' && ['127.0.0.1','localhost','[::1]'].includes(url.hostname))))
+      throw new Error('Supabase URL must be HTTPS or local HTTP, without embedded credentials');
+  }
   if (!/^\/(?:[\p{L}\p{N}_-]+\/)*$/u.test(base))
     throw new Error(
       "GLYPHFORGE_BASE must be an absolute repository path ending in /",

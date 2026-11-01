@@ -13,7 +13,10 @@
     "test:e2e": "pnpm build && playwright test",
     "typecheck": "tsc --noEmit",
     "examples:p1b": "node scripts/export-p1b-examples.mjs",
-    "bench": "vitest run src/tests/performance.test.ts --reporter=verbose"
+    "bench": "vitest run src/tests/performance.test.ts --reporter=verbose",
+    "lint": "node scripts/lint-release.mjs",
+    "secrets:scan": "node scripts/secret-scan.mjs",
+    "secrets:staged": "node scripts/secret-scan.mjs --staged-only"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.118.0",

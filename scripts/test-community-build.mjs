@@ -3,6 +3,10 @@ import assert from "node:assert/strict";
 for (const fixture of [
   { VITE_SUPABASE_PUBLISHABLE_KEY: "sb_secret_FIXTURE" },
   { VITE_GITHUB_CLIENT_SECRET: "FIXTURE" },
+  { VITE_GITHUB_PAT: "FIXTURE" },
+  { VITE_DB_PASSWORD: "FIXTURE" },
+  { VITE_ACCESS_TOKEN: "FIXTURE" },
+  { VITE_SUPABASE_URL: "https://fixture:fixture@example.invalid" },
   { GLYPHFORGE_BASE: "../escape/" },
 ]) {
   const r = spawnSync(
@@ -16,4 +20,4 @@ for (const fixture of [
     "unsafe configuration must fail before bundling",
   );
 }
-console.log("3/3 unsafe build configurations rejected before bundling");
+console.log("7/7 unsafe build configurations rejected before bundling");

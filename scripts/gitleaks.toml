@@ -1,0 +1,20 @@
+title = "GlyphForge release gate"
+[extend]
+useDefault = true
+# No finding allowlist or inline gitleaks:allow bypass. These directories are
+# excluded only because they are Git internals/non-published installed packages.
+[[allowlists]]
+description = "Git object internals and installed dependencies; tracked credentials blocked separately"
+paths = ['''(^|/|\\)node_modules(/|\\)''', '''(^|/|\\)\.git(/|\\)''']
+
+[[rules]]
+id = "supabase-secret-key"
+description = "Supabase privileged secret key"
+regex = '''sb_secret_[A-Za-z0-9_-]{16,}'''
+keywords = ["sb_secret_"]
+
+[[rules]]
+id = "privileged-service-role-jwt"
+description = "Legacy service-role JWT"
+regex = '''eyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{16,}'''
+keywords = ["eyJ"]

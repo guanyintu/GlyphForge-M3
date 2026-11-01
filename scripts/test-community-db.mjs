@@ -17,6 +17,7 @@ await db.exec(
     "utf8",
   ),
 );
+await db.exec(readFileSync('supabase/migrations/20261101114038_community_storage_budget.sql','utf8'));
 const role = async (name, id = "") => {
   await db.exec(`reset role;set role ${name};`);
   await db.query("select set_config('request.jwt.claim.sub',$1,false)", [id]);
@@ -205,6 +206,23 @@ ok(
   (await db.query("select * from public.workflow_versions")).rows.length === 0,
 );
 await db.exec("reset role");
+// Real PostgreSQL triggers: exact payload cap, transactional rollback, daily
+// reset and byte-accounting even for hidden/deleted snapshots.
+await db.exec("update community_private.control set payload_bytes=16777216");
+await role('service_role');
+await denied(()=>command(author,'publish',{title:'capacity',description:'',tags:[],payload_text:'{"format":"glyphforge","version":2}'}));
+await db.exec('reset role');
+ok((await db.query('select payload_bytes from community_private.control')).rows[0].payload_bytes===16777216);
+await db.exec("update community_private.control set payload_bytes=0,payload_day_bytes=2097152");
+await role('service_role');
+await denied(()=>command(author,'publish',{title:'daily',description:'',tags:[],payload_text:'{"format":"glyphforge","version":2}'}));
+await db.exec('reset role');
+await db.exec("update community_private.control set payload_day=current_date-1");
+await role('service_role');
+const fresh=await command(author,'publish',{title:'new day',description:'',tags:[],payload_text:'{"format":"glyphforge","version":2}'});
+ok(fresh.current_version===1);
+await db.exec('reset role');
+ok((await db.query('select payload_day_bytes from community_private.control')).rows[0].payload_day_bytes===Buffer.byteLength('{"format":"glyphforge","version":2}'));
 await db.exec("update community_private.control set enabled=false");
 await role("service_role");
 await denied(() =>

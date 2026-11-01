@@ -1,6 +1,25 @@
 # GlyphForge M2 发布候选版
 
-2026-11-01（Asia/Shanghai）；M2原基线 `93d453b`，本轮起点 `9b7b366`，冻结源码 `7e78360`，分支 `codex/m2-release-readiness`。**两项目标阻断已修复；RC NO-GO：必要全量回归新发现估算跨标签失效，尚未解决。** 保留全部旧失败，不新增P2阶段。
+2026-11-01（Asia/Shanghai）；本轮基线 `c39a90d`，修复/验收源码 `2fd4d8a`。**M2 本地 RC GO**。下方历史 NO-GO 和失败记录保留，仅本节为最新门禁。
+
+## 最后估算阻断与完整复核
+
+旧 UI 唯一持久失效信号来自 `useLiveQuery → Dexie storagemutated/BroadcastChannel → estimateRevision`。通知不属于持久版本日志；原生 IndexedDB 写入没有 Dexie 广播，隐藏/恢复页也没有补查。既有 snapshot 已校验传递资源版本/count、Mapping及扩展状态，旧页面没有主动重读就无法发现失效。原旧Dexie用例本次单跑通过，不能证明此前某一条广播为何丢失；本轮确定复现了漏通知会永久显示144的同类根因，未把偶发全绿冒充修复。
+
+最小修复保留实时订阅，按需对当前工作流每秒（仅可见页）、focus/pageshow/visibility恢复进行版本复核。单个复核不重入；卸载/请求切换忽略迟到读；版本变化清空并取消旧计算，沿用最终快照校验。可见页漏通知最长约1秒加IDB等待后收敛；后台不承诺实时更新。每轮仍至多100依赖/12层，只读元数据和有界扩展表，不扫描词条/全资源目录；没有执行优化、资源迁移或来源语义变化。
+
+新增生产回归覆盖原生跨标签改/删/重建、相同origin不同标签、漏通知后恢复可见性、计算期间持有写事务再提交。旧代码[2/2确定失败](../../m2-estimate-deterministic-red.txt)，修复后[3/3通过](../../m2-estimate-green.txt)，不使用retry。原Dexie广播回归保留并在全量通过；单元现有取消/版本/Mapping/包失效和四路确定性差分保留。
+
+| 干净源码 `2fd4d8a` | 真实结果 |
+| --- | --- |
+| 完整Vitest | [407/407，23文件](../../GlyphForge-M2-verified/docs/m2/full-1793532709174/tests.txt) |
+| 完整生产Chromium | [65/65，无retry/skip](../../GlyphForge-M2-verified/docs/m2/full-1793532709174/browser.txt) |
+| 相关基准 | [120/120，6文件](../../GlyphForge-M2-verified/docs/m2/full-1793532709174/benchmark.txt) |
+| typecheck / tsc -b / build | [全部退出0、源指纹及旧证据恢复](../../GlyphForge-M2-verified/docs/m2/full-1793532709174/exits.json) |
+
+隔离目录由本次提交创建，使用既有node_modules junction；原目录234项未提交资产另存SHA清单，未带入验收。runner重写的旧证据均归档并恢复。中文大chunk警告保留。Firefox/WebKit、实物低端、原生RSS/完整屏幕阅读器及历史G/Q仍未完成，不扩大RC范围。无remote、无push/公网发布；密钥专用扫描首轮所有分支历史/原工作区零命中，M3另固化可复用门禁。
+
+## 以下为此前验收历史（保留失败）
 
 ## 本轮两项阻断收口（冻结源码 `7e78360`）
 

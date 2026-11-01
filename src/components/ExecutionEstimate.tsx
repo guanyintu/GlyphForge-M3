@@ -7,12 +7,33 @@ import { estimateWorkflow, estimateRevision } from '../storage/estimate';
 export function ExecutionEstimate({workflow,stats,dirty}:{workflow:Workflow;stats?:RunStats;dirty:boolean}) {
   const [request,setRequest]=useState(0);
   const revision=useLiveQuery(()=>request?estimateRevision(workflow):undefined,[workflow,request]);
+  // Dexie broadcasts are a fast path, not a durable change log. Native IDB
+  // writers and suspended tabs may not deliver one. Recheck only this workflow's
+  // bounded metadata closure while visible; never scan entries or the catalog.
+  const [checkedRevision,setCheckedRevision]=useState<string>();
+  useEffect(()=>{
+    if(!request)return;
+    let active=true,reading=false;
+    const check=async()=>{
+      if(reading||document.hidden)return;
+      reading=true;
+      try{const key=await estimateRevision(workflow);if(active)setCheckedRevision(key);}
+      finally{reading=false;}
+    };
+    const wake=()=>{void check();};
+    const timer=window.setInterval(wake,1000);
+    document.addEventListener('visibilitychange',wake);
+    window.addEventListener('focus',wake);
+    window.addEventListener('pageshow',wake);
+    wake();
+    return ()=>{active=false;clearInterval(timer);document.removeEventListener('visibilitychange',wake);window.removeEventListener('focus',wake);window.removeEventListener('pageshow',wake);};
+  },[workflow,request]);
   const [state,setState]=useState<{result?:Awaited<ReturnType<typeof estimateWorkflow>>;error?:string}>({});
   useEffect(()=>{
     const controller=new AbortController();setState({});
     if(request&&!dirty)void estimateWorkflow(workflow,controller.signal).then(result=>{if(!controller.signal.aborted)setState({result});}).catch(e=>{if(!controller.signal.aborted)setState({error:String(e)});});
     return ()=>controller.abort();
-  },[workflow,revision,request,dirty]);
+  },[workflow,revision,checkedRevision,request,dirty]);
   const r=state.result;
   return <details className="execution-estimate"><summary>规模与执行风险（只读）</summary>
     <button className="button" disabled={dirty} onClick={()=>setRequest(n=>n+1)}>估算当前工作流</button>

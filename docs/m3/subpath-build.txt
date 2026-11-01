@@ -1,0 +1,54 @@
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 1926 modules transformed.
+rendering chunks...
+[plugin vite:reporter] 
+(!) C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/core/resource-catalog.ts is dynamically imported by C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/storage/resource-runtime.ts but also statically imported by C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/community/protocol.ts, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/components/DefinedResources.tsx, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/components/Sharing.tsx, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/core/resource-package.ts, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/core/sharing.ts, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/storage/estimate.ts, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/storage/resource-runtime.ts, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/storage/share-resources.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/core/sharing.ts is dynamically imported by C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/core/resource-package.ts but also statically imported by C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/App.tsx, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/community/local.ts, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/components/BenchmarkPanel.tsx, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/components/DefinedResources.tsx, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/components/Packs.tsx, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/components/RelationEditor.tsx, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/components/Resources.tsx, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/components/Results.tsx, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/components/RunHistory.tsx, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/components/Sharing.tsx, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/core/share-preview.ts, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/storage/run-lifecycle.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/core/resource-package.ts is dynamically imported by C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/core/sharing.ts, C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/core/sharing.ts but also statically imported by C:/Users/someb/Documents/ChatGPT/GlyphForge-M3/src/components/DefinedResources.tsx, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist-subpath/index.html                                      0.95 kB │ gzip:   0.55 kB
+dist-subpath/offline-worker.js                               1.85 kB
+dist-subpath/assets/resource-package-C4ol0dLY.js             5.72 kB
+dist-subpath/assets/chinese-CFjtgZJS.js                      7.36 kB
+dist-subpath/assets/chinese-CukEJ0XZ.js                      7.37 kB
+dist-subpath/assets/chinese-EJWEfMS3.js                      7.37 kB
+dist-subpath/assets/chinese-CsO4ghgT.js                      7.37 kB
+dist-subpath/assets/chinese--XO0Tu2k.js                      7.37 kB
+dist-subpath/assets/chinese-yj4OmNCF.js                      7.38 kB
+dist-subpath/assets/reverse.worker-Cj_e0090.js             163.05 kB
+dist-subpath/assets/resource-preview.worker-VmrBwa4A.js    163.94 kB
+dist-subpath/assets/lab.worker-CE-acaNU.js                 165.51 kB
+dist-subpath/assets/execution.worker-CrY7d1pF.js           168.85 kB
+dist-subpath/assets/resources.worker-DqTd0o0c.js           172.91 kB
+dist-subpath/assets/sharing.worker-CFZ0-env.js             179.43 kB
+dist-subpath/assets/readings-DmiNxDN8.js                   633.08 kB
+dist-subpath/assets/strokes-CNWsGUWK.js                  1,134.42 kB
+dist-subpath/assets/full-DZVBVfpd.js                     1,195.21 kB
+dist-subpath/assets/decomposition-Qix4g1h5.js            2,456.57 kB
+dist-subpath/assets/Community-DezKRIrk.css                   2.92 kB │ gzip:   1.05 kB
+dist-subpath/assets/index-Dcc_Sbi-.css                      76.81 kB │ gzip:  16.53 kB
+dist-subpath/assets/chinese-X4KGsGZP.js                      7.54 kB │ gzip:   4.03 kB
+dist-subpath/assets/local-Cjmg0czO.js                       11.74 kB │ gzip:   4.84 kB
+dist-subpath/assets/Community-TElSeyt3.js                   16.38 kB │ gzip:   5.80 kB
+dist-subpath/assets/t2cn-D2IW0CH8.js                       109.07 kB │ gzip:  54.73 kB
+dist-subpath/assets/storage-CvBhfY6t.js                    109.81 kB │ gzip:  36.16 kB
+dist-subpath/assets/react-flow-C3qdJseD.js                 184.87 kB │ gzip:  60.52 kB
+dist-subpath/assets/index-DGLEpTeg.js                      313.78 kB │ gzip: 143.09 kB
+dist-subpath/assets/index-Bk0DJwzC.js                      400.75 kB │ gzip: 130.77 kB
+dist-subpath/assets/index-BnfiGU7h.js                      509.36 kB │ gzip: 165.83 kB
+dist-subpath/assets/readings-BRBY76gB.js                   633.08 kB │ gzip: 199.55 kB
+dist-subpath/assets/cn2t-DDyjQPTw.js                     1,100.39 kB │ gzip: 466.82 kB
+dist-subpath/assets/strokes-C7LbeZEB.js                  1,134.42 kB │ gzip: 288.68 kB
+dist-subpath/assets/decomposition-CukoFwUz.js            2,456.57 kB │ gzip: 611.80 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 42.13s

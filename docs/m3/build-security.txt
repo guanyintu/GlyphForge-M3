@@ -1,0 +1,1 @@
+3/3 unsafe build configurations rejected before bundling

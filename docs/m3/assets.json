@@ -1,0 +1,133 @@
+{
+  "bytes": 13550238,
+  "assets": [
+    {
+      "name": "chinese--XO0Tu2k.js",
+      "bytes": 7370
+    },
+    {
+      "name": "chinese-B5k-JYn0.js",
+      "bytes": 7537
+    },
+    {
+      "name": "chinese-CFjtgZJS.js",
+      "bytes": 7364
+    },
+    {
+      "name": "chinese-CsO4ghgT.js",
+      "bytes": 7370
+    },
+    {
+      "name": "chinese-CukEJ0XZ.js",
+      "bytes": 7368
+    },
+    {
+      "name": "chinese-EJWEfMS3.js",
+      "bytes": 7368
+    },
+    {
+      "name": "chinese-yj4OmNCF.js",
+      "bytes": 7377
+    },
+    {
+      "name": "cn2t-DDyjQPTw.js",
+      "bytes": 1100388
+    },
+    {
+      "name": "Community-CX1Q_Z64.js",
+      "bytes": 16377
+    },
+    {
+      "name": "Community-DezKRIrk.css",
+      "bytes": 2919
+    },
+    {
+      "name": "decomposition-CukoFwUz.js",
+      "bytes": 2456573
+    },
+    {
+      "name": "decomposition-Qix4g1h5.js",
+      "bytes": 2456571
+    },
+    {
+      "name": "execution.worker-CrY7d1pF.js",
+      "bytes": 168853
+    },
+    {
+      "name": "full-DZVBVfpd.js",
+      "bytes": 1195205
+    },
+    {
+      "name": "index-BHqh02uq.js",
+      "bytes": 509226
+    },
+    {
+      "name": "index-Bk0DJwzC.js",
+      "bytes": 400751
+    },
+    {
+      "name": "index-Dcc_Sbi-.css",
+      "bytes": 76808
+    },
+    {
+      "name": "index-DGLEpTeg.js",
+      "bytes": 313775
+    },
+    {
+      "name": "lab.worker-CE-acaNU.js",
+      "bytes": 165508
+    },
+    {
+      "name": "local-kVPTK2xR.js",
+      "bytes": 11737
+    },
+    {
+      "name": "react-flow-C3qdJseD.js",
+      "bytes": 184868
+    },
+    {
+      "name": "readings-BRBY76gB.js",
+      "bytes": 633082
+    },
+    {
+      "name": "readings-DmiNxDN8.js",
+      "bytes": 633080
+    },
+    {
+      "name": "resource-package-C4ol0dLY.js",
+      "bytes": 5720
+    },
+    {
+      "name": "resource-preview.worker-VmrBwa4A.js",
+      "bytes": 163938
+    },
+    {
+      "name": "resources.worker-DqTd0o0c.js",
+      "bytes": 172909
+    },
+    {
+      "name": "reverse.worker-Cj_e0090.js",
+      "bytes": 163052
+    },
+    {
+      "name": "sharing.worker-CFZ0-env.js",
+      "bytes": 179433
+    },
+    {
+      "name": "storage-CvBhfY6t.js",
+      "bytes": 109810
+    },
+    {
+      "name": "strokes-C7LbeZEB.js",
+      "bytes": 1134419
+    },
+    {
+      "name": "strokes-CNWsGUWK.js",
+      "bytes": 1134417
+    },
+    {
+      "name": "t2cn-D2IW0CH8.js",
+      "bytes": 109065
+    }
+  ]
+}

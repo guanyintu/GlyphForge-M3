@@ -1,0 +1,8 @@
+{
+  "verified_original_paths": 233,
+  "changed_paths": [],
+  "original_branch": "codex/m2-release-readiness",
+  "original_head": "c39a90d0d65063658a2a0b51a17e3eddda8f2b96",
+  "method": "isolated worktree; no writes to original; pre-delivery byte hash comparison",
+  "source_commit": "31f27ee070c3cb85b2b962e7bae1ec4ceef5a81e"
+}

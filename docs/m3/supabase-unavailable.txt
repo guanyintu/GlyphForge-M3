@@ -1,0 +1,6 @@
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +8
+++++++++
+Progress: resolved 15, reused 8, downloaded 0, added 0, done
+Connecting to local database...
+{"_tag":"Error","error":{"code":"DbConnectError","message":"failed to connect to postgres: failed to connect to `host=127.0.0.1 user=postgres database=postgres`: dial error (connect ECONNREFUSED 127.0.0.1:54322)","suggestion":"Make sure Docker is running, then run: supabase start"}}

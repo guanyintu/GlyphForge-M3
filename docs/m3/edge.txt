@@ -1,0 +1,6 @@
+Check file:///C:/Users/someb/AppData/Local/Temp/glyphforge-m3-deno-2.9.6/edge/index_test.ts
+running 1 test from ../../../AppData/Local/Temp/glyphforge-m3-deno-2.9.6/edge/index_test.ts
+Edge authenticates, bounds body, reserves budget, rejects hostile snapshots and ignores actor claims ... ok (37ms)
+
+ok | 1 passed | 0 failed (42ms)
+

@@ -1,0 +1,1 @@
+{"engine":"PGlite embedded PostgreSQL; fixture Auth; NOT live Supabase acceptance","checks":34,"concurrency":"queued single connection; multi-connection Supabase pending"}

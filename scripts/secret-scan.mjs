@@ -70,13 +70,22 @@ async function main() {
     ['workspace-including-dist-workflows',['dir',root]],
     ['commit-messages',['stdin']],
   ];
-  const summary={scanner:'gitleaks',version:VERSION,tracked:tracked.length,workspaceFiles:files,workspaceBytes:bytes,excluded:skipped,archiveDepth:5,decodeDepth:5,findings:[],scopes:[]};
+  const reviewed=JSON.parse(readFileSync(fileURLToPath(new URL('./secret-scan-allowlist.json',import.meta.url)),'utf8'));
+  const summary={reviewedFalsePositives:[],scanner:'gitleaks',version:VERSION,tracked:tracked.length,workspaceFiles:files,workspaceBytes:bytes,excluded:skipped,archiveDepth:5,decodeDepth:5,findings:[],scopes:[]};
   for(const [scope,args] of scopes) {
     const r=run(exe,[...args,...common],scope==='commit-messages'?{input:git(['log','--all','--format=%B'])}:{});
     if(![0,1].includes(r.status))throw new Error('Secret scanner failed in '+scope+'; raw output suppressed');
     let findings;try{findings=JSON.parse(r.stdout||'[]');}catch{throw new Error('Invalid scanner report in '+scope);}
     summary.scopes.push({scope,exit:r.status,findings:findings.length});
-    summary.findings.push(...safeFindings(findings).map(f=>({scope,...f})));
+    const unresolved=findings.filter(f=>{
+      const rel=path.relative(root,f.File).replaceAll('\\','/');
+      const entry=scope==='workspace-including-dist-workflows'&&reviewed.find(a=>a.file===rel&&a.line===f.StartLine&&a.rule===f.RuleID);
+      if(!entry)return true;
+      const line=readFileSync(path.resolve(root,rel),'utf8').split(/\r?\n/)[f.StartLine-1];
+      if(!line||createHash('sha256').update(line).digest('hex')!==entry.lineDigest)return true;
+      summary.reviewedFalsePositives.push({file:rel,line:entry.line,rule:entry.rule,reason:entry.reason});return false;
+    });
+    summary.findings.push(...safeFindings(unresolved).map(f=>({scope,...f})));
   }
   summary.forbiddenTracked=forbidden;
   console.log(JSON.stringify(summary,null,2));

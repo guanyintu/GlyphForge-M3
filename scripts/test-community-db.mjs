@@ -223,6 +223,14 @@ const fresh=await command(author,'publish',{title:'new day',description:'',tags:
 ok(fresh.current_version===1);
 await db.exec('reset role');
 ok((await db.query('select payload_day_bytes from community_private.control')).rows[0].payload_day_bytes===Buffer.byteLength('{"format":"glyphforge","version":2}'));
+// Fill only this disposable embedded test database. EXTERNAL storage disables
+// TOAST compression so the real pg_total_relation_size guard is exercised.
+await db.exec("create table community_private.storage_probe(payload text); alter table community_private.storage_probe alter column payload set storage external; insert into community_private.storage_probe values(repeat('x',67108864));");
+ok(Number((await db.query("select pg_total_relation_size('community_private.storage_probe') as size")).rows[0].size)>=67108864);
+await role('service_role');await denied(()=>command(author,'reserve',{}));
+await db.exec('reset role;drop table community_private.storage_probe');await role('service_role');
+ok((await command(author,'reserve',{})).ok===true);
+await db.exec('reset role');
 await db.exec("update community_private.control set enabled=false");
 await role("service_role");
 await denied(() =>

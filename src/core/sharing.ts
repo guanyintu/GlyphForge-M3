@@ -36,6 +36,7 @@ export async function exportPackage(
   signal?:AbortSignal,
   options?: { plan: ResourcePlan; maxBytes: number },
 ) {
+  workflow = { ...workflow }; delete workflow.communityOrigin;
   validateGraph(workflow);
   const plan = options?.plan ?? await captureResources(dependencyIds(workflow));
   const maxBytes = Math.min(options?.maxBytes ?? 15*1024*1024,15*1024*1024);
@@ -99,6 +100,7 @@ export async function importPackage(
   )
     throw new Error("文件格式或版本不受支持");
   const workflow = structuredClone(pkg.workflow) as Workflow;
+  delete workflow.communityOrigin;
   if(workflow.extensions?.length || workflow.nodes?.some(n=>n.op==="extension") || workflow.subgraphs?.some(d=>d.nodes.some(n=>n.op==="extension")))throw new Error("扩展需要 v7 分享包");
   if (
     workflow.version !== 1 ||

@@ -80,9 +80,11 @@ import { createRelationRecipe, ensureRecipeExamples, relationRecipes } from "./c
 import { workflowFromMatches } from "./core/reverse-workflow";
 import { relationLabels } from "./core/relations";
 
-type Page = "packs" | "workflow" | "resources" | "lab" | "reverse" | "favorites";
+type Page = "community" | "packs" | "workflow" | "resources" | "lab" | "reverse" | "favorites";
+const Community = lazy(() => import('./components/Community'));
 const CodeMirror = lazy(() => import("@uiw/react-codemirror"));
 const pageNames: Record<Page, string> = {
+  community: "社区广场",
   packs: "算子扩展包",
   workflow: "工作流工坊",
   resources: "资源中心",
@@ -316,7 +318,7 @@ export default function App() {
         w.terminate(); worker.current = null;
         clearTimeout(deadline); setRunning(false); setProgress("");
         if (message) notify(message);
-        try { await finishRun(id, status, message); await pruneHistory(historyLimit()); }
+        try { await finishRun(id, status, message); if (status === 'done' && executable.communityOrigin) void import('./community/local').then(m => m.recordSuccessfulRun(executable, id)).catch(() => {}); await pruneHistory(historyLimit()); }
         catch (e) { notify(`运行状态或历史清理失败：${e instanceof Error ? e.message : String(e)}`); }
         finally { release?.(); releases.current.delete(id); }
       }
@@ -626,6 +628,7 @@ export default function App() {
     notify("正在预览所选节点，最多输出 20 条");
   }
   const nav = [
+    { id: "community", icon: Leaf },
     { id: "workflow", icon: WorkflowIcon },
     { id: "resources", icon: BookOpen },
     { id: "lab", icon: FlaskConical },
@@ -1157,7 +1160,7 @@ export default function App() {
               </span>
             </div>
           </div>
-        ) : page === "packs" ? (<PacksPanel workflow={workflow} onChange={w => { switchWorkflow(w); }} notify={notify} />) : page === "resources" ? (
+        ) : page === "community" ? (<Suspense fallback={<p>正在打开社区…</p>}><Community workflow={workflow} resources={resources} onUse={switchWorkflow} notify={notify} canPublish={!codeDirty} /></Suspense>) : page === "packs" ? (<PacksPanel workflow={workflow} onChange={w => { switchWorkflow(w); }} notify={notify} />) : page === "resources" ? (
           <ResourcePage
             resources={resources}
             previews={previews}

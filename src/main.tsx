@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import { prepareOffline } from './community/offline';
 import "@xyflow/react/dist/style.css";
 import "./styles.css";
 import "./p0.css";
@@ -11,3 +12,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <App />
   </React.StrictMode>,
 );
+prepareOffline();

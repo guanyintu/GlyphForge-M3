@@ -45,6 +45,7 @@ export interface SubgraphDefinition {
   layout: Workflow["layout"];
 }
 export interface Workflow {
+  communityOrigin?: import('../community/protocol').Origin;
   version: 1;
   id: string;
   name: string;

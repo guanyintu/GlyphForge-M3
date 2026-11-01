@@ -4,3 +4,8 @@ dist/
 .sites-runtime/
 .openai/
 test-results/
+.env
+.env.*
+!.env.example
+dist-subpath/
+supabase/.temp/

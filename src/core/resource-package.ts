@@ -16,6 +16,7 @@ import type { PairValue } from './model';
 function usedOperators(workflows:Workflow[]) {const used=new Set<string>();for(const w of workflows)for(const n of allNodes(w)){used.add(n.op);if(n.program)visitProgramExpressions(n.program,e=>{if(e.kind==="call" && Object.hasOwn(operators,e.name))used.add(e.name);});}return [...used];}
 interface Snapshot {meta:Resource;entries:string[];relationRows?:PairValue[]}
 export async function exportResourcePackage(workflow:Workflow,includeResources:boolean|string[]=true,signal?:AbortSignal,options?:{plan:ResourcePlan;maxBytes:number}) {
+  workflow = { ...workflow }; delete workflow.communityOrigin;
   const plan=options?.plan??await captureResources(workflowResourceIds(workflow));
   const maxBytes=Math.min(options?.maxBytes??15*1024*1024,15*1024*1024);
   const encoder=new TextEncoder();
@@ -45,7 +46,7 @@ export async function importResourcePackage(data:unknown,bindings:Record<string,
   const p=data as Awaited<ReturnType<typeof exportResourcePackage>>;
   if(!p || p.format!=='glyphforge'||![6,7].includes(p.version)||p.irVersion!==1||p.resourceDefinitionVersion!==1||!Array.isArray(p.resources)||p.resources.length>100||!Array.isArray(p.dependencies)||p.dependencies.length>100||JSON.stringify(data).length>16*1024*1024)throw new Error('v6 资源包格式/大小无效');
   if(p.version===7)guardJSON(data,48*1024*1024,2000000);
-  const workflow=structuredClone(p.workflow);validateGraph(workflow);
+  const workflow=structuredClone(p.workflow);delete workflow.communityOrigin;validateGraph(workflow);
   if(!p.operatorVersions || Object.entries(p.operatorVersions).some(([op,v])=>!Object.hasOwn(operators,op)||v!==1))throw new Error("算子版本不兼容");
   const definitions=new Map<string,Resource>();
   const seen=new Set<string>();

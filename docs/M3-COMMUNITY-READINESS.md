@@ -1,8 +1,32 @@
 # GlyphForge M3 社区方案就绪表
 
-## 最新上线准入复核（2026-11-01，Asia/Shanghai）
+## 原生 PostgreSQL 增量复核（2026-11-01 21:40，Asia/Shanghai）
 
-基线 `codex/m3-community @ 591195e`。本次只补隔离验收入口、pgTAP 权限断言及 CI 本地保护测试，不改社区产品、迁移或 Edge 运行逻辑。下面旧记录中的“本轮”均指历史运行；本节才是此次实跑。**本地有界 CONDITIONAL GO；公开发布继续 NO-GO。** 无 remote；未登录、选择或修改任何云项目，未部署、推送或设置 OAuth。
+基线 `codex/m3-community @ df6e753`；已核对本目录 `.git` worktree 指针、分支/HEAD/status，无适用 AGENTS.md。未操作原 M2 工作目录。以下为上次实测记录；本次仅复核原始证据与停止状态，未重新编译、启动或运行社区业务测试。**普通 PostgreSQL 的锁等待与迁移失败原子回滚已实测；Supabase 前置条件缺失不构成产品 SQL 错误，也不构成社区验收通过。M3 本地 CONDITIONAL GO，公开发布 NO-GO，M2 本地 RC GO 不变。**
+
+实测开始时 Windows/WSL 没有既存 PG/容器。复用 WSL 已有 GCC 15.2 / make 4.4.1，以 UID 1000 从 [PostgreSQL 官方 15.19 源码](https://ftp.postgresql.org/pub/source/v15.19/)编译到 WSL 用户目录 `$HOME/glyphforge-m3-realpg-NZwYMRY5/runtime`；下载完整后与发行者 `.sha256` 核对，SHA-256 为 `e1a64a87a46b825b88c082e4518161a47aab53c45694964f8ba1df28f7859f89`。仅用户目录 `--prefix`，关闭 readline/zlib 可选依赖；未 apt、提权、安装服务、改全局 PATH 或触碰云项目。[官方源码构建说明](https://www.postgresql.org/docs/15/install-procedure.html)。
+
+| 上次实际执行 | 结果与严格范围 |
+|---|---|
+| 空实例与最小账户 | PG **15.19**，仅 `127.0.0.1:52195`、私有 Unix socket；新库 `m3_acceptance`、TCP SCRAM 登录 `m3_probe`，无 superuser/CREATEROLE/BYPASSRLS。随机密码只在进程内存/子进程环境，未输出或落日志 |
+| 双独立 psql 与原迁移事务 | PID **46700 / 46704**。会话 1 暂停在原主迁移第一条 CREATE SCHEMA 后，会话 2 执行同一原迁移；实际 `pg_blocking_pids(46704)=[46700]`、`Lock/transactionid`。会话 1 继续后因缺 `anon`（42704）失败并解锁，两会话均回滚，无私有 schema/公开表残留。**这是迁移失败回滚验收，不是业务提交竞争** |
+| 两份原迁移 / 既有 pgTAP | 主迁移缺平台角色；容量迁移缺 `community_private`（3F000）；pgTAP 扩展不可用（0A000，psql exit 3），**0/30 断言执行**。`auth.users/auth.uid()` 同样不存在；未补假 Auth、角色或 claim |
+| 最小账户负向权限 | 实际读取 `pg_authid`、CREATE ROLE 均 42501；没有创建目标角色。此结果只证明测试账户隔离，不能代替社区 GRANT/RLS |
+| 收尾与失败保留 | 两次实例均正常 stop，`pg_ctl status` exit 3、无 postmaster.pid；仅删除本轮新数据目录。首轮探针错误地预期 SQL 错误后仍持锁，未捕获等待，exit 1；保留 attempt1 后将暂停点前移至错误之前，attempt2 exit 0，未改产品 SQL 或隐藏失败 |
+
+非敏感证据位于仓库外 `%TEMP%/glyphforge-m3-realpg-b068e2b6b0a841ab939bff0a5f991590/`：`attempt1/summary.json` 与 `attempt2/summary.json` 均已重新确认存在；后者记录 `full_community_acceptance=false`、`real_supabase_jwt=NOT_RUN`。同目录保留两会话、容量迁移、pgTAP、停止及来源校验日志和探针。已重新计算源码归档 SHA-256，与上述值一致；两份 stop 日志均为正常停止。本次只读复核 `52195/60057` 均拒绝连接（errno 111），两份临时数据目录均不存在，与 summary 的停止标记相符；没有重建实例。源码/运行时仍留在用户临时目录，未重复运行既有 mock、Vitest、Chromium 或基准。
+
+上次 Gitleaks **8.30.1** 全 refs 历史/提交消息/索引/工作区（含未跟踪、忽略项及既有 dist/Actions）exit 0，0 未处理命中，结果为同证据根目录 `security-final.json`；原两条逐行 SHA 误报豁免未改。本次按原 `old-evidence-before.json` 重算旧未跟踪证据，**57 文件 SHA-256 全部不变**。新增内容去除个人绝对路径，不含密码、token、凭证连接串或账号隐私；本次完整扫描与提交保护结果见下方交接记录。
+
+**未验证**：社区点赞/事件幂等与版本提交竞争、业务预算/快照回滚、社区 RLS/GRANT、真实 Supabase JWT/PostgREST/Edge/OAuth、平台读取/认证/函数限流与费用边界。普通 PG 的 SCRAM 数据库登录不等于 Supabase JWT；[Auth 由独立服务签发和验证 JWT](https://supabase.com/docs/guides/auth/architecture)。软删除仍保留快照；自动保留期、用户物理删除、停写开关竞争和平台应急尚未验收，不能因本轮 PG 可运行而解除发布阻断。
+
+下一步只需一个授权决策：**是否允许新建一个专用、可销毁、非生产 Supabase 测试项目**，供既有入口完成真实服务验收；未获授权前停止，不借用账户里其他项目，不配置 OAuth 或公开部署。
+
+本次交接完整执行现有 Gitleaks 8.30.1：全 refs、提交消息、索引、含忽略/未跟踪项与 dist/Actions 的工作区，进程 exit 0、0 未处理命中、0 禁止跟踪文件；仅原两条逐行摘要匹配的 SHA 误报。扫描脱敏 summary 与提交前字节清单保存在仓库外 `%TEMP%/glyphforge-m3-handoff-hql3wwdt/`。提交白名单仅本文件；其余 **1042 个已跟踪文件**、旧未跟踪 **57 文件**及非目标分支 SHA 受前后校验保护。首次提交因未配置 Git 身份退出 128、未生成提交；独立运行既有完整 hook 已通过。后续仅命令级复用 HEAD 的既有 Codex 自动化身份，并通过 `-c core.hooksPath=.githooks` 启用仓库 hook（默认 hooks 目录无 pre-commit），不写全局或共享 Git 配置；扫描、白名单或保护校验失败即不提交。核心代码、SQL、发布逻辑及旧证据不变；本次云端连接/请求为 0。
+
+## 前次上线准入复核（2026-11-01，Asia/Shanghai；历史实跑）
+
+基线 `codex/m3-community @ 591195e`。本节记录 `df6e753` 提交前的隔离入口、pgTAP 权限断言及 CI 本地保护实跑，不是本次重跑；本次只整理接入说明，原有实跑结果保留。**本地有界 CONDITIONAL GO；公开发布继续 NO-GO。** 无 remote；未登录、选择或修改任何云项目，未部署、推送或设置 OAuth。
 
 | 优先级 / 门禁 | 本次状态与可执行入口 |
 |---|---|
@@ -16,31 +40,35 @@
 | P1 保留期 / 删除流程 / 监控与应急 | **待确认**。软删除保留快照；未建立自动保留期。需确定用户数据删除办法，并证明紧急暂停写入与平台监控可用 |
 | P1 实际 Git Actions | **未运行**。只有候选 artifact 工作流：SHA 固定、contents:read、无部署权限；不要求本地 remote。仓库建立/推送需另行确认 |
 
-### 隔离验收入口（isolated acceptance）
+### Supabase 一次性接入说明（isolated acceptance；待授权）
 
-`scripts/community-acceptance.mjs` 无新依赖，只调用已存在的 PostgreSQL 15+ `psql`。默认缺参数即退出 1；不读取 `.env`、Supabase link、存储的 CLI 登录或连接账户来发现目标。没有 Docker 时可对用户指定的受控 Postgres+Supabase 栈/专用测试项目执行；缺少 auth、迁移、pgTAP、RLS 或客户端时阻断，不降级成 mock。
+本次云端请求 **0**。以下为单次验收的接入顺序；详细 HTTP/双会话断言沿用下一节，不新增产品实现。`scripts/community-acceptance.mjs` 无新依赖，只调用已有 PostgreSQL 15+ `psql`；缺参数即退出 1，不读取 `.env`、Supabase link、存储的 CLI 登录或账户列表来发现目标。客户端须支持 TLS；本次原生 PG 安装本身不能替代 Supabase 服务或云端客户端准备。
 
-**以下真实连接/测试仅在用户指定并确认这个专用非生产目标后执行。** Manifest 是用户对非生产用途的显式声明，不能自动证明某项目是否承载生产业务。已知生产 ref 命中拒绝，其他目标绝不能靠改标签冒充测试环境。脚本不创建环境、不迁移、不创建账号、不写审核员私有表；预检不安装 pgTAP。缺少这些前置条件时返回用户确认环境准备，不能改用已有其他用途项目。
+1. **只在明确获准后新建一个全新、独立、可销毁、非生产 Supabase 测试项目**，核对并记录唯一 project ref、API origin、数据库端点、服务版本与销毁范围。已有未知用途项目一律禁用；改 manifest 标签不能证明隔离。创建项目的授权不自动授权 GitHub 仓库、push、公开前端部署或外部 OAuth 配置。本轮不创建或修改云资源，不安装 Docker、不变更系统服务。
+2. 在该精确目标上，核对当前供应商迁移工具/CLI `--help` 后，依次原样应用 `20261101091101_community_platform.sql`、`20261101114038_community_storage_budget.sql`，保留真实迁移记录；不得手工伪造记录。通过供应商启用 [pgTAP](https://supabase.com/docs/guides/database/extensions/pgtap)，核对平台原生 `anon/authenticated/service_role`、`auth.users/auth.uid()` 与 RLS/GRANT。缺依赖即停止，不造假 Auth/角色、不放松权限、不改迁移让普通 PG 过关。
+3. **先保持社区表为空、运行下方预检与 30 项事务回滚 pgTAP，再准备真实账号**。成功仅为 `PASS_DATABASE_ONLY`。随后在已授权范围内部署仓库原样 `community` Edge/config，准备普通账号 A/B 加独立审核员 M（3 个合成账号），审核资格只经私有表受控设置。使用合成方案，不上传用户创作/姓名/邮箱；再执行下一节 JWT/Edge/业务双连接与 OAuth/频控断言，逐项保留通过/失败/未执行。
 
-在仓库外保存绝对路径 JSON（例如 `C:/Users/someb/AppData/Local/Temp/glyphforge-target.json`），**不放任何密码、token、key 或 URL 连接凭证**：
+所有密码、key、JWT、refresh token 与 OAuth secret 只进安全运行时环境或供应商控制台；不进 Git、`.env`、`VITE_`、命令参数、日志、HAR/trace、浏览器或前端构建。运行时输出只含用例编号、状态、计数与脱敏目标标识；关闭自动重试/自动刷新，禁止 dump 环境。Manifest 无凭证；预检不创建环境、不迁移、不创建账号、不写审核员私有表、不安装 pgTAP。
+
+在仓库外保存绝对路径 JSON；以下 `REF` 须全部替换为本次新建并确认的 **20 个小写字母** project ref（占位符不能通过校验），列明所有已知生产 ref，确无生产项目才允许空数组：
 
 ```json
 {
-  "id": "glyphforge-m3-local-acceptance",
+  "id": "glyphforge-m3-test-acceptance",
   "environment": "disposable-non-production",
   "dedicated": true,
-  "kind": "local",
-  "projectRef": "local",
-  "apiUrl": "http://127.0.0.1:54321",
-  "database": { "host": "127.0.0.1", "port": 54322, "name": "postgres", "user": "postgres" },
+  "kind": "cloud",
+  "projectRef": "REF",
+  "apiUrl": "https://REF.supabase.co",
+  "database": { "host": "db.REF.supabase.co", "port": 5432, "name": "postgres", "user": "postgres" },
   "productionProjectRefs": []
 }
 ```
 
-云端须改为 `kind: cloud`、`id: glyphforge-m3-test-acceptance`、用户指定的 20 字母 projectRef、精确 `https://REF.supabase.co` 和 `db.REF.supabase.co:5432/postgres`；也支持 `aws-N-REGION.pooler.supabase.com:5432` session pooler + `postgres.REF` 用户，不支持 transaction pooler 6543。填写全部已知生产 ref（确无生产项目才为空）；云端强制 `sslmode=verify-full`，必要时设置仓库外证书路径 `GLYPHFORGE_ACCEPTANCE_SSLROOTCERT`。不以禁用证书验证绕过连接错误。
+采用供应商控制台给出的 direct 端点，或 `aws-N-REGION.pooler.supabase.com:5432` session pooler + `postgres.REF` 用户；不支持 transaction pooler 6543。[连接模式说明](https://supabase.com/docs/guides/database/connecting-to-postgres/pooling-and-limits)。云端强制 `sslmode=verify-full`；必要时设置仓库外证书路径 `GLYPHFORGE_ACCEPTANCE_SSLROOTCERT`，不禁用证书验证。
 
 ```powershell
-$targetFile = 'C:/Users/someb/AppData/Local/Temp/glyphforge-target.json'
+$targetFile = Join-Path $env:TEMP 'glyphforge-m3-target.json'
 $target = Get-Content -LiteralPath $targetFile -Raw | ConvertFrom-Json
 $secure = Read-Host '专用测试库密码' -AsSecureString
 $env:GLYPHFORGE_ACCEPTANCE_DB_PASSWORD = [System.Net.NetworkCredential]::new('', $secure).Password
@@ -55,7 +83,22 @@ try {
 
 预检使用 `BEGIN READ ONLY`，核对实际 database/session_user、Postgres 版本、两条迁移记录、Auth 函数、pgTAP 与 6 张公开表 RLS；不会读取审核员/私有业务表。`--db-tests` 另要求社区表为空、固定 fixture ID 未被占用，避免旧数据影响绝对行数断言；不自动清理。忽略继承的所有 libpq PG 配置，仅向子进程环境传密码，不使用带密码命令行。SQL/连接输出只留内存，输出固定诊断与计数，不回显原始错误/token。`--db-tests` 检查 pgTAP plan、逐项编号/数量，not ok、SKIP/TODO、Bail out、缺失结果、SQL 错误均退出 1。只有 30 项完整通过才输出 `PASS_DATABASE_ONLY`；剩余门禁始终列 `NO_GO`。
 
-Supabase CLI 不是此入口的必需依赖。若选 Docker Desktop，先由用户确认安装并准备专用栈；按已装 CLI 的 `--help` 核对 `start` / `test db`，不自动安装/登录/link/reset/db push。若用原生受控 PostgreSQL，必须已有 Supabase Auth/PostgREST/Edge 服务，单独一个空 Postgres 不能宣称通过完整栈。[官方 pgTAP/CLI 说明](https://supabase.com/docs/reference/cli/supabase-test-db)。本次亦检查了官方 changelog：需记录测试库实际补丁版本；[近期 PostgreSQL 安全升级](https://supabase.com/changelog/postgres-15-19-17-11-breaking-changes)及 [2026-11-10 起最早实施的旧 TLS 配置移除](https://supabase.com/changelog/cbc-tls-ciphers-deprecated)不构成本仓库迁移改动理由。
+**单次硬上限（须在获准后由运行器计数；现有入口不实现 HTTP 预算）：**
+
+| 类别 | 实际请求上限 |
+|---|---|
+| REST/RLS/GRANT 读取与拒绝矩阵 | 128 个 HTTP 请求 |
+| Edge/JWT/业务与负向载荷 | 64 个 HTTP 请求 |
+| Auth/OAuth 登录、刷新、退出、PKCE 负向项 | 48 个 HTTP 请求 |
+| 平台频控 | 匿名列表、版本下载、无效 JWT Edge、Auth 登录四项，各最多 15 个，合计 60 个；每项含基线与窗口后恢复请求 |
+| 合计与管理操作 | 测试最多 **300** 个 HTTP 请求；项目准备/检查/清理管理 API 最多另 **20** 个，总计 **320** 个；重定向、失败和重试均计数 |
+| 数据库 | `--preflight` 1 次；`--db-tests` 自带只读预检 1 次及 pgTAP 脚本 1 次；业务仅 2 条独立持久连接，最多 200 条 SQL 命令（含 BEGIN/COMMIT/ROLLBACK/观察查询）；正式迁移仅 2 份原样应用，不重复运行 |
+
+HTTP 常规串行，业务并发仅两连接；每请求超时 15 秒，双连接 statement/lock timeout 分别 30/10 秒，窗口恢复最多等待 60 秒。每类达到上限、断言失败、目标不符或用量告警即停，不自动重跑或提高额度；未覆盖项记未执行。平台阈值只有在供应商支持且授权范围内才能下调至 10 请求/60 秒以内；无法在每项 15 请求内验证 429/恢复就保持该门禁未验收，不能将业务预算 429 当平台防护。有效合成快照合计不超过 1 MiB，超大包负向仅一次、最多既定 1 MiB 上限加 1 字节；不做压力测试。
+
+**清理范围：** 结束即关闭两连接/运行器、撤销测试会话并清除其环境变量。pgTAP 自行事务回滚；业务已提交的账号、审核资格、方案/版本、点赞、事件、举报、私有预算，以及 Edge 配置/日志等仅属于这个新项目。若授权包含销毁，核对同一 ref 后删除该专用项目整体清理，不以软删除充当物理清除，不 reset/清库/改任何其他项目。撤销本次专用 OAuth 客户端配置（若另获授权创建），清除专用测试浏览器会话（若存在）；仓库外仅保留无凭证、无邮箱、无载荷的 summary，其他凭证不曾落盘。源码/旧证据和本地历史不在清理范围。未获销毁授权则保持项目待处理并如实记录残留，不擅自删除。
+
+已复核[官方 changelog](https://supabase.com/changelog)：记录测试项目实际服务补丁；PG/TLS 平台更新不构成修改产品迁移的理由。独立普通 PG 不具备完整 Supabase Auth/PostgREST/Edge 条件，安装成功不能解除任何真实服务门禁。
 
 ### 真实服务测试清单（每项逐项记通过/失败/未执行）
 
@@ -101,9 +144,9 @@ select public.community_write(:'a','publish',jsonb_build_object('workflow_id',:'
 
 预算回滚测试：经用户确认可读取测试环境预算计数后，记录 `community_private.daily_budget`、A 的 `account_budget` 与 `control.payload_bytes/payload_day_bytes`（**不修改私有表**）。会话 1 BEGIN→service_role→`community_write(A,'reserve','{}')` 持锁；会话 2 BEGIN→service_role→`community_write(B,'reserve','{}')` 确认等待。会话 1 再执行上方 publish，expected_version 使用真实当前版，title 改 `repeat('x',101)`，触发已插版本后标题约束失败并回滚。会话 2 解阻成功 COMMIT。断言 A 的 reserve/publish、版本及快照字节全部回滚，B/global 仅增加 B 那一次 reserve；原 v1/hash 不变。另测 Edge 的失败请求：仅前置 reserve 作为独立事务保留一次，失败业务事务的版本/事件/聚合/快照预算无增量。若权限不允许读取计数，此项标未执行，不以 mock 证明回滚。
 
-**真实 OAuth：** 用户确认配置后，GitHub App callback 精确为 `https://REF.supabase.co/auth/v1/callback`；Supabase Site URL/redirect 白名单为精确 `https://HOST/REPO/`。浏览器从 `/REPO/` 发起 GitHub 登录，完成 PKCE、返回根入口、刷新/续期/退出；旧 code 重放、缺 verifier、取消登录、非法 redirect 均不可获得错误身份。网络失败/退出/取消后仍能回工坊运行固定种子；成功返回后等待静态缓存就绪，再断网刷新与生成。仅本地 `?code=missing-test-code` 不计 OAuth 通过。
+**真实 OAuth：** 仅在外部 OAuth 配置也获准后，于供应商控制台准备独立客户端，callback 精确为 `https://REF.supabase.co/auth/v1/callback`，redirect 白名单为精确允许的测试 origin/仓库子路径；secret 仅入供应商控制台。安全运行时校验真实 PKCE、旧 code 重放、缺 verifier、取消与非法 redirect，不能用 `?code=missing-test-code` 占位回调算通过。本次“凭证不得进入浏览器”约束下，不向浏览器注入 key/JWT 或运行会在浏览器保存 token 的前端登录；因此真实前端回调、刷新/退出、回调后离线刷新仍须记**未执行 / NO-GO**，运行时 PKCE 通过也不能替代它们。
 
-**平台频控：** 由用户先确认专用环境上的测试阈值/请求上限/观察窗口，不对未知配额做压力探测。将阈值配置到小于已批准的单项请求上限后，分别测试匿名列表/版本下载、无效 JWT 的 Edge、Auth 登录入口；逐次请求直至 429 或上限，未出现预期限制即失败，不继续加压。断言窗口后恢复、合法账号正常可用、平台用量/告警可观测、紧急停止能生效。不得用 `community_write` 返回的预算 429 冒充上述三种平台防护；没有平台控制能力就继续 NO-GO。
+**平台频控：** 严格使用上方四项各 15 请求的上限，断言真实 429、窗口后恢复、合法账号可用、用量/告警可观测及紧急停止。只读/未认证入口不受数据库每日写预算保护；Supabase 的[函数间调用限制](https://supabase.com/docs/guides/functions/recursive-functions)也不能证明公网入站 Edge 限流。没有相应平台控制能力即继续 NO-GO。
 
 
 ### 本次本地实跑（历史结果未复用）

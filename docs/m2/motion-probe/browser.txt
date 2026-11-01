@@ -1,0 +1,30 @@
+
+
+
+
+
+Running 1 test using 1 worker
+
+
+
+[1/1] e2e\p1d.spec.ts:148:1 › P1-D: measured Chromium CPU throttling and sustained-contention fallback
+e2e\p1d.spec.ts:148:1 › P1-D: measured Chromium CPU throttling and sustained-contention fallback
+M2-PROBE-IO {"intersecting":true,"rect":{"x":254,"y":900,"width":1156,"height":198,"top":900,"right":1410,"bottom":1098,"left":254},"scrollY":0,"innerHeight":1000,"hidden":false,"time":428.2999999523163}
+
+M2-PROBE-IO {"intersecting":false,"rect":{"x":15,"y":2315,"width":0,"height":360,"top":2315,"right":15,"bottom":2675,"left":15},"scrollY":0,"innerHeight":1000,"hidden":false,"time":618.2000000476837}
+
+M2-PROBE-IO {"intersecting":true,"rect":{"x":254,"y":900,"width":1156,"height":240,"top":900,"right":1410,"bottom":1140,"left":254},"scrollY":0,"innerHeight":1000,"hidden":false,"time":631.7000000476837}
+
+P1D_PERFORMANCE {"browser":"156.0.8078.4","environment":{"userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36","hardwareConcurrency":20,"deviceMemory":32},"cpuRate":6,"normal":{"elapsedMs":2004.8999998569489,"rafSamples":121,"meanIntervalMs":16.555371900826444,"p95IntervalMs":16.799999999999955,"p99IntervalMs":16.800000000000182,"maxIntervalMs":16.800000000000182,"longTasks":0,"maxLongTaskMs":0,"physicsPaints":121,"objects":42,"overlaps":0,"outOfBounds":0,"quality":"full"},"throttled":{"elapsedMs":2036.9000000953674,"rafSamples":91,"meanIntervalMs":22.06263736263736,"p95IntervalMs":33.40000000000009,"p99IntervalMs":33.400000000000546,"maxIntervalMs":33.400000000000546,"longTasks":0,"maxLongTaskMs":0,"physicsPaints":91,"objects":42,"overlaps":0,"outOfBounds":0,"quality":"full"},"contention":{"injectedBusyMsPerFrame":35,"elapsedMs":6062.400000095367,"rafSamples":157,"meanIntervalMs":38.273248407339594,"p95IntervalMs":50.100000000000364,"p99IntervalMs":50.100000000000364,"maxIntervalMs":83.29999999999927,"longTasks":1,"maxLongTaskMs":50,"physicsPaints":24,"objects":12,"overlaps":0,"outOfBounds":0,"quality":"static"},"favoriteLatencyMs":362.40000009536743,"heap":{"scope":"main renderer isolate; excludes Worker/GPU/RSS","beforeAnimationSample":{"usedSize":8010132,"totalSize":9768960,"embedderHeapUsedSize":5067720,"backingStorageSize":800918},"beforeDisableGC":{"usedSize":10378624,"totalSize":14557184,"embedderHeapUsedSize":5150064,"backingStorageSize":798004},"afterUnmountGC":{"usedSize":7616272,"totalSize":8790016,"embedderHeapUsedSize":2440496,"backingStorageSize":789615}},"errors":[]}
+
+  1 passed (18.6s)
+[WebServer] (node:75572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:81864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:81864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:96632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:99812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

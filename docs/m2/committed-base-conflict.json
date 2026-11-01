@@ -1,0 +1,13 @@
+{
+  "head": "93d453b",
+  "args": [
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "src/tests/p1-final.test.ts",
+    "-t",
+    "rejects a conflicting relation edit atomically"
+  ],
+  "exit": 1,
+  "expected": "failure: historical conflict protection is absent from committed source",
+  "scope": "HEAD checkout plus read-only copy of historical test; no worktree source modified"
+}

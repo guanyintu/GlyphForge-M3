@@ -1,0 +1,150 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 111.46 ms, 40041 steps, max batch 64
+
+ ✓ src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches 116ms
+ ✓ src/tests/resource-catalog.test.ts > detects self and indirect cycles before reading entries 14ms
+ ✓ src/tests/resource-catalog.test.ts > reports exact missing dependency path 2ms
+ ✓ src/tests/resource-catalog.test.ts > deduplicates diamond vertices and includes mapping dependency in topological order 22ms
+ ✓ src/tests/resource-catalog.test.ts > bounds dependency depth 3ms
+ ✓ src/tests/resource-catalog.test.ts > rejects wrong dependency types before executing even empty resources 2ms
+ ✓ src/tests/resource-catalog.test.ts > display rename leaves content key stable; seed is included in execution key 17ms
+ ✓ src/tests/resource-catalog.test.ts > rejects computed resource references in dynamic definitions 7ms
+ ✓ src/tests/resource-catalog.test.ts > relation rows project explicitly through shared templates into dynamic text 15ms
+ ✓ src/tests/resource-catalog.test.ts > saves definitions atomically and prevents concurrent overwrite or static asset replacement 11ms
+ ✓ src/tests/share-code.test.ts > roundtrips exact existing JSON, order, versions; repeat compression is deterministic in this runtime 52ms
+ ✓ src/tests/share-code.test.ts > optional undefined fields use the original JSON omission semantics 13ms
+ ✓ src/tests/packs.test.ts > first party declarations install enabled; unknown claimed publishers stay unverified and disabled 37ms
+ ✓ src/tests/resource-catalog.test.ts > rejects cyclic edits with no partial write 9ms
+ ✓ src/tests/resource-catalog.test.ts > recomputes mapping and static source changes with new exact keys and no cache pollution 39ms
+ ✓ src/tests/resource-catalog.test.ts > source deletion source invalidates all dependent reads 9ms
+ ✓ src/tests/resource-catalog.test.ts > source deletion map invalidates all dependent reads 12ms
+ ✓ src/tests/resource-catalog.test.ts > checks versions across interleaved async readers and refuses mixed batches 16ms
+ ✓ src/tests/resource-catalog.test.ts > resource version check is inside batch persistence transaction 14ms
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 211.51 ms, 200002 steps
+
+ ✓ src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array 212ms
+ ✓ src/tests/packs.test.ts > both real operators execute through graph, NameScript and a P2-A sequence function with provenance 71ms
+ ✓ src/tests/packs.test.ts > clipboard carries precise manifests and rejects same-version content conflicts 5ms
+ ✓ src/tests/packs.test.ts > Pair and members invalidate on text changes; source parts and notes survive 5ms
+ ✓ src/tests/packs.test.ts > disabling or uninstalling leaves workflow bytes intact, stops batches/done, then recovers exact version 26ms
+ ✓ src/tests/packs.test.ts > different versions coexist; explicit migration renames params; downgrade and missing version are errors 12ms
+ ✓ src/tests/packs.test.ts > dependencies have bounded DAGs and enabled state; broken dependency blocks existing users 8ms
+ ✓ src/tests/packs.test.ts > same ID/version replacement, including forged first party content, cannot overwrite a local installation 7ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: builtin shadow without asset changes 6ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: user JS without asset changes 6ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: network permission without asset changes 4ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: arbitrary step without asset changes 7ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: hidden resource without asset changes 6ms
+ ✓ src/tests/resource-catalog.test.ts > cancels after suspension and leaves no shared mutable iterator/cache state 14ms
+ ✓ src/tests/resource-catalog.test.ts > empty sources and empty mappings retain type checks 6ms
+ ✓ src/tests/resource-catalog.test.ts > fixed seed, source versions and graph/NameScript/Chinese martian rules agree 17ms
+ ✓ src/tests/resource-catalog.test.ts > program AST resolves and packages literal Mapping references using identical semantics 24ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: unknown param without asset changes 4ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: incompatible without asset changes 8ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: steps size without asset changes 4ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: huge defaults without asset changes 5ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: binding type without asset changes 7ms
+ ✓ src/tests/packs.test.ts > rejects malicious declaration: duplicate op without asset changes 7ms
+ ✓ src/tests/packs.test.ts > prototype keys, deep nesting, compressed envelopes, huge input and malicious call params are rejected 4ms
+ ✓ src/tests/packs.test.ts > AST and laboratory are explicitly inapplicable and reject extension calls 7ms
+ ✓ src/tests/packs.test.ts > 1000+ combinations consume a lazy prefix and inherit cancellation/step budget 11ms
+ ✓ src/tests/resource-catalog.test.ts > dynamic resource feeds reusable P2-A subgraph then P2-B mutation dictionary/mapping 50ms
+ ✓ src/tests/resource-catalog.test.ts > v6 carries transitive definitions offline and remaps all ID conflicts without overwriting assets 28ms
+ ✓ src/tests/resource-catalog.test.ts > v6 rebinds both main and dynamic-definition subgraph internals 15ms
+ ✓ src/tests/resource-catalog.test.ts > a stale editor cannot resurrect a deleted resource 4ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 cycle atomically 10ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 missing atomically 8ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 bad-map atomically 7ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 rows atomically 6ms
+ ✓ src/tests/resource-catalog.test.ts > rejects malformed v6 version atomically 7ms
+ ✓ src/tests/packs.test.ts > v7 portable closure restores dynamic resource, Mapping, P2-A and packs into blank DB with ID collisions isolated 49ms
+ ✓ src/tests/packs.test.ts > bad v7 manifest and transactional write failure roll back every asset and pack 20ms
+ ✓ src/tests/packs.test.ts > unknown imported pack remains installed disabled, and import never reenables a local disabled first party pack 20ms
+ ✓ src/tests/packs.test.ts > real schema6 database upgrades additively to schema7 without changing existing assets 10ms
+ ✓ src/tests/packs.test.ts > dependency depth is bounded and malformed versions cannot auto select a newer installation 3ms
+ ✓ src/tests/packs.test.ts > migrated workflow does not depend on an unused disabled older manifest 8ms
+ ✓ src/tests/share-code.test.ts > code export reads only bounded metadata closure and stops snapshots before 1MiB 290ms
+ ✓ src/tests/share-code.test.ts > preserves old envelope payload version 1 and preview remains read-only 14ms
+ ✓ src/tests/share-code.test.ts > preserves old envelope payload version 2 and preview remains read-only 13ms
+ ✓ src/tests/share-code.test.ts > preserves old envelope payload version 3 and preview remains read-only 13ms
+ ✓ src/tests/share-code.test.ts > preserves old envelope payload version 4 and preview remains read-only 13ms
+ ✓ src/tests/share-code.test.ts > preserves old envelope payload version 5 and preview remains read-only 9ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":100000,"rows":60,"steps":442,"ms":13.996499999999969,"staticRows":1100,"cacheRows":0}
+
+stdout | src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":1000000,"rows":60,"steps":442,"ms":15.12220000000002,"staticRows":2000,"cacheRows":0}
+
+ ✓ src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps 57ms
+ ✓ src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps 80ms
+ ✓ src/tests/resource-catalog.test.ts > shares the outer budget through nested resource executions 5ms
+ ✓ src/tests/resource-catalog.test.ts > opening existing schema6 is additive with byte-equivalent user assets 5ms
+ ✓ src/tests/share-code.test.ts > preserves old envelope payload version 6 and preview remains read-only 12ms
+ ✓ src/tests/share-code.test.ts > preserves old envelope payload version 7 and preview remains read-only 8ms
+ ✓ src/tests/share-code.test.ts > light preview reports missing dependencies without installing resources or workflows 8ms
+ ✓ src/tests/share-code.test.ts > only selected snapshots; repeated imports remap IDs and leave original resource versions intact 15ms
+ ✓ src/tests/share-code.test.ts > v7 disabled/unknown publishers and Mapping/DAG previews never change installation state 38ms
+ ✓ src/tests/share-code.test.ts > rejects malformed/version/alphabet/length before native decompression 2ms
+ ✓ src/tests/share-code.test.ts > rejects malformed/version/alphabet/length before native decompression 2ms
+ ✓ src/tests/share-code.test.ts > rejects malformed/version/alphabet/length before native decompression 1ms
+ ✓ src/tests/share-code.test.ts > rejects malformed/version/alphabet/length before native decompression 1ms
+ ✓ src/tests/share-code.test.ts > rejects malformed/version/alphabet/length before native decompression 2ms
+ ✓ src/tests/lineage.test.ts > frozen e637beb / disabled / enabled concat differential: 80 seeds and versions 323ms
+ ✓ src/tests/share-code.test.ts > rejects bombs during streaming before JSON.parse even with a false small declaration 61ms
+ ✓ src/tests/share-code.test.ts > rejects truncated/corrupt streams, tamper, noncanonical bits and mismatched lengths 10ms
+ ✓ src/tests/share-code.test.ts > rejects prototype keys, nested envelopes, history fields and excessive JSON depth 12ms
+ ✓ src/tests/share-code.test.ts > bounds compression input and output separately, even for very compressible input 23ms
+ ✓ src/tests/share-code.test.ts > pre-abort and mid-stream abort do not parse or publish results; independent concurrent tasks still finish 17ms
+ ✓ src/tests/share-code.test.ts > missing native APIs explain JSON fallback 5ms
+ ✓ src/tests/share-code.test.ts > atomic import rolls back every inserted asset on injected workflow failure 9ms
+ ✓ src/tests/share-code.test.ts > seeded security fuzz rejects 240 envelope mutations without database writes 31ms
+stdout | src/tests/share-code.test.ts > seeded base64url/stream fuzz rejects corruption or returns the identical checksum-verified payload
+GFS1 base64 stream fuzz {"rejected":120,"identical":0}
+
+ ✓ src/tests/lineage.test.ts > frozen e637beb / disabled / enabled pattern differential: 80 seeds and versions 247ms
+ ✓ src/tests/lineage.test.ts > local allocation pruning is real, with identical ticks and lazy readers 3ms
+ ✓ src/tests/lineage.test.ts > does not push across random group, reverse, unknown resource lengths, or side-effectful upstream iteration 3ms
+ ✓ src/tests/lineage.test.ts > concat boundaries, empty libraries, duplicate paths, UTF16 and grapheme seams 12ms
+ ✓ src/tests/lineage.test.ts > pattern boundaries, empty libraries, duplicate paths, UTF16 and grapheme seams 8ms
+ ✓ src/tests/lineage.test.ts > oversize text still throws original diagnostic before any rejection 5ms
+ ✓ src/tests/lineage.test.ts > step budgets at every tick and cancellation preserve exact error localization 31ms
+ ✓ src/tests/share-code.test.ts > seeded base64url/stream fuzz rejects corruption or returns the identical checksum-verified payload 85ms
+ ✓ src/tests/share-code.test.ts > readonly preview rejects unknown operators, oversized snapshots and versions without writes 22ms
+ ✓ src/tests/share-code.test.ts > v7 unknown manifest closure/version and executable declarations are rejected before confirmation 4ms
+ ✓ src/tests/share-code.test.ts > v7 transaction rolls back newly installed packs together with snapshots 12ms
+stdout | src/tests/lineage.test.ts > 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows
+P2-E 10k {"ms":178.6872000000003,"stats":{"steps":40041,"count":10000,"truncated":true,"safePruned":0,"duration":178.3514},"maxLineageBytes":168,"totalLineageBytes":1680000}
+
+ ✓ src/tests/lineage.test.ts > nested subgraphs, Chinese, Pair/members, extensions and mutation keep old metadata and seed behavior 100ms
+ ✓ src/tests/lineage.test.ts > bounded shared references never replicate a tree and unresolved refs degrade honestly 5ms
+ ✓ src/tests/lineage.test.ts > dynamic DAG/Mapping/extension/subgraph refs resolve in run snapshot after resources change or disappear 42ms
+ ✓ src/tests/lineage.test.ts > same text in different workflows/runs never overwrites favorite source; protected history, backup/blank DB and reverse keep real identity 19ms
+ ✓ src/tests/lineage.test.ts > legacy history never fabricates operation execution; absent parent remains a derivation 3ms
+ ✓ src/tests/scale.test.ts > 192 generated seed/version four-way differential includes all fields, read events, ticks and first-path duplicates 1122ms
+ ✓ src/tests/scale.test.ts > every step-budget boundary and text-bound error retains exact node/line/order with optimization on/off 73ms
+ ✓ src/tests/scale.test.ts > exact static product exceeds Number safely; limit does not pretend to prune enumeration 3ms
+ ✓ src/tests/scale.test.ts > dynamic count zero is unknown interval, metadata reads do not materialize entries, source edits invalidate 18ms
+ ✓ src/tests/scale.test.ts > empty static, invalid count, missing resources, cycles and depth are conservative or rejected 4ms
+ ✓ src/tests/scale.test.ts > Mapping and exact pack enablement/content are part of estimate validity; disabled pack rejects 14ms
+ ✓ src/tests/scale.test.ts > estimation never scans entity tables or the whole resource catalog; mapping updates invalidate 8ms
+ ✓ src/tests/scale.test.ts > cancellation while reading metadata and concurrent version changes cannot publish an estimate 5ms
+ ✓ src/tests/scale.test.ts > 12-level subgraphs estimate without resetting scope; 13 levels are rejected 3ms
+ ✓ src/tests/scale.test.ts > Pair/members, first provenance path and cancelled ticks survive pure reuse 3ms
+stdout | src/tests/lineage.test.ts > paired rejection benchmark preserves exact steps and avoids 10k metadata allocations
+P2-E paired allocation benchmark [{"mode":"off","ms":266.25819999999976,"steps":30304,"pruned":0},{"mode":"on","ms":105.1898000000001,"steps":30304,"pruned":10000},{"mode":"on","ms":122.83019999999988,"steps":30304,"pruned":10000},{"mode":"off","ms":266.15419999999995,"steps":30304,"pruned":0},{"mode":"off","ms":244.3445999999999,"steps":30304,"pruned":0},{"mode":"on","ms":74.59519999999975,"steps":30304,"pruned":10000},{"mode":"on","ms":88.74980000000005,"steps":30304,"pruned":10000},{"mode":"off","ms":248.30089999999973,"steps":30304,"pruned":0},{"mode":"off","ms":251.33770000000004,"steps":30304,"pruned":0},{"mode":"on","ms":114.44950000000063,"steps":30304,"pruned":10000},{"mode":"on","ms":110.30230000000029,"steps":30304,"pruned":10000},{"mode":"off","ms":255.7491999999993,"steps":30304,"pruned":0}]
+
+ ✓ src/tests/lineage.test.ts > 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows 186ms
+ ✓ src/tests/lineage.test.ts > paired rejection benchmark preserves exact steps and avoids 10k metadata allocations 2154ms
+ ✓ src/tests/lineage.test.ts > reverse evidence distinguishes deterministic matches, inference, and absence of actual history 3ms
+ ✓ src/tests/lineage.test.ts > invalid lineage backup fails before any transaction writes and old backups remain accepted 6ms
+ ✓ src/tests/lineage.test.ts > frozen nested dynamic DAG / Mapping / subgraph / extension differential across seeds and source versions 115ms
+
+ Test Files  6 passed (6)
+      Tests  120 passed (120)
+   Start at  09:39:39
+   Duration  4.95s (transform 1.28s, setup 0ms, collect 4.11s, tests 6.56s, environment 1ms, prepare 2.10s)
+

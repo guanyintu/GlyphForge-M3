@@ -1,0 +1,201 @@
+
+Running 5 tests using 1 worker
+
+  x  1 e2e\m2.spec.ts:11:1 › M2: selecting the current workflow cannot overwrite an unsaved rename or clear results (5.9s)
+  x  2 e2e\m2.spec.ts:24:1 › M2: all saved workflows remain discoverable after twelve (5.9s)
+  x  3 e2e\m2.spec.ts:40:1 › M2: unapplied NameScript survives attempted switching and has explicit discard (6.2s)
+  x  4 e2e\m2.spec.ts:56:1 › M2: database startup failure stays visible and can retry without clearing data (5.4s)
+  x  5 e2e\m2.spec.ts:72:1 › M2: touch navigation closes the drawer and empty workflows explain the next step (6.1s)
+
+
+  1) e2e\m2.spec.ts:11:1 › M2: selecting the current workflow cannot overwrite an unsaved rename or clear results 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator:  getByLabel('工作流名称')
+    Expected: "刚刚修改的名字"
+    Received: "宇宙浪漫命名器"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveValue" getByLabel('工作流名称') with timeout 5000ms
+      - waiting for getByLabel('工作流名称')
+        14 × locator resolved to <input maxlength="60" value="宇宙浪漫命名器" aria-label="工作流名称"/>
+           - unexpected value "宇宙浪漫命名器"
+
+
+      15 |   await page.getByLabel('工作流名称').fill('刚刚修改的名字');
+      16 |   await page.locator('.saved-workflows > button.current').evaluate((button: HTMLButtonElement) => button.click());
+    > 17 |   await expect(page.getByLabel('工作流名称')).toHaveValue('刚刚修改的名字');
+         |                                          ^
+      18 |   await expect(page.locator('.candidate')).toHaveCount(count);
+      19 |   await expect(page.locator('.save-status')).toContainText('已保存到本地');
+      20 |   await page.reload();
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\m2.spec.ts:17:42
+
+    Error Context: docs\m2\red-1793497041019\traces\m2-M2-selecting-the-curren-3d7d8-ved-rename-or-clear-results\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs\m2\red-1793497041019\traces\m2-M2-selecting-the-curren-3d7d8-ved-rename-or-clear-results\trace.zip
+    Usage:
+
+        npx playwright show-trace docs\m2\red-1793497041019\traces\m2-M2-selecting-the-curren-3d7d8-ved-rename-or-clear-results\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) e2e\m2.spec.ts:24:1 › M2: all saved workflows remain discoverable after twelve ────────────────
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.saved-workflows > button')
+    Expected: 17
+    Received: 12
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('.saved-workflows > button') with timeout 5000ms
+      - waiting for locator('.saved-workflows > button')
+        14 × locator resolved to 12 elements
+           - unexpected value "12"
+
+
+      33 |   });
+      34 |   await page.reload();
+    > 35 |   await expect(page.locator('.saved-workflows > button')).toHaveCount(17);
+         |                                                           ^
+      36 |   await page.getByRole('button', { name: '我的配方 13', exact: true }).click();
+      37 |   await expect(page.getByLabel('工作流名称')).toHaveValue('我的配方 13');
+      38 | });
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\m2.spec.ts:35:59
+
+    Error Context: docs\m2\red-1793497041019\traces\m2-M2-all-saved-workflows-remain-discoverable-after-twelve\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs\m2\red-1793497041019\traces\m2-M2-all-saved-workflows-remain-discoverable-after-twelve\trace.zip
+    Usage:
+
+        npx playwright show-trace docs\m2\red-1793497041019\traces\m2-M2-all-saved-workflows-remain-discoverable-after-twelve\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) e2e\m2.spec.ts:40:1 › M2: unapplied NameScript survives attempted switching and has explicit discard 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('.cm-content')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" locator('.cm-content') with timeout 5000ms
+      - waiting for locator('.cm-content')
+
+
+      44 |   await code.fill('let words = resource("animals");\nlet result = output(words);');
+      45 |   await page.locator('.saved-workflows > button').filter({ hasText: '叠字的快乐' }).click();
+    > 46 |   await expect(code).toBeVisible();
+         |                      ^
+      47 |   await expect(code).toContainText('let words');
+      48 |   await expect(page.locator('.toast')).toContainText('未应用');
+      49 |   await page.keyboard.press('Control+s');
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\m2.spec.ts:46:22
+
+    Error Context: docs\m2\red-1793497041019\traces\m2-M2-unapplied-NameScript-36c69-ng-and-has-explicit-discard\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs\m2\red-1793497041019\traces\m2-M2-unapplied-NameScript-36c69-ng-and-has-explicit-discard\trace.zip
+    Usage:
+
+        npx playwright show-trace docs\m2\red-1793497041019\traces\m2-M2-unapplied-NameScript-36c69-ng-and-has-explicit-discard\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) e2e\m2.spec.ts:56:1 › M2: database startup failure stays visible and can retry without clearing data 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected substring: "本地数据库无法打开"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      63 |   });
+      64 |   await page.goto('/');
+    > 65 |   await expect(page.getByRole('alert')).toContainText('本地数据库无法打开');
+         |                                         ^
+      66 |   await page.evaluate(() => { (window as any).m2AllowOpen = true; });
+      67 |   await page.getByRole('button', { name: '重试打开', exact: true }).click();
+      68 |   await expect(page.locator('.result-timing')).toContainText('生成完成');
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\m2.spec.ts:65:41
+
+    Error Context: docs\m2\red-1793497041019\traces\m2-M2-database-startup-fai-bc865-retry-without-clearing-data\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs\m2\red-1793497041019\traces\m2-M2-database-startup-fai-bc865-retry-without-clearing-data\trace.zip
+    Usage:
+
+        npx playwright show-trace docs\m2\red-1793497041019\traces\m2-M2-database-startup-fai-bc865-retry-without-clearing-data\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) e2e\m2.spec.ts:72:1 › M2: touch navigation closes the drawer and empty workflows explain the next step 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.mobile-sidebar-backdrop')
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('.mobile-sidebar-backdrop') with timeout 5000ms
+      - waiting for locator('.mobile-sidebar-backdrop')
+        14 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      75 |   await page.getByRole('button', { name: '展开侧栏', exact: true }).click();
+      76 |   await page.getByRole('button', { name: /^我的收藏/ }).click();
+    > 77 |   await expect(page.locator('.mobile-sidebar-backdrop')).toHaveCount(0);
+         |                                                          ^
+      78 |   await page.getByRole('button', { name: '展开侧栏', exact: true }).click();
+      79 |   await page.getByRole('button', { name: '新建工作流', exact: true }).click();
+      80 |   await expect(page.locator('.mobile-sidebar-backdrop')).toHaveCount(0);
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\m2.spec.ts:77:58
+
+    Error Context: docs\m2\red-1793497041019\traces\m2-M2-touch-navigation-clo-4e60b-flows-explain-the-next-step\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs\m2\red-1793497041019\traces\m2-M2-touch-navigation-clo-4e60b-flows-explain-the-next-step\trace.zip
+    Usage:
+
+        npx playwright show-trace docs\m2\red-1793497041019\traces\m2-M2-touch-navigation-clo-4e60b-flows-explain-the-next-step\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5 failed
+    e2e\m2.spec.ts:11:1 › M2: selecting the current workflow cannot overwrite an unsaved rename or clear results 
+    e2e\m2.spec.ts:24:1 › M2: all saved workflows remain discoverable after twelve ─────────────────
+    e2e\m2.spec.ts:40:1 › M2: unapplied NameScript survives attempted switching and has explicit discard 
+    e2e\m2.spec.ts:56:1 › M2: database startup failure stays visible and can retry without clearing data 
+    e2e\m2.spec.ts:72:1 › M2: touch navigation closes the drawer and empty workflows explain the next step 
+[WebServer] (node:121540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:130136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:94556) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:157388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:120616) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:135152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4084) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

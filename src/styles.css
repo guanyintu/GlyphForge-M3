@@ -3170,3 +3170,19 @@ pre {
 .share-code textarea { font-family: ui-monospace, monospace; resize: vertical; }
 .share-preview { padding: 14px; margin-top: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: #f8f9f6; overflow-wrap: anywhere; }
 .share-preview ul { padding-left: 20px; }
+
+/* M2: actionable first steps and persistent recovery feedback. */
+.workflow-start { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; padding: 20px; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); background: #eef2e6; }
+.workflow-start > div { flex: 1 1 280px; }
+.workflow-start h2 { margin: 0 0 8px; font-size: 17px; }
+.workflow-start p, .draft-notice { font-size: 13px; line-height: 1.7; color: #52633f; }
+.draft-notice { padding: 10px 14px; border-left: 3px solid #85965f; background: #f0f2e8; }
+.startup-error { max-width: 540px; padding: 24px; line-height: 1.8; overflow-wrap: anywhere; }
+.startup-error h1 { font-size: 22px; }
+.startup-error p { color: #52633f; }
+.code-toolbar { flex-wrap: wrap; gap: 8px; }
+.node-library { position: fixed; top: 80px; right: 24px; width: min(324px, calc(100vw - 24px)); max-height: min(650px, calc(100dvh - 110px)); }
+@media (max-width: 760px) {
+  .workflow-start { padding: 16px; }
+  .workflow-start button { min-height: 44px; }
+}

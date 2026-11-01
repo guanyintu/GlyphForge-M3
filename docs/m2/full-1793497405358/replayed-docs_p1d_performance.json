@@ -1,0 +1,78 @@
+{
+  "browser": "156.0.8078.4",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+    "hardwareConcurrency": 20,
+    "deviceMemory": 32
+  },
+  "cpuRate": 6,
+  "normal": {
+    "elapsedMs": 2013.9000000953674,
+    "rafSamples": 121,
+    "meanIntervalMs": 16.624793388823832,
+    "p95IntervalMs": 16.700000000000273,
+    "p99IntervalMs": 16.799999999999727,
+    "maxIntervalMs": 16.799999999999955,
+    "longTasks": 0,
+    "maxLongTaskMs": 0,
+    "physicsPaints": 121,
+    "objects": 42,
+    "overlaps": 0,
+    "outOfBounds": 0,
+    "quality": "full"
+  },
+  "throttled": {
+    "elapsedMs": 2050.2999999523163,
+    "rafSamples": 70,
+    "meanIntervalMs": 28.859999997956415,
+    "p95IntervalMs": 33.400000000000546,
+    "p99IntervalMs": 33.400000000000546,
+    "maxIntervalMs": 33.400000000000546,
+    "longTasks": 0,
+    "maxLongTaskMs": 0,
+    "physicsPaints": 70,
+    "objects": 42,
+    "overlaps": 0,
+    "outOfBounds": 0,
+    "quality": "full"
+  },
+  "contention": {
+    "injectedBusyMsPerFrame": 35,
+    "elapsedMs": 6064.600000143051,
+    "rafSamples": 148,
+    "meanIntervalMs": 40.71756756756757,
+    "p95IntervalMs": 50.100000000000364,
+    "p99IntervalMs": 66.69999999999891,
+    "maxIntervalMs": 100,
+    "longTasks": 20,
+    "maxLongTaskMs": 53,
+    "physicsPaints": 39,
+    "objects": 12,
+    "overlaps": 0,
+    "outOfBounds": 0,
+    "quality": "static"
+  },
+  "favoriteLatencyMs": 701.7000000476837,
+  "heap": {
+    "scope": "main renderer isolate; excludes Worker/GPU/RSS",
+    "beforeAnimationSample": {
+      "usedSize": 8006716,
+      "totalSize": 9768960,
+      "embedderHeapUsedSize": 5144776,
+      "backingStorageSize": 801109
+    },
+    "beforeDisableGC": {
+      "usedSize": 9379304,
+      "totalSize": 13246464,
+      "embedderHeapUsedSize": 6156936,
+      "backingStorageSize": 800449
+    },
+    "afterUnmountGC": {
+      "usedSize": 7690244,
+      "totalSize": 8790016,
+      "embedderHeapUsedSize": 2572224,
+      "backingStorageSize": 789796
+    }
+  },
+  "errors": []
+}

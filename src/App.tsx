@@ -107,10 +107,12 @@ function bootstrap() {
       (await db.workflows.where("name").equals("宇宙浪漫命名器").first()) ||
       (await db.workflows.toArray())[0]
     );
-  })());
+  })().catch(error => { bootPromise = undefined; throw error; }));
 }
 export default function App() {
   const [ready, setReady] = useState(false);
+  const [bootError, setBootError] = useState("");
+  const [bootAttempt, setBootAttempt] = useState(0);
   const [subgraphsOpen, setSubgraphsOpen] = useState(false);
   const [page, setPage] = useState<Page>("workflow");
   const [workflow, setWorkflow] = useState<Workflow>(createWorkflow);
@@ -193,6 +195,7 @@ export default function App() {
   }, []);
   useEffect(() => {
     let active = true;
+    setBootError("");
     bootstrap()
       .then((w) => {
         if (active) {
@@ -206,11 +209,11 @@ export default function App() {
           setReady(true);
         }
       })
-      .catch((e) => notify(`本地数据库无法打开：${e.message}`));
+      .catch((e) => { if (active) setBootError(`本地数据库无法打开：${e.message}`); });
     return () => {
       active = false;
     };
-  }, [notify]);
+  }, [bootAttempt]);
   useEffect(() => {
     if (!ready) return;
     setSaveState("正在保存…");
@@ -226,6 +229,16 @@ export default function App() {
     }, 650);
     return () => clearTimeout(timeout);
   }, [workflow, ready]);
+  useEffect(() => {
+    const warn = (event: BeforeUnloadEvent) => {
+      if (codeDirtyRef.current || saveState !== "已保存到本地") {
+        event.preventDefault();
+        event.returnValue = "";
+      }
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [saveState]);
   useEffect(() => {
     if (view !== "nodes" && !codeDirtyRef.current && !codeDirty)
       setCode(toScript(workflow));
@@ -428,7 +441,11 @@ export default function App() {
       );
       if ((e.ctrlKey || e.metaKey) && e.key === "s") {
         e.preventDefault();
-        void db.workflows.put(workflow).then(() => notify("工作流已保存"));
+        if (codeDirtyRef.current) { notify("有未应用的代码，请先应用到节点或放弃代码修改"); return; }
+        void db.workflows.put(workflow).then(() => {
+          if (currentWorkflow.current === workflow) { localStorage.setItem("glyphforge-active", workflow.id); setSaveState("已保存到本地"); }
+          notify("工作流已保存");
+        }).catch(() => notify("保存失败，请导出备份"));
       }
       if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
         e.preventDefault();
@@ -524,6 +541,12 @@ export default function App() {
     if (op === "program") setModal("program");
   }
   function switchWorkflow(w: Workflow) {
+    if (codeDirtyRef.current) {
+      setPage("workflow"); setView("code"); setSidebarOpen(false);
+      notify("有未应用的代码，请先应用到节点或放弃代码修改");
+      return;
+    }
+    setSidebarOpen(false);
     void db.workflows
       .put(workflow)
       .catch(() => notify("切换前保存失败，请导出备份"));
@@ -553,12 +576,14 @@ export default function App() {
     codeDirtyRef.current = false;
   }
   async function saveExport() {
+    if (codeDirtyRef.current) { setView("code"); notify("有未应用的代码，请先应用到节点或放弃代码修改再导出"); return; }
     setModal("share");
   }
   async function receiveImport(
     data: unknown,
     bindings: Record<string, string> = {},
   ) {
+    if (codeDirtyRef.current) { notify("有未应用的代码，请先应用到节点或放弃代码修改再导入"); return; }
     try {
       const w = await importPackage(data, bindings);
       switchWorkflow(w);
@@ -601,11 +626,11 @@ export default function App() {
     notify("正在预览所选节点，最多输出 20 条");
   }
   const nav = [
-    { id: "packs", icon: Sparkles },
     { id: "workflow", icon: WorkflowIcon },
     { id: "resources", icon: BookOpen },
     { id: "lab", icon: FlaskConical },
     { id: "reverse", icon: Search },
+    { id: "packs", icon: Sparkles },
   ];
   const selectedNode = workflow.nodes.find((n) => n.id === selected);
   return (
@@ -636,6 +661,7 @@ export default function App() {
             <button
               className={`nav-item ${page === n.id ? "active" : ""}`}
               key={n.id}
+              aria-current={page === n.id ? "page" : undefined}
               onClick={() => {
                 setPage(n.id as Page);
                 setSidebarOpen(false);
@@ -653,7 +679,8 @@ export default function App() {
           <div className="nav-divider" />
           <button
             className={`nav-item ${page === "favorites" ? "active" : ""}`}
-            onClick={() => setPage("favorites")}
+            aria-current={page === "favorites" ? "page" : undefined}
+            onClick={() => { setPage("favorites"); setSidebarOpen(false); }}
           >
             <Star size={18} />
             <span>我的收藏</span>
@@ -679,13 +706,16 @@ export default function App() {
           </button>
         </div>
         <div className="saved-workflows">
-          {workflows.slice(0, 12).map((w) => (
+          {workflows.map((w) => (
             <button
               key={w.id}
               className={
                 workflow.id === w.id && page === "workflow" ? "current" : ""
               }
-              onClick={() => switchWorkflow(w)}
+              onClick={() => {
+                if (w.id === workflow.id) { setPage("workflow"); setSidebarOpen(false); }
+                else switchWorkflow(w);
+              }}
             >
               <span className="workflow-file-icon">
                 <GitBranch size={14} />
@@ -763,8 +793,15 @@ export default function App() {
         </header>
         {!ready ? (
           <div className="loading-state">
+            {bootError ? <div className="startup-error" role="alert">
+              <h1>暂时无法打开文字工坊</h1>
+              <p>{bootError}</p>
+              <p>请检查浏览器是否允许此站点保存本地数据，再重试。已有数据不会被清除。</p>
+              <button className="primary-button" onClick={() => { db.close(); void db.open().then(() => setBootAttempt(n => n + 1)).catch(error => setBootError(`本地数据库无法打开：${error.message}`)); }}>重试打开</button>
+            </div> : <>
             <Loader2 className="spin" />
             <p>正在打开你的文字工坊…</p>
+            </>}
           </div>
         ) : page === "workflow" ? (
           <div className="workflow-page">
@@ -822,6 +859,13 @@ export default function App() {
               </div>
             </div>
             <ExecutionEstimate workflow={workflow} stats={stats} dirty={codeDirty} />
+            {!workflow.nodes.length ? <section className="workflow-start" aria-label="开始创作">
+              <Sparkles size={24} />
+              <div><h2>从词库到名字，只需三步</h2><p>准备词库 → 添加并连接节点 → 运行、筛选并收藏。可以先用示例，再换成自己的词库。</p></div>
+              <button className="primary-button" onClick={() => setModal("presets")}>选一个示例配方</button>
+              <button className="button" onClick={() => { addNode("resource"); setMobileInspect(true); }}>添加词库节点</button>
+            </section> : null}
+            {codeDirty ? <p className="draft-notice" role="status">代码修改尚未应用，也未保存到工作流。请在 NameScript 中应用或放弃后再切换、导出。</p> : null}
             <section className="studio">
               <div className="studio-toolbar">
                 <div className="editor-tabs">
@@ -979,6 +1023,9 @@ export default function App() {
                         <span>
                           <Code2 size={14} /> {workflow.name}.ns
                         </span>
+                        {codeDirty ? <button className="text-button" onClick={() => {
+                          setCode(toScript(workflow)); setCodeError(""); setCodeDirty(false); codeDirtyRef.current = false;
+                        }}>放弃代码修改</button> : null}
                         <button
                           className="button"
                           onClick={() => {
@@ -1308,7 +1355,7 @@ export default function App() {
                   组合会遍历两个输入的笛卡尔积，相同字母绑定同一词条。支持
                   let、for/in、嵌套循环、if/else 和
                   emit。添加「循环与条件」节点可通过结构编辑器编程。修改代码后点击「应用到节点」。任意
-                  JavaScript 与自定义函数不在 P0 范围。
+                  JavaScript 不支持执行；序列函数与子图可从画布底部「子图与函数」进入。资源中心还提供动态词库和 Mapping；扩展包仅支持受控声明式规则。
                 </p>
                 <p>
                   词库、工作流和收藏保存在当前浏览器。清除站点数据会移除它们，建议定期导出便携包。

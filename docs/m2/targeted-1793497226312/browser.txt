@@ -1,0 +1,48 @@
+
+Running 6 tests using 1 worker
+
+  ok 1 e2e\m2.spec.ts:11:1 › M2: selecting the current workflow cannot overwrite an unsaved rename or clear results (1.8s)
+  ok 2 e2e\m2.spec.ts:24:1 › M2: all saved workflows remain discoverable after twelve (1.0s)
+  ok 3 e2e\m2.spec.ts:40:1 › M2: unapplied NameScript survives attempted switching and has explicit discard (1.3s)
+  ok 4 e2e\m2.spec.ts:56:1 › M2: database startup failure stays visible and can retry without clearing data (697ms)
+  ok 5 e2e\m2.spec.ts:72:1 › M2: touch navigation closes the drawer and empty workflows explain the next step (2.0s)
+  x  6 e2e\m2.spec.ts:90:1 › M2: create a resource and connect a new workflow through accessible inputs without dragging (45.1s)
+
+
+  1) e2e\m2.spec.ts:90:1 › M2: create a resource and connect a new workflow through accessible inputs without dragging 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByLabel('引用词库', { exact: true })
+
+
+      103 |   await page.getByRole('button', { name: '新建工作流', exact: true }).click();
+      104 |   await page.getByRole('button', { name: '添加词库节点', exact: true }).click();
+    > 105 |   await page.getByLabel('引用词库', { exact: true }).selectOption({ label: 'M2 小猫 · 2 词' });
+          |                                                  ^
+      106 |   await page.getByRole('button', { name: '添加节点', exact: true }).click();
+      107 |   await page.locator('.node-library').getByRole('button', { name: /结果输出/ }).click();
+      108 |   const input = page.getByLabel('节点输入 1', { exact: true });
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\m2.spec.ts:105:50
+
+    Error Context: docs\m2\targeted-1793497226312\traces\m2-M2-create-a-resource-an-6ec93-ble-inputs-without-dragging\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs\m2\targeted-1793497226312\traces\m2-M2-create-a-resource-an-6ec93-ble-inputs-without-dragging\trace.zip
+    Usage:
+
+        npx playwright show-trace docs\m2\targeted-1793497226312\traces\m2-M2-create-a-resource-an-6ec93-ble-inputs-without-dragging\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\m2.spec.ts:90:1 › M2: create a resource and connect a new workflow through accessible inputs without dragging 
+  5 passed (55.9s)
+[WebServer] (node:156436) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:68116) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:2652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

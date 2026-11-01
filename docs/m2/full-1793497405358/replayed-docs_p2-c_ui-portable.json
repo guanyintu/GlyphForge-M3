@@ -1,0 +1,183 @@
+{
+  "packManifest": [],
+  "operatorVersions": {
+    "resource": 1,
+    "output": 1,
+    "mapchars": 1,
+    "prefix": 1
+  },
+  "format": "glyphforge",
+  "version": 6,
+  "irVersion": 1,
+  "resourceDefinitionVersion": 1,
+  "workflow": {
+    "version": 1,
+    "id": "91a6a3ce-2c8c-4a7a-ad33-16d2c3875234",
+    "name": "资源复用",
+    "seed": 42,
+    "limit": 10000,
+    "layout": {
+      "source": {
+        "x": 30,
+        "y": 100
+      },
+      "result": {
+        "x": 330,
+        "y": 100
+      }
+    },
+    "nodes": [
+      {
+        "id": "source",
+        "op": "resource",
+        "inputs": [],
+        "params": {
+          "resourceId": "317e70d3-94d7-40bf-ba89-ea775ecb6789"
+        }
+      },
+      {
+        "id": "result",
+        "op": "output",
+        "inputs": [
+          "source"
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "id": "a7c11891-218f-41e9-b718-48337db506ee",
+      "name": "P2-C 素材",
+      "kind": "word",
+      "version": 2
+    },
+    {
+      "id": "f0154080-656d-4484-8167-194c2b17beba",
+      "name": "P2-C 字形",
+      "kind": "mapping",
+      "version": 1
+    },
+    {
+      "id": "317e70d3-94d7-40bf-ba89-ea775ecb6789",
+      "name": "P2-C 派生",
+      "kind": "word",
+      "version": 1
+    }
+  ],
+  "resources": [
+    {
+      "meta": {
+        "id": "a7c11891-218f-41e9-b718-48337db506ee",
+        "name": "P2-C 素材",
+        "description": "属于你的新灵感。",
+        "kind": "word",
+        "color": "green",
+        "count": 2,
+        "version": 2,
+        "updatedAt": 1793497725985
+      },
+      "entries": [
+        "月",
+        "星"
+      ]
+    },
+    {
+      "meta": {
+        "id": "f0154080-656d-4484-8167-194c2b17beba",
+        "name": "P2-C 字形",
+        "description": "独立、可复用的字符候选规则",
+        "kind": "mapping",
+        "color": "purple",
+        "count": 2,
+        "version": 1,
+        "updatedAt": 1793497726362,
+        "definition": {
+          "format": 1,
+          "type": "mapping",
+          "rules": "{\"月\":[\"玥\"],\"星\":[\"☆\"]}"
+        }
+      },
+      "entries": []
+    },
+    {
+      "meta": {
+        "id": "317e70d3-94d7-40bf-ba89-ea775ecb6789",
+        "name": "P2-C 派生",
+        "description": "按需派生，源变化后重算",
+        "kind": "word",
+        "color": "purple",
+        "count": 0,
+        "version": 1,
+        "updatedAt": 1793497727072,
+        "definition": {
+          "format": 1,
+          "type": "dynamic",
+          "workflow": {
+            "version": 1,
+            "id": "fc232ec2-83d2-4fb3-9fec-36d26fa1d05b",
+            "name": "资源复用",
+            "seed": 42,
+            "limit": 10000,
+            "layout": {
+              "source": {
+                "x": 30,
+                "y": 100
+              },
+              "result": {
+                "x": 330,
+                "y": 100
+              }
+            },
+            "nodes": [
+              {
+                "id": "source",
+                "op": "resource",
+                "inputs": [],
+                "params": {
+                  "resourceId": "a7c11891-218f-41e9-b718-48337db506ee"
+                }
+              },
+              {
+                "id": "map",
+                "op": "mapchars",
+                "inputs": [
+                  "source"
+                ],
+                "params": {
+                  "mapping": "{\"月\":[\"玥\",\"鈅\"],\"星\":[\"煋\",\"☆\"]}",
+                  "probability": 1,
+                  "limit": 32,
+                  "mappingId": "f0154080-656d-4484-8167-194c2b17beba"
+                }
+              },
+              {
+                "id": "prefix",
+                "op": "prefix",
+                "inputs": [
+                  "map"
+                ],
+                "params": {
+                  "text": "小"
+                }
+              },
+              {
+                "id": "result",
+                "op": "output",
+                "inputs": [
+                  "prefix"
+                ],
+                "params": {}
+              }
+            ],
+            "comments": [
+              "// NameScript · 节点与代码，共用一份灵感",
+              "// 修改后点击「应用到节点」，再运行工作流"
+            ]
+          }
+        }
+      },
+      "entries": []
+    }
+  ]
+}

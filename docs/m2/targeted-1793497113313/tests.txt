@@ -1,0 +1,88 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/id生成
+
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 126.70 ms, 40041 steps, max batch 64
+
+ ✓ src/tests/p1c-relations.test.ts (5 tests) 144ms
+ ✓ src/tests/audit-worker.test.ts (1 test) 262ms
+ ✓ src/tests/storage.test.ts (8 tests) 193ms
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 402.05 ms, 200002 steps
+
+ ✓ src/tests/performance.test.ts (2 tests) 536ms
+   ✓ scans 100,000 source entries without expanding a result array  403ms
+ ✓ src/tests/packs.test.ts (28 tests) 576ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":100000,"rows":60,"steps":442,"ms":32.947400000000016,"staticRows":1100,"cacheRows":0}
+
+stdout | src/tests/subgraphs.test.ts > parameterized sequence functions > streams 100 call instances with constant resource residency and bounded batches
+P2-A 100 outer / 300 total calls {
+  milliseconds: 30.080199999999877,
+  produced: 201,
+  maxBatch: 1,
+  steps: 1303,
+  definitionBytes: 620
+}
+
+stdout | src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":1000000,"rows":60,"steps":442,"ms":12.317299999999705,"staticRows":2000,"cacheRows":0}
+
+ ✓ src/tests/p0.test.ts (31 tests) 662ms
+ ✓ src/tests/subgraphs.test.ts (22 tests) 315ms
+ ✓ src/tests/audit.test.ts (20 tests) 837ms
+ ✓ src/tests/resource-catalog.test.ts (32 tests) 864ms
+ ✓ src/tests/run-lifecycle.test.ts (9 tests) 964ms
+   ✓ 100 mixed runs bound ordinary history while preserving pins, favorites and active runs  837ms
+stdout | src/tests/share-code.test.ts > seeded base64url/stream fuzz rejects corruption or returns the identical checksum-verified payload
+GFS1 base64 stream fuzz {"rejected":120,"identical":0}
+
+ ✓ src/tests/p1c-search.test.ts (24 tests) 1632ms
+   ✓ optional pinyin matches real romanized or homophone candidates  342ms
+   ✓ caps ambiguous indexed hits, bounds batch sizes and the final beam  408ms
+   ✓ can cancel an optional phonetic scan after its first keyset page  399ms
+ ✓ src/tests/relations.test.ts (31 tests) 1713ms
+ ✓ src/tests/share-code.test.ts (30 tests) 1567ms
+   ✓ code export reads only bounded metadata closure and stops snapshots before 1MiB  533ms
+ ✓ src/tests/p1d-motion.test.ts (18 tests) 77ms
+ ✓ src/tests/core.test.ts (19 tests) 25ms
+ ✓ src/tests/p1d-highlight.test.ts (4 tests) 4ms
+ ✓ src/tests/p1c-game.test.ts (7 tests) 75ms
+stdout | src/tests/lineage.test.ts > 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows
+P2-E 10k {"ms":369.71160000000054,"stats":{"steps":40041,"count":10000,"truncated":true,"safePruned":0,"duration":369.1902999999993},"maxLineageBytes":168,"totalLineageBytes":1680000}
+
+ ✓ src/tests/scale.test.ts (10 tests) 2171ms
+   ✓ 192 generated seed/version four-way differential includes all fields, read events, ticks and first-path duplicates  1849ms
+ ✓ src/tests/p1-final.test.ts (11 tests) 3104ms
+   ✓ seeded generated graphs and nested scoped programs survive script/JSON roundtrips (100 cases)  1829ms
+   ✓ laboratory and workflow share decompose execution including saved output references  599ms
+ ✓ src/tests/mutation.test.ts (35 tests) 3478ms
+   ✓ homophone uses shared bounded engine and changes text  896ms
+   ✓ reorder protects independent repeated positions and entire ZWJ cluster  393ms
+   ✓ reorders whole words and dictionary replaces a whole unlocked word  348ms
+ ✓ src/tests/contracts.test.ts (28 tests) 3608ms
+   ✓ homophones: node, printed code, AST and laboratory agree with omitted defaults  1052ms
+   ✓ hanconvert: node, printed code, AST and laboratory agree with omitted defaults  503ms
+   ✓ decompose: node, printed code, AST and laboratory agree with omitted defaults  888ms
+   ✓ compose: node, printed code, AST and laboratory agree with omitted defaults  853ms
+ ✓ src/tests/chinese.test.ts (20 tests) 4969ms
+   ✓ P1-A Chinese phonetics and conversion > uses phrase-aware OpenCC in both directions  534ms
+   ✓ P1-A Chinese phonetics and conversion > queries actual Unihan homophones and validates single-character inputs  625ms
+   ✓ P1-A real structure data > decomposes 明 left/right and 思 top/bottom  1402ms
+   ✓ P1-A real structure data > reverse-composes only actual known characters and respects duplicate counts  931ms
+   ✓ P1-A real structure data > finds characters by components and filters structure and strokes  1209ms
+stdout | src/tests/lineage.test.ts > paired rejection benchmark preserves exact steps and avoids 10k metadata allocations
+P2-E paired allocation benchmark [{"mode":"off","ms":351.53080000000045,"steps":30304,"pruned":0},{"mode":"on","ms":127.3756000000003,"steps":30304,"pruned":10000},{"mode":"on","ms":133.5666999999994,"steps":30304,"pruned":10000},{"mode":"off","ms":298.3204999999998,"steps":30304,"pruned":0},{"mode":"off","ms":261.1102000000001,"steps":30304,"pruned":0},{"mode":"on","ms":107.03870000000006,"steps":30304,"pruned":10000},{"mode":"on","ms":116.39850000000024,"steps":30304,"pruned":10000},{"mode":"off","ms":274.20650000000023,"steps":30304,"pruned":0},{"mode":"off","ms":262.96680000000015,"steps":30304,"pruned":0},{"mode":"on","ms":100.03899999999976,"steps":30304,"pruned":10000},{"mode":"on","ms":105.84630000000016,"steps":30304,"pruned":10000},{"mode":"off","ms":225.2461000000003,"steps":30304,"pruned":0}]
+
+ ✓ src/tests/lineage.test.ts (18 tests) 4591ms
+   ✓ frozen e637beb / disabled / enabled concat differential: 80 seeds and versions  605ms
+   ✓ frozen e637beb / disabled / enabled pattern differential: 80 seeds and versions  365ms
+   ✓ nested subgraphs, Chinese, Pair/members, extensions and mutation keep old metadata and seed behavior  518ms
+   ✓ 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows  382ms
+   ✓ paired rejection benchmark preserves exact steps and avoids 10k metadata allocations  2370ms
+
+ Test Files  23 passed (23)
+      Tests  413 passed (413)
+   Start at  09:38:34
+   Duration  7.96s (transform 7.55s, setup 0ms, collect 28.63s, tests 32.37s, environment 5ms, prepare 11.03s)
+

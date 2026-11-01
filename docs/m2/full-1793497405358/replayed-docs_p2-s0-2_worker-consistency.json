@@ -1,0 +1,542 @@
+{
+  "reports": [
+    {
+      "op": "pinyin",
+      "results": [
+        [
+          {
+            "text": "yuè",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ],
+            "notes": [
+              "按上下文选择读音；生僻字缺少读音时保留原字，轻声为 0"
+            ]
+          }
+        ],
+        [
+          {
+            "text": "yuè",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ],
+            "notes": [
+              "按上下文选择读音；生僻字缺少读音时保留原字，轻声为 0"
+            ]
+          }
+        ],
+        [
+          {
+            "text": "yuè",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ],
+            "notes": [
+              "按上下文选择读音；生僻字缺少读音时保留原字，轻声为 0"
+            ]
+          }
+        ],
+        [
+          {
+            "text": "yuè",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ],
+            "notes": [
+              "按上下文选择读音；生僻字缺少读音时保留原字，轻声为 0"
+            ]
+          }
+        ]
+      ],
+      "stats": [
+        {
+          "steps": 10,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 53
+        },
+        {
+          "steps": 10,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 32.90000009536743
+        },
+        {
+          "steps": 18,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 34.700000047683716
+        },
+        {
+          "steps": 8,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 30.799999952316284
+        }
+      ]
+    },
+    {
+      "op": "hanconvert",
+      "results": [
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ],
+            "notes": [
+              "OpenCC 词组转换；部分转换不可逆，概率小于 1 时可混合简繁"
+            ]
+          }
+        ],
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ],
+            "notes": [
+              "OpenCC 词组转换；部分转换不可逆，概率小于 1 时可混合简繁"
+            ]
+          }
+        ],
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ],
+            "notes": [
+              "OpenCC 词组转换；部分转换不可逆，概率小于 1 时可混合简繁"
+            ]
+          }
+        ],
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ],
+            "notes": [
+              "OpenCC 词组转换；部分转换不可逆，概率小于 1 时可混合简繁"
+            ]
+          }
+        ]
+      ],
+      "stats": [
+        {
+          "steps": 10,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 101.39999985694885
+        },
+        {
+          "steps": 10,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 60
+        },
+        {
+          "steps": 18,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 51.299999952316284
+        },
+        {
+          "steps": 8,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 47.5
+        }
+      ]
+    },
+    {
+      "op": "mapchars",
+      "results": [
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ],
+            "notes": [
+              "趣味字形替换，不保证同义同音；每条最多 32 个候选"
+            ]
+          }
+        ],
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ],
+            "notes": [
+              "趣味字形替换，不保证同义同音；每条最多 32 个候选"
+            ]
+          }
+        ],
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ],
+            "notes": [
+              "趣味字形替换，不保证同义同音；每条最多 32 个候选"
+            ]
+          }
+        ],
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ],
+            "notes": [
+              "趣味字形替换，不保证同义同音；每条最多 32 个候选"
+            ]
+          }
+        ]
+      ],
+      "stats": [
+        {
+          "steps": 11,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 8.899999856948853
+        },
+        {
+          "steps": 11,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 9.299999952316284
+        },
+        {
+          "steps": 19,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 9.799999952316284
+        },
+        {
+          "steps": 9,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 5.599999904632568
+        }
+      ]
+    },
+    {
+      "op": "prefix",
+      "results": [
+        [
+          {
+            "text": "小月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "text": "小月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "text": "小月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "text": "小月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      ],
+      "stats": [
+        {
+          "steps": 9,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 5.599999904632568
+        },
+        {
+          "steps": 9,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 4.5
+        },
+        {
+          "steps": 12,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 5.299999952316284
+        },
+        {
+          "steps": 7,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 0.8000001907348633
+        }
+      ]
+    },
+    {
+      "op": "reverse",
+      "results": [
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      ],
+      "stats": [
+        {
+          "steps": 9,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 5.3999998569488525
+        },
+        {
+          "steps": 9,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 5.5
+        },
+        {
+          "steps": 11,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 5.3999998569488525
+        },
+        {
+          "steps": 7,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 0.8000001907348633
+        }
+      ]
+    },
+    {
+      "op": "filter",
+      "results": [
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "text": "月",
+            "parts": [
+              {
+                "resourceId": "__lab__",
+                "text": "月",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      ],
+      "stats": [
+        {
+          "steps": 9,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 5.3999998569488525
+        },
+        {
+          "steps": 9,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 4.900000095367432
+        },
+        {
+          "steps": 7,
+          "count": 1,
+          "truncated": false,
+          "safePruned": 0,
+          "duration": 0.7000000476837158
+        }
+      ]
+    }
+  ],
+  "invalid": {
+    "type": "error",
+    "message": "转换概率为 0–1",
+    "diagnostic": {
+      "code": "PARAMETER",
+      "operator": "hanconvert",
+      "message": "转换概率为 0–1"
+    },
+    "rows": []
+  },
+  "invalidAst": {
+    "type": "error",
+    "message": "节点 program：第 1 行：转换概率为 0–1",
+    "diagnostic": {
+      "nodeId": "program",
+      "operator": "hanconvert",
+      "line": 1,
+      "code": "PARAMETER",
+      "message": "转换概率为 0–1"
+    },
+    "cleanupError": "",
+    "rows": []
+  }
+}

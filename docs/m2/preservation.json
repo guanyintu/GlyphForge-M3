@@ -1,0 +1,15 @@
+{
+  "unexpected": [],
+  "productDrift": [],
+  "protectedHistoricalExactBytes": 182,
+  "allHistoricalAssetsStillPresent": true,
+  "codeIndex": {
+    "src/App.tsx": true,
+    "src/components/GraphEditor.tsx": true,
+    "src/styles.css": true,
+    "e2e/m2.spec.ts": true,
+    "e2e/lineage.spec.ts": true
+  },
+  "backup": "external; baseline-local.json",
+  "note": "README/PROJECT retain historical content and add only bounded M2 sections in index. All other 182 historical assets byte-identical; raw backups also retain originals."
+}

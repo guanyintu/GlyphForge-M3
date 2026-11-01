@@ -1,0 +1,13 @@
+{
+  "args": [
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "src/tests/p1-final.test.ts",
+    "-t",
+    "rejects a conflicting relation edit atomically"
+  ],
+  "exit": 1,
+  "expected": "failure; historical relation-conflict repair excluded from M2-only index",
+  "dbIndex": "b33b211f4b517f959bb74a80c29cad281f878a6f",
+  "dbHead": "b33b211f4b517f959bb74a80c29cad281f878a6f"
+}

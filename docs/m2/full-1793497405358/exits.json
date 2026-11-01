@@ -1,0 +1,111 @@
+{
+  "mode": "full",
+  "node": "v24.22.1",
+  "platform": "win32/x64",
+  "exits": [
+    {
+      "name": "tests",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "exit": 0,
+      "ms": 8559
+    },
+    {
+      "name": "typecheck",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exit": 0,
+      "ms": 8212
+    },
+    {
+      "name": "build-types",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "-b"
+      ],
+      "exit": 0,
+      "ms": 7955
+    },
+    {
+      "name": "build",
+      "args": [
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "exit": 0,
+      "ms": 40359
+    },
+    {
+      "name": "benchmark",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "src/tests/performance.test.ts",
+        "src/tests/resource-catalog.test.ts",
+        "src/tests/packs.test.ts",
+        "src/tests/lineage.test.ts",
+        "src/tests/scale.test.ts",
+        "src/tests/share-code.test.ts",
+        "--reporter=verbose"
+      ],
+      "exit": 0,
+      "ms": 4565
+    },
+    {
+      "name": "browser",
+      "args": [
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--output=docs/m2/full-1793497405358/traces"
+      ],
+      "exit": 1,
+      "ms": 518572
+    }
+  ],
+  "restored": [
+    "docs\\M2-RELEASE-READINESS.md",
+    "docs\\p1-final\\mixed-performance.json",
+    "docs\\p1-final\\resources-performance.json",
+    "docs\\p1c\\game-ui.png",
+    "docs\\p1c\\reverse-ui.png",
+    "docs\\p1d\\highlight-cards.png",
+    "docs\\p1d\\mobile-physics.png",
+    "docs\\p1d\\performance.json",
+    "docs\\p1d\\physics-desktop.png",
+    "docs\\p2-a\\performance.json",
+    "docs\\p2-a\\subgraph-calls.png",
+    "docs\\p2-a\\subgraph-library.png",
+    "docs\\p2-a\\watchdog.json",
+    "docs\\p2-a\\worker.json",
+    "docs\\p2-b\\mutation-locks.png",
+    "docs\\p2-b\\subgraph-reuse.png",
+    "docs\\p2-b\\worker.json",
+    "docs\\p2-c\\browser-benchmark.json",
+    "docs\\p2-c\\dynamic-preview.png",
+    "docs\\p2-c\\missing-dependency.png",
+    "docs\\p2-c\\ui-portable.json",
+    "docs\\p2-d\\browser-benchmark.json",
+    "docs\\p2-d\\installed.png",
+    "docs\\p2-d\\offline-roundtrip.json",
+    "docs\\p2-e\\lineage-panel.png",
+    "docs\\p2-e\\roundtrip.json",
+    "docs\\p2-f\\concurrency-reverse.json",
+    "docs\\p2-f\\estimate.png",
+    "docs\\p2-s0-1\\browser-fresh-growth.json",
+    "docs\\p2-s0-1\\browser-v5-growth.json",
+    "docs\\p2-s0-1\\history-ui.png",
+    "docs\\p2-s0-2\\worker-consistency.json"
+  ],
+  "created": [
+    "docs\\p2-f\\worker-m2.json",
+    "docs\\p2-g\\m2-preview.png",
+    "docs\\p2-g\\m2-roundtrip.json",
+    "docs\\p2-g\\m2-security-performance.json",
+    "docs\\p2-g\\m2-ui.json",
+    "docs\\p2-g\\m2-worker-heap.json"
+  ]
+}

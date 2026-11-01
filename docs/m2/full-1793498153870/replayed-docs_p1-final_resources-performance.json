@@ -1,0 +1,54 @@
+{
+  "browser": "156.0.8078.4",
+  "reports": [
+    {
+      "size": 10000,
+      "count": 10000,
+      "importMs": 521,
+      "exactMs": 0.40000009536743164,
+      "prefixMs": 0.7000000476837158,
+      "exactFound": true,
+      "renderedPage": 60,
+      "maxWriteBatch": 1000,
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+      "at": "2026-11-01T01:57:58.670Z",
+      "heartbeatSamples": 11,
+      "heartbeatP99Ms": 62.10000014305115,
+      "heartbeatMaxMs": 62.10000014305115,
+      "mainRendererHeapSample": 9718240
+    },
+    {
+      "size": 100000,
+      "count": 100000,
+      "importMs": 4798.400000095367,
+      "exactMs": 0.40000009536743164,
+      "prefixMs": 0.7999999523162842,
+      "exactFound": true,
+      "renderedPage": 60,
+      "maxWriteBatch": 1000,
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+      "at": "2026-11-01T01:58:03.515Z",
+      "heartbeatSamples": 96,
+      "heartbeatP99Ms": 64.20000004768372,
+      "heartbeatMaxMs": 64.20000004768372,
+      "mainRendererHeapSample": 9593812
+    },
+    {
+      "size": 1000000,
+      "count": 1000000,
+      "importMs": 56381.89999985695,
+      "exactMs": 0.7000000476837158,
+      "prefixMs": 0.5999999046325684,
+      "exactFound": true,
+      "renderedPage": 60,
+      "maxWriteBatch": 1000,
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+      "at": "2026-11-01T01:58:59.966Z",
+      "heartbeatSamples": 1130,
+      "heartbeatP99Ms": 63,
+      "heartbeatMaxMs": 63.700000047683716,
+      "mainRendererHeapSample": 8445217
+    }
+  ],
+  "scope": "real IndexedDB in disposable Worker databases; renderer heap samples exclude Worker and database process"
+}

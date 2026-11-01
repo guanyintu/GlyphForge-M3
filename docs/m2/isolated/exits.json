@@ -1,0 +1,72 @@
+{
+  "mode": "targeted",
+  "node": "v24.22.1",
+  "platform": "win32/x64",
+  "exits": [
+    {
+      "name": "tests",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "exit": 0,
+      "ms": 7750
+    },
+    {
+      "name": "typecheck",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exit": 0,
+      "ms": 7922
+    },
+    {
+      "name": "build-types",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "-b"
+      ],
+      "exit": 0,
+      "ms": 8333
+    },
+    {
+      "name": "build",
+      "args": [
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "exit": 0,
+      "ms": 40664
+    },
+    {
+      "name": "benchmark",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "src/tests/performance.test.ts",
+        "src/tests/resource-catalog.test.ts",
+        "src/tests/packs.test.ts",
+        "src/tests/lineage.test.ts",
+        "src/tests/scale.test.ts",
+        "src/tests/share-code.test.ts",
+        "--reporter=verbose"
+      ],
+      "exit": 0,
+      "ms": 5493
+    },
+    {
+      "name": "browser",
+      "args": [
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "e2e/m2.spec.ts",
+        "--output=docs/m2/targeted-1793498036770/traces"
+      ],
+      "exit": 0,
+      "ms": 14127
+    }
+  ],
+  "restored": [],
+  "created": []
+}

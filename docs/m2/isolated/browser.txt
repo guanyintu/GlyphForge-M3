@@ -1,0 +1,21 @@
+[WebServer] (node:134112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:132232) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:132232) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:149404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:23916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 e2e\m2.spec.ts:11:1 › M2: selecting the current workflow cannot overwrite an unsaved rename or clear results (1.8s)
+  ok 2 e2e\m2.spec.ts:24:1 › M2: all saved workflows remain discoverable after twelve (841ms)
+  ok 3 e2e\m2.spec.ts:40:1 › M2: unapplied NameScript survives attempted switching and has explicit discard (1.2s)
+  ok 4 e2e\m2.spec.ts:56:1 › M2: database startup failure stays visible and can retry without clearing data (660ms)
+  ok 5 e2e\m2.spec.ts:72:1 › M2: touch navigation closes the drawer and empty workflows explain the next step (1.8s)
+  ok 6 e2e\m2.spec.ts:90:1 › M2: create a resource and connect a new workflow through accessible inputs without dragging (2.2s)
+
+  6 passed (13.5s)

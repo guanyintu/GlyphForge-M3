@@ -1,0 +1,365 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\someb\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "e2e/m2.spec.ts",
+      "--output=docs/m2/targeted-1793497113313/traces"
+    ],
+    "configFile": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\playwright.config.ts",
+    "rootDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/someb/Documents/ChatGPT/id生成/docs/m2/targeted-1793497113313/traces",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/someb/Documents/ChatGPT/id生成/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\docs\\m2\\targeted-1793497113313\\traces",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "snapshotDir": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "launchOptions": {
+            "args": [
+              "--enable-precise-memory-info"
+            ]
+          },
+          "baseURL": "http://127.0.0.1:4175",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "pnpm exec vite preview --host 127.0.0.1 --port 4175 --strictPort",
+      "url": "http://127.0.0.1:4175",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "m2.spec.ts",
+      "file": "m2.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "M2: selecting the current workflow cannot overwrite an unsaved rename or clear results",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1722,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T01:39:47.606Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "01f49e799d3ea91d35fe-0924ce3ed5aa7147ab97",
+          "file": "m2.spec.ts",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "M2: all saved workflows remain discoverable after twelve",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 795,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T01:39:49.618Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "01f49e799d3ea91d35fe-e76a0f21a807f23532ab",
+          "file": "m2.spec.ts",
+          "line": 24,
+          "column": 1
+        },
+        {
+          "title": "M2: unapplied NameScript survives attempted switching and has explicit discard",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1248,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T01:39:50.423Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "01f49e799d3ea91d35fe-219043991e6656dea6d4",
+          "file": "m2.spec.ts",
+          "line": 40,
+          "column": 1
+        },
+        {
+          "title": "M2: database startup failure stays visible and can retry without clearing data",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5436,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.result-timing')\nExpected substring: \u001b[32m\"生成完成\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" locator('.result-timing') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.result-timing')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.result-timing')\nExpected substring: \u001b[32m\"生成完成\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" locator('.result-timing') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.result-timing')\u001b[22m\n\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\m2.spec.ts:68:48",
+                    "location": {
+                      "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\m2.spec.ts",
+                      "column": 48,
+                      "line": 68
+                    },
+                    "snippet": "  66 |   await page.evaluate(() => { (window as any).m2AllowOpen = true; });\n  67 |   await page.getByRole('button', { name: '重试打开', exact: true }).click();\n> 68 |   await expect(page.locator('.result-timing')).toContainText('生成完成');\n     |                                                ^\n  69 |   await expect(page.getByRole('alert')).toBeHidden();\n  70 | });\n  71 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\m2.spec.ts",
+                        "column": 48,
+                        "line": 68
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.result-timing')\nExpected substring: \u001b[32m\"生成完成\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" locator('.result-timing') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.result-timing')\u001b[22m\n\n\n  66 |   await page.evaluate(() => { (window as any).m2AllowOpen = true; });\n  67 |   await page.getByRole('button', { name: '重试打开', exact: true }).click();\n> 68 |   await expect(page.locator('.result-timing')).toContainText('生成完成');\n     |                                                ^\n  69 |   await expect(page.getByRole('alert')).toBeHidden();\n  70 | });\n  71 |\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\m2.spec.ts:68:48"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T01:39:51.686Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\docs\\m2\\targeted-1793497113313\\traces\\m2-M2-database-startup-fai-bc865-retry-without-clearing-data\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\docs\\m2\\targeted-1793497113313\\traces\\m2-M2-database-startup-fai-bc865-retry-without-clearing-data\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\m2.spec.ts",
+                    "column": 48,
+                    "line": 68
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "01f49e799d3ea91d35fe-bc9f87455eefdabba093",
+          "file": "m2.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "M2: touch navigation closes the drawer and empty workflows explain the next step",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1725,
+                  "error": {
+                    "message": "Error: locator.click: Error: strict mode violation: getByRole('button', { name: /宇宙浪漫命名器/ }) resolved to 2 elements:\n    1) <button class=\"\">…</button> aka getByRole('button', { name: '宇宙浪漫命名器', exact: true })\n    2) <button class=\"preset-card green\">…</button> aka getByRole('button', { name: '词库组合 月亮邮差 宇宙浪漫命名器 把宇宙与职业，碰撞出一点浪漫 使用这个配方' })\n\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /宇宙浪漫命名器/ })\u001b[22m\n",
+                    "stack": "Error: locator.click: Error: strict mode violation: getByRole('button', { name: /宇宙浪漫命名器/ }) resolved to 2 elements:\n    1) <button class=\"\">…</button> aka getByRole('button', { name: '宇宙浪漫命名器', exact: true })\n    2) <button class=\"preset-card green\">…</button> aka getByRole('button', { name: '词库组合 月亮邮差 宇宙浪漫命名器 把宇宙与职业，碰撞出一点浪漫 使用这个配方' })\n\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /宇宙浪漫命名器/ })\u001b[22m\n\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\m2.spec.ts:83:55",
+                    "location": {
+                      "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\m2.spec.ts",
+                      "column": 55,
+                      "line": 83
+                    },
+                    "snippet": "  81 |   await expect(page.getByText('从词库到名字，只需三步')).toBeVisible();\n  82 |   await page.getByRole('button', { name: '选一个示例配方', exact: true }).click();\n> 83 |   await page.getByRole('button', { name: /宇宙浪漫命名器/ }).click();\n     |                                                       ^\n  84 |   await page.getByRole('button', { name: /^运行工作流/ }).click();\n  85 |   await expect(page.locator('.result-timing')).toContainText('生成完成');\n  86 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\m2.spec.ts",
+                        "column": 55,
+                        "line": 83
+                      },
+                      "message": "Error: locator.click: Error: strict mode violation: getByRole('button', { name: /宇宙浪漫命名器/ }) resolved to 2 elements:\n    1) <button class=\"\">…</button> aka getByRole('button', { name: '宇宙浪漫命名器', exact: true })\n    2) <button class=\"preset-card green\">…</button> aka getByRole('button', { name: '词库组合 月亮邮差 宇宙浪漫命名器 把宇宙与职业，碰撞出一点浪漫 使用这个配方' })\n\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /宇宙浪漫命名器/ })\u001b[22m\n\n\n  81 |   await expect(page.getByText('从词库到名字，只需三步')).toBeVisible();\n  82 |   await page.getByRole('button', { name: '选一个示例配方', exact: true }).click();\n> 83 |   await page.getByRole('button', { name: /宇宙浪漫命名器/ }).click();\n     |                                                       ^\n  84 |   await page.getByRole('button', { name: /^运行工作流/ }).click();\n  85 |   await expect(page.locator('.result-timing')).toContainText('生成完成');\n  86 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);\n    at C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\m2.spec.ts:83:55"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T01:39:57.753Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\docs\\m2\\targeted-1793497113313\\traces\\m2-M2-touch-navigation-clo-4e60b-flows-explain-the-next-step\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\docs\\m2\\targeted-1793497113313\\traces\\m2-M2-touch-navigation-clo-4e60b-flows-explain-the-next-step\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\someb\\Documents\\ChatGPT\\id生成\\e2e\\m2.spec.ts",
+                    "column": 55,
+                    "line": 83
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "01f49e799d3ea91d35fe-2649203bd9447c6861bb",
+          "file": "m2.spec.ts",
+          "line": 72,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-01T01:39:45.228Z",
+    "duration": 15530.961,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

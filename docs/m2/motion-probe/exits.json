@@ -1,0 +1,13 @@
+{
+  "args": [
+    "node_modules/@playwright/test/cli.js",
+    "test",
+    "e2e/p1d.spec.ts",
+    "-g",
+    "measured Chromium",
+    "--reporter=line",
+    "--output=C:/Users/someb/Documents/ChatGPT/id生成/docs/m2/motion-probe/traces"
+  ],
+  "exit": 0,
+  "scope": "Same final dist in isolated index; historical worktree P1D fixture copied only in disposable isolation, observer probe only; port 4176"
+}

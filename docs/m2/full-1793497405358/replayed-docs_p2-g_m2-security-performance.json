@@ -1,0 +1,47 @@
+{
+  "samples": [
+    {
+      "encodeMs": 57.799999952316284,
+      "decodeMs": 27,
+      "jsonBytes": 9737,
+      "compressedBytes": 2478,
+      "chars": 3387,
+      "ratio": 0.2544931703810209
+    },
+    {
+      "encodeMs": 47.90000009536743,
+      "decodeMs": 27,
+      "jsonBytes": 9737,
+      "compressedBytes": 2478,
+      "chars": 3387,
+      "ratio": 0.2544931703810209
+    },
+    {
+      "encodeMs": 48.200000047683716,
+      "decodeMs": 33.89999985694885,
+      "jsonBytes": 9737,
+      "compressedBytes": 2478,
+      "chars": 3387,
+      "ratio": 0.2544931703810209
+    }
+  ],
+  "longTasksDuringSharingMs": [],
+  "sharingRendererHeapAfter": 11412377,
+  "maxMainTimerGapMs": 11,
+  "rendererHeapBefore": 11281432,
+  "rendererHeapAfter": 45728605,
+  "cancelled": true,
+  "two": 2,
+  "thirdRejected": true,
+  "bombError": "分享码：流式解压超过声明长度 / 1 MiB 上限；请下载 JSON 文件或本地保存，减少快照后重试",
+  "bombMs": 31.200000047683716,
+  "errors": [
+    "分享码：非规范 base64url 或压缩字节超限；请下载 JSON 文件或本地保存，减少快照后重试",
+    "分享码：编码、协议版本或压缩算法不受支持（仅 GFS1 / deflate）；请下载 JSON 文件或本地保存，减少快照后重试",
+    "分享码：编码、协议版本或压缩算法不受支持（仅 GFS1 / deflate）；请下载 JSON 文件或本地保存，减少快照后重试",
+    "分享码：内容 SHA-256 不符（仅检错，不验证身份）；请下载 JSON 文件或本地保存，减少快照后重试"
+  ],
+  "rolledBack": true,
+  "timeout": "分享任务超过 8 秒；请减少快照或下载 JSON 文件",
+  "timeoutMs": 8002.900000095367
+}

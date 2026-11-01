@@ -1,0 +1,84 @@
+
+Running 5 tests using 1 worker
+
+  ok 1 e2e\m2.spec.ts:11:1 › M2: selecting the current workflow cannot overwrite an unsaved rename or clear results (1.7s)
+  ok 2 e2e\m2.spec.ts:24:1 › M2: all saved workflows remain discoverable after twelve (795ms)
+  ok 3 e2e\m2.spec.ts:40:1 › M2: unapplied NameScript survives attempted switching and has explicit discard (1.2s)
+  x  4 e2e\m2.spec.ts:56:1 › M2: database startup failure stays visible and can retry without clearing data (5.4s)
+  x  5 e2e\m2.spec.ts:72:1 › M2: touch navigation closes the drawer and empty workflows explain the next step (1.7s)
+
+
+  1) e2e\m2.spec.ts:56:1 › M2: database startup failure stays visible and can retry without clearing data 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.result-timing')
+    Expected substring: "生成完成"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" locator('.result-timing') with timeout 5000ms
+      - waiting for locator('.result-timing')
+
+
+      66 |   await page.evaluate(() => { (window as any).m2AllowOpen = true; });
+      67 |   await page.getByRole('button', { name: '重试打开', exact: true }).click();
+    > 68 |   await expect(page.locator('.result-timing')).toContainText('生成完成');
+         |                                                ^
+      69 |   await expect(page.getByRole('alert')).toBeHidden();
+      70 | });
+      71 |
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\m2.spec.ts:68:48
+
+    Error Context: docs\m2\targeted-1793497113313\traces\m2-M2-database-startup-fai-bc865-retry-without-clearing-data\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs\m2\targeted-1793497113313\traces\m2-M2-database-startup-fai-bc865-retry-without-clearing-data\trace.zip
+    Usage:
+
+        npx playwright show-trace docs\m2\targeted-1793497113313\traces\m2-M2-database-startup-fai-bc865-retry-without-clearing-data\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) e2e\m2.spec.ts:72:1 › M2: touch navigation closes the drawer and empty workflows explain the next step 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /宇宙浪漫命名器/ }) resolved to 2 elements:
+        1) <button class="">…</button> aka getByRole('button', { name: '宇宙浪漫命名器', exact: true })
+        2) <button class="preset-card green">…</button> aka getByRole('button', { name: '词库组合 月亮邮差 宇宙浪漫命名器 把宇宙与职业，碰撞出一点浪漫 使用这个配方' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /宇宙浪漫命名器/ })
+
+
+      81 |   await expect(page.getByText('从词库到名字，只需三步')).toBeVisible();
+      82 |   await page.getByRole('button', { name: '选一个示例配方', exact: true }).click();
+    > 83 |   await page.getByRole('button', { name: /宇宙浪漫命名器/ }).click();
+         |                                                       ^
+      84 |   await page.getByRole('button', { name: /^运行工作流/ }).click();
+      85 |   await expect(page.locator('.result-timing')).toContainText('生成完成');
+      86 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+        at C:\Users\someb\Documents\ChatGPT\id生成\e2e\m2.spec.ts:83:55
+
+    Error Context: docs\m2\targeted-1793497113313\traces\m2-M2-touch-navigation-clo-4e60b-flows-explain-the-next-step\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs\m2\targeted-1793497113313\traces\m2-M2-touch-navigation-clo-4e60b-flows-explain-the-next-step\trace.zip
+    Usage:
+
+        npx playwright show-trace docs\m2\targeted-1793497113313\traces\m2-M2-touch-navigation-clo-4e60b-flows-explain-the-next-step\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    e2e\m2.spec.ts:56:1 › M2: database startup failure stays visible and can retry without clearing data 
+    e2e\m2.spec.ts:72:1 › M2: touch navigation closes the drawer and empty workflows explain the next step 
+  3 passed (15.5s)
+[WebServer] (node:170848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:61880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:101208) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:112384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

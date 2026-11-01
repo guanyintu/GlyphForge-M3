@@ -471,6 +471,20 @@ export function Inspector({
         <h3>{def.name}</h3>
         <p className="description">{def.description}</p>
         <div className="divider" />
+        {workflow && node.op !== "call" ? Array.from({ length: def.inputs }, (_, index) => (
+          <label className="field-label" key={index}>
+            输入 {index + 1}
+            <select aria-label={`节点输入 ${index + 1}`} value={node.inputs[index] || ""} onChange={event => {
+              const inputs = Array.from({ length: def.inputs }, (_, i) => node.inputs[i] || "");
+              inputs[index] = event.target.value;
+              onUpdate({ ...node, inputs });
+            }}>
+              <option value="">请选择上游节点</option>
+              {node.inputs[index] && !workflow.nodes.some(n => n.id === node.inputs[index]) ? <option value={node.inputs[index]}>缺失：{node.inputs[index]}</option> : null}
+              {workflow.nodes.filter(n => n.id !== node.id && n.op !== "output").map(n => <option key={n.id} value={n.id}>{operators[n.op].name} · {n.id}</option>)}
+            </select>
+          </label>
+        )) : null}
         {node.op === "extension" && workflow ? <ExtensionInspector node={node} workflow={workflow} onChange={onWorkflowChange!} /> : null}
         {node.op === "call" && workflow ? <><CallInspector node={node} workflow={workflow} onUpdate={onUpdate} />{onWorkflowChange ? <button className="button" onClick={() => onWorkflowChange({ ...workflow, nodes: workflow.nodes.map(n => n.op === "output" ? { ...n, inputs: [node.id] } : n) })}>连接到结果输出</button> : null}</> : null}
         {node.op === "gamecheck" ? <><GameRuleEditor rule={(() => { try { return parseGameRule(String(node.params.rules)); } catch { return defaultGameRule; } })()} onChange={rule => param("rules", JSON.stringify(rule))} /><label className="field-label">检查模式<select value={String(node.params.mode)} onChange={e => param("mode", e.target.value)}><option value="filter">仅通过项</option><option value="annotate">保留并标注</option></select></label></> : null}

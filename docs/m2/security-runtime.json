@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-01 Asia/Shanghai",
+  "node": "v24.22.1",
+  "browser": "156.0.8078.4",
+  "platform": "win32/x64",
+  "scope": "Static pattern scan of production src and index.html, excludes tests. No exhaustive security guarantee; runtime blocked-network journey and malicious package tests complement this.",
+  "files": 88,
+  "findings": {
+    "network": [],
+    "execution": [],
+    "secrets": []
+  },
+  "indexHtmlSha256": "9eec7ab03dfc8c12707183d338c5909d5656291101c156529ba8463fcf7d1a91"
+}

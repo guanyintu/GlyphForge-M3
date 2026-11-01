@@ -1,0 +1,46 @@
+
+ RUN  v3.2.7 C:/Users/someb/AppData/Local/Temp/glyphforge-m2-head-check-dPVHdT
+
+ ❯ src/tests/p1-final.test.ts (11 tests | 1 failed | 10 skipped) 41ms
+   × rejects a conflicting relation edit atomically, preserving both original rows and version 40ms
+     → promise resolved "undefined" instead of rejecting
+   ↓ copies valid game rule nodes across workflows using the execution parameter contract
+   ↓ rejects invalid Chinese node parameters at the clipboard boundary
+   ↓ resource → AABB/filter → favorite → new library → reference preserves genuine provenance
+   ↓ portable package restores ordinary and relationship resources into a genuinely empty database
+   ↓ corrupted packages fail before writes, including missing operator and mismatched snapshot versions
+   ↓ seeded generated graphs and nested scoped programs survive script/JSON roundtrips (100 cases)
+   ↓ laboratory and workflow share decompose execution including saved output references
+   ↓ laboratory and workflow share pinyin execution including saved output references
+   ↓ laboratory and workflow share hanconvert execution including saved output references
+   ↓ laboratory and workflow share mapchars execution including saved output references
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 skipped (11)
+   Start at  09:48:11
+   Duration  1.84s (transform 384ms, setup 0ms, collect 930ms, tests 41ms, environment 0ms, prepare 286ms)
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/p1-final.test.ts > rejects a conflicting relation edit atomically, preserving both original rows and version
+AssertionError: promise resolved "undefined" instead of rejecting
+
+- Expected: 
+Error {
+  "message": "rejected promise",
+}
+
++ Received: 
+undefined
+
+ ❯ src/tests/p1-final.test.ts:27:64
+     25|   await saveRelationRows("r", [{ left: "月", right: "星", relation: "cou…
+     26|   const before = await db.relations.toArray(), resource = await db.res…
+     27|   await expect(saveRelationRows("r", [before[1]], before[0].id)).rejec…
+       |                                                                ^
+     28|   expect(await db.relations.toArray()).toEqual(before);
+     29|   expect(await db.resources.get("r")).toEqual(resource);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+

@@ -1,0 +1,20 @@
+{
+  "mode": "red",
+  "node": "v24.22.1",
+  "platform": "win32/x64",
+  "exits": [
+    {
+      "name": "browser",
+      "args": [
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "e2e/m2.spec.ts",
+        "--output=docs/m2/red-1793497041019/traces"
+      ],
+      "exit": 1,
+      "ms": 37146
+    }
+  ],
+  "restored": [],
+  "created": []
+}

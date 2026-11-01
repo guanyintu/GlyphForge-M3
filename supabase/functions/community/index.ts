@@ -3,7 +3,10 @@ import { validateCommunityPayload, metadata } from "./validator.js";
 
 // Only this server module reads service credentials. Never bundled into the frontend.
 const url = Deno.env.get("SUPABASE_URL")!;
-const publicKey = Deno.env.get("COMMUNITY_PUBLISHABLE_KEY")!;
+const publicKey =
+  Deno.env.get("COMMUNITY_PUBLISHABLE_KEY") ||
+  JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") || "{}").default ||
+  Deno.env.get("SUPABASE_ANON_KEY")!;
 const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const origins = (
   Deno.env.get("COMMUNITY_ALLOWED_ORIGINS") ||

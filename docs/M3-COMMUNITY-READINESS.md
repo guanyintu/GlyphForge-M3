@@ -1,5 +1,15 @@
 # GlyphForge M3 社区方案就绪表
 
+## 2026-11-01：Edge Function 专用测试项目部署（最新）
+
+- 仅使用已获准的新建非生产项目 `glyphforge-m3-test`；`community` Edge Function **v1 ACTIVE**，配置 `verify_jwt=true`，没有部署 GitHub Pages，也没有修改其他 Supabase 项目。
+- 从本独立 worktree 的 `supabase/functions/community/index.ts` 与生成的 `validator.js` 部署。由于新项目默认提供 `SUPABASE_PUBLISHABLE_KEYS`（JSON 名称 `default`），Edge 入口优先使用已有 `COMMUNITY_PUBLISHABLE_KEY`，否则读取官方内建 publishable key；保留 legacy anon 兼容。特权凭证仍仅来自 Edge 内建 `SUPABASE_SERVICE_ROLE_KEY`，未获取、硬编码、输出或上传密钥到 Git。
+- Deno 2.9.6 对入口的 `check` exit 0，handler fixture 测试 **1/1** 通过（改为模拟云端内建 publishable key）；此项不计真实 Auth 验收。
+- **真实 HTTP 有界负向探测（云端）**：无 Authorization 的 Edge POST 为 401；伪造 JWT 为 401；本地允许 Origin 的 OPTIONS 为 204，非法 Origin 为 403；匿名公开 profiles 为 200；匿名读取私有 usage_events、直接调用写 RPC 和直接 INSERT 方案均为 401。所有探测仅测试状态码且未写入业务数据。函数部署检查：ACTIVE / v1 / verify_jwt=true。
+- **尚未完成**：有效 Supabase Auth 用户 JWT 抵达 handler 的运行时确认、两真实用户的发布/点赞/统计/举报、两个独立数据库会话的业务写入并发、GitHub OAuth/PKCE、平台读/认证/Edge 频控与费用监控；不得将匿名 401、REST ACL 或 fixture 测试冒充真实登录端到端通过。未公开发布，M3 继续 CONDITIONAL GO / 公网 NO-GO。
+- 后续接入前必须在本**专用测试项目**建立有确认权限的合成测试账号，并在受控环境内获取真实 Auth JWT；不得读取/复用用户邮箱或其它项目账号，也不能把 service_role 或私钥当浏览器用户。没有账号会话时停止，不伪造 JWT 或打开匿名注册绕过。
+
+
 ## 2026-11-01：专用 Supabase 云端数据库初验（最新）
 
 - 仅针对新建、独立、非生产的 `glyphforge-m3-test`（新加坡；PostgreSQL 17.11）。未触碰原有 Supabase 项目，没有 GitHub remote/push、页面部署、OAuth 或 Edge Function 部署。

@@ -22,7 +22,8 @@ const backend = Deno.serve(
   },
 );
 Deno.env.set("SUPABASE_URL", `http://127.0.0.1:${backend.addr.port}`);
-Deno.env.set("COMMUNITY_PUBLISHABLE_KEY", "sb_publishable_fixture");
+Deno.env.delete("COMMUNITY_PUBLISHABLE_KEY");
+Deno.env.set("SUPABASE_PUBLISHABLE_KEYS", JSON.stringify({ default: "sb_publishable_fixture" }));
 Deno.env.set("SUPABASE_SERVICE_ROLE_KEY", "fixture-server-key");
 const { handler } = await import("./index.ts");
 const request = (body: unknown, headers: Record<string, string> = {}) =>

@@ -51,6 +51,8 @@ select throws_ok($$select public.community_write('55555555-5555-4555-8555-555555
 select throws_ok($$select public.community_write('22222222-2222-4222-8222-222222222222','edit','{"workflow_id":"33333333-3333-4333-8333-333333333333","title":"stolen","description":"","tags":[]}')$$,'P0001','Author required','endpoint rechecks actor');
 select lives_ok($$select public.community_write('11111111-1111-4111-8111-111111111111','status','{"workflow_id":"33333333-3333-4333-8333-333333333333","status":"unlisted"}')$$,'author can unlist via endpoint');
 set local role anon;
+-- Restore an anonymous request: role switching alone leaves the author JWT claim.
+select set_config('request.jwt.claim.sub','',true);
 select is((select count(*)::integer from public.workflow_versions),0,'unlisting closes download to anon');
 reset role;
 select * from finish();

@@ -66,10 +66,10 @@ select json_build_object(
  'communityEmpty',not (exists(select 1 from public.profiles) or exists(select 1 from public.community_workflows)
    or exists(select 1 from public.workflow_versions) or exists(select 1 from public.workflow_likes)
    or exists(select 1 from public.usage_events) or exists(select 1 from public.reports)),
- 'pgtap',exists(select 1 from pg_extension where extname='pgtap'),
+ 'pgtap',exists(select 1 from pg_available_extensions where name='pgtap'),
  'rls',(select count(*) from pg_class c join pg_namespace n on n.oid=c.relnamespace
    where n.nspname='public' and c.relname in ('profiles','community_workflows','workflow_versions','workflow_likes','usage_events','reports') and c.relrowsecurity),
- 'migrations',(select count(*) from supabase_migrations.schema_migrations where version in ('20261101091101','20261101114038'))
+ 'migrations',(select count(*) from supabase_migrations.schema_migrations where version in ('20261101091101','20261101114038') or name in ('community_platform','community_storage_budget'))
 ); rollback;`;
 
 function psql(t, password, sql, readOnly) {

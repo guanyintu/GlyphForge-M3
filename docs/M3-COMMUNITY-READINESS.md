@@ -1,5 +1,15 @@
 # GlyphForge M3 社区方案就绪表
 
+## 2026-11-01：专用 Supabase 云端数据库初验（最新）
+
+- 仅针对新建、独立、非生产的 `glyphforge-m3-test`（新加坡；PostgreSQL 17.11）。未触碰原有 Supabase 项目，没有 GitHub remote/push、页面部署、OAuth 或 Edge Function 部署。
+- 从本 worktree 原有两份 SQL 原样执行并成功：`20261101091101_community_platform.sql`、`20261101114038_community_storage_budget.sql`。连接器记录的实际迁移版本分别为 `20261101150127` 与 `20261101150140`，迁移名为 `community_platform` 与 `community_storage_budget`；版本号与仓库文件名前缀不同，不能假称一致。
+- 云端 10 张社区表全部启用 RLS。公开 6 表的匿名与 authenticated 直接 INSERT/UPDATE/DELETE GRANT 均拒绝；`community_write` 只授予 service_role。Supabase Security Advisors 有 5 条 INFO（私有预算/审核表和原始事件表无读策略、按设计默认拒绝），并无已报告的高危提醒；空库 10 条 unused index INFO 暂不作为优化结论。
+- **真实托管 PostgreSQL + pgTAP 30/30 通过，失败 0**。首次 29/30，第 30 项将角色切回 anon 后没有清除同事务遗留的作者 JWT sub，因而错误看到作者可见行；补空 JWT claim 后在同一云端库重跑 30/30。仅修复测试身份隔离，未放宽 RLS/写 GRANT 或修改业务 SQL。全部虚拟 Auth 用户、方案和事件均在测试事务结束回滚，复核六张公开业务表及三个虚拟 Auth ID 均为 0，pgTAP 扩展未永久安装。
+- 为支持连接器生成的迁移版本并避免 pgTAP 永久安装需求，`scripts/community-acceptance.mjs` 只读预检改为接受既有文件版本或两个明确的迁移名称，并检查 `pg_available_extensions`；云端预检对应查询显示迁移 2、RLS 6、pgTAP available。原有入口保护测试 **38/38** 通过（无真实 psql 连接）。
+- **仍为 M3 本地 CONDITIONAL GO，公开发布 NO-GO。** 此次验证为托管 PostgreSQL 的数据库内角色/claim 模拟，不是经 Auth 颁发 JWT 的端到端 HTTP/RLS 验证。真实账号注册与登录、Edge 身份验证、GitHub PKCE、两个独立连接的业务写入并发、平台级匿名读取/Auth/Edge 频控、数据保留/账户删除、生产资源与费用监测仍需单独验收。安全扫描和 CI 必须在任何 GitHub 推送之前重跑。现有项目只用于隔离测试，不可直接公开前端。
+
+
 ## 原生 PostgreSQL 增量复核（2026-11-01 21:40，Asia/Shanghai）
 
 基线 `codex/m3-community @ df6e753`；已核对本目录 `.git` worktree 指针、分支/HEAD/status，无适用 AGENTS.md。未操作原 M2 工作目录。以下为上次实测记录；本次仅复核原始证据与停止状态，未重新编译、启动或运行社区业务测试。**普通 PostgreSQL 的锁等待与迁移失败原子回滚已实测；Supabase 前置条件缺失不构成产品 SQL 错误，也不构成社区验收通过。M3 本地 CONDITIONAL GO，公开发布 NO-GO，M2 本地 RC GO 不变。**

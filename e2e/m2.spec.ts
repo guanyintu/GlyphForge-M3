@@ -33,7 +33,7 @@ test('M2: conflicting relation edits preserve native IndexedDB rows and metadata
   await dialog.locator('.relation-row').filter({ hasText: '朝' }).getByRole('button', { name: '修改', exact: true }).click();
   await dialog.getByLabel('左词 A').fill(' 山 '); await dialog.getByLabel('右词 B').fill('海');
   await dialog.getByRole('button', { name: '保存修改', exact: true }).click();
-  await expect(dialog.getByText('相同关系已存在，原关系未修改', { exact: true })).toBeVisible();
+  await expect(page.getByText('相同关系已存在，原关系未修改', { exact: true })).toBeVisible();
   expect(await snapshot()).toEqual(before);
   await page.reload();
   expect(await snapshot()).toEqual(before);

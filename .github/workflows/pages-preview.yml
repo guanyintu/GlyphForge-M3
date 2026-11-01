@@ -25,7 +25,7 @@ jobs:
         run: node scripts/secret-scan.mjs
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint && pnpm typecheck && pnpm test
-      - run: pnpm community:db-test && node scripts/test-community-build.mjs && node scripts/test-secret-scan.mjs
+      - run: pnpm community:db-test && pnpm community:acceptance-test && node scripts/test-community-build.mjs && node scripts/test-secret-scan.mjs
       - run: pnpm community:validator && git diff --exit-code supabase/functions/community/validator.js
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm build && pnpm exec playwright test

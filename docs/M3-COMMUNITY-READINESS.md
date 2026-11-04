@@ -1,5 +1,14 @@
 # GlyphForge M3 社区方案就绪表
 
+## 2026-11-04：M3-A 真实 Auth 验收准备（最新）
+
+- 目标项目经 Supabase 连接器复核为 `glyphforge-m3-test`（`rsntccggnvmuazvpxstf`）：ACTIVE_HEALTHY，原两条迁移存在，`community` Edge ACTIVE v1、`verify_jwt=true`；**Auth 用户 0、已确认邮箱用户 0**。目前不得宣布双用户真实云端业务通过。
+- 新增 `scripts/community-auth-smoke.mjs`（`pnpm community:auth-smoke --plan` / `--accounts --confirm-target rsntccggnvmuazvpxstf`），只允许在显式确认为本专用非生产 ref 时运行；使用临时进程环境的 `GLYPHFORGE_M3_PUBLISHABLE_KEY`、`GLYPHFORGE_M3_A_EMAIL`、`GLYPHFORGE_M3_A_PASSWORD`、B 的同名字段。未提供任一项即 **BLOCKED / 0 请求**；不探测其他项目、不发现持久凭证、不写文件、不输出邮箱、密码或 JWT。单次最多 **18** 请求，每次 15 秒超时，无自动重试。
+- 有真实合成测试账号时，脚本核对匿名公开列表与私有表拒绝、无/假 JWT 的 Edge 401、A/B 各自真实密码登录、`auth/v1/user` 签名会话、不同用户 ID、带用户 JWT 的公开查询与私有表拒绝、Edge GET 应返回 405（网关接受有效 JWT，handler 在认证前拒绝 GET，不扣写预算）。**这是只读 JWT/网关身份检查，不是业务写入、管理员、OAuth 或两连接竞争验收。**
+- 新增 `scripts/test-community-auth-smoke.mjs`：**5/5** 本地保护和模拟 HTTP 测试通过，确认缺凭证阻断、错误目标拒绝、请求次数、模拟双用户身份及不回显敏感值；**真实 HTTP Auth 0 次，当前结论 BLOCKED**。此前 38/38 验收入口保护与 42/42 PGlite SQL 本轮重新通过，TypeScript 检查通过；全量 Vitest 在 WSL 使用 Windows `node_modules` 时因缺 Linux Rollup 可选二进制而未能运行，不能记为断言失败或成功，未重装依赖。
+- 继续前，在**专用测试项目**后台通过官方 Auth 管理功能准备两个独立已确认的合成用户，凭证仅在本机临时运行环境输入，不向聊天或 Git 发送。运行只读真实验收后，再单独执行有界业务写入/并发验收。因为 Supabase 组织曾触发流量宽限警告，不运行循环重试、负载测试或公网限流探测；M3 社区公开发布继续 **NO-GO**，不得推送 GitHub 或修改非专用项目。
+
+
 ## 2026-11-01：Edge Function 专用测试项目部署（最新）
 
 - 仅使用已获准的新建非生产项目 `glyphforge-m3-test`；`community` Edge Function **v1 ACTIVE**，配置 `verify_jwt=true`，没有部署 GitHub Pages，也没有修改其他 Supabase 项目。

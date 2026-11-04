@@ -1,5 +1,14 @@
 # GlyphForge M3 社区方案就绪表
 
+## 2026-11-04：M3-A 本机隐藏输入与账号确认待办（最新）
+
+- 只读确认独立项目 `rsntccggnvmuazvpxstf` 有 **2 个 Auth 用户、0 个已确认邮箱**；两个均为非匿名的 `email` 登录用户，且未发送邮件确认请求。不能在现有设置下完成真实密码登录，保持 **BLOCKED / 公开 NO-GO**。不向 `auth.users` 写 SQL、不放宽全局验证，不读取邮箱或密码。
+- 在电脑的默认浏览器中打开本项目 `Authentication → Users` 页面，需通过 Supabase 官方管理员界面分别确认这两个合成测试账号；无邮箱确认管理入口时仅针对测试账号考虑用 **Auto Confirm User** 重建，不能把虚拟邮箱当成真实已验证邮箱。
+- 新增 `scripts/run-community-auth-smoke.sh` 和 Windows 双击入口 `scripts/Run-M3-Auth-Check.cmd`。启动器只在本地交互式 TTY 提示输入两个邮箱与**隐藏**密码，进程环境仅临时保留，结束后取消环境变量；密码、JWT、邮箱不进入聊天、脚本、命令参数、Git、日志。公用 publishable key 从 Supabase 管理连接获取后只保存在设备自身 `~/.cache/glyphforge-m3-auth-smoke/publishable_key`，文件权限 0600（非私钥）；汇总只把脱敏 PASS/FAIL、HTTP 状态、请求计数写到同目录 `latest-result.json`，不储存 JWT。
+- 本地 `bash -n`、Windows CMD CRLF 验证、非 TTY 强制 BLOCKED（exit 2，未发出 HTTP 请求）均通过；没有实际运行真实登录、发布、点赞或任何测试写入。用户确认两个账号后通过双击脚本执行最长 18 请求的只读 Auth/Edge 网关验收，再继续真实业务写入阶段。
+- 本次仍不 push、不公开部署，不修改其他项目、原 M2 或旧未跟踪资料。
+
+
 ## 2026-11-04：M3-A 真实 Auth 验收准备（最新）
 
 - 目标项目经 Supabase 连接器复核为 `glyphforge-m3-test`（`rsntccggnvmuazvpxstf`）：ACTIVE_HEALTHY，原两条迁移存在，`community` Edge ACTIVE v1、`verify_jwt=true`；**Auth 用户 0、已确认邮箱用户 0**。目前不得宣布双用户真实云端业务通过。

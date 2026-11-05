@@ -1,5 +1,13 @@
 # GlyphForge M3 社区方案就绪表
 
+## 2026-11-05：M3-A Auth Smoke HTTP 400 修复
+
+- 现场读取本机脱敏结果：首次运行通过 `anon_list`（200）后，`anon_private_events` 因 HTTP 400 停止，只有 **2 次请求、0 次写入**，尚未开始 A/B 账号登录。
+- 原因：只读探针误写 `usage_events?select=id`，而 Supabase `public.usage_events` 的真实列为 `event_key`（无 `id`）；数据库仍启用 RLS，匿名和普通 authenticated 角色均无该表 SELECT 授权，不是 RLS 绕过。
+- 更正两处只读探针为 `?select=event_key&limit=1`，模拟网关 fixture 增加字段检查，防止错误列名被无条件 401 的假响应掩盖。**真实云端额外仅发出 2 次 GET**：私有表返回预期 401，公开列表返回 200；未进行任何 POST / 数据修改。新脚本本地检查 **5/5** 通过，原入口检查 **38/38** 通过。
+- 最新 Auth 只读计数：**2 个用户、2 个已确认邮箱**，现在可用本机 `scripts/Run-M3-Auth-Check.cmd` 重试受限的真实登录验收；密码由用户在本机隐藏输入，助手不读取、不保存、不输出。真实账号 JWT / Edge 405 及后续写入/并发仍 **NOT RUN**；M3 公开发布继续 **NO-GO**。
+
+
 ## 2026-11-04：M3-A 本机隐藏输入与账号确认待办（最新）
 
 - 只读确认独立项目 `rsntccggnvmuazvpxstf` 有 **2 个 Auth 用户、0 个已确认邮箱**；两个均为非匿名的 `email` 登录用户，且未发送邮件确认请求。不能在现有设置下完成真实密码登录，保持 **BLOCKED / 公开 NO-GO**。不向 `auth.users` 写 SQL、不放宽全局验证，不读取邮箱或密码。

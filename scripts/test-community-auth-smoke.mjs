@@ -50,7 +50,8 @@ const preload = `
     } else if (u.pathname === '/rest/v1/community_workflows') {
       status = 200; result = [];
     } else if (u.pathname === '/rest/v1/usage_events') {
-      status = 401;
+      // Keep the fixture faithful to the real schema: usage_events has event_key, not id.
+      status = u.searchParams.get('select') === 'event_key' ? 401 : 400;
     } else if (u.pathname === '/functions/v1/community') {
       status = opts.method === 'POST' ? 401 : bearer.startsWith('Bearer fixture-') ? 405 : 401;
     } else throw Error('unexpected path ' + u.pathname);

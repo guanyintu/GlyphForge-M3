@@ -61,7 +61,7 @@ try {
   const anon = await call('anon_list', '/rest/v1/community_workflows?select=id&limit=1');
   expect('anon_list', anon, [200]);
 
-  const privateData = await call('anon_private_events', '/rest/v1/usage_events?select=id&limit=1');
+  const privateData = await call('anon_private_events', '/rest/v1/usage_events?select=event_key&limit=1');
   expect('anon_private_events', privateData, [401, 403]);
 
   const noToken = await call('edge_without_jwt', '/functions/v1/community', {method: 'POST', body: {action: 'like'}});
@@ -93,7 +93,7 @@ try {
     const list = await call('user_list_' + label, '/rest/v1/community_workflows?select=id&limit=1', {bearer: token});
     expect('user_list_' + label, list, [200]);
 
-    const denied = await call('user_private_events_' + label, '/rest/v1/usage_events?select=id&limit=1', {bearer: token});
+    const denied = await call('user_private_events_' + label, '/rest/v1/usage_events?select=event_key&limit=1', {bearer: token});
     expect('user_private_events_' + label, denied, [401, 403]);
 
     // GET reaches the handler (405), proving the gateway accepted a real Auth JWT.

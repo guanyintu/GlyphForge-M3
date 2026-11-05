@@ -1,0 +1,22 @@
+import 'fake-indexeddb/auto';
+import {afterEach,beforeEach,expect,it,vi} from 'vitest';
+import {demo} from '../community/demo';
+import {createWorkflow} from '../core/model';
+import {exportPackage} from '../core/sharing';
+import {db,initialize} from '../storage/db';
+beforeEach(async()=>{const values=new Map();vi.stubGlobal('localStorage',{getItem:(k:string)=>values.get(k)??null,setItem:(k:string,v:string)=>values.set(k,v)});vi.stubGlobal('navigator',{});await db.delete();await db.open();await initialize();});
+afterEach(()=>vi.unstubAllGlobals());
+it('demo enforces adoption per version and hides deleted snapshots even from their author',async()=>{
+  await demo.login('password','author');
+  const payload=await exportPackage(createWorkflow());
+  const w=await demo.write('publish',{title:'fixture',description:'',tags:[],payload}) as {id:string};
+  const event=(kind:string,version=1)=>demo.write('event',{workflow_id:w.id,version,kind,id:crypto.randomUUID()});
+  await expect(event('run')).rejects.toThrow('采纳');
+  await event('adoption');await event('run');
+  await demo.write('publish',{workflow_id:w.id,expected_version:1,title:'v2',description:'',tags:[],payload});
+  await expect(event('run',2)).rejects.toThrow('采纳');
+  await demo.write('status',{workflow_id:w.id,status:'deleted'});
+  await expect(demo.version(w.id,1)).rejects.toThrow('下架');
+  await expect(demo.versions(w.id)).rejects.toThrow('下架');
+  await expect(demo.write('edit',{workflow_id:w.id,title:'revive',description:'',tags:[]})).rejects.toThrow('下架');
+});

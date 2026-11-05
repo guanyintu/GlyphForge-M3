@@ -1,0 +1,60 @@
+{
+  "vitest": {
+    "files": 25,
+    "passed": 415
+  },
+  "typescript": "PASS",
+  "fullE2E": {
+    "startTime": "2026-11-05T18:39:16.920Z",
+    "duration": 296983.22400000005,
+    "expected": 68,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "uiMock": {
+    "desktop": 1280,
+    "mobile": 375,
+    "passed": 2,
+    "pageErrors": 0,
+    "horizontalOverflow": false,
+    "stats": {
+      "startTime": "2026-11-05T18:41:37.840Z",
+      "duration": 25860.027,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "subpath": {
+    "passed": 1
+  },
+  "businessFixture": {
+    "passed": 11
+  },
+  "authFixture": {
+    "passed": 8
+  },
+  "acceptanceGuard": {
+    "passed": 38
+  },
+  "pglite": {
+    "passed": 42,
+    "independentConnections": false
+  },
+  "powerShellParseErrors": 0,
+  "bashSyntax": "PASS",
+  "gitleaks": {
+    "version": "8.30.1",
+    "unresolved": 0,
+    "reviewedHistoricalFalsePositives": 2
+  },
+  "concurrency": "BLOCKED_PENDING_WORKSPACE_EXCEPTION_APPROVAL",
+  "finalProductionCommunity": {
+    "passed": 3,
+    "unexpected": 0,
+    "afterDemoAlignment": true
+  },
+  "build": "PASS; existing chunk-size and mixed import warnings"
+}

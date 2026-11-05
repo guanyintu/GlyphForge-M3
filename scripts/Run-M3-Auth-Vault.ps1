@@ -1,6 +1,8 @@
 param(
   [ValidateSet('Run','Save','Forget','Status','SelfTest')]
-  [string]$Action = 'Run'
+  [string]$Action = 'Run',
+  [ValidateSet('Auth','Business','UI')]
+  [string]$Check = 'Auth'
 )
 # Windows-only, current-user DPAPI; synthetic test accounts only.
 # Secrets stay out of project files, command-line arguments, chat, and logs.
@@ -46,7 +48,10 @@ function Test-Vault {
 }
 
 function Run-CloudSmoke {
-  if (-not (Test-Vault)) { Save-Vault }
+  if (-not (Test-Vault)) {
+    if ($Check -ne 'Auth') { throw 'Existing test vault required.' }
+    Save-Vault
+  }
   $a = Import-Clixml -LiteralPath $AuthorFile
   $b = Import-Clixml -LiteralPath $ReaderFile
   if ($a -isnot [System.Management.Automation.PSCredential] -or
@@ -62,7 +67,13 @@ function Run-CloudSmoke {
   } | ConvertTo-Json -Compress -Depth 4
   $psi = New-Object System.Diagnostics.ProcessStartInfo
   $psi.FileName = Join-Path $env:WINDIR 'System32\wsl.exe'
-  $psi.Arguments = '--cd "' + $ProjectRoot + '" --exec /bin/bash scripts/run-community-auth-piped.sh'
+  $runner = if ($Check -eq 'Business') { 'scripts/run-community-business-piped.sh' } else { 'scripts/run-community-auth-piped.sh' }
+  $psi.Arguments = '--cd "' + $ProjectRoot + '" --exec /bin/bash ' + $runner
+  if ($Check -eq 'UI') {
+    $psi.FileName = (Get-Command node.exe).Source
+    $psi.Arguments = '"' + (Join-Path $PSScriptRoot 'community-ui-live.mjs') + '"'
+    $psi.WorkingDirectory = $ProjectRoot
+  }
   $psi.UseShellExecute = $false
   $psi.RedirectStandardInput = $true
   # Windows PowerShell 5.1/.NET Framework has no ProcessStartInfo.StandardInputEncoding.
@@ -85,7 +96,7 @@ function Run-CloudSmoke {
     $a = $null
     $b = $null
     $proc.WaitForExit()
-    Write-Host ('M3-A read-only Auth smoke finished (exit ' + $proc.ExitCode + ').')
+    Write-Host ('M3-A ' + $Check + ' check finished (exit ' + $proc.ExitCode + ').')
     return $proc.ExitCode
   } finally {
     $payload = $null

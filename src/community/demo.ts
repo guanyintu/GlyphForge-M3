@@ -58,7 +58,9 @@ export const demo: CommunityAPI = {
       .slice(page * 12, page * 12 + 12);
   },
   async versions(id) {
-    return read()
+    const s = read();
+    if (!s.listings.some(w => w.id === id && (w.status === "published" || (w.status === "unlisted" && w.author_id === s.user?.id)))) throw new Error("方案已下架");
+    return s
       .versions.filter((v) => v.workflow_id === id)
       .reverse();
   },
@@ -68,7 +70,7 @@ export const demo: CommunityAPI = {
       !s.listings.some(
         (w) =>
           w.id === id &&
-          (w.status === "published" || w.author_id === s.user?.id),
+          (w.status === "published" || (w.status === "unlisted" && w.author_id === s.user?.id)),
       )
     )
       throw new Error("方案已下架");
@@ -88,6 +90,7 @@ export const demo: CommunityAPI = {
         user = s.user;
       if (!user) throw new Error("请先登录");
       let w = s.listings.find((w) => w.id === body.workflow_id);
+      if (w?.status === "deleted") throw new Error("方案已下架");
       if (action === "publish") {
         const m = metadata(
           String(body.title),
@@ -160,7 +163,8 @@ export const demo: CommunityAPI = {
           )
         )
           throw new Error("版本已下架");
-        const k = `${user.id}:${w.id}:${body.kind}:${new Date().toISOString().slice(0, 13)}`,
+        if (body.kind === "run" && !s.events.some(k => k.startsWith(`${user.id}:${w!.id}:${body.version}:adoption:`))) throw new Error("请先采纳此版本");
+        const k = `${user.id}:${w.id}:${body.version}:${body.kind}:${new Date().toISOString().slice(0, 13)}`,
           idem = `${user.id}:${body.id}`;
         if (!s.events.includes(k) && !s.events.includes(idem)) {
           s.events.push(k, idem);

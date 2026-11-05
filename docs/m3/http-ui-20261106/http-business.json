@@ -1,0 +1,289 @@
+{
+  "target": "rsntccggnvmuazvpxstf",
+  "requests": 33,
+  "edgeAttempts": 18,
+  "acceptedBusinessWrites": 15,
+  "workflowId": "e34e98cc-78d1-4be2-9d06-65e0f19f26c0",
+  "marker": "M3-HTTP-c19113de-d414-499f-98c6-cecbba3968f6",
+  "checks": [
+    {
+      "step": "login_A",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "session_token",
+      "status": "PASS"
+    },
+    {
+      "step": "get_user_A",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "verified_distinct_identity",
+      "status": "PASS"
+    },
+    {
+      "step": "login_B",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "session_token",
+      "status": "PASS"
+    },
+    {
+      "step": "get_user_B",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "verified_distinct_identity",
+      "status": "PASS"
+    },
+    {
+      "step": "publish_v1",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "publish_identity",
+      "status": "PASS"
+    },
+    {
+      "step": "v1_fields",
+      "status": "PASS"
+    },
+    {
+      "step": "B_public_listing",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "public_fields",
+      "status": "PASS"
+    },
+    {
+      "step": "B_v1_payload",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "v1_content_hash",
+      "status": "PASS"
+    },
+    {
+      "step": "B_cannot_edit_A",
+      "status": "PASS",
+      "http": 400
+    },
+    {
+      "step": "ownership_rejection",
+      "status": "PASS"
+    },
+    {
+      "step": "unchanged_after_denial",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "rejected_edit_no_mutation",
+      "status": "PASS"
+    },
+    {
+      "step": "like",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "like_count",
+      "status": "PASS"
+    },
+    {
+      "step": "duplicate_like",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "duplicate_like_count",
+      "status": "PASS"
+    },
+    {
+      "step": "unlike",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "unlike_count",
+      "status": "PASS"
+    },
+    {
+      "step": "B_likes_rows",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "unlike_row_removed",
+      "status": "PASS"
+    },
+    {
+      "step": "synthetic_report",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "B_own_report",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "report_fields",
+      "status": "PASS"
+    },
+    {
+      "step": "A_report_RLS",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "A_cannot_read_B_report",
+      "status": "PASS"
+    },
+    {
+      "step": "run_requires_adoption",
+      "status": "PASS",
+      "http": 400
+    },
+    {
+      "step": "adoption_rejection",
+      "status": "PASS"
+    },
+    {
+      "step": "view",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "view_duplicate",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "adoption",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "adoption_duplicate",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "run",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "run_duplicate",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "B_statistics",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "exact_statistics",
+      "status": "PASS"
+    },
+    {
+      "step": "A_edit_metadata",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "edit_metadata_fields",
+      "status": "PASS"
+    },
+    {
+      "step": "A_publish_v2",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "publish_v2_fields",
+      "status": "PASS"
+    },
+    {
+      "step": "stale_expected_version",
+      "status": "PASS",
+      "http": 400
+    },
+    {
+      "step": "version_conflict_rejection",
+      "status": "PASS"
+    },
+    {
+      "step": "immutable_versions",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "exact_v1_v2_hashes",
+      "status": "PASS"
+    },
+    {
+      "step": "A_unlist",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "unlisted_status",
+      "status": "PASS"
+    },
+    {
+      "step": "B_unlisted_RLS",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "B_unlisted_invisible",
+      "status": "PASS"
+    },
+    {
+      "step": "A_unlisted_RLS",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "A_unlisted_visible",
+      "status": "PASS"
+    },
+    {
+      "step": "cleanup_soft_delete",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "deleted_status",
+      "status": "PASS"
+    },
+    {
+      "step": "B_deleted_RLS",
+      "status": "PASS",
+      "http": 200
+    },
+    {
+      "step": "B_deleted_invisible",
+      "status": "PASS"
+    }
+  ],
+  "cleanup": "SOFT_DELETED",
+  "retained": "Soft-delete retains workflow, versions, report, events, profile and budget rows; backend audit required.",
+  "maxRequests": 40,
+  "status": "PASS_HTTP_BUSINESS",
+  "at": null,
+  "http": null
+}

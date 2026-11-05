@@ -1,5 +1,24 @@
 # GlyphForge M3 社区方案就绪表
 
+## 2026-11-06：M3-A 真实 HTTP 通过、M3-UI 通过；M3-B 等待边界审批（最新）
+
+- 基线确认：`codex/m3-community @ 3258257`，无 remote。仅修改本 M3 工作区；不操作原 M2，不编辑或提交 `docs/m2/full-1793533425390/`。无公网部署、push、账号创建、Auth 全局策略或 RLS/JWT 放宽。
+- **M3-A Auth PASS**：沿用已确认的真实 14/14 Auth smoke；本次业务脚本再次实际验证 A/B 密码登录、签名会话 getUser 与不同用户。测试凭证仅由当前用户 DPAPI 解密，经一次性本机匿名 stdin 管道进入测试进程，未进入 argv、环境、报告、聊天或 Git。保留独立 Auth smoke，不改为混合脚本。
+- **M3-A HTTP Business PASS**：指定项目 `glyphforge-m3-test / rsntccggnvmuazvpxstf` 的云端 community v1 ACTIVE、`verify_jwt=true`。入口与 validator 按 LF 归一化 SHA-256 与本地完全一致，无需部署。真实 JWT → Edge POST → RPC → PostgreSQL 流程 **33/40 HTTP 请求**、18 次 Edge POST（15 次成功，3 次预期业务拒绝 400；无 5xx）。只创建 1 个 640-byte 合成工作流，v1/v2 各自经真实 validator 验证；公开字段、内容哈希、B 不能编辑 A、点赞/重复点赞/取消、举报 RLS、未采纳 run 拒绝、view/adoption/run 重复幂等、元数据编辑、v2/旧版本冲突、unlisted 作者可见/B 不可见、deleted/B 不可见均通过。完整脱敏逐项证据见 [http-business.json](m3/http-ui-20261106/http-business.json)。
+- **清理与费用实测**：finally 仅 soft-delete 本次新建 UUID `e34e98cc-78d1-4be2-9d06-65e0f19f26c0`；后台只读复核 status=deleted、version=2，likes=0，views/adoptions/runs 各 1。仍留存 **1 workflow、2 versions、1 synthetic report、3 events、0 like rows、1 profile**，未物理删除。payload_bytes=1280，payload_day_bytes=1280。UTC 预算日 2026-11-05 从 0 增至 **33 writes / 2 publications**；A 11、B 22。Edge reserve 是独立事务：18 次 reserve 均扣额度，15 次成功业务再扣一次；3 次业务拒绝各扣一次 reserve，未留下非法业务副作用。这是保守的请求成本设计，本次没有为通过测试降低限制。每日账号上限 240、全局 20,000，快照日上限 2 MiB/总量 16 MiB，均未触及；实际账单金额/平台读取流量上限未据此验证。见 [后台与 UI 审计](m3/http-ui-20261106/backend-and-ui-audit.json)。
+- **M3-B Concurrency BLOCKED**：M3-A 达标后执行独立 PostgreSQL 预检。复用已有 PG 15.19 运行时，在唯一授权的 Windows 工作区启动隔离数据目录时，WSL 挂载不能满足 PG 0700/0750 要求；initdb 失败，**业务并发断言 0**，无活跃测试实例。没有读取任何数据库密码或管理员私钥，没有用单连接/PGlite 队列冒充独立连接。已准备两独立 psql 及第三只读锁观察连接的有界脚本，计划 6 对竞争：同时点赞、点赞/取消、expected_version、事件幂等、预算失败回滚、跨账号隔离；**未运行通过**。管理 SQL 工具不被假定为可保持的两个独立事务。已请求批准临时 WSL 目录例外，在回复前不跨出项目边界。即使以后本地 fixture Auth 的 PG 并发通过，也必须明确区别于真实 Supabase 云端双会话。
+- **M3-UI 已实现 / 模拟通过 / 真实数据部分通过**：沿用 Community.tsx、community.css、既有 community 路由、client/local；未创建第二入口或改动 M2 工坊。新增列表加载、操作处理中、空筛选、错误重试、额度/权限/网络错误的安全文本；同步 ref 锁防重复提交；详情/发布入口焦点、异步禁用后焦点恢复及 Escape 返回；44px 触控目标、分页换行、可见焦点与 reduced-motion。保留完整发布快照/体积/隐私与哈希只读导入预览，新增软删除留存说明和状态成功提示。修正 demo 对 deleted 快照的读取及按版本采纳/run 约束，与真实 API 一致。
+- **UI 实测**：独立 Playwright mock 配置在 **1280×900、375×900** 均通过：匿名浏览、真实客户端登录状态协议模拟、搜索/标签/排序/空状态/分页、详情与下载预览、发布预览/冲突/双击去重、点赞/取消、非作者权限、举报、429/500 脱敏、网络失败恢复、编辑/unlisted/deleted，键盘焦点、无横向溢出、无未处理 pageerror。原有演示测试验证采纳→本机运行→计数、刷新持久化、离线工坊，既有收藏/导入路径由全套 e2e 覆盖。
+- **有界真实浏览器数据**：375px 本机 Vite 前端连接指定测试项目，匿名空列表→真实 B 登录→deleted 方案不可见→登出 **PASS**，6 次可控 API 请求、0 次业务写入。浏览器管理的 CORS 预检未单独计数；不将 6 次声称为全部底层 HTTP 传输次数。未导出会话、HAR、trace、视频或真实账号截图，未在真实云端重复探索发布/点赞。发布全链路的真实证据来自独立 33 请求脚本，而不是浏览器模拟。桌面真实登录发布、OAuth/PKCE 仍 NOT_RUN。
+- **截图实际比较**：开工时实际查看 `test-results/community-desktop.png` 与 `community-mobile.png`，并与本次同场景截图比较。保留奶油白/绿色、侧栏、标题、卡片和网格风格；桌面按钮高度从原约 35px 增至 44px，筛选/卡片垂直位置略下移；手机原分页和“恢复本机隐藏”挤成多行窄字，现分页文本保持完整并自然换行，审核队列独占下一行。不同缓存状态的提示文案和 toast 时机不是美化成果。新增 375px mock 多卡片可正常滚动，1280px 为三列。没有宣称全站重设计、自动全量无障碍认证或像素级相等。归档截图及先前 docs/m3 截图在 [本轮证据目录](m3/http-ui-20261106/)；`prior-*` 是历史归档，不伪称与新 mock 数据同场景的像素基线。
+- **Security & Cost**：Gitleaks **8.30.1** 全 refs/提交消息/索引/工作区（含忽略与未跟踪证据）0 未处理命中；沿用两条已核对逐行 SHA 的历史误报，不增加豁免。云端安全 advisor 有 5 INFO（默认拒绝的私有表）及 1 WARN：泄露密码保护关闭；未擅改全局 Auth。[官方说明](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection)。平台级读/Auth/Edge 频控、账单、保留期/账号删除和 OAuth 仍未验证，**公开发布 NO-GO**。
+- **验证汇总**：业务保护/validator/PGlite HTTP fixture **11/11**（0 真实请求）；原 Auth fixture **8/8**、acceptance guard **38/38**、数据库 fixture **42/42**；Vitest **415/415**；`tsc --noEmit` 无错误，PowerShell AST 0 error、bash 语法通过。最终浏览器与安全结果见同目录 `verification.json`。第一次全套 e2e 的 5 个失败源于同时运行的 Playwright 清理同一输出目录（ENOENT），已隔离输出并重跑；如实保留此失败原因，不当作功能断言通过。
+- 状态：**M3-A Auth PASS / M3-A HTTP Business PASS / M3-B Concurrency BLOCKED / M3-C Security & Cost PASS（本次受限范围，平台发布控制未验）/ M3-D Release BLOCKED**。M3-UI mock PASS、真实浏览器只读关键链路 PASS，其余真实 UI 写入不额外冒称通过。等待 M3-B 目录例外审批；不 push、不公开发布，不标 GO。
+
+### 本轮复现入口
+
+`pnpm community:business-plan` 为零网络计划；`pnpm community:business-test` 为离线回归。Windows `scripts/Run-M3-Business-Check.cmd` 使用已有 DPAPI 凭证，**会创建新一轮合成数据并扣额度，不应自动反复运行**。真实 UI 用 `Run-M3-Auth-Vault.ps1 -Action Run -Check UI`，仅只读 UI 验收，不导出会话。`pnpm community:ui-test` 完全拦截模拟测试项目请求，不访问真实云端，独立输出避免证据碰撞。`node scripts/community-concurrency-local.mjs` 在当前 Windows 文件系统明确 BLOCKED；不能把此预检当作并发通过。
+
 ## 2026-11-06：真实 Auth 14/14 及云端 PostgreSQL 事务验收（最新）
 
 - 从本机脱敏结果 `~/.cache/glyphforge-m3-auth-smoke/latest-result.json` 确认 2026-11-06 01:02（Asia/Shanghai）的 14 次 HTTP **全部 PASS**：测试账号 A/B 分别密码登录、Auth `get_user` 200、公开读取 200、私有表 403、匿名无/假 JWT 401；使用合成测试账号且**实际业务写入 0**。两个 DPAPI 加密测试账号仍保存于项目外的 Windows 用户目录。注意 Edge `GET` 405 是 handler 在验证业务 JWT 之前返回的，因此它**不能证明**有效用户 JWT 可成功执行 Edge POST 写入。

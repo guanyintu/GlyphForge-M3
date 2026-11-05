@@ -1,0 +1,51 @@
+{
+  "reviewedFalsePositives": [
+    {
+      "file": "docs/m2/full-1793533425390/source.json",
+      "line": 175,
+      "rule": "generic-api-key",
+      "reason": "Reviewed SHA-256 source-file fingerprint, verified against the named scanner source; no credential content."
+    },
+    {
+      "file": "docs/m2/full-1793533425390/source.json",
+      "line": 184,
+      "rule": "generic-api-key",
+      "reason": "Reviewed SHA-256 source-file fingerprint, verified against the named scanner source; no credential content."
+    }
+  ],
+  "scanner": "gitleaks",
+  "version": "8.30.1",
+  "tracked": 1071,
+  "workspaceFiles": 1411,
+  "workspaceBytes": 116785742,
+  "excluded": [
+    ".git",
+    "node_modules"
+  ],
+  "archiveDepth": 5,
+  "decodeDepth": 5,
+  "findings": [],
+  "scopes": [
+    {
+      "scope": "history-all-refs",
+      "exit": 0,
+      "findings": 0
+    },
+    {
+      "scope": "staged",
+      "exit": 0,
+      "findings": 0
+    },
+    {
+      "scope": "workspace-including-dist-workflows",
+      "exit": 1,
+      "findings": 2
+    },
+    {
+      "scope": "commit-messages",
+      "exit": 0,
+      "findings": 0
+    }
+  ],
+  "forbiddenTracked": []
+}

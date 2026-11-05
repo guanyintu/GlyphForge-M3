@@ -146,7 +146,7 @@ test("immutable versions, owner edits, alternate account, report and local hidin
   ).not.toBeVisible();
   await page.getByLabel("举报原因").fill("检查内容来源是否合适");
   await page.getByRole("button", { name: "提交举报", exact: true }).click();
-  await expect(page.getByRole("status")).toContainText("举报已提交");
+  await expect(page.getByRole("status").filter({hasText: "举报已提交"})).toBeVisible();
   await page.getByRole("button", { name: "本机隐藏", exact: true }).click();
   await expect(
     page.getByRole("button", { name: /版本配方二/ }),

@@ -1,6 +1,17 @@
 .community-page {
   max-width: 1250px;
 }
+.community-page :is(button, input, select, textarea):focus-visible,
+.community-detail:focus-visible,
+.community-publish:focus-visible {
+  outline: 3px solid #557b43;
+  outline-offset: 3px;
+}
+.community-page button { min-height: 44px; }
+.community-card h2, .community-card-top { overflow-wrap: anywhere; }
+.community-card-top { flex-wrap: wrap; }
+.community-page > .row { flex-wrap: wrap; }
+.community-error .text-button { margin-left: 10px; }
 .community-mark {
   font-size: 76px;
   color: #729d69;
@@ -189,6 +200,9 @@
   .community-counts {
     font-size: 11px;
   }
+  .community-page > .row > * { flex-shrink: 0; }
+  .community-page > .row > span { white-space: nowrap; }
+  .community-page > .row > button { white-space: normal; }
 }
 @media (prefers-reduced-motion: reduce) {
   .community-card {

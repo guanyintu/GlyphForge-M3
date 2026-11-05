@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { community, enableDemo } from "../community/client";
+import { community, CommunityError, enableDemo } from "../community/client";
 import {
   adopt,
   flushUsage,
@@ -69,12 +69,42 @@ export default function Community({
     );
   const [queue, setQueue] = useState<unknown>(null);
   const [usage, setUsage] = useState({ pending: 0, error: "" });
+  const [loading, setLoading] = useState(false);
   const [offlineReady, setOfflineReady] = useState(
     () => !!navigator.serviceWorker?.controller,
   );
   const controller = useRef<AbortController | null>(null),
     request = useRef(0);
+  const taskActive = useRef(false);
+  const detailPanel = useRef<HTMLElement | null>(null);
+  const publishPanel = useRef<HTMLElement | null>(null);
+  const returnFocus = useRef<HTMLElement | null>(null);
   const api = community();
+  function message(e: unknown) {
+    if (!navigator.onLine) return "当前离线，请联网后重试；本机工坊仍可使用。";
+    if (e instanceof CommunityError) {
+      if (e.status === 429) return "写入额度已用尽或服务已暂停，请稍后重试。";
+      if ([401, 403].includes(e.status)) return "登录已失效或权限不足，请重新登录后重试。";
+      if (e.status >= 500) return "社区服务暂不可用，请稍后重试。";
+    }
+    const raw = e instanceof Error ? e.message : "";
+    if (/version conflict|版本已变化/i.test(raw)) return "版本已变化，请关闭详情并刷新后重试。";
+    if (/Author required|Moderator required|权限|denied/i.test(raw)) return "当前账号没有此操作权限。";
+    if (/fetch|network|timeout/i.test(raw)) return "网络请求失败，请检查连接并重试。";
+    if (/哈希|快照|依赖|工作流|标题、描述|公开描述|先应用/.test(raw) && !/eyJ|Bearer|sb_|https?:/i.test(raw)) return raw.slice(0, 160);
+    return "操作未完成，请检查输入或重新登录后重试。";
+  }
+  function closePanel() {
+    request.current++;
+    controller.current?.abort();
+    setPublish(false); setDetail(null); setPreview(null); setSnapshot(null);
+    requestAnimationFrame(() => returnFocus.current?.focus());
+  }
+  useEffect(() => {
+    const panel = publish ? publishPanel.current : detail ? detailPanel.current : null;
+    panel?.focus();
+    panel?.scrollIntoView({ block: "nearest" });
+  }, [publish, detail?.id]);
   const needsExtensions =
     !!workflow.extensions?.length ||
     deps.some(
@@ -116,7 +146,7 @@ export default function Community({
         if (alive) setUser(u);
       })
       .catch((e) => {
-        if (alive) setError(String(e));
+        if (alive) setError(message(e));
       });
     return () => {
       alive = false;
@@ -141,7 +171,7 @@ export default function Community({
           if (alive) setLiked(value);
         })
         .catch((e) => {
-          if (alive) setError(String(e));
+          if (alive) setError(message(e));
         });
     return () => {
       alive = false;
@@ -150,6 +180,7 @@ export default function Community({
   useEffect(() => {
     let alive = true;
     setError("");
+    setLoading(true);
     void api
       .list(q, tag, sort, page, mine)
       .then((rows) => {
@@ -162,22 +193,29 @@ export default function Community({
       })
       .catch((e) => {
         if (alive)
-          setError(`社区暂不可用，已导入方案仍可本地运行。${String(e)}`);
-      });
+          setError(message(e));
+      })
+      .finally(() => { if (alive) setLoading(false); });
     return () => {
       alive = false;
     };
   }, [api, q, tag, sort, page, mine, revision]);
   async function task(fn: () => Promise<void>) {
-    if (busy) return;
+    if (taskActive.current) return;
+    const focused = document.activeElement as HTMLElement | null;
+    taskActive.current = true;
     setBusy(true);
     setError("");
     try {
       await fn();
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(message(e));
     } finally {
       setBusy(false);
+      taskActive.current = false;
+      requestAnimationFrame(() => {
+        if (document.activeElement === document.body && focused?.isConnected) focused.focus();
+      });
     }
   }
   async function login(method: "github" | "password") {
@@ -224,6 +262,7 @@ export default function Community({
   }
   async function beginPublish(w: Listing | null) {
     if (!canPublish) throw new Error("请先应用工坊中未保存的代码");
+    returnFocus.current = document.activeElement as HTMLElement;
     setTarget(w);
     setTitle(w?.title || workflow.name);
     setDescription(w?.description || "");
@@ -273,7 +312,9 @@ export default function Community({
     setDetail(null);
   }
   return (
-    <div className="page-content community-page">
+    <div className="page-content community-page" onKeyDown={(e) => {
+      if (e.key === "Escape" && !taskActive.current && (publish || detail)) closePanel();
+    }}>
       <div className="page-heading">
         <div>
           <div className="eyebrow">SHARED RECIPES · LOCAL CREATION</div>
@@ -422,23 +463,28 @@ export default function Community({
       {error ? (
         <p role="alert" className="community-error">
           {error}
+          <button className="text-button" disabled={busy || loading} onClick={() => refresh((v) => v + 1)}>重试加载</button>
         </p>
       ) : null}
+      {loading || busy ? <p role="status" aria-live="polite">{busy ? "操作处理中，请稍候…" : "正在加载社区方案…"}</p> : null}
       {usage.pending || usage.error ? (
         <p role="status">
           统计待同步 {usage.pending} 条。
-          {usage.error ? "最近上报未被接受：" + usage.error : ""}{" "}
+          {usage.error ? "最近上报未被接受，请联网后重试。" : ""}{" "}
           本地导入和生成已独立保存。
         </p>
       ) : null}
-      <div className="community-grid">
+      <div className="community-grid" aria-busy={loading}>
         {items
           .filter((w) => !hidden.includes(w.id))
           .map((w) => (
             <button
               className="community-card"
               key={w.id}
-              onClick={() => void task(() => open(w))}
+              onClick={(e) => {
+                returnFocus.current = e.currentTarget;
+                void task(() => open(w));
+              }}
               disabled={busy}
             >
               <div className="community-card-top">
@@ -465,15 +511,15 @@ export default function Community({
             </button>
           ))}
       </div>
-      {!items.length ? (
+      {!loading && !error && !items.filter(w => !hidden.includes(w.id)).length ? (
         <div className="community-empty">
-          这里留给下一个好点子。发布你的第一个配方。
+          {q || tag || mine ? "没有符合条件的方案，请调整搜索或筛选。" : "这里留给下一个好点子。发布你的第一个配方。"}
         </div>
       ) : null}
       <div className="row">
         <button
           className="button"
-          disabled={!page}
+          disabled={!page || loading || busy}
           onClick={() => setPage((p) => p - 1)}
         >
           上一页
@@ -481,7 +527,7 @@ export default function Community({
         <span>第 {page + 1} 页</span>
         <button
           className="button"
-          disabled={items.length < 12}
+          disabled={items.length < 12 || loading || busy}
           onClick={() => setPage((p) => p + 1)}
         >
           下一页
@@ -527,19 +573,17 @@ export default function Community({
         </section>
       ) : null}
       {detail ? (
-        <section className="community-detail" aria-label="社区方案详情">
+        <section ref={detailPanel} tabIndex={-1} className="community-detail" aria-label="社区方案详情">
           <button
             className="text-button"
-            onClick={() => {
-              request.current++;
-              setDetail(null);
-              setPreview(null);
-            }}
+            disabled={busy}
+            onClick={closePanel}
           >
             关闭详情
           </button>
           <h2>{detail.title}</h2>
           <p>{detail.description}</p>
+          <p className="field-note">下架后从广场隐藏；软删除后不可访问。历史快照、举报、事件和服务日志仍可能保留，软删除不等于永久销毁。</p>
           <p>
             作者 {detail.author} · 当前 v{detail.current_version} · 浏览{" "}
             {detail.views} · 点赞 {detail.likes} · 采纳 {detail.adoptions} ·
@@ -590,6 +634,7 @@ export default function Community({
                       });
                       setDetail(null);
                       refresh((v) => v + 1);
+                      notify(detail.status === "published" ? "方案已下架，历史记录仍保留。" : "方案已重新上架。");
                     })
                   }
                 >
@@ -606,6 +651,7 @@ export default function Community({
                       });
                       setDetail(null);
                       refresh((v) => v + 1);
+                      notify("方案已软删除；历史快照、举报和事件仍可能保留。");
                     })
                   }
                 >
@@ -645,6 +691,7 @@ export default function Community({
                     });
                     setDetail({ ...detail, title, description });
                     refresh((v) => v + 1);
+                    notify("方案描述已保存。");
                   })
                 }
               >
@@ -760,7 +807,7 @@ export default function Community({
         </section>
       ) : null}
       {publish ? (
-        <section className="community-publish" aria-label="发布社区方案">
+        <section ref={publishPanel} tabIndex={-1} className="community-publish" aria-label="发布社区方案">
           <div className="eyebrow">PUBLIC SNAPSHOT</div>
           <h2>{target ? "创建不可变新版本" : "发布你的配方"}</h2>
           <p>
@@ -848,11 +895,8 @@ export default function Community({
             </button>
             <button
               className="text-button"
-              onClick={() => {
-                controller.current?.abort();
-                setPublish(false);
-                setSnapshot(null);
-              }}
+              disabled={busy}
+              onClick={closePanel}
             >
               取消发布
             </button>

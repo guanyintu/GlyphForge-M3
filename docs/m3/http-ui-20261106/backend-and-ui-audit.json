@@ -1,0 +1,68 @@
+{
+  "target": "rsntccggnvmuazvpxstf",
+  "edgeVersion": 1,
+  "verifyJwt": true,
+  "sourceComparison": {
+    "index": "3f951a483529fac426730d9d495a3e9f1aa3b06f0ea0dba25bfd8e5316678f5e",
+    "validator": "1621a77a1fb378e3155192218cd34533d21c18f10d0fb3fc4b3f07b270bf090d",
+    "normalizedLF": true,
+    "matches": true
+  },
+  "workflowId": "e34e98cc-78d1-4be2-9d06-65e0f19f26c0",
+  "status": "deleted",
+  "currentVersion": 2,
+  "counts": {
+    "likes": 0,
+    "views": 1,
+    "adoptions": 1,
+    "runs": 1
+  },
+  "retainedRows": {
+    "workflows": 1,
+    "versions": 2,
+    "reports": 1,
+    "events": 3,
+    "likes": 0,
+    "profiles": 1
+  },
+  "budget": {
+    "utcDay": "2026-11-05",
+    "writesBefore": 0,
+    "writesAfter": 33,
+    "edgeAttempts": 18,
+    "acceptedBusinessCalls": 15,
+    "reserveCharges": 18,
+    "rejectedCharges": 3,
+    "publications": 2,
+    "accountWritesSorted": [
+      11,
+      22
+    ],
+    "payloadBytes": 1280
+  },
+  "securityAdvisor": {
+    "info": 5,
+    "warning": "Leaked Password Protection Disabled; global policy unchanged"
+  },
+  "concurrency": {
+    "status": "BLOCKED",
+    "assertions": 0,
+    "reason": "Windows workspace cannot enforce PG permissions; outside-workspace WSL temp instance requires approval; no safe independent cloud connection credentials used"
+  },
+  "realUI": {
+    "status": "PASS_REAL_UI_READ_ONLY",
+    "viewport": 375,
+    "apiRequests": 6,
+    "apiMax": 7,
+    "preflightRequests": "NOT_SEPARATELY_INSTRUMENTED",
+    "businessWrites": 0,
+    "trace": false,
+    "sessionExport": false,
+    "scope": [
+      "anonymous live list",
+      "B real login",
+      "deleted listing invisible",
+      "logout"
+    ]
+  }
+}

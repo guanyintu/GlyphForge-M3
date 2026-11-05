@@ -17,17 +17,34 @@ if (args.length === 1 && args[0] === '--plan') {
   }));
   process.exit(0);
 }
-if (args.length !== 3 || args[0] !== '--accounts' ||
+if (args.length !== 3 || !['--accounts', '--accounts-stdin'].includes(args[0]) ||
     args[1] !== '--confirm-target' || args[2] !== REF) {
-  console.error('Usage: node scripts/community-auth-smoke.mjs --plan OR --accounts --confirm-target ' + REF);
+  console.error('Usage: node scripts/community-auth-smoke.mjs --plan OR (--accounts|--accounts-stdin) --confirm-target ' + REF);
   process.exit(2);
 }
 const key = process.env.GLYPHFORGE_M3_PUBLISHABLE_KEY || '';
-const identities = [
-  {email: process.env.GLYPHFORGE_M3_A_EMAIL, password: process.env.GLYPHFORGE_M3_A_PASSWORD},
-  {email: process.env.GLYPHFORGE_M3_B_EMAIL, password: process.env.GLYPHFORGE_M3_B_PASSWORD},
-];
-if (!key.startsWith('sb_publishable_') || identities.some(x => !x.email || !x.password)) {
+// With --accounts-stdin, secrets flow over a local, one-use pipe from Windows DPAPI
+// storage. They never appear in a shell command, git file, or environment variable.
+let identities;
+if (args[0] === '--accounts-stdin') {
+  let data = {};
+  try {
+    let raw = '';
+    for await (const chunk of process.stdin) {
+      raw += chunk.toString('utf8');
+      if (Buffer.byteLength(raw, 'utf8') > 8192) throw new Error('oversized input');
+    }
+    const parsed = JSON.parse(raw);
+    if (parsed && Object.keys(parsed).sort().join(',') === 'a,b') data = parsed;
+  } catch { /* fail closed without logging the input */ }
+  identities = [data.a, data.b];
+} else {
+  identities = [
+    {email: process.env.GLYPHFORGE_M3_A_EMAIL, password: process.env.GLYPHFORGE_M3_A_PASSWORD},
+    {email: process.env.GLYPHFORGE_M3_B_EMAIL, password: process.env.GLYPHFORGE_M3_B_PASSWORD},
+  ];
+}
+if (!key.startsWith('sb_publishable_') || identities.some(x => !x || typeof x.email !== 'string' || !x.email || typeof x.password !== 'string' || !x.password)) {
   console.log(JSON.stringify({
     target: REF, status: 'BLOCKED', reason: 'MISSING_EPHEMERAL_AUTH_CREDENTIALS',
     requests: 0, writes: 0, liveAuth: 'NOT_RUN',

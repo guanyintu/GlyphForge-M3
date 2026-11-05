@@ -5,10 +5,10 @@ const REF = 'rsntccggnvmuazvpxstf';
 const src = 'scripts/community-auth-smoke.mjs';
 const cleanEnv = Object.fromEntries(Object.entries(process.env)
   .filter(([k]) => !k.startsWith('GLYPHFORGE_M3_') && k !== 'NODE_OPTIONS'));
-function run(args, env = {}, preload = null) {
+function run(args, env = {}, preload = null, input = undefined) {
   const argv = [...(preload ? ['--import', 'data:text/javascript,' + encodeURIComponent(preload)] : []), src, ...args];
   return spawnSync(process.execPath, argv, {
-    encoding: 'utf8', timeout: 15000, env: {...cleanEnv, ...env},
+    encoding: 'utf8', timeout: 15000, env: {...cleanEnv, ...env}, input,
   });
 }
 const block = run(['--accounts', '--confirm-target', REF]);
@@ -77,4 +77,28 @@ const invalid = run(['--accounts', '--confirm-target', REF], {
 assert.equal(invalid.status, 1);
 assert.equal(JSON.parse(invalid.stdout).status, 'FAIL');
 
-console.log('5/5 community-auth smoke guard/fixture tests passed (0 live HTTP calls)');
+const piped = JSON.stringify({
+  a: {email: env.GLYPHFORGE_M3_A_EMAIL, password: env.GLYPHFORGE_M3_A_PASSWORD},
+  b: {email: env.GLYPHFORGE_M3_B_EMAIL, password: env.GLYPHFORGE_M3_B_PASSWORD},
+});
+const pipePass = run(['--accounts-stdin', '--confirm-target', REF], {
+  GLYPHFORGE_M3_PUBLISHABLE_KEY: env.GLYPHFORGE_M3_PUBLISHABLE_KEY,
+}, preload, piped);
+assert.equal(pipePass.status, 0, 'piped synthetic accounts must work without env credentials');
+assert.equal(JSON.parse(pipePass.stdout).requests, 14);
+assert.ok(!pipePass.stdout.includes(env.GLYPHFORGE_M3_A_PASSWORD));
+assert.ok(!pipePass.stdout.includes(env.GLYPHFORGE_M3_B_PASSWORD));
+
+const pipeMissing = run(['--accounts-stdin', '--confirm-target', REF], {
+  GLYPHFORGE_M3_PUBLISHABLE_KEY: env.GLYPHFORGE_M3_PUBLISHABLE_KEY,
+}, preload, '{}');
+assert.equal(pipeMissing.status, 2);
+assert.equal(JSON.parse(pipeMissing.stdout).requests, 0);
+
+const pipeHuge = run(['--accounts-stdin', '--confirm-target', REF], {
+  GLYPHFORGE_M3_PUBLISHABLE_KEY: env.GLYPHFORGE_M3_PUBLISHABLE_KEY,
+}, preload, 'x'.repeat(9000));
+assert.equal(pipeHuge.status, 2);
+assert.equal(JSON.parse(pipeHuge.stdout).requests, 0);
+
+console.log('8/8 community-auth smoke guard/fixture tests passed (0 live HTTP calls)');

@@ -1,9 +1,9 @@
 @echo off
-title GlyphForge M3 Auth Check (read-only)
-echo GlyphForge M3-A Auth verification: test project only, no writes.
-echo Enter passwords only in this local window; they are hidden and never uploaded to ChatGPT.
+title GlyphForge M3 Auth Check - encrypted local vault
+echo GlyphForge M3-A: first run stores encrypted test credentials in Windows DPAPI.
+echo Future runs read the same local vault. No passwords sent to ChatGPT.
 echo.
-wsl.exe --cd "%~dp0.." --exec /bin/bash scripts/run-community-auth-smoke.sh
+powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File "%~dp0Run-M3-Auth-Vault.ps1" -Action Run
 set "TEST_EXIT=%ERRORLEVEL%"
 echo.
 echo Verification ended with exit code %TEST_EXIT%.

@@ -1,5 +1,21 @@
 # GlyphForge M3 社区方案就绪表
 
+## 2026-11-06：真实 Auth 14/14 及云端 PostgreSQL 事务验收（最新）
+
+- 从本机脱敏结果 `~/.cache/glyphforge-m3-auth-smoke/latest-result.json` 确认 2026-11-06 01:02（Asia/Shanghai）的 14 次 HTTP **全部 PASS**：测试账号 A/B 分别密码登录、Auth `get_user` 200、公开读取 200、私有表 403、匿名无/假 JWT 401；使用合成测试账号且**实际业务写入 0**。两个 DPAPI 加密测试账号仍保存于项目外的 Windows 用户目录。注意 Edge `GET` 405 是 handler 在验证业务 JWT 之前返回的，因此它**不能证明**有效用户 JWT 可成功执行 Edge POST 写入。
+- Supabase 连接器只使用 `glyphforge-m3-test`（`rsntccggnvmuazvpxstf`），先验证已有两个 Auth 账号、所有社区业务表为空且写入开关开启，然后用 **BEGIN → DO → ROLLBACK** 在托管 PostgreSQL 中运行真实 `public.community_write` 事务：发布初版、阻止其他作者编辑、重复点赞幂等、取消点赞、合成举报、拒绝未采纳的运行事件、浏览/采纳/运行计数、升级 v2、拒绝旧版本、unlisted 与 soft-delete 均断言通过。输出 **PASS_ROLLED_BACK**；随后数据库工作流、版本、点赞、举报、事件表计数均为 **0**，没有留存模拟业务数据。
+- 该数据库测试使用管理连接直接执行 service-only SQL 函数，**不是**浏览器真实 JWT → Edge Function → RPC 的 HTTP 业务联调，也不等于双独立连接竞争测试。云端未执行真实发布/点赞/举报 HTTP 写入、OAuth/PKCE、平台级限流或删除/保留期验证；M3 公网发布仍为 **NO-GO**。
+- 为降低费用风险，不做无界请求、压力测试或其他 Supabase 项目修改；原 M2 目录及既有未跟踪历史证据不动。
+
+
+## 2026-11-05：M3-A 本机 DPAPI 加密测试凭证（最新）
+
+- 按使用者要求增加**可选的本机凭证保存**，仅适用于独立测试项目的两个合成用户。Windows 双击 `scripts/Run-M3-Auth-Check.cmd` 首次弹出两次 `Get-Credential`，通过 Windows PowerShell `PSCredential | Export-Clixml` 将密码以当前 Windows 用户 DPAPI 加密，文件位于项目和 Git 之外的 `%LOCALAPPDATA%\GlyphForge\M3Auth\test-a.clixml`、`test-b.clixml`；邮箱用户名作为非秘密元数据可能在 XML 中明文出现。
+- 后续双击复用这两个加密文件，使用 `Import-Clixml` 在**本机当前用户的 PowerShell 进程内**解密，经临时匿名管道传递给 WSL 的 `scripts/run-community-auth-piped.sh`；Node 验收入口新增 `--accounts-stdin`，严格限额最多 18 请求、只连接指定项目，账户密码不经过命令行参数、环境变量或项目代码文件，也不写入验收结果。运行期间明文仍短暂存在于进程内存；本功能不能防御已被控制的当前 Windows 用户会话。
+- `scripts/Forget-M3-Auth-Check.cmd` 仅删除本机加密凭证文件，**不会**删除 Supabase 云端的测试用户或已产生的历史日志。需要换密码时可通过 PowerShell 在本机运行 `Run-M3-Auth-Vault.ps1 -Action Save` 覆盖旧密文。
+- Node 合成管道、未给凭证阻断、超长/恶意输入测试 **8/8** PASS（0 真实网络请求）；原验收入口保护 **38/38** PASS；`bash -n`、PowerShell AST 静态语法解析 **0 error**。远程运行 DPAPI 实测被安全检查阻止，**不能宣称用户凭证已经保存或完整 Windows→WSL 运行链路通过**。仅在用户自己本机第一次录入时建立密文，届时再检查脱敏结果。社区正式发布仍 NO-GO，不做其他项目部署或公开发布。
+
+
 ## 2026-11-05：M3-A Auth Smoke HTTP 400 修复
 
 - 现场读取本机脱敏结果：首次运行通过 `anon_list`（200）后，`anon_private_events` 因 HTTP 400 停止，只有 **2 次请求、0 次写入**，尚未开始 A/B 账号登录。

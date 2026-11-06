@@ -49,8 +49,10 @@ jobs:
       - name: Install browser test dependencies
         run: pnpm exec playwright install --with-deps chromium
 
-      - name: Run browser tests
-        run: pnpm build && pnpm exec playwright test
+      - name: Run M3 browser acceptance tests
+        run: pnpm community:ui-test
+        env:
+          GLYPHFORGE_BASE: /${{ github.event.repository.name }}/
 
       - name: Require production public configuration
         env:

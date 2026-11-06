@@ -43,4 +43,6 @@ Updated: 2026-11-06 (Asia/Shanghai)
 6. Enable GitHub Pages only after CI artifact checks and a final secret scan. The current workflow is still a verification-only artifact workflow; it does not deploy Pages.
 7. Finish platform-level rate-limit/usage checks, retention/account deletion policy, and hosted concurrency decision. Public launch remains NO-GO until these gates are resolved.
 
+A pinned GitHub Pages deployment workflow is now prepared at .github/workflows/deploy-pages.yml. It runs secret scan before dependency execution, verifies lint/typecheck/tests, builds the repository subpath using the two public repository variables, uploads the Pages artifact, and deploys with the official Pages actions. Pages enablement itself must be configured on the repository before the workflow can deploy.
+
 No GitHub push, Pages deployment, OAuth secret configuration, or public launch has occurred in this bootstrap.

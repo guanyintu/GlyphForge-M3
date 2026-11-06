@@ -10,7 +10,7 @@ const publicKey =
 const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const origins = (
   Deno.env.get("COMMUNITY_ALLOWED_ORIGINS") ||
-  "http://127.0.0.1:5173,http://127.0.0.1:4175"
+  "http://127.0.0.1:5173,http://127.0.0.1:4175,https://guanyintu.github.io"
 ).split(",");
 export async function handler(req: Request): Promise<Response> {
   const origin = req.headers.get("origin") || "";

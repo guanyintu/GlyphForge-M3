@@ -1,5 +1,15 @@
 # GlyphForge M3 社区方案就绪表
 
+## 2026-11-06 正式 Supabase 生产环境初始化
+
+- 已在当前 Free 组织创建独立生产项目 glyphforge-m3-production（gallindmwjiwsitczjzu），新加坡区域，ACTIVE_HEALTHY，创建报价 $0/月。没有升级套餐。
+- 原测试项目 glyphforge-m3-test（rsntccggnvmuazvpxstf）已暂停并保留数据；继续测试前须恢复。其他 Supabase 项目未修改。
+- 已在新生产项目应用两份社区迁移，连接器记录版本 20261106132755、20261106132801。六张 public 社区表均启用 RLS，客户端写 GRANT 为 0，预算/管理表留在私有 schema。
+- community Edge Function 已部署 v2 ACTIVE / verify_jwt=true。GitHub Pages origin https://guanyintu.github.io 的真实 OPTIONS 预检为 204；仅完成 CORS 预检，不代表 Auth/业务请求验收通过。
+- 已创建本机忽略文件 .env.production.local，以生产 URL 和公开 publishable key 构建。子路径 /GlyphForge-M3/ 的 TypeScript + Vite production build 通过；产物断言确认未包含 service-role 环境变量。既有 mixed-import / large-chunk 警告仍在。
+- 尚未创建 GitHub 仓库、push、部署 Pages、配置 GitHub OAuth 或执行真实生产登录。生产 Site URL、Redirect URLs、OAuth callback 与 Pages 路径待最终仓库确认；上线仍 NO-GO。详见 [生产环境初始化](M3-PRODUCTION-DEPLOYMENT.md)。
+
+
 ## 2026-11-06 Free Plan 登录路线验收（Asia/Shanghai）
 
 正式公开社区继续使用 Supabase Free Plan，前端仅提供 **GitHub 登录**。云端页面移除了邮箱、密码和密码登录入口。未配置云端服务时，用户仍可主动进入本地演示，使用演示账号；演示账号、数据和计数保存在当前浏览器。客户端保留 PKCE、会话恢复与刷新、登出，并继续以 `BASE_URL` 计算回跳地址。

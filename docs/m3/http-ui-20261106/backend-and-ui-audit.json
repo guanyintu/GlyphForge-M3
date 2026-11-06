@@ -45,9 +45,12 @@
     "warning": "Leaked Password Protection Disabled; global policy unchanged"
   },
   "concurrency": {
-    "status": "BLOCKED",
-    "assertions": 0,
-    "reason": "Windows workspace cannot enforce PG permissions; outside-workspace WSL temp instance requires approval; no safe independent cloud connection credentials used"
+    "status": "PASS_LOCAL_POSTGRES_CONCURRENCY",
+    "casesPassed": 8,
+    "cloudRequests": 0,
+    "cloudWrites": 0,
+    "hostedConcurrency": "NOT_RUN",
+    "evidence": "local-concurrency.json"
   },
   "realUI": {
     "status": "PASS_REAL_UI_READ_ONLY",

@@ -50,7 +50,14 @@
     "unresolved": 0,
     "reviewedHistoricalFalsePositives": 2
   },
-  "concurrency": "BLOCKED_PENDING_WORKSPACE_EXCEPTION_APPROVAL",
+  "concurrency": {
+    "status": "PASS_LOCAL_POSTGRES_CONCURRENCY",
+    "casesPassed": 8,
+    "independentWriterConnections": 2,
+    "auth": "Synthetic Auth fixture",
+    "hostedConcurrency": "NOT_RUN",
+    "evidence": "local-concurrency.json"
+  },
   "finalProductionCommunity": {
     "passed": 3,
     "unexpected": 0,

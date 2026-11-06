@@ -1,0 +1,249 @@
+{
+  "server": {
+    "version": "15.19",
+    "tcpDisabled": true,
+    "privateSocket": true
+  },
+  "migrations": [
+    "20261101091101_community_platform.sql",
+    "20261101114038_community_storage_budget.sql"
+  ],
+  "cases": [
+    {
+      "case": "simultaneous-like",
+      "status": "PASS",
+      "connections": [
+        {
+          "pid": 13065,
+          "app": "m3-left",
+          "state": "idle in transaction",
+          "blockers": [],
+          "wait": "Client"
+        },
+        {
+          "pid": 13071,
+          "app": "m3-right",
+          "state": "active",
+          "blockers": [
+            13065
+          ],
+          "wait": "Lock"
+        }
+      ],
+      "expectedDenial": null,
+      "readback": {
+        "likes": 2,
+        "rows": 2
+      }
+    },
+    {
+      "case": "like-unlike",
+      "status": "PASS",
+      "connections": [
+        {
+          "pid": 13083,
+          "app": "m3-left",
+          "state": "idle in transaction",
+          "blockers": [],
+          "wait": "Client"
+        },
+        {
+          "pid": 13089,
+          "app": "m3-right",
+          "state": "active",
+          "blockers": [
+            13083
+          ],
+          "wait": "Lock"
+        }
+      ],
+      "expectedDenial": null,
+      "readback": {
+        "likes": 0,
+        "rows": 0
+      }
+    },
+    {
+      "case": "version-conflict",
+      "status": "PASS",
+      "connections": [
+        {
+          "pid": 13101,
+          "app": "m3-left",
+          "state": "idle in transaction",
+          "blockers": [],
+          "wait": "Client"
+        },
+        {
+          "pid": 13107,
+          "app": "m3-right",
+          "state": "active",
+          "blockers": [
+            13101
+          ],
+          "wait": "Lock"
+        }
+      ],
+      "expectedDenial": "Ownership, moderation or version conflict",
+      "readback": {
+        "version": 2,
+        "title": "winner",
+        "versionRows": 2,
+        "writes": 2,
+        "publications": 2
+      }
+    },
+    {
+      "case": "event-idempotency",
+      "status": "PASS",
+      "connections": [
+        {
+          "pid": 13119,
+          "app": "m3-left",
+          "state": "idle in transaction",
+          "blockers": [],
+          "wait": "Client"
+        },
+        {
+          "pid": 13125,
+          "app": "m3-right",
+          "state": "active",
+          "blockers": [
+            13119
+          ],
+          "wait": "Lock"
+        }
+      ],
+      "expectedDenial": null,
+      "readback": {
+        "views": 1,
+        "rows": 1
+      }
+    },
+    {
+      "case": "account-budget",
+      "status": "PASS",
+      "connections": [
+        {
+          "pid": 13139,
+          "app": "m3-left",
+          "state": "idle in transaction",
+          "blockers": [],
+          "wait": "Client"
+        },
+        {
+          "pid": 13145,
+          "app": "m3-right",
+          "state": "active",
+          "blockers": [
+            13139
+          ],
+          "wait": "Lock"
+        }
+      ],
+      "expectedDenial": "Account daily budget reached",
+      "readback": {
+        "likes": 1,
+        "accountWrites": 240,
+        "globalWrites": 2
+      }
+    },
+    {
+      "case": "global-budget",
+      "status": "PASS",
+      "connections": [
+        {
+          "pid": 13159,
+          "app": "m3-left",
+          "state": "idle in transaction",
+          "blockers": [],
+          "wait": "Client"
+        },
+        {
+          "pid": 13165,
+          "app": "m3-right",
+          "state": "active",
+          "blockers": [
+            13159
+          ],
+          "wait": "Lock"
+        }
+      ],
+      "expectedDenial": "Global daily budget reached",
+      "readback": {
+        "likes": 1,
+        "globalWrites": 20000,
+        "readerRows": 0
+      }
+    },
+    {
+      "case": "actor-isolation",
+      "status": "PASS",
+      "connections": [
+        {
+          "pid": 13180,
+          "app": "m3-left",
+          "state": "idle in transaction",
+          "blockers": [],
+          "wait": "Client"
+        },
+        {
+          "pid": 13186,
+          "app": "m3-right",
+          "state": "active",
+          "blockers": [
+            13180
+          ],
+          "wait": "Lock"
+        }
+      ],
+      "expectedDenial": "Author required",
+      "readback": {
+        "title": "owner",
+        "globalWrites": 2,
+        "readerRows": 0
+      }
+    },
+    {
+      "case": "snapshot-budget-rollback",
+      "status": "PASS",
+      "connections": [
+        {
+          "pid": 13200,
+          "app": "m3-left",
+          "state": "idle in transaction",
+          "blockers": [],
+          "wait": "Client"
+        },
+        {
+          "pid": 13206,
+          "app": "m3-right",
+          "state": "active",
+          "blockers": [
+            13200
+          ],
+          "wait": "Lock"
+        }
+      ],
+      "expectedDenial": "Community snapshot storage budget reached",
+      "readback": {
+        "dayBytes": 2097152,
+        "storedBytes": 1280,
+        "workflows": 2,
+        "versions": 2,
+        "profiles": 1,
+        "accounts": 1,
+        "writes": 2,
+        "publications": 2
+      }
+    }
+  ],
+  "status": "PASS_LOCAL_POSTGRES_CONCURRENCY",
+  "auth": "Synthetic Auth fixture",
+  "cloudRequests": 0,
+  "cloudWrites": 0,
+  "cleanup": {
+    "stopped": true,
+    "tempDataRemoved": true
+  }
+}

@@ -1,14 +1,17 @@
 # GlyphForge M3 社区方案就绪表
 
-## 2026-11-06 正式 Supabase 生产环境初始化
+## 2026-11-06 Supabase 生产后端与 GitHub Pages 正式部署
 
-- 已在当前 Free 组织创建独立生产项目 glyphforge-m3-production（gallindmwjiwsitczjzu），新加坡区域，ACTIVE_HEALTHY，创建报价 $0/月。没有升级套餐。
-- 原测试项目 glyphforge-m3-test（rsntccggnvmuazvpxstf）已暂停并保留数据；继续测试前须恢复。其他 Supabase 项目未修改。
-- 已在新生产项目应用两份社区迁移，连接器记录版本 20261106132755、20261106132801。六张 public 社区表均启用 RLS，客户端写 GRANT 为 0，预算/管理表留在私有 schema。
-- community Edge Function 已部署 v2 ACTIVE / verify_jwt=true。GitHub Pages origin https://guanyintu.github.io 的真实 OPTIONS 预检为 204；仅完成 CORS 预检，不代表 Auth/业务请求验收通过。
-- 已创建本机忽略文件 .env.production.local，以生产 URL 和公开 publishable key 构建。子路径 /GlyphForge-M3/ 的 TypeScript + Vite production build 通过；产物断言确认未包含 service-role 环境变量。既有 mixed-import / large-chunk 警告仍在。
-- 已准备独立的 deploy-pages.yml：固定 SHA 的 Pages Actions、先扫密钥、运行 lint/typecheck/Vitest/社区测试/Playwright，再按仓库子路径构建并部署。尚未创建 GitHub 仓库、push 或启用 Pages；GitHub Actions 的两个公开运行变量仍待设置。真实 GitHub OAuth 与生产登录也未执行；上线仍 NO-GO。详见 [生产环境初始化](M3-PRODUCTION-DEPLOYMENT.md)。
+- 已在现有 Free 组织创建独立生产项目 glyphforge-m3-production（gallindmwjiwsitczjzu），新加坡区域，ACTIVE_HEALTHY，创建报价 $0/月；未升级套餐。原测试项目 glyphforge-m3-test（rsntccggnvmuazvpxstf）已暂停并保留数据，其他 Supabase 项目未修改。
+- 新生产项目已应用两份社区迁移（20261106132755、20261106132801）。六张 public 社区表均启用 RLS，客户端写 GRANT 为 0；预算和管理数据放在私有 schema。community Edge Function v2 ACTIVE，verify_jwt=true；GitHub Pages origin 的真实 OPTIONS 预检为 204。生产业务表保持空白，没有写入合成业务数据。
+- 已创建公开仓库 https://github.com/guanyintu/GlyphForge-M3，默认分支 main。当前部署相关提交：acc372f（生产后端初始化）、893a335（Pages workflow）、82b390a（M3 定向浏览器验收）。
+- 推送前使用 Gitleaks 8.30.1 对全部 Git 历史、暂存区、提交消息和工作区（含忽略文件、未跟踪文件、dist）扫描：1083 个已跟踪文件、1240 个工作区文件、约 75 MB；0 个未处理发现。3 条通用 API Key 规则命中均按文件/行号/内容 SHA 精确复核：1 条公开 Supabase publishable key、2 条 SHA-256 文件指纹；没有 service-role key 或本地令牌凭证进入仓库。
+- GitHub Pages 已启用为 GitHub Actions 部署。Workflow run 42243418707 成功：Vitest 422/422、community acceptance guard 38/38、M3 浏览器验收 6/6（1280px、375px、GitHub Provider 未启用提示及三类 OAuth 回跳错误脱敏）、生产构建、最终产物和 Git 历史扫描、Pages artifact 上传及部署均 PASS。
+- 生产构建使用仓库子路径 /GlyphForge-M3/。站点 https://guanyintu.github.io/GlyphForge-M3/ 返回 HTTP 200，HTML 引用的 4 个 JS/CSS 资源均返回 HTTP 200。GitHub 仓库变量仅配置 Supabase URL 和公开 publishable key；本机 .env.production.local 被 Git 忽略。没有提交 service-role key。
+- **静态站点已经公开部署；社区云端 GitHub 登录尚未配置。** 对生产 Auth settings 的真实只读检查结果为 github=false、email=true。尚未创建 GitHub OAuth App、设置 Supabase Provider / Site URL / Redirect URLs，也没有进行真实 OAuth 登录。因此本地与模拟验收通过不等于生产登录通过；完整社区发布仍需完成 OAuth 和平台安全/留存门禁。
+- 下一步：GitHub OAuth App Homepage URL 使用 https://guanyintu.github.io/GlyphForge-M3/；Authorization callback URL 使用 https://gallindmwjiwsitczjzu.supabase.co/auth/v1/callback。Client ID / Secret 只填入正式 Supabase Dashboard → Authentication → Providers → GitHub，绝不要放入 Git、仓库变量、聊天或前端。随后把正式 Site URL 和 Redirect URL 设为 https://guanyintu.github.io/GlyphForge-M3/，真实验证 PKCE、回跳换码、刷新、登出和 RLS；通过后再关闭 Email/Password Provider。另需完成平台级限流/费用、托管并发、留存和注销审查。
 
+详见 [生产环境部署记录](M3-PRODUCTION-DEPLOYMENT.md) 与 [发布阻断清单](M3-RELEASE-BLOCKERS.md)。
 
 ## 2026-11-06 Free Plan 登录路线验收（Asia/Shanghai）
 
@@ -21,11 +24,11 @@
 | GitHub-only 云端界面与本地演示 | PASS（本地） | Vitest 422/422，Playwright 云端模拟 6/6、本地演示 3/3、仓库子路径离线回归 1/1。覆盖桌面与 375px 下无密码表单、演示登录、GitHub 未启用及回跳错误的脱敏提示。 |
 | OAuth 会话生命周期 | PASS（模拟） | SDK 按仓库子路径启动 GitHub PKCE，模拟回跳换码、过期会话刷新、页面重载恢复、登出和切换账号。 |
 | 真实 GitHub OAuth / PKCE | **NOT_RUN** | GitHub Provider、OAuth App 与实际站点回跳尚未配置。本次未进行真实登录或云端业务写入，历史测试结果见下文。 |
-| M3-C / M3-D | **BLOCKED** | 公开上线 **NO-GO**。 [发布门禁](M3-RELEASE-BLOCKERS.md) |
+| M3-C / M3-D | **PARTIAL** | GitHub Pages 静态站点已部署；生产 Auth 实测 github=false、email=true，真实 OAuth 未运行。云端社区登录及完整公开上线仍 **NO-GO**。 [发布门禁](M3-RELEASE-BLOCKERS.md) |
 
 `glyphforge-m3-test` 的 Email Provider、两个合成账号和 DPAPI vault 保留供受限验收使用。真实浏览器验收脚本通过仅供本机测试的入口建立合成账号会话，保留原请求目标、限额和写白名单。本次用离线模拟验证脚本；云端 Provider 设置与 DPAPI vault 未被操作。
 
-正式上线前，管理员需在 GitHub 和**正式 Supabase 项目**配置 GitHub Provider。OAuth App 的 callback 使用所连接项目的 `/auth/v1/callback`。`glyphforge-m3-test` 对应 `https://rsntccggnvmuazvpxstf.supabase.co/auth/v1/callback`。正式 Site URL 与 Redirect URLs 必须匹配待确认的实际站点根路径，保留 GitHub Pages 仓库子路径末尾的 `/`。OAuth 凭证只填入 Supabase 控制台。真实 GitHub 登录和 PKCE 回跳验证通过后，在正式项目关闭 Email/Password Provider，再验证 GitHub 登录、刷新、登出、RLS，以及密码登录被服务端拒绝。前端移除密码入口只完成了界面变更。 [GitHub 登录](https://supabase.com/docs/guides/auth/social-sign-in/auth-github) · [回跳地址](https://supabase.com/docs/guides/auth/redirect-urls)
+当前静态站点已部署。下一步管理员需在 GitHub 和**正式 Supabase 项目**配置 GitHub Provider。OAuth App 的 callback 使用所连接项目的 `/auth/v1/callback`。`glyphforge-m3-test` 对应 `https://rsntccggnvmuazvpxstf.supabase.co/auth/v1/callback`。正式 Site URL 与 Redirect URLs 必须匹配待确认的实际站点根路径，保留 GitHub Pages 仓库子路径末尾的 `/`。OAuth 凭证只填入 Supabase 控制台。生产 Auth settings 当前实测为 github=false、email=true。真实 GitHub 登录和 PKCE 回跳验证通过后，在正式项目关闭 Email/Password Provider，再验证 GitHub 登录、刷新、登出、RLS，以及密码登录被服务端拒绝。前端移除密码入口只完成了界面变更。 [GitHub 登录](https://supabase.com/docs/guides/auth/social-sign-in/auth-github) · [回跳地址](https://supabase.com/docs/guides/auth/redirect-urls)
 
 ## 2026-11-06 M3-UI 真实浏览器写入与 M3-C 门禁（历史实跑）
 

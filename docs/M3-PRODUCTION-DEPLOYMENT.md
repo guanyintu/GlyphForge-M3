@@ -1,6 +1,6 @@
 # GlyphForge M3 Production Bootstrap
 
-Updated: 2026-11-06 (Asia/Shanghai)
+Updated: 2026-11-06 (Asia/Shanghai) — GitHub Pages deployment completed
 
 ## Supabase production project
 
@@ -33,16 +33,24 @@ Updated: 2026-11-06 (Asia/Shanghai)
 - Existing Vite warnings remain: mixed static/dynamic imports and large chunks. They are not build failures.
 - The current Edge function source includes the exact Pages origin `https://guanyintu.github.io`; if a different host is chosen, update CORS and redeploy.
 
-## Still required before public launch
+## GitHub repository and Pages deployment — completed
 
-1. Create a GitHub repository for this source. The linked GitHub account is `guanyintu`; the connected repository list currently returns no accessible repositories, and no local Git remote exists. A public repository is required for the intended GitHub Pages deployment on the current Free setup. Do not push until the repo exists and the secret scan passes.
-2. Confirm the final repository name/path. The current candidate is `GlyphForge-M3`, giving the expected Pages origin `https://guanyintu.github.io` and site URL `https://guanyintu.github.io/GlyphForge-M3/`.
-3. Create a GitHub OAuth App. Its Authorization callback URL must be `https://gallindmwjiwsitczjzu.supabase.co/auth/v1/callback`. Put the OAuth Client ID and Secret only in the production Supabase Dashboard → Authentication → Providers → GitHub; never paste them into ChatGPT, source files, shell arguments, or Git.
-4. Set the production Supabase Site URL to `https://guanyintu.github.io/GlyphForge-M3/` and add the exact matching redirect URL. If the repository name changes, update these values and rebuild with the correct `GLYPHFORGE_BASE`.
-5. Verify real GitHub OAuth/PKCE, callback exchange, session refresh, logout, RLS and the server-side rejection of password login. Only after OAuth passes, disable Email/Password Provider in the production project. The test project remains paused and its Email Provider/data remain unchanged.
-6. Enable GitHub Pages only after CI artifact checks and a final secret scan. The current workflow is still a verification-only artifact workflow; it does not deploy Pages.
-7. Finish platform-level rate-limit/usage checks, retention/account deletion policy, and hosted concurrency decision. Public launch remains NO-GO until these gates are resolved.
+- Public repository: https://github.com/guanyintu/GlyphForge-M3.
+- Default branch: main; latest deployment workflow commit: 82b390a.
+- GitHub Pages uses build_type=workflow; public site: https://guanyintu.github.io/GlyphForge-M3/.
+- Successful workflow run: https://github.com/guanyintu/GlyphForge-M3/actions/runs/42243418707.
+- CI passed: 422/422 Vitest, 38/38 community acceptance guard checks, 6/6 M3 Playwright browser checks (1280px and 375px, provider-disabled and OAuth-return error handling), production build, final asset/history scan, artifact upload, and deploy job.
+- Live smoke check: site HTML HTTP 200; all 4 referenced JavaScript/CSS assets HTTP 200.
+- Repository variables contain only the Supabase project URL and public publishable key. No service-role key, OAuth client secret, or local credential file is in the repository.
+- The original verification-only pages-preview.yml remains separate; deploy-pages.yml is the production deployment workflow.
 
-A pinned GitHub Pages deployment workflow is now prepared at .github/workflows/deploy-pages.yml. It runs secret scan before dependency execution, verifies lint/typecheck/tests, builds the repository subpath using the two public repository variables, uploads the Pages artifact, and deploys with the official Pages actions. Pages enablement itself must be configured on the repository before the workflow can deploy.
+## Remaining before the cloud community can accept users
 
-No GitHub push, Pages deployment, OAuth secret configuration, or public launch has occurred in this bootstrap.
+1. Create a GitHub OAuth App. Homepage URL: https://guanyintu.github.io/GlyphForge-M3/. Authorization callback URL: https://gallindmwjiwsitczjzu.supabase.co/auth/v1/callback.
+2. In the production Supabase Dashboard → Authentication → Providers → GitHub, enable GitHub and enter the OAuth Client ID and Client Secret. Keep the secret only in Supabase Dashboard; never send it in ChatGPT, commit it, or put it in a public repository variable.
+3. In production Supabase Authentication → URL Configuration, set Site URL to https://guanyintu.github.io/GlyphForge-M3/ and add that exact URL to Redirect URLs.
+4. Verify a real GitHub OAuth/PKCE flow, callback exchange, session refresh, logout, RLS, and the server-side rejection of password login. A read-only check of production Auth settings currently returns github=false, email=true; cloud sign-in is therefore **not yet ready**.
+5. Only after real GitHub OAuth passes, disable Email/Password Provider in the production project. The paused test project remains unchanged.
+6. Finish production platform rate-limit/usage checks, hosted concurrency decision, retention/account-deletion policy, and final cost review.
+
+**Current status:** the public static site is deployed and loads successfully. Full cloud-community launch remains partial/blocked until GitHub OAuth is configured and verified, then platform-level release gates are closed.

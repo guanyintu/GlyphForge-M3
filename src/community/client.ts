@@ -1,14 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 import type { EventKind, Listing, User, Version } from "./protocol";
 import { demo } from "./demo";
+import { clearOAuthReturn, oauthReturnUrl } from "./oauth-return";
 export interface CommunityAPI {
   mode: "cloud" | "demo" | "unconfigured";
   user(): Promise<User | null>;
-  login(
-    method: "github" | "password",
-    email?: string,
-    password?: string,
-  ): Promise<void>;
+  login(demoName?: string): Promise<void>;
   logout(): Promise<void>;
   list(
     q: string,
@@ -30,8 +27,13 @@ export class CommunityError extends Error {
     super(message);
   }
 }
+export class CommunityLoginError extends Error {}
+
+const oauthConfigMessage =
+  "GitHub 登录未完成。请重试；若问题持续，请联系管理员检查 GitHub OAuth 配置和回跳地址。";
 const url = import.meta.env.VITE_SUPABASE_URL || "";
 const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "";
+const oauthReturn = oauthReturnUrl();
 if (key && !key.startsWith("sb_publishable_"))
   throw new Error("前端只接受 Supabase publishable key");
 const sb =
@@ -45,6 +47,17 @@ const sb =
         },
       })
     : null;
+
+export const oauthCallbackError =
+  sb && oauthReturn
+    ? sb.auth.initialize().catch(() => ({ error: true })).then(({ error }) => {
+        const remaining = oauthReturnUrl();
+        if (remaining) clearOAuthReturn(remaining);
+        // A returned code can remain in the URL if this browser has no PKCE verifier.
+        return error || remaining ? oauthConfigMessage : "";
+      }).catch(() => oauthConfigMessage)
+    : Promise.resolve("");
+
 const check = <T>(r: { data: T; error: { message: string } | null }): T => {
   if (r.error) throw new Error(r.error.message);
   return r.data;
@@ -61,22 +74,34 @@ export const cloud: CommunityAPI = {
         }
       : null;
   },
-  async login(method, email, password) {
+  async login() {
     if (!sb) throw new Error("尚未配置社区服务");
-    const response =
-      method === "github"
-        ? await sb.auth.signInWithOAuth({
-            provider: "github",
-            options: {
-              redirectTo: new URL(import.meta.env.BASE_URL, location.origin)
-                .href,
-            },
-          })
-        : await sb.auth.signInWithPassword({
-            email: email || "",
-            password: password || "",
-          });
-    if (response.error) throw new Error(response.error.message);
+    // The SDK navigates directly to /authorize, which can show a raw error if GitHub is disabled.
+    const settingsUrl = new URL("auth/v1/settings", `${url.replace(/\/$/, "")}/`);
+    const githubEnabled = await fetch(settingsUrl, {
+      headers: { apikey: key },
+      cache: "no-store",
+      signal: AbortSignal.timeout(10_000),
+    })
+      .then(async (response) => response.ok ? (await response.json()).external?.github : null)
+      .catch(() => null);
+    if (githubEnabled === false) {
+      throw new CommunityLoginError("GitHub 登录尚未启用，请联系管理员配置 GitHub OAuth 和回跳地址。");
+    }
+    if (githubEnabled !== true) {
+      throw new CommunityLoginError("暂时无法连接 GitHub 登录服务，请检查网络后重试。");
+    }
+    try {
+      const { error } = await sb.auth.signInWithOAuth({
+        provider: "github",
+        options: {
+          redirectTo: new URL(import.meta.env.BASE_URL, location.origin).href,
+        },
+      });
+      if (error) throw error;
+    } catch {
+      throw new CommunityLoginError(oauthConfigMessage);
+    }
   },
   async logout() {
     if (sb) {

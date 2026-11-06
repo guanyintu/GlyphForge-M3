@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { community, CommunityError, enableDemo } from "../community/client";
+import {
+  community,
+  CommunityError,
+  CommunityLoginError,
+  enableDemo,
+  oauthCallbackError,
+} from "../community/client";
 import {
   adopt,
   flushUsage,
@@ -61,8 +67,8 @@ export default function Community({
     [subgraphsOK, setSubgraphsOK] = useState(false),
     [busy, setBusy] = useState(false),
     [error, setError] = useState("");
-  const [email, setEmail] = useState(""),
-    [password, setPassword] = useState(""),
+  const [authError, setAuthError] = useState(""),
+    [demoName, setDemoName] = useState(""),
     [report, setReport] = useState(""),
     [hidden, setHidden] = useState<string[]>(() =>
       JSON.parse(localStorage.getItem("glyphforge-community-hidden") || "[]"),
@@ -139,6 +145,14 @@ export default function Community({
     };
   }, []);
   useEffect(() => {
+    if (api.mode !== "cloud") return;
+    let alive = true;
+    void oauthCallbackError.then((failure) => {
+      if (alive && failure) setAuthError(failure);
+    });
+    return () => { alive = false; };
+  }, [api]);
+  useEffect(() => {
     let alive = true;
     void api
       .user()
@@ -209,7 +223,8 @@ export default function Community({
     try {
       await fn();
     } catch (e) {
-      setError(message(e));
+      if (e instanceof CommunityLoginError) setAuthError(e.message);
+      else setError(message(e));
     } finally {
       setBusy(false);
       taskActive.current = false;
@@ -217,12 +232,6 @@ export default function Community({
         if (document.activeElement === document.body && focused?.isConnected) focused.focus();
       });
     }
-  }
-  async function login(method: "github" | "password") {
-    await api.login(method, email, password);
-    setPassword("");
-    refresh((v) => v + 1);
-    await flushUsage();
   }
   async function open(w: Listing) {
     const token = ++request.current;
@@ -366,39 +375,38 @@ export default function Community({
               发布当前工作流
             </button>
           </>
-        ) : (
+        ) : api.mode === "demo" ? (
           <>
             <input
-              aria-label="社区登录邮箱"
-              placeholder={api.mode === "demo" ? "演示账号名称" : "邮箱"}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              aria-label="演示账号名称"
+              placeholder="演示账号名称"
+              value={demoName}
+              onChange={(e) => setDemoName(e.target.value)}
             />
-            {api.mode !== "demo" ? (
-              <input
-                type="password"
-                aria-label="社区登录密码"
-                placeholder="密码"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            ) : null}
             <button
               className="button"
-              disabled={busy || api.mode === "unconfigured"}
-              onClick={() => void task(() => login("password"))}
+              disabled={busy}
+              onClick={() => void task(async () => {
+                await api.login(demoName);
+                refresh((v) => v + 1);
+                await flushUsage();
+              })}
             >
-              {api.mode === "demo" ? "演示登录" : "邮箱密码登录"}
-            </button>
-            <button
-              className="button"
-              disabled={busy || api.mode !== "cloud"}
-              onClick={() => void task(() => login("github"))}
-            >
-              GitHub 登录
+              演示登录
             </button>
           </>
-        )}
+        ) : api.mode === "cloud" ? (
+          <button
+            className="button"
+            disabled={busy}
+            onClick={() => void task(async () => {
+              setAuthError("");
+              await api.login();
+            })}
+          >
+            GitHub 登录
+          </button>
+        ) : null}
         {api.mode === "unconfigured" ? (
           <button
             className="button"
@@ -413,6 +421,7 @@ export default function Community({
           </button>
         ) : null}
       </div>
+      {authError ? <p role="alert" className="community-error">{authError}</p> : null}
       <div className="community-search">
         <input
           aria-label="搜索社区方案"

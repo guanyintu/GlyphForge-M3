@@ -1,6 +1,7 @@
 // Read-only real browser check. No trace, video, HAR, screenshots or session export.
 import {chromium} from '@playwright/test';
 import {spawn,execFileSync} from 'node:child_process';
+import {loadTestSession} from './community-test-session.mjs';
 const REF='rsntccggnvmuazvpxstf',origin=`https://${REF}.supabase.co`;
 let browser,server,requests=0,blocked=0,status='BLOCKED',at='preflight';
 try {
@@ -26,14 +27,12 @@ try {
   await page.getByRole('button',{name:'展开侧栏',exact:true}).click();
   await page.getByRole('button',{name:'社区广场',exact:true}).click();
   await page.locator('.community-empty').waitFor();
-  at='real_login';await page.getByLabel('社区登录邮箱').fill(accounts.b.email);await page.getByLabel('社区登录密码').fill(accounts.b.password);
+  at='real_login';await loadTestSession(page,key,accounts.b);
   accounts.b.password='';accounts.a=null;
-  await page.getByRole('button',{name:'邮箱密码登录',exact:true}).click();
   await page.getByRole('button',{name:'退出登录',exact:true}).waitFor();
-  if(await page.getByLabel('社区登录密码').count())throw Error();
   at='deleted_listing_invisible';if(await page.locator('.community-card').count())throw Error();
   at='real_logout';await page.getByRole('button',{name:'退出登录',exact:true}).click();
-  await page.getByLabel('社区登录邮箱').waitFor();
+  await page.getByRole('button',{name:'GitHub 登录',exact:true}).waitFor();
   if(errors.length||blocked||!(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)))throw Error();
   status='PASS_REAL_UI_READ_ONLY';
 } catch { status=status==='BLOCKED'&&requests===0?'BLOCKED':'FAIL'; }

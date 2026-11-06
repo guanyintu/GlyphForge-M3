@@ -5,6 +5,7 @@ import { readFile } from 'node:fs/promises';
 import { chromium, expect } from '@playwright/test';
 import { syntheticPayload } from './community-business-smoke.mjs';
 import { validateCommunityPayload } from '../supabase/functions/community/validator.js';
+import { loadTestSession } from './community-test-session.mjs';
 
 export const REF = 'rsntccggnvmuazvpxstf';
 export const ORIGIN = `https://${REF}.supabase.co`;
@@ -225,9 +226,7 @@ export async function runJourney({ budget, accounts, key, fixture }) {
   };
   async function login(page, account) {
     await healthy(page);
-    await page.getByLabel('社区登录邮箱').fill(account.email);
-    await page.getByLabel('社区登录密码').fill(account.password);
-    await button(page, '邮箱密码登录').click();
+    await loadTestSession(page, key, account);
     await check(button(page, '退出登录')).toBeVisible();
     await loaded(page);
     await healthy(page);

@@ -20,7 +20,9 @@ async function open(page: any) {
 async function demo(page: any) {
   await open(page);
   await page.getByRole("button", { name: "进入本地演示" }).click();
-  await page.getByLabel("社区登录邮箱").fill("author");
+  await expect(page.getByRole("button", { name: "GitHub 登录", exact: true })).toHaveCount(0);
+  await expect(page.locator('input[type="password"]')).toHaveCount(0);
+  await page.getByLabel("演示账号名称").fill("author");
   await page.getByRole("button", { name: "演示登录", exact: true }).click();
   await expect(page.getByText("创作者 · author")).toBeVisible();
 }
@@ -132,7 +134,7 @@ test("immutable versions, owner edits, alternate account, report and local hidin
   await expect(
     page.getByRole("button", { name: "点赞", exact: true }),
   ).toBeDisabled();
-  await page.getByLabel("社区登录邮箱").fill("visitor");
+  await page.getByLabel("演示账号名称").fill("visitor");
   await page.getByRole("button", { name: "演示登录", exact: true }).click();
   await expect(
     page.getByRole("button", { name: "点赞", exact: true }),
@@ -174,7 +176,7 @@ test("anonymous browsing and unavailable cloud leave local creation usable", asy
   ).toBeVisible();
   await expect(
     page.getByRole("button", { name: "GitHub 登录" }),
-  ).toBeDisabled();
+  ).toHaveCount(0);
   await page.getByRole("button", { name: "工作流工坊", exact: true }).click();
   await page.getByRole("button", { name: /^运行工作流/ }).click();
   await expect(page.getByText(/生成完成/)).toBeVisible();

@@ -27,9 +27,9 @@ export const demo: CommunityAPI = {
   async user() {
     return read().user;
   },
-  async login(_method, email) {
+  async login(name) {
     const s = read();
-    s.user = { id: email || "demo-author", name: email || "本地创作者" };
+    s.user = { id: name || "demo-author", name: name || "本地创作者" };
     save(s);
   },
   async logout() {

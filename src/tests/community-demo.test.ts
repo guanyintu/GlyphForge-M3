@@ -7,7 +7,7 @@ import {db,initialize} from '../storage/db';
 beforeEach(async()=>{const values=new Map();vi.stubGlobal('localStorage',{getItem:(k:string)=>values.get(k)??null,setItem:(k:string,v:string)=>values.set(k,v)});vi.stubGlobal('navigator',{});await db.delete();await db.open();await initialize();});
 afterEach(()=>vi.unstubAllGlobals());
 it('demo enforces adoption per version and hides deleted snapshots even from their author',async()=>{
-  await demo.login('password','author');
+  await demo.login('author');
   const payload=await exportPackage(createWorkflow());
   const w=await demo.write('publish',{title:'fixture',description:'',tags:[],payload}) as {id:string};
   const event=(kind:string,version=1)=>demo.write('event',{workflow_id:w.id,version,kind,id:crypto.randomUUID()});

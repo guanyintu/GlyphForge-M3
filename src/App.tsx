@@ -79,6 +79,7 @@ import { RelationEditor } from "./components/RelationEditor";
 import { createRelationRecipe, ensureRecipeExamples, relationRecipes } from "./core/recipes";
 import { workflowFromMatches } from "./core/reverse-workflow";
 import { relationLabels } from "./core/relations";
+import { oauthReturnUrl } from "./community/oauth-return";
 
 type Page = "community" | "packs" | "workflow" | "resources" | "lab" | "reverse" | "favorites";
 const Community = lazy(() => import('./components/Community'));
@@ -116,7 +117,7 @@ export default function App() {
   const [bootError, setBootError] = useState("");
   const [bootAttempt, setBootAttempt] = useState(0);
   const [subgraphsOpen, setSubgraphsOpen] = useState(false);
-  const [page, setPage] = useState<Page>("workflow");
+  const [page, setPage] = useState<Page>(() => oauthReturnUrl() ? "community" : "workflow");
   const [workflow, setWorkflow] = useState<Workflow>(createWorkflow);
   const currentWorkflow = useRef(workflow);
   currentWorkflow.current = workflow;

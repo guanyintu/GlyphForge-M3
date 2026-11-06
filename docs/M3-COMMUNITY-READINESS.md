@@ -1,6 +1,23 @@
 # GlyphForge M3 社区方案就绪表
 
-## 2026-11-06 M3-UI 真实浏览器写入与 M3-C 门禁（最新）
+## 2026-11-06 Free Plan 登录路线验收（Asia/Shanghai）
+
+正式公开社区继续使用 Supabase Free Plan，前端仅提供 **GitHub 登录**。云端页面移除了邮箱、密码和密码登录入口。未配置云端服务时，用户仍可主动进入本地演示，使用演示账号；演示账号、数据和计数保存在当前浏览器。客户端保留 PKCE、会话恢复与刷新、登出，并继续以 `BASE_URL` 计算回跳地址。
+
+登录前只读取项目公开的 Auth Provider 可用状态。GitHub 未启用时提示联系管理员；回跳携带错误或浏览器无法完成换码时，社区显示固定的配置检查提示，并清理地址栏中的认证参数。GitHub 或 Supabase 若将浏览器留在站外，站内提示无法显示，须在发布前使用实际站点验证回跳。 [GitHub 登录](https://supabase.com/docs/guides/auth/social-sign-in/auth-github) · [回跳地址](https://supabase.com/docs/guides/auth/redirect-urls)
+
+| 验收项 | 状态 | 范围 |
+| --- | --- | --- |
+| GitHub-only 云端界面与本地演示 | PASS（本地） | Vitest 422/422，Playwright 云端模拟 6/6、本地演示 3/3、仓库子路径离线回归 1/1。覆盖桌面与 375px 下无密码表单、演示登录、GitHub 未启用及回跳错误的脱敏提示。 |
+| OAuth 会话生命周期 | PASS（模拟） | SDK 按仓库子路径启动 GitHub PKCE，模拟回跳换码、过期会话刷新、页面重载恢复、登出和切换账号。 |
+| 真实 GitHub OAuth / PKCE | **NOT_RUN** | GitHub Provider、OAuth App 与实际站点回跳尚未配置。本次未进行真实登录或云端业务写入，历史测试结果见下文。 |
+| M3-C / M3-D | **BLOCKED** | 公开上线 **NO-GO**。 [发布门禁](M3-RELEASE-BLOCKERS.md) |
+
+`glyphforge-m3-test` 的 Email Provider、两个合成账号和 DPAPI vault 保留供受限验收使用。真实浏览器验收脚本通过仅供本机测试的入口建立合成账号会话，保留原请求目标、限额和写白名单。本次用离线模拟验证脚本；云端 Provider 设置与 DPAPI vault 未被操作。
+
+正式上线前，管理员需在 GitHub 和**正式 Supabase 项目**配置 GitHub Provider。OAuth App 的 callback 使用所连接项目的 `/auth/v1/callback`。`glyphforge-m3-test` 对应 `https://rsntccggnvmuazvpxstf.supabase.co/auth/v1/callback`。正式 Site URL 与 Redirect URLs 必须匹配待确认的实际站点根路径，保留 GitHub Pages 仓库子路径末尾的 `/`。OAuth 凭证只填入 Supabase 控制台。真实 GitHub 登录和 PKCE 回跳验证通过后，在正式项目关闭 Email/Password Provider，再验证 GitHub 登录、刷新、登出、RLS，以及密码登录被服务端拒绝。前端移除密码入口只完成了界面变更。 [GitHub 登录](https://supabase.com/docs/guides/auth/social-sign-in/auth-github) · [回跳地址](https://supabase.com/docs/guides/auth/redirect-urls)
+
+## 2026-11-06 M3-UI 真实浏览器写入与 M3-C 门禁（历史实跑）
 
 | 范围 | 结果 | 证据 |
 | --- | --- | --- |
@@ -18,7 +35,7 @@
 - 本轮验证通过新增离线保护和 Chromium 模拟成功/429 清理路径、桌面与 375px 模拟 2/2、Vitest 415/415、PowerShell AST、TypeScript、lint、生产构建和 Gitleaks 8.30.1（0 未处理命中，沿用两条已有精确误报记录）。Vite 仍报告既有混合导入和大 chunk 警告。
 - 离线复现为 `node scripts/test-community-ui-business-live.mjs`。需要重新开展真实验收时，先在专用项目运行 [budget.sql](m3/ui-business-20261106/budget.sql)，将返回的单行导出为无凭证 JSON，随后用 `scripts/Run-M3-Auth-Vault.ps1 -Action Run -Check UIBusiness -BudgetSnapshot <path>`。运行一次即可能创建新方案并扣额度，启动器退出 0 表示浏览器断言通过，最终 PASS 依赖独立 SQL 读回。[本轮定向只读 SQL](m3/ui-business-20261106/workflow-readback.sql)
 
-## 2026-11-06 M3-A 真实 HTTP、M3-B 本地并发及 M3-UI 验收（最新）
+## 2026-11-06 M3-A 真实 HTTP、M3-B 本地并发及 M3-UI 验收（历史实跑）
 
 - 基线确认：`codex/m3-community @ 3258257`，无 remote。仅修改本 M3 工作区；不操作原 M2，不编辑或提交 `docs/m2/full-1793533425390/`。无公网部署、push、账号创建、Auth 全局策略或 RLS/JWT 放宽。
 - **M3-A Auth PASS**：沿用已确认的真实 14/14 Auth smoke；本次业务脚本再次实际验证 A/B 密码登录、签名会话 getUser 与不同用户。测试凭证仅由当前用户 DPAPI 解密，经一次性本机匿名 stdin 管道进入测试进程，未进入 argv、环境、报告、聊天或 Git。保留独立 Auth smoke，不改为混合脚本。
@@ -281,7 +298,7 @@ Node v24.22.1 / pnpm 11.25.0 / TypeScript 5.9.3 / Vite 7.3.7 / Vitest 3.2.7 / Pl
 ## 实际功能
 
 - 现有工坊内「社区广场」按需加载：匿名浏览、标题/描述/标签关键词、精确标签、最新/热门点赞/最多使用（采纳）、每页 12 项。版本列表只拉元数据，选定版本才下载最多 1 MiB 的 JSON。
-- 云端适配器使用固定 `@supabase/supabase-js@2.118.0`：GitHub PKCE、会话恢复/刷新/退出、邮箱密码备用登录。OAuth 缺失时可用预建测试账号。整个服务未配置时，用户显式选择**本地演示**；账号/数据/计数标明模拟，刷新可恢复，不发往云端，也不替代权限验收。
+- 此历史版本的云端适配器使用固定 `@supabase/supabase-js@2.118.0`，包含 GitHub PKCE、会话恢复/刷新/退出和邮箱密码备用登录。当前云端界面已移除备用入口。未配置云端服务时仍可显式选择**本地演示**，账号、数据和计数在当前浏览器内模拟。
 - 登录后发布**当前选定工作流**、改标题/描述、追加不可变版本（乐观版本检查）、下架/重新上架/软删除自己的方案。作者采用稳定账号化名，不公开邮箱。审核下架后作者不能自行上架，但可软删除。
 - 分享初始不勾选资源；词库/关系/Mapping 逐项选择，所需子图/扩展另行勾选同意。预览完整上传 JSON，确认后才发送。拒绝历史/收藏/本地社区来源字段、无关快照、保留原型键、脚本字段和可执行标记。种子、原算子版本和声明式扩展语义延续。
 - 下载→哈希/协议/闭包校验→只读预览→冲突和缺失提示→ImportBindings→确认→原事务导入新 ID 副本→手动本地运行。来源归属与副本在同一事务保存；最终写失败整体回滚。未知扩展默认禁用；导入不重新启用已禁用扩展。运行使用现有 Worker，无在线任意代码执行。
@@ -340,7 +357,7 @@ Node v24.22.1 / pnpm 11.25.0 / TypeScript 5.9.3 / Vite 7.3.7 / Vitest 3.2.7 / Pl
 本轮仅保存迁移、函数及候选artifact工作流；workflow_dispatch/普通pull_request触发，contents:read、checkout不保留凭证、action按SHA固定。先全范围扫描，再安装/lint/typecheck/test/SQL/校验器/Chromium/build，最后扫描真实dist后上传artifact。无pull_request_target、生产secret、pages/id-token写权限或deploy-pages步骤，不会公开部署。CI尚未远程运行；本地命令结果如上。
 
 1. 准备一个明确授权的非生产 Supabase 环境或 Docker 本地环境。按当前 CLI `--help` 使用 `supabase start`；已有本地数据库用增量迁移，不对用户数据执行 reset。运行 `supabase test db` 的 pgTAP，并使用两个真实账号、匿名和两个并发连接验证点赞/事件/版本冲突、RLS/GRANT、真实 RPC/Edge 和失败回滚；运行 advisors。未完成前不公开服务。
-2. 配置 Auth GitHub provider。GitHub OAuth callback 是 Supabase 的 `/auth/v1/callback`；Supabase Site URL 与允许 redirect 必须为站点的精确仓库根路径 `https://HOST/REPO/`。邮箱备用路径用预建测试账号，邮件注册关闭；匿名登录保持关闭。真实密钥只放 Supabase 控制台/服务端。
+2. GitHub Provider 和正式站点回跳配置按本文顶部的 Free Plan 上线门禁执行。测试项目的合成账号只供受限验收脚本使用。
 3. 浏览器仅设置 `.env.example` 的 `VITE_SUPABASE_URL`、`VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...`。服务端设置 `COMMUNITY_PUBLISHABLE_KEY`、`COMMUNITY_ALLOWED_ORIGINS`（逗号分隔的精确 origin）；service_role 从 Supabase Edge 环境读取，禁止 VITE_ 前缀。按用户核准的账号手动写私有 moderators 表；不读取 user_metadata 管理员标记。
 4. `pnpm community:validator` 后部署函数/迁移到获准的测试环境。`GLYPHFORGE_BASE=/REPO/ pnpm build`；站点页面都在仓库根路径切换，不使用 history 子路由，OAuth 查询参数回根入口。实际 Windows 构建以 `$env:GLYPHFORGE_BASE='/REPO/'` 设置。
 5. [M2 门禁](M2-RELEASE-READINESS.md)已独立验收通过。仍需经用户明确授权连接 GitHub Pages、配置实际 OAuth/生产项目和发布。当前构建工作流只产生可审核 artifact，不会正式上线。

@@ -230,10 +230,9 @@ export default function Community({
     setDownloaded(null);
     setPreview(null);
     setVersions([]);
-    const [vs, l] = await Promise.all([api.versions(w.id), api.liked(w.id)]);
+    const vs = await api.versions(w.id);
     if (token !== request.current) return;
     setVersions(vs);
-    setLiked(l);
     setDescription(w.description);
     setTitle(w.title);
     setTags(w.tags.join(","));
@@ -599,10 +598,11 @@ export default function Community({
                   const updated = await api.write("like", {
                     workflow_id: detail.id,
                     liked: !liked,
-                  });
+                  }) as Listing;
                   setLiked(!liked);
-                  setDetail(updated as Listing);
-                  refresh((v) => v + 1);
+                  setDetail(updated);
+                  if (sort === "popular") refresh((v) => v + 1);
+                  else setItems((rows) => rows.map((w) => w.id === updated.id ? updated : w));
                 })
               }
             >

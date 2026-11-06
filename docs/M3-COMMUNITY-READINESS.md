@@ -1,5 +1,23 @@
 # GlyphForge M3 社区方案就绪表
 
+## 2026-11-06 M3-UI 真实浏览器写入与 M3-C 门禁（最新）
+
+| 范围 | 结果 | 证据 |
+| --- | --- | --- |
+| M3-UI simulated | PASS | 本轮桌面、375px 合同模拟通过。新脚本离线测试覆盖目标、凭证、限额、写白名单、脱敏与 429 后仅清理新 UUID。 |
+| M3-UI real read-only | PASS | 沿用上轮 6 次可控请求、0 写入。上轮浏览器 OPTIONS 未单独计数。[上轮结果](m3/http-ui-20261106/backend-and-ui-audit.json) |
+| M3-UI real business write | PASS | 专用项目的本机 Vite + Chromium，两个隔离 BrowserContext。工坊导入单个两节点合成方案，验证完整预览、隐私说明和 1,259 字节显示，A 发布后在列表/详情核对标题、作者、v1。B 登录后看到同一条目，点赞显示 1、取消显示 0。A 点击软删除，B 刷新后不可见。[脱敏记录](m3/ui-business-20261106/result.json) |
+| M3-C 平台安全与费用 | BLOCKED | 控制台配置和平台入口控制待核实。5 条 INFO 已核查，泄露密码保护仍 WARN。[发布阻断项](M3-RELEASE-BLOCKERS.md) |
+| M3-B hosted concurrency | NOT_RUN | 上轮本地 PostgreSQL 独立 writer 8/8，未执行托管双 writer 测试。[本地并发证据](m3/http-ui-20261106/local-concurrency.json) |
+| M3-D release | BLOCKED | 公开发布 NO-GO。CI 在当前仓库仅产出候选 artifact，无 remote。 |
+
+- 真实业务 **28/28 HTTP，含 11 个原生 OPTIONS**。四次且仅四次 Edge POST，publish、like、unlike、status=deleted 均为 HTTP 200。打开详情产生的应用自动 view 事件在浏览器发出 HTTP 前拦截，避免额外写入。详情去除重复点赞状态读取；点赞后就地更新当前行，按热度排序时仍刷新列表。
+- UTC 2026-11-06，管理连接只读核对预算为全局 **0 → 8**，A、B 各 **0 → 4**，发布数 **0 → 1**，日快照 **0 → 818 bytes**，累积 **1,280 → 2,098 bytes**。各成功操作包含一次 reserve 和一次事务扣减。首次启动因云端与本机时钟偏差在前置校验阻断，HTTP 为 0；修正为有界时钟容差并取得新快照后完成唯一一次云端浏览器业务运行。
+- 数据库确认本轮 UUID `1bf25296-2c2a-43b7-b616-743e0d0ca335` 为 **deleted**。保留 1 个 workflow、1 个版本（818 bytes），0 likes、0 reports、0 events，复用已有作者 profile（总数 1 → 1）。旧轮方案的 deleted 状态、两版本、1 举报和 3 事件复核与基线相同。软删除保留本轮版本及预算记录。
+- 凭证由现有 Windows 当前用户 DPAPI 经一次性 stdin 管道交给本地进程。Vite 仅接受指定项目和已有公开 publishable key，使用临时浏览器上下文。报告只保留动作状态、HTTP 计数、合成 UUID 及聚合 SQL；无 HAR、trace、视频、用户标识或会话存档。只读管理 SQL 与 loopback 资源单独核算。
+- 本轮验证通过新增离线保护和 Chromium 模拟成功/429 清理路径、桌面与 375px 模拟 2/2、Vitest 415/415、PowerShell AST、TypeScript、lint、生产构建和 Gitleaks 8.30.1（0 未处理命中，沿用两条已有精确误报记录）。Vite 仍报告既有混合导入和大 chunk 警告。
+- 离线复现为 `node scripts/test-community-ui-business-live.mjs`。需要重新开展真实验收时，先在专用项目运行 [budget.sql](m3/ui-business-20261106/budget.sql)，将返回的单行导出为无凭证 JSON，随后用 `scripts/Run-M3-Auth-Vault.ps1 -Action Run -Check UIBusiness -BudgetSnapshot <path>`。运行一次即可能创建新方案并扣额度，启动器退出 0 表示浏览器断言通过，最终 PASS 依赖独立 SQL 读回。[本轮定向只读 SQL](m3/ui-business-20261106/workflow-readback.sql)
+
 ## 2026-11-06 M3-A 真实 HTTP、M3-B 本地并发及 M3-UI 验收（最新）
 
 - 基线确认：`codex/m3-community @ 3258257`，无 remote。仅修改本 M3 工作区；不操作原 M2，不编辑或提交 `docs/m2/full-1793533425390/`。无公网部署、push、账号创建、Auth 全局策略或 RLS/JWT 放宽。

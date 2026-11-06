@@ -1,8 +1,9 @@
 param(
   [ValidateSet('Run','Save','Forget','Status','SelfTest')]
   [string]$Action = 'Run',
-  [ValidateSet('Auth','Business','UI')]
-  [string]$Check = 'Auth'
+  [ValidateSet('Auth','Business','UI','UIBusiness')]
+  [string]$Check = 'Auth',
+  [string]$BudgetSnapshot
 )
 # Windows-only, current-user DPAPI; synthetic test accounts only.
 # Secrets stay out of project files, command-line arguments, chat, and logs.
@@ -48,6 +49,13 @@ function Test-Vault {
 }
 
 function Run-CloudSmoke {
+  if ($Check -eq 'UIBusiness') {
+    if (-not $BudgetSnapshot -or -not (Test-Path -LiteralPath $BudgetSnapshot -PathType Leaf) -or
+        $env:DEBUG -or $env:PWDEBUG -or $env:NODE_DEBUG -or $env:NODE_OPTIONS) {
+      throw 'UI business requires a fresh read-only budget snapshot and diagnostics disabled.'
+    }
+    $BudgetSnapshot = (Resolve-Path -LiteralPath $BudgetSnapshot).Path
+  }
   if (-not (Test-Vault)) {
     if ($Check -ne 'Auth') { throw 'Existing test vault required.' }
     Save-Vault
@@ -72,6 +80,11 @@ function Run-CloudSmoke {
   if ($Check -eq 'UI') {
     $psi.FileName = (Get-Command node.exe).Source
     $psi.Arguments = '"' + (Join-Path $PSScriptRoot 'community-ui-live.mjs') + '"'
+    $psi.WorkingDirectory = $ProjectRoot
+  }
+  if ($Check -eq 'UIBusiness') {
+    $psi.FileName = (Get-Command node.exe).Source
+    $psi.Arguments = '"' + (Join-Path $PSScriptRoot 'community-ui-business-live.mjs') + '" "' + $BudgetSnapshot + '"'
     $psi.WorkingDirectory = $ProjectRoot
   }
   $psi.UseShellExecute = $false

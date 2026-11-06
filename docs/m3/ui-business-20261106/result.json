@@ -1,0 +1,146 @@
+{
+  "baseline": "7319f6d",
+  "browser": "Playwright Chromium 156, separate ephemeral contexts, 1280x900",
+  "scope": "Cloud HTTP budget includes browser-native OPTIONS. Loopback assets and read-only management SQL are separate.",
+  "checks": [
+    "A password login",
+    "Workshop JSON import",
+    "Full validated preview with size and privacy checks",
+    "A listing and detail with title, author, version",
+    "Independent B password login, listing and detail",
+    "B like shows 1 and pressed",
+    "B unlike shows 0 and unpressed",
+    "A soft-delete",
+    "B refresh hides listing"
+  ],
+  "firstLauncherAttempt": {
+    "status": "BLOCKED",
+    "reason": "cloud/host clock skew at preflight",
+    "requests": 0,
+    "workflowCreated": false
+  },
+  "run": {
+    "target": "rsntccggnvmuazvpxstf",
+    "status": "PASS",
+    "at": "reader_refresh",
+    "reason": null,
+    "previewBytes": 1259,
+    "cleanup": "SOFT_DELETE_CONFIRMED_BY_READ_ONLY_SQL",
+    "requests": 28,
+    "options": 11,
+    "maxRequests": 28,
+    "workflowId": "1bf25296-2c2a-43b7-b616-743e0d0ca335",
+    "actions": {
+      "publish": {
+        "attempted": true,
+        "http": 200
+      },
+      "like": {
+        "attempted": true,
+        "http": 200
+      },
+      "unlike": {
+        "attempted": true,
+        "http": 200
+      },
+      "delete": {
+        "attempted": true,
+        "http": 200
+      }
+    }
+  },
+  "budgetAndRowsBefore": {
+    "target": "rsntccggnvmuazvpxstf",
+    "utc_day": "2026-11-06",
+    "observed_epoch": 1793962066,
+    "global_writes": 0,
+    "publications": 0,
+    "account_rows": 0,
+    "max_account_publications": 0,
+    "max_account_writes": 0,
+    "account_writes": [],
+    "auth_users": 2,
+    "confirmed_users": 2,
+    "github_identities": 0,
+    "enabled": true,
+    "payload_bytes": 1280,
+    "payload_day_bytes": 0,
+    "workflows": 1,
+    "published": 0,
+    "versions": 2,
+    "likes": 0,
+    "reports": 1,
+    "events": 3,
+    "profiles": 1,
+    "sql_session_pre_request": null,
+    "db_role_pre_request": false
+  },
+  "budgetAndRowsAfter": {
+    "target": "rsntccggnvmuazvpxstf",
+    "utc_day": "2026-11-06",
+    "observed_epoch": 1793962128,
+    "global_writes": 8,
+    "publications": 1,
+    "account_rows": 2,
+    "max_account_publications": 1,
+    "max_account_writes": 4,
+    "account_writes": [
+      4,
+      4
+    ],
+    "auth_users": 2,
+    "confirmed_users": 2,
+    "github_identities": 0,
+    "enabled": true,
+    "payload_bytes": 2098,
+    "payload_day_bytes": 818,
+    "workflows": 2,
+    "published": 0,
+    "versions": 3,
+    "likes": 0,
+    "reports": 1,
+    "events": 3,
+    "profiles": 1,
+    "sql_session_pre_request": null,
+    "db_role_pre_request": false
+  },
+  "workflowReadback": [
+    {
+      "workflow": "prior_run",
+      "status": "deleted",
+      "current_version": 2,
+      "listing_likes": 0,
+      "views": 1,
+      "adoptions": 1,
+      "runs": 1,
+      "versions": 2,
+      "payload_bytes": 1280,
+      "like_rows": 0,
+      "reports": 1,
+      "events": 3,
+      "author_profile_exists": true,
+      "author_day_writes": 4
+    },
+    {
+      "workflow": "this_run",
+      "status": "deleted",
+      "current_version": 1,
+      "listing_likes": 0,
+      "views": 0,
+      "adoptions": 0,
+      "runs": 0,
+      "versions": 1,
+      "payload_bytes": 818,
+      "like_rows": 0,
+      "reports": 0,
+      "events": 0,
+      "author_profile_exists": true,
+      "author_day_writes": 4
+    }
+  ],
+  "advisors": {
+    "infoRlsNoPolicy": 5,
+    "warnLeakedPasswordProtectionDisabled": 1
+  },
+  "billingAndProviderSettings": "UNKNOWN"
+}

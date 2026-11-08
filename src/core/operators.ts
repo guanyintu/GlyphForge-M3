@@ -36,7 +36,7 @@ export function acceptsFilter(text: string, p: RuleNode["params"]) {
 const executors: Record<Op, RegisteredOperator["execute"]> = {
   extension: async function* () { throw new Error("扩展需要固定版本执行作用域"); },
   mutate,
-  curate: c => curate(c.input(0), c.node.params, c.seed, c.tick),
+  curate: c => curate(c.input(0), c.node.params, c.seed, c.tick, c.node.params.reviewedResourceId ? c.read(String(c.node.params.reviewedResourceId), c.seed) : undefined),
   call: async function* () { throw new Error("子图调用需要执行器作用域"); },
   argument: async function* () { throw new Error("序列参数需要执行器作用域"); },
   gamecheck: async function* (c) {

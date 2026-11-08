@@ -5,6 +5,7 @@ const { createClient, initialize, signInWithOAuth } = vi.hoisted(() => {
   const signInWithOAuth = vi.fn();
   return { createClient: vi.fn(() => ({ auth: { initialize, signInWithOAuth } })), initialize, signInWithOAuth };
 });
+vi.mock("../community/availability", () => ({ onlineSharingEnabled: true }));
 vi.mock("@supabase/supabase-js", () => ({ createClient }));
 
 const origin = "https://glyphforge-auth.example.invalid";

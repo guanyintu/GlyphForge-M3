@@ -3,7 +3,7 @@ import { glyphs } from "./unicode";
 
 export const curationDefaults = {
   lengths: "2,3", category: "", recipes: "direct,suffix,prefix,semantic,contrast",
-  includes: "", excludes: "", offset: 0,
+  includes: "", excludes: "", offset: 0, reviewedResourceId: "",
 };
 const tokens = (s: unknown) => String(s).split(/[,，\s]+/u).filter(Boolean);
 export function validateCuration(p: Params) {
@@ -26,18 +26,33 @@ function hash(text: string, seed: number) {
   return (n >>> 0) / 4294967296;
 }
 /** Bounded ranking of an existing sequence; never invents text or provenance. */
-export async function* curate(input: AsyncIterable<Candidate>, p: Params, seed: number, tick: () => void) {
+export async function* curate(input: AsyncIterable<Candidate>, p: Params, seed: number, tick: () => void, reviewed?: AsyncIterable<Candidate>) {
+  const scored = new Map<string, Candidate>();
+  if (reviewed) {
+    let count = 0;
+    for await (const row of reviewed) {
+      tick(); if (++count > 10000) throw new Error("关系评分最多读取 10,000 行");
+      if (!row.pair) throw new Error("关系评分需要关系词库");
+      const pair = row.pair;
+      for (const text of [pair.left + pair.right, ...(glyphs(pair.left).length === 2 ? [pair.left] : [])]) {
+        const prior = scored.get(text);
+        if (!prior || Number(pair.weight || 0) > Number(prior.pair?.weight || 0)) scored.set(text, row);
+      }
+    }
+  }
   const lengths = new Set(tokens(p.lengths).map(Number)), recipes = new Set(tokens(p.recipes));
   const excluded = tokens(p.excludes), unique = new Map<string, { c: Candidate; rank: number }>();
   let scanned = 0;
-  for await (const c of input) {
+  for await (const original of input) {
+    const rating = scored.get(original.text);
+    const c = rating ? { ...original, parts: [...new Map([...original.parts, ...rating.parts].map(part => [JSON.stringify(part), part])).values()] } : original;
     tick();
     if (++scanned > 10000) throw new Error("精选排序最多扫描 10,000 项，请缩小上游词库");
     if (!lengths.has(glyphs(c.text).length) || !c.text.includes(String(p.includes)) || excluded.some(t => c.text.includes(t))) continue;
     if (p.category && candidateCategory(c) !== p.category) continue;
     if (recipes.size && !recipes.has(candidateRecipe(c))) continue;
     const weights = c.parts.flatMap(s => s.pair?.weight === undefined ? [] : [s.pair.weight]);
-    const quality = weights.length ? Math.max(...weights) : 70;
+    const quality = weights.length ? Math.max(...weights) : (reviewed ? 45 : 70);
     const rank = quality + hash(c.text, seed) * 22;
     const prior = unique.get(c.text);
     if (!prior || rank > prior.rank) unique.set(c.text, { c, rank });

@@ -1,7 +1,5 @@
-import "./haidu.css";
-import { HaiduGenerator } from "./components/HaiduGenerator";
-import { isHaidu, openHaidu } from "./storage/haidu";
-import { candidateCategory } from "./core/curation";
+import { onlineSharingEnabled } from "./community/availability";
+import { openHaidu } from "./storage/haidu";
 import LineagePanel from "./components/LineagePanel";
 import { ExecutionEstimate } from "./components/ExecutionEstimate";
 import { PacksPanel } from "./components/Packs";
@@ -121,14 +119,12 @@ export default function App() {
   const [bootError, setBootError] = useState("");
   const [bootAttempt, setBootAttempt] = useState(0);
   const [subgraphsOpen, setSubgraphsOpen] = useState(false);
-  const [page, setPage] = useState<Page>(() => oauthReturnUrl() ? "community" : "workflow");
+  const [page, setPage] = useState<Page>(() => onlineSharingEnabled && oauthReturnUrl() ? "community" : "workflow");
   const [workflow, setWorkflow] = useState<Workflow>(createWorkflow);
   const currentWorkflow = useRef(workflow);
   currentWorkflow.current = workflow;
   const [selected, setSelected] = useState("mix");
   const [selection, setSelection] = useState<string[]>(["mix"]);
-  const [haiduEditing, setHaiduEditing] = useState(false);
-  const [haiduOpening, setHaiduOpening] = useState(false);
   const [view, setView] = useState("nodes");
   const [code, setCode] = useState("");
   const [codeDirty, setCodeDirty] = useState(false);
@@ -172,7 +168,6 @@ export default function App() {
   const history = useRef(new WorkflowHistory());
   const fileInput = useRef<HTMLInputElement>(null);
   const firstRun = useRef(false);
-  const haiduVersions = useRef({ id: "", key: "" });
   const toastTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
     undefined,
   );
@@ -183,16 +178,6 @@ export default function App() {
       [],
     ) || [];
   const workflows = useLiveQuery(() => db.workflows.toArray(), []) || [];
-  useEffect(() => {
-    if (!ready || !isHaidu(workflow)) return;
-    const ids = new Set(dependencyIds(workflow));
-    const key = resources.filter(r => ids.has(r.id)).map(r => `${r.id}:${r.version}`).sort().join(",");
-    const old = haiduVersions.current;
-    haiduVersions.current = { id: workflow.id, key };
-    if (old.id === workflow.id && old.key !== key && workflow.nodes.some(n => n.op === "curate" && Number(n.params.offset) > 0)) {
-      setWorkflow(w => ({ ...w, nodes: w.nodes.map(n => n.op === "curate" ? { ...n, params: { ...n.params, offset: 0 } } : n) }));
-    }
-  }, [resources, ready, workflow]);
   const previews =
     useLiveQuery(
       async () =>
@@ -336,7 +321,7 @@ export default function App() {
         w.terminate(); worker.current = null;
         clearTimeout(deadline); setRunning(false); setProgress("");
         if (message) notify(message);
-        try { await finishRun(id, status, message); if (status === 'done' && executable.communityOrigin) void import('./community/local').then(m => m.recordSuccessfulRun(executable, id)).catch(() => {}); await pruneHistory(historyLimit()); }
+        try { await finishRun(id, status, message); if (onlineSharingEnabled && status === 'done' && executable.communityOrigin) void import('./community/local').then(m => m.recordSuccessfulRun(executable, id)).catch(() => {}); await pruneHistory(historyLimit()); }
         catch (e) { notify(`运行状态或历史清理失败：${e instanceof Error ? e.message : String(e)}`); }
         finally { release?.(); releases.current.delete(id); }
       }
@@ -473,7 +458,7 @@ export default function App() {
       }
       if (
         !input &&
-        page === "workflow" && (!isHaidu(workflow) || haiduEditing) &&
+        page === "workflow" &&
         !modal &&
         !resource &&
         !detail &&
@@ -583,7 +568,6 @@ export default function App() {
       if (currentWorkflow.current === w) setSaveState("保存失败，请导出备份");
     });
     setWorkflow(w);
-    setHaiduEditing(false);
     setCandidates([]);
     setStats(undefined);
     setSelected(
@@ -618,34 +602,10 @@ export default function App() {
       } else notify(e instanceof Error ? e.message : String(e));
     }
   }
-  async function saveHaidu() {
-    try {
-      const next = codeDirtyRef.current ? parseScript(code, workflow) : workflow;
-      validateGraph(next);
-      await db.workflows.put(next);
-      change(next); setCodeDirty(false); codeDirtyRef.current = false;
-      setHaiduEditing(false); notify("已保存，返回生成界面");
-    } catch (e) { notify(e instanceof Error ? e.message : String(e)); }
-  }
-  async function showHaidu() {
-    if (codeDirtyRef.current) { notify("请先应用或放弃代码草稿，再切换工作流"); return; }
-    setHaiduOpening(true);
-    try { switchWorkflow(await openHaidu()); setSidebarOpen(false); } catch (e) { notify(String(e)); }
-    finally { setHaiduOpening(false); }
-  }
-  function changeHaidu(next: Workflow) {
-    change(next);
-    // Generator preferences are small and should survive an immediate refresh.
-    // Editor graph changes continue to use the original debounced save path.
-    void db.workflows.put(next).catch(() => notify("生成设置保存失败，请重试或导出备份"));
-  }
-  function excludeHaidu(text: string) {
-    const selection = workflow.nodes.find(n => n.op === "curate");
-    if (!selection) return;
-    const excluded = [...new Set([...String(selection.params.excludes || "").split(",").filter(Boolean), text])].join(",");
-    if (excluded.length > 256) { notify("排除列表已满，请在高级选项中整理"); return; }
-    const next = { ...workflow, nodes: workflow.nodes.map(n => n.id === selection.id ? { ...n, params: { ...n.params, excludes: excluded, offset: 0 } } : n) };
-    changeHaidu(next); run(next); notify(`已排除「${text}」，可在高级选项中移除`);
+  async function chooseHaiduWorkflow() {
+    if (codeDirtyRef.current) { notify("请先应用或放弃代码草稿，再切换配方"); return; }
+    try { switchWorkflow(await openHaidu()); setModal(null); setSidebarOpen(false); }
+    catch (error) { notify(error instanceof Error ? error.message : "海都工作流安装失败"); }
   }
   function previewNode() {
     if (!selectedNode) return;
@@ -708,7 +668,7 @@ export default function App() {
         </a>
         <div className="sidebar-label">你的创作空间</div>
         <nav>
-          {nav.map((n) => (
+          {nav.filter(n => onlineSharingEnabled || n.id !== "community").map((n) => (
             <button
               className={`nav-item ${page === n.id ? "active" : ""}`}
               key={n.id}
@@ -738,7 +698,6 @@ export default function App() {
             <span className="nav-count">{favorites.length}</span>
           </button>
         </nav>
-        <button className="nav-item haidu-entry" disabled={haiduOpening || !ready} onClick={showHaidu}><WandSparkles size={18} /><span>{haiduOpening ? "正在打开…" : "海都潮人 ID"}</span></button>
         <div className="sidebar-section-heading">
           <span>我的工作流</span>
           <button
@@ -855,18 +814,11 @@ export default function App() {
             <p>正在打开你的文字工坊…</p>
             </>}
           </div>
-        ) : page === "workflow" && isHaidu(workflow) && !haiduEditing ? (
-          <>{codeDirty ? <p className="draft-notice" role="status">编辑草稿已保留，生成使用已应用的流程。</p> : null}<HaiduGenerator workflow={workflow} resources={resources} running={running} onChange={changeHaidu} onRun={run} onStop={stop} onEdit={() => setHaiduEditing(true)}>
-            <Results compact candidates={candidates} favorites={favorites} stats={stats} running={running} onFavorite={favorite} onSave={createResource} onCopy={copy} onDetail={setDetail} onExclude={excludeHaidu} onSimilar={c => {
-              const next = { ...workflow, seed: (workflow.seed + 1) >>> 0, nodes: workflow.nodes.map(n => n.op === "curate" ? { ...n, params: { ...n.params, category: candidateCategory(c), offset: 0 } } : n) };
-              changeHaidu(next); run(next);
-            }} />
-          </HaiduGenerator><div className="haidu-history"><RunHistory onDetail={setDetail} /></div></>
         ) : page === "workflow" ? (
           <div className="workflow-page">
             {subgraphsOpen ? <Subgraphs workflow={workflow} selection={selection} resources={resources} previews={previews} onChange={change} onClose={() => setSubgraphsOpen(false)} /> : null}
             <h1 className="sr-only">工作流创作工坊</h1>
-            {isHaidu(workflow) ? <div className="haidu-edit-bar"><span>海都潮人 ID · 编辑模式</span><div><button className="text-button" onClick={() => setHaiduEditing(false)}>返回生成（保留草稿）</button><button className="button" onClick={() => setPage("resources")}>编辑词库</button><button className="primary-button" onClick={saveHaidu}>保存并返回</button></div></div> : null}
+            {workflow.comments?.includes("// glyphforge:preset:haidu-v2") ? <div className="draft-notice"><span>旧海都配方已保留。新版按原表五列组合。</span><button className="text-button" onClick={chooseHaiduWorkflow}>打开五列工作流</button></div> : null}
             <div className="workflow-heading">
               <div>
                 <div className="eyebrow">
@@ -913,7 +865,7 @@ export default function App() {
                   ) : (
                     <Play size={15} fill="currentColor" />
                   )}
-                  {running ? "停止生成" : isHaidu(workflow) ? "生成预览" : "运行工作流"}
+                  {running ? "停止生成" : "运行工作流"}
                   <kbd>Ctrl ↵</kbd>
                 </button>
               </div>
@@ -1217,7 +1169,7 @@ export default function App() {
               </span>
             </div>
           </div>
-        ) : page === "community" ? (<Suspense fallback={<p>正在打开社区…</p>}><Community workflow={workflow} resources={resources} onUse={switchWorkflow} notify={notify} canPublish={!codeDirty} /></Suspense>) : page === "packs" ? (<PacksPanel workflow={workflow} onChange={w => { switchWorkflow(w); }} notify={notify} />) : page === "resources" ? (
+        ) : page === "community" && onlineSharingEnabled ? (<Suspense fallback={<p>正在打开社区…</p>}><Community workflow={workflow} resources={resources} onUse={switchWorkflow} notify={notify} canPublish={!codeDirty} /></Suspense>) : page === "packs" ? (<PacksPanel workflow={workflow} onChange={w => { switchWorkflow(w); }} notify={notify} />) : page === "resources" ? (
           <ResourcePage
             resources={resources}
             previews={previews}
@@ -1311,7 +1263,7 @@ export default function App() {
                     : modal === "benchmark"
                       ? "真实浏览器性能测试"
                       : modal === "share"
-                        ? "导出与分享"
+                        ? "本地导入与导出"
                         : modal === "bindings"
                           ? "重新绑定资源"
                           : "灵感配方"
@@ -1330,7 +1282,7 @@ export default function App() {
                         : modal === "benchmark"
                           ? "实测本机词库性能"
                           : modal === "share"
-                            ? "把灵感带到下一个地方"
+                            ? "本地导入与导出"
                             : modal === "bindings"
                               ? "为工作流找到对应词库"
                               : "从一个好奇的想法开始"}
@@ -1471,6 +1423,7 @@ export default function App() {
               </div>
             ) : (
               <div className="preset-grid">
+                <button className="preset-card green" onClick={chooseHaiduWorkflow}><span className="preset-tag">海都 · 原表五列流程</span><b className="preset-sample">1+1 / 1+2 / 2+1 / 小+2 / 双字直出</b><h3>海都潮人 ID 工作流</h3><p>独立词库实际参与组合，固定种子、去重和关系评分优化；在现有工坊中编辑与运行。</p><span className="preset-use">使用这个配方<ArrowLeft size={15} /></span></button>
                 {relationRecipes.map(p => <button className="preset-card purple" key={p.id} onClick={async () => {
                   try { await ensureRecipeExamples(); switchWorkflow(createRelationRecipe(p.id)); setModal(null); }
                   catch (e) { notify(e instanceof Error ? e.message : "示例资源安装失败"); }

@@ -6,12 +6,10 @@ import { createServer } from "vite";
 const catalog = JSON.parse(await readFile("examples/haidu-chao-ren.catalog.json", "utf8"));
 const server = await createServer({ optimizeDeps: { noDiscovery: true, include: [] }, server: { middlewareMode: true }, appType: "custom" });
 try {
-  const { parseProgram } = await server.ssrLoadModule("/src/core/program.ts");
-  const { curationDefaults } = await server.ssrLoadModule("/src/core/curation.ts");
   const { validateGraph } = await server.ssrLoadModule("/src/core/script.ts");
   const resources = [];
   function resource(id, name, entries, relationRows) {
-    const meta = { id: `haidu-v2-${id}`, name: `海都潮人 · ${name}`, description: "原创选词；关系是生成依据，素材池供扩充配方。可在资源中心独立编辑与导入导出。", kind: relationRows ? "relation" : "word", color: relationRows ? "purple" : "green", count: relationRows?.length ?? entries.length, version: 1, updatedAt: 0 };
+    const meta = { id: `haidu-v3-${id}`, name: `海都潮人 · ${name}`, description: "原创独立词库；前后词与双字词实际参与原表五列组合，关系只用于质量排序。", kind: relationRows ? "relation" : "word", color: relationRows ? "purple" : "green", count: relationRows?.length ?? entries.length, version: 1, updatedAt: 0 };
     resources.push({ meta, entries, ...(relationRows ? { relationRows } : {}) });
     return meta.id;
   }
@@ -35,22 +33,30 @@ try {
   for (const text of catalog.echo) add(text, text, categoryOf(text), "echo");
   for (const text of catalog.mirror) add(text, [...text].reverse().join(""), categoryOf(text), "echo");
   for (const text of catalog.redup) add(text, text, "动物", "echo");
-  const pairsId = resource("pairs", "精选搭配", [], rows);
-  resource("cores", "双字核心", cores);
-  resource("suffixes", "单字尾缀素材", [...new Set(catalog.suffixes)]);
-  resource("prefixes", "单字前缀素材", [...new Set(catalog.prefixes)]);
-  resource("companions", "双字搭配素材", catalog.companions);
-  const nodes = [
-    { id: "generate", op: "program", inputs: [], params: {}, program: parseProgram(`for pair in pairs("${pairsId}", "associated") { if (length(left(pair)) == 2) { emit(left(pair)); } emit(left(pair) + right(pair)); }`) },
-    { id: "selection", op: "curate", inputs: ["generate"], params: { ...curationDefaults } },
-    { id: "result", op: "output", inputs: ["selection"], params: {} },
-    // Disconnected material nodes keep pools available in the existing portable
-    // dependency model and editor; only the explicit relationship table executes.
-    ...resources.slice(1).map((r, i) => ({ id: `material${i}`, op: "resource", inputs: [], params: { resourceId: r.meta.id } })),
-  ];
-  const workflow = { version: 1, id: "haidu-chao-ren-v2", name: "海都潮人 ID", nodes, layout: Object.fromEntries(nodes.map((n, i) => [n.id, { x: i < 3 ? 40 + i * 290 : 40 + (i - 3) * 260, y: i < 3 ? 70 : 380 }])), seed: 42, limit: 24, comments: ["// glyphforge:preset:haidu-v2", "// 素材节点保留独立词池；审核搭配关系是生成的唯一组合依据。", "// 配方标签 direct/suffix/prefix/semantic/contrast；高级 double/echo 默认关闭。", "// 风格标签可在关系编辑器修改；评分为六维启发式，不代表真实注册可用率。"] };
+  const oneHead = resource("prefixes", "单字前词", [...new Set(catalog.prefixes)]);
+  const oneTail = resource("suffixes", "单字后词", [...new Set(catalog.suffixes)]);
+  const twoHead = resource("cores", "双字前词与直出", cores);
+  const twoTail = resource("companions", "双字后词", catalog.companions);
+  for (const text of catalog.shortPairs) if (catalog.prefixes.includes(text[0]) && catalog.suffixes.includes(text[1])) add(text[0],text[1],/[猫犬狗鲸狐鱼]/.test(text[1])?"动物":"质感","one-one");
+  const pairsId = resource("pairs", "组合质量参考", [], rows);
+  const { sampledWords, haiduWorkflow } = await server.ssrLoadModule("/src/core/haidu-workflow.ts");
+  const { db, saveNewResource, saveRelationRows } = await server.ssrLoadModule("/src/storage/db.ts");
+  const { saveDefinedResource } = await server.ssrLoadModule("/src/storage/resource-runtime.ts");
+  const { exportPackage } = await server.ssrLoadModule("/src/core/sharing.ts");
+  for (const item of resources) {
+    await saveNewResource(item.meta,item.entries);
+    if(item.relationRows) await saveRelationRows(item.meta.id,item.relationRows);
+  }
+  async function sample(id,name,source,count,maxLength) {
+    const sampleId=`haidu-v3-${id}`;
+    await saveDefinedResource({id:sampleId,name:`海都潮人 · ${name}`,description:"用现有成员分组按种子抽取素材；不保存候选缓存，修改原词库后重新计算。",kind:"word",color:"green",version:1,count:0,updatedAt:0,definition:{format:1,type:"dynamic",workflow:sampledWords(sampleId,source,count,maxLength)}});
+    return sampleId;
+  }
+  const workflow=haiduWorkflow({oneHead:await sample("one-head-sample","单字前词抽样20",oneHead,20,1),oneTail:await sample("one-tail-sample","单字后词抽样40",oneTail,40,1),twoHead:await sample("two-head-sample","双字前词抽样40",twoHead,40,2),twoTail:await sample("two-tail-sample","双字后词抽样40",twoTail,40,2),direct:twoHead,reviewed:pairsId});
   validateGraph(workflow);
-  const pkg = { format: "glyphforge", version: 4, irVersion: 1, operatorVersions: { program: 1, curate: 1, output: 1, resource: 1, pairs: 1 }, workflow, dependencies: resources.map(r => ({ id: r.meta.id, name: r.meta.name, version: 1, kind: r.meta.kind })), resources };
+  const pkg=await exportPackage(workflow);
+  for(const item of pkg.resources) item.meta.updatedAt=0;
+  db.close();
   await writeFile("examples/haidu-chao-ren.portable.json", JSON.stringify(pkg, null, 2) + "\n");
   console.log(JSON.stringify({ cores: cores.length, suffixes: new Set(catalog.suffixes).size, prefixes: new Set(catalog.prefixes).size, companions: catalog.companions.length, relations: rows.length, bytes: Buffer.byteLength(JSON.stringify(pkg)), recipes: Object.fromEntries(["suffix","prefix","semantic","contrast","double","echo"].map(k => [k,rows.filter(r=>r.tags.includes(`配方:${k}`)).length])) }));
 } finally { await server.close(); }

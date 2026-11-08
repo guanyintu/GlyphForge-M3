@@ -1,3 +1,4 @@
+import { onlineSharingEnabled } from "./availability";
 import { createClient } from "@supabase/supabase-js";
 import type { EventKind, Listing, User, Version } from "./protocol";
 import { demo } from "./demo";
@@ -37,7 +38,7 @@ const oauthReturn = oauthReturnUrl();
 if (key && !key.startsWith("sb_publishable_"))
   throw new Error("前端只接受 Supabase publishable key");
 const sb =
-  url && key
+  onlineSharingEnabled && url && key
     ? createClient(url, key, {
         auth: {
           flowType: "pkce",

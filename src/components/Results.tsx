@@ -1,4 +1,3 @@
-import { candidateCategory } from "../core/curation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowDownToLine,
@@ -41,11 +40,7 @@ export default function Results({
   onCopy,
   onDetail,
   onMutate,
-  compact = false, onExclude, onSimilar,
 }: {
-  compact?: boolean;
-  onExclude?: (text: string) => void;
-  onSimilar?: (c: Candidate) => void;
   candidates: Candidate[];
   favorites: Favorite[];
   stats?: RunStats;
@@ -57,9 +52,6 @@ export default function Results({
   onDetail: (c: Candidate) => void;
   onMutate?: (c: Candidate) => void;
 }) {
-  const [chosen, setChosen] = useState<Set<string>>(new Set());
-  const [resultCategory, setResultCategory] = useState("");
-  const [rejected, setRejected] = useState<Candidate>();
   const [showRules, setShowRules] = useState(false), [gameRule, setGameRule] = useState(defaultGameRule);
   const [gameText, setGameText] = useState("月亮邮差");
   const gameReport = showRules ? checkGameId(gameText, gameRule) : undefined;
@@ -157,26 +149,6 @@ export default function Results({
   const occurrences = new Map<string, number>();
   const visibleKeys = visible.map(c => { const occurrence = occurrences.get(c.text) ?? 0; occurrences.set(c.text, occurrence + 1); return JSON.stringify([c.text, occurrence]); });
   useResultFlip(grid, JSON.stringify([visibleKeys, view, query, sort, excluded, deduplicate]), motionEnabled && !physics && scroll === 0);
-  if (compact) {
-    const visible = results.filter(c => !resultCategory || candidateCategory(c) === resultCategory);
-    const selectedResults = visible.filter(c => chosen.has(c.text));
-    return <section className="haidu-results" aria-label="ID 结果" aria-busy={running}>
-      <div className="haidu-result-toolbar"><span role="status">{running ? "正在寻找灵感…" : `${candidates.length} 个名字${stats ? " · 生成完成" : " · 准备就绪"}`}</span><div>
-        <select aria-label="按类别查看结果" value={resultCategory} onChange={e => setResultCategory(e.target.value)}><option value="">全部类别</option>{[...new Set(candidates.map(candidateCategory))].map(c => <option key={c}>{c}</option>)}</select>
-        <button className="text-button" onClick={() => setChosen(new Set(visible.map(c => c.text)))}>全选本批</button>
-        <button className="text-button" disabled={!chosen.size} onClick={() => setChosen(new Set())}>清空选择</button>
-        <button className="text-button" disabled={!selectedResults.length} onClick={() => onCopy(selectedResults.map(c => c.text).join("\n"))}>复制所选{selectedResults.length ? ` (${selectedResults.length})` : ""}</button>
-        <button className="text-button" disabled={!favorites.some(f => f.workflowId === candidates[0]?.workflowId)} onClick={() => download("海都潮人-喜欢的ID.txt", favorites.filter(f => f.workflowId === candidates[0]?.workflowId).map(f => f.text).join("\n"), "text/plain;charset=utf-8")}>导出喜欢的</button>
-      </div></div>
-      <div className="haidu-result-grid">{visible.map(c => { const saved = favoriteSet.has(JSON.stringify([c.text,c.runId,c.workflowId])); return <article className={`candidate haidu-candidate ${chosen.has(c.text) ? "chosen" : ""}`} data-candidate-text={c.text} key={`${c.runId}-${c.text}`}>
-        <input className="haidu-select" type="checkbox" aria-label={`选择 ${c.text}`} checked={chosen.has(c.text)} onChange={e => setChosen(old => { const next = new Set(old); if(e.target.checked) next.add(c.text); else next.delete(c.text); return next; })} />
-        <button className="candidate-name" aria-label={`复制 ${c.text}`} onClick={() => onCopy(c.text)}><span className="candidate-text">{c.text}</span><small>{candidateCategory(c)} · {Array.from(c.text).length} 字</small></button>
-        <div className="candidate-buttons"><button className="icon-button" aria-label={`收藏 ${c.text}`} aria-pressed={saved} onClick={() => onFavorite(c)}><Star size={17} fill={saved ? "currentColor" : "none"} /></button><button className="icon-button" aria-label={`不喜欢 ${c.text}`} onClick={() => setRejected(c)}>×</button><button className="icon-button" aria-label={`同类 ${c.text}`} onClick={() => onSimilar?.(c)}>↻</button></div>
-      </article>; })}</div>
-      {!visible.length && !running ? <div className="haidu-empty">留一点空白，给新名字。<p>点击「生成 ID」，或放宽风格、字数与排除条件。</p></div> : null}
-      {rejected ? <div className="haidu-feedback" role="region" aria-label="不喜欢的结果"><span>少一点「{rejected.text}」？</span>{[...new Set([rejected.text, ...rejected.parts.flatMap(p => p.pair ? [p.pair.left, p.pair.right] : [p.text])])].map(t => <button key={t} className="text-button" onClick={() => { onExclude?.(t); setRejected(undefined); }}>排除 {t}</button>)}<button className="text-button" onClick={() => setRejected(undefined)}>算了</button></div> : null}
-    </section>;
-  }
   return (
     <section className={`results-section ${onlyFavorites ? "standalone" : ""}`}>
       <div className="results-heading">

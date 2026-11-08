@@ -61,6 +61,7 @@ jobs:
 
       - name: Require production public configuration
         env:
+          GLYPHFORGE_ONLINE_SHARING: "0"
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
         run: |
@@ -71,6 +72,7 @@ jobs:
         run: pnpm build
         env:
           GLYPHFORGE_BASE: /${{ github.event.repository.name }}/
+          GLYPHFORGE_ONLINE_SHARING: "0"
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
 

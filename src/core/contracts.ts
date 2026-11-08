@@ -142,6 +142,7 @@ export async function requireResourceKind(meta: ResourceMetadataReader, id: stri
   if ((resource.kind === "relation") !== pair) throw new ContractError({ code: "TYPE", message: pair ? "请选择关系词库，普通词条不能用作关系词对" : "关系词库请使用关系词对或共享变量模板节点" });
 }
 export function nodeResourceBindings(op: Op, p: Params): { id: string; pair: boolean; mapping?: boolean }[] {
+  if (op === "curate" && p.reviewedResourceId) return [{ id: String(p.reviewedResourceId), pair: true }];
   const maps = p.mappingId && ["mapchars","hanconvert","mutate","extension"].includes(op) ? [{id:String(p.mappingId),pair:false,mapping:true}] : [];
   if (op === "mutate") return [...maps,...(p.resourceId ? [{id:String(p.resourceId),pair:false}] : [])];
   if (maps.length) return maps;

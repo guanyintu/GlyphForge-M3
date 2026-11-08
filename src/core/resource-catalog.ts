@@ -57,7 +57,7 @@ export function resourceDependents(id: string, catalog: Resource[]) {
 }
 export function rebindWorkflowResources(workflow: Workflow, mapping: Map<string,string>) {
   for (const node of allNodes(workflow)) {
-    for (const key of ['resourceId','mappingId']) if (node.params[key] && mapping.has(String(node.params[key]))) node.params[key]=mapping.get(String(node.params[key]))!;
+    for (const key of ['resourceId','mappingId','reviewedResourceId']) if (node.params[key] && mapping.has(String(node.params[key]))) node.params[key]=mapping.get(String(node.params[key]))!;
     if (node.op === 'template') { const slots=JSON.parse(String(node.params.slots)); for(const s of slots) s.resourceId=mapping.get(s.resourceId) ?? s.resourceId; node.params.slots=JSON.stringify(slots); }
     if (node.program) {
       // Existing program resource references are literals; visit through its public traversal.

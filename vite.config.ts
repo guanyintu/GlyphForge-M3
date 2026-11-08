@@ -25,6 +25,7 @@ export default defineConfig(({ mode }) => {
       "GLYPHFORGE_BASE must be an absolute repository path ending in /",
     );
   return {
+    define: { __GLYPHFORGE_ONLINE_SHARING__: JSON.stringify(process.env.GLYPHFORGE_ONLINE_SHARING === "1") },
     base,
     plugins: [
       react(),

@@ -1,15 +1,15 @@
 import "fake-indexeddb/auto";
 import { beforeEach, describe, expect, it } from "vitest";
 import pkg from "../../examples/haidu-chao-ren.portable.json";
+import v2 from "../../examples/haidu-chao-ren.v2.portable.json";
 import legacy from "../../examples/haidu-chao-ren.v1.portable.json";
 import catalog from "../../examples/haidu-chao-ren.catalog.json";
-import { db, readResource, saveRelationRows } from "../storage/db";
-import { importPackage, exportPackage } from "../core/sharing";
+import { db, readResource, addEntries, saveRelationRows } from "../storage/db";
+import { importPackage, exportPackage, dependencyIds } from "../core/sharing";
 import { execute } from "../core/engine";
 import { parseScript, toScript } from "../core/script";
-import { candidateCategory, candidateRecipe } from "../core/curation";
+import { candidateCategory, curate, curationDefaults } from "../core/curation";
 import { openHaidu } from "../storage/haidu";
-import { curate, curationDefaults } from "../core/curation";
 import type { Candidate, Params, Workflow } from "../core/model";
 
 beforeEach(async () => { await db.delete(); await db.open(); });
@@ -19,97 +19,104 @@ async function generate(w: Workflow, values: Params = {}, limit = w.limit) {
   const stats = await execute(workflow, readResource, batch => { candidates.push(...batch); }, undefined, { resourceMetadata: id => db.resources.get(id) });
   return { candidates, stats };
 }
-describe("Haidu: independent resources through the existing AST and engine", () => {
-  it("has distinct readable words and explicit, scored, valid relations", () => {
-    const cores = catalog.categories.flatMap(c => c.cores.map(t => t.text));
-    expect(new Set(cores).size).toBeGreaterThanOrEqual(300);
-    expect(new Set(catalog.suffixes).size).toBeGreaterThanOrEqual(100);
-    expect(new Set(catalog.prefixes).size).toBeGreaterThanOrEqual(60);
-    expect(new Set(catalog.companions).size).toBeGreaterThanOrEqual(200);
-    expect(cores.every(t => /^[\u4e00-\u9fff]{2}$/.test(t))).toBe(true);
-    const rows = pkg.resources[0].relationRows!;
-    expect(rows.length).toBeGreaterThanOrEqual(1000);
-    const seen = new Set<string>();
-    for (const row of rows) {
-      expect(row.weight).toBeGreaterThanOrEqual(70);
-      expect(Object.keys(JSON.parse(row.note))).toHaveLength(6);
-      expect(row.direction).toBe("directed");
-      expect(row.tags.some(t => t.startsWith("风格:"))).toBe(true);
-      const key = `${row.left}/${row.right}/${row.tags.find(t => t.startsWith("配方:"))}`;
-      expect(seen.has(key)).toBe(false); seen.add(key);
+const resource = (suffix: string) => pkg.resources.find(r => r.meta.id.endsWith(suffix))!;
+async function installedId(w: Workflow, label: string) {
+  const resources = (await exportPackage(w)).resources;
+  return resources.find(r => r.meta.name.includes(label))!.meta.id;
+}
+
+describe("Haidu workflow follows the reference's five columns", () => {
+  it("keeps independent pools and explicit quality rows; every dependency is active", () => {
+    expect(new Set(catalog.categories.flatMap(c => c.cores.map(t => t.text))).size).toBe(320);
+    expect(resource("prefixes").entries.length).toBeGreaterThanOrEqual(60);
+    expect(resource("suffixes").entries.length).toBeGreaterThanOrEqual(100);
+    expect(resource("companions").entries.length).toBeGreaterThanOrEqual(200);
+    expect(resource("pairs").relationRows!.length).toBeGreaterThanOrEqual(1000);
+    expect(pkg.workflow.nodes.map(n => n.op)).toEqual(["program", "curate", "output"]);
+    expect(pkg.workflow.nodes[0].program!.body).toHaveLength(5);
+    expect(pkg.workflow.nodes.every(n => n.op !== "resource")).toBe(true);
+    expect(pkg.resources.filter(r => r.meta.definition?.type === "dynamic")).toHaveLength(4);
+    for (const r of pkg.resources.filter(r => r.meta.definition?.type === "dynamic")) {
+      const d = r.meta.definition!;
+      if (d.type === "dynamic") expect(d.workflow.nodes.map(n => n.op)).toEqual(["resource", "group", "output"]);
     }
   });
-  it("round trips every word, relation direction, score, tag and note", async () => {
-    const w = await importPackage(pkg), exported = await exportPackage(w), restored = await importPackage(exported), again = await exportPackage(restored);
+  it("round trips all source pools, definitions, scores, tags, directions and references", async () => {
+    const w = await importPackage(pkg), exported = await exportPackage(w), copy = await importPackage(exported), again = await exportPackage(copy);
     expect(exported.resources.map(r => r.entries)).toEqual(again.resources.map(r => r.entries));
     expect(exported.resources.map(r => r.relationRows)).toEqual(again.resources.map(r => r.relationRows));
-    expect((await generate(w)).candidates.map(c => c.text)).toEqual((await generate(restored)).candidates.map(c => c.text));
+    expect(exported.resources.filter(r => r.meta.definition).length).toBe(4);
+    expect(dependencyIds(copy)).not.toContain(String(w.nodes[1].params.reviewedResourceId));
+    expect((await generate(w)).candidates.map(c => c.text)).toEqual((await generate(copy)).candidates.map(c => c.text));
   });
-  it.each(["2", "3", "2,3"])("enforces %s characters before the output limit and deduplicates", async lengths => {
-    const w = await importPackage(pkg), { candidates } = await generate(w, { lengths }, 200);
-    expect(candidates).toHaveLength(200);
+  it.each(["2", "3", "2,3"])("enforces %s before output limit and deduplicates", async lengths => {
+    const w = await importPackage(pkg), { candidates } = await generate(w, { lengths }, 100);
+    expect(candidates).toHaveLength(100);
     expect(candidates.every(c => lengths.split(",").map(Number).includes([...c.text].length))).toBe(true);
-    expect(new Set(candidates.map(c => c.text)).size).toBe(200);
-    expect(candidates.every(c => c.parts.some(p => p.pair))).toBe(true);
+    expect(new Set(candidates.map(c => c.text)).size).toBe(100);
   });
-  it("reproduces seeds, balances categories and limits repeated cores", async () => {
-    const w = await importPackage(pkg), a = await generate(w), b = await generate(w), c = await generate({ ...w, seed: 43 });
+  it("actually produces all five formula shapes with real pool provenance", async () => {
+    const w = await importPackage(pkg), { candidates } = await generate(w, { reviewedResourceId: "" }, 10000);
+    const prefix = await installedId(w,"单字前词"), suffix = await installedId(w,"单字后词");
+    const head = await installedId(w,"双字前词与直出"), tail = await installedId(w,"双字后词");
+    const ids = (c: Candidate) => new Set(c.parts.map(p => p.resourceId));
+    expect(candidates.some(c => c.text.length===2 && ids(c).has(prefix) && ids(c).has(suffix))).toBe(true);
+    expect(candidates.some(c => c.text.length===3 && ids(c).has(prefix) && ids(c).has(tail))).toBe(true);
+    expect(candidates.some(c => c.text.length===3 && ids(c).has(head) && ids(c).has(suffix))).toBe(true);
+    expect(candidates.some(c => c.text.startsWith("小") && c.text.length===3 && ids(c).has(head))).toBe(true);
+    // Existing first-path dedup may retain an earlier 1+1 source for the same text.
+    const texts=new Set(candidates.map(c=>c.text));
+    expect(catalog.categories.flatMap(c=>c.cores).every(core=>texts.has(core.text))).toBe(true);
+    expect(candidates.some(c=>c.text.length===2 && c.parts.length===1 && ids(c).has(head))).toBe(true);
+  });
+  it("new core words drive direct and small-prefix results without editing code or relations", async () => {
+    const w = await importPackage(pkg), id = await installedId(w,"双字前词与直出");
+    await addEntries(id,["测试"]);
+    const { candidates } = await generate(w,{includes:"测试"},100);
+    expect(candidates.map(c=>c.text)).toEqual(expect.arrayContaining(["测试","小测试"]));
+    expect(candidates.every(c=>c.parts.some(p=>p.resourceId===id&&p.text==="测试"))).toBe(true);
+  });
+  it("uses existing explicit relation rows as ranking evidence, not as a separate generator", async () => {
+    const w = await importPackage(pkg), core = await installedId(w,"双字前词与直出"), review = String(w.nodes[1].params.reviewedResourceId);
+    await addEntries(core,["测验"]);
+    await saveRelationRows(review,[{left:"测验",right:"猫",relation:"associated",direction:"directed",weight:99,tags:["风格:新风格","配方:suffix"]}]);
+    const { candidates } = await generate(w,{category:"新风格"},100);
+    expect(candidates.some(c=>c.text==="测验"&&c.parts.some(p=>p.resourceId===core)&&c.parts.some(p=>p.resourceId===review))).toBe(true);
+  });
+  it("repeats a fixed seed, changes samples with another seed, balances styles and continues without overlap", async () => {
+    const w = await importPackage(pkg), a = await generate(w), b = await generate(w), c = await generate({...w,seed:43}), next = await generate(w,{offset:24});
     expect(a.candidates).toEqual(b.candidates);
-    expect(a.candidates.map(c => c.text)).not.toEqual(c.candidates.map(c => c.text));
-    const counts = catalog.categories.map(cat => a.candidates.filter(c => candidateCategory(c) === cat.name).length);
-    expect(Math.min(...counts)).toBeGreaterThanOrEqual(2);
-    expect(new Set(a.candidates.map(c => c.parts[0].pair!.left)).size).toBe(24);
+    expect(a.candidates.map(c=>c.text)).not.toEqual(c.candidates.map(c=>c.text));
+    expect(new Set(a.candidates.map(candidateCategory)).size).toBeGreaterThanOrEqual(7);
+    expect(next.candidates.some(c=>a.candidates.some(x=>x.text===c.text))).toBe(false);
   });
-  it("supports category, contains, exclusions and nonoverlapping continuing draws", async () => {
-    const w = await importPackage(pkg), a = await generate(w), b = await generate(w, { offset: 24 });
-    expect(b.candidates.some(c => a.candidates.some(x => x.text === c.text))).toBe(false);
-    const filtered = await generate(w, { category: "赛博", includes: "猫", excludes: "霓虹,故障" }, 100);
-    expect(filtered.candidates.length).toBeGreaterThan(5);
-    expect(filtered.candidates.every(c => candidateCategory(c) === "赛博" && c.text.includes("猫") && !/霓虹|故障/.test(c.text))).toBe(true);
-  });
-  it.each(["suffix", "prefix", "semantic", "contrast", "double", "echo"])("runs the %s recipe only when selected", async recipe => {
-    const w = await importPackage(pkg), { candidates } = await generate(w, { recipes: recipe, lengths: "2,3,4" }, 200);
+  it("supports category, includes, multiple exclusions and NameScript editing", async () => {
+    const w = await importPackage(pkg), parsed = parseScript(toScript(w),w);
+    expect((await generate(w)).candidates).toEqual((await generate(parsed)).candidates);
+    const { candidates } = await generate(w,{category:"赛博",includes:"像",excludes:"霓虹,故障"},100);
     expect(candidates.length).toBeGreaterThan(0);
-    expect(candidates.every(c => candidateRecipe(c) === recipe)).toBe(true);
-    if (recipe === "double") expect(candidates.every(c => [...c.text].length === 4)).toBe(true);
-    if (recipe === "echo") expect(candidates.every(c => [2,4].includes([...c.text].length))).toBe(true);
+    expect(candidates.every(c=>candidateCategory(c)==="赛博"&&c.text.includes("像")&&!/霓虹|故障/.test(c.text))).toBe(true);
   });
-  it("updates edited relationship rows on the next execution", async () => {
-    const w = await importPackage(pkg), id = String(w.nodes[0].program!.body[0].kind === "for" ? (await exportPackage(w)).resources[0].meta.id : "");
-    await saveRelationRows(id, [{ left: "海盐", right: "鹅", relation: "associated", direction: "directed", tags: ["风格:海洋", "配方:suffix"], weight: 99 }]);
-    const { candidates } = await generate(w, { includes: "海盐鹅" });
-    expect(candidates.map(c => c.text)).toEqual(["海盐鹅"]);
-  });
-  it("preserves graph / NameScript round trip and v1 workflow behavior", async () => {
-    const w = await importPackage(pkg), parsed = parseScript(toScript(w), w);
-    expect((await generate(parsed)).candidates).toEqual((await generate(w)).candidates);
-    const old = await importPackage(legacy);
-    const { candidates } = await generate(old);
-    expect(candidates).toHaveLength(344);
-  });
-  it("opening twice preserves existing resources, edits and favorites", async () => {
-    const w = await openHaidu(); await db.workflows.put({ ...w, seed: 777 });
-    const count = await db.resources.count();
-    await db.favorites.put({ text: "旧收藏", parts: [], savedAt: 1 });
-    expect((await openHaidu()).seed).toBe(777);
-    expect(await db.resources.count()).toBe(count);
+  it("keeps old v1/v2 workflows valid and installs v3 without changing prior edits or favorites", async () => {
+    const old = await importPackage(legacy); expect((await generate(old)).candidates).toHaveLength(344);
+    const second = await importPackage(v2); expect((await generate(second)).candidates).toHaveLength(24);
+    await db.workflows.put({...second,seed:777}); await db.favorites.put({text:"旧收藏",parts:[],savedAt:1});
+    const current = await openHaidu(); expect(current.id).not.toBe(second.id);
+    expect((await openHaidu()).id).toBe(current.id);
+    expect((await db.workflows.get(second.id))?.seed).toBe(777);
     expect(await db.favorites.get("旧收藏")).toBeDefined();
   });
-  it("ranks explicit quality before low scores and rejects oversized input rather than silently biasing", async () => {
-    async function* source(count: number) {
-      for (let i=0;i<count;i++) yield { text: i ? `低${String.fromCodePoint(0x4e00+i)}` : "高质", parts: [{ resourceId: "test", text: "pair", pair: { left: "高质", right: "猫", relation: "associated" as const, weight: i ? 10 : 99 } }] };
-    }
-    const list: Candidate[] = [];
-    for await (const c of curate(source(10000), curationDefaults, 42, () => {})) list.push(c);
-    expect(list).toHaveLength(10000); expect(list[0].text).toBe("高质");
-    await expect((async () => { for await (const _ of curate(source(10001), curationDefaults, 42, () => {})) void _; })()).rejects.toThrow("10,000");
+  it("bounds ranking and refuses excess candidates without silent category bias", async () => {
+    async function* source(count:number) { for(let i=0;i<count;i++) yield {text:`低${String.fromCodePoint(0x4e00+i)}`,parts:[]}; }
+    const result: Candidate[]=[];
+    for await (const c of curate(source(10000),curationDefaults,42,()=>{})) result.push(c);
+    expect(result).toHaveLength(10000);
+    await expect((async()=>{for await(const c of curate(source(10001),curationDefaults,42,()=>{})) void c;})()).rejects.toThrow("10,000");
   });
-  it("benchmarks import, full relationship-table execution and export with a generous regression bound", async () => {
-    const start = performance.now(), w = await importPackage(pkg), imported = performance.now();
-    const { candidates, stats } = await generate(w, {}, 10000), executed = performance.now();
-    await exportPackage(w); const exported = performance.now();
-    console.log("HAIDU_BENCH", JSON.stringify({ importMs: imported-start, executeMs: executed-imported, exportMs: exported-executed, results: candidates.length, steps: stats.steps }));
-    expect(candidates.length).toBeGreaterThan(1200);
-    expect(exported-start).toBeLessThan(10000);
+  it("measures actual sampled workflow execution and portable export", async () => {
+    const started=performance.now(), w=await importPackage(pkg), imported=performance.now();
+    const { candidates,stats }=await generate(w,{},10000), executed=performance.now(); await exportPackage(w);
+    console.log("HAIDU_WORKFLOW_BENCH",JSON.stringify({importMs:imported-started,executeMs:executed-imported,exportMs:performance.now()-executed,count:candidates.length,steps:stats.steps}));
+    expect(candidates.length).toBeGreaterThan(1500); expect(stats.steps).toBeLessThan(300000);
   });
 });

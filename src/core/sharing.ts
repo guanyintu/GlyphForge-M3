@@ -257,6 +257,7 @@ export async function importPackage(
       layout[node.id] = { x: point.x, y: point.y };
     if (node.op === "resource" || node.op === "pairs")
       node.params.resourceId = mapping.get(String(node.params.resourceId))!;
+    if (node.op === "curate" && node.params.reviewedResourceId) node.params.reviewedResourceId = mapping.get(String(node.params.reviewedResourceId))!;
     if (node.op === "mutate" && node.params.resourceId) node.params.resourceId = mapping.get(String(node.params.resourceId)) ?? node.params.resourceId;
     if (node.op === "template") node.params.slots = JSON.stringify(templateConfig(node.params).slots.map(s => ({ ...s, resourceId: mapping.get(s.resourceId)! })));
     if (node.program)

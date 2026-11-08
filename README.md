@@ -1,6 +1,9 @@
 # GlyphForge · 文字创作工坊
 
 
+当前海都入口为 **从灵感配方开始 → 海都潮人 ID 工作流**，按原表五列在现有工坊中编辑运行；海都专用页面已移除。联网社区分享默认关闭，原生 JSON 导入导出仍可用。详见 [五列工作流修正](docs/HAIDU-WORKFLOW-V3.md) 与 [使用说明](examples/haidu-chao-ren.README.md)。
+
+
 ## 2026-11-08 海都潮人 ID 发布更新
 
 用户已明确要求发布；本次沿用现有 Pages 与线上 M3 功能，迁入独立海都生成界面、扩充词库及配方。440 项本地单元及 8 项海都 Chromium 通过，正式发布以 Pages CI 的 deploy 结果为准。详见 [本次发布说明](docs/HAIDU-RELEASE-20261108.md)。原社区 OAuth/平台门禁不因静态站点更新而解除。

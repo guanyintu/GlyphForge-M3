@@ -1,5 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { execFileSync } from "node:child_process";
+// Online sharing is explicitly off in the default product build.
+// Run these retained demo regressions only against an opt-in test build.
+test.skip(process.env.GLYPHFORGE_ONLINE_SHARING !== "1", "Online sharing is disabled; requires an explicit enabled test build");
+
 test.beforeAll(() =>
   execFileSync(
     process.execPath,

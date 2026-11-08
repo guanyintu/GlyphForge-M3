@@ -8,7 +8,8 @@ const curationDefaults = {
   recipes: "direct,suffix,prefix,semantic,contrast",
   includes: "",
   excludes: "",
-  offset: 0
+  offset: 0,
+  reviewedResourceId: ""
 };
 function validateCuration(p) {
   if (!/^[1-9]\d?(,[1-9]\d?)*$/.test(String(p.lengths))) throw new Error("字数使用逗号分隔的 1–99 整数");
@@ -454,6 +455,7 @@ function astParams(op, values) {
   return normalizeParams(op, supplied);
 }
 function nodeResourceBindings(op, p) {
+  if (op === "curate" && p.reviewedResourceId) return [{ id: String(p.reviewedResourceId), pair: true }];
   const maps = p.mappingId && ["mapchars", "hanconvert", "mutate", "extension"].includes(op) ? [{ id: String(p.mappingId), pair: false, mapping: true }] : [];
   if (op === "mutate") return [...maps, ...p.resourceId ? [{ id: String(p.resourceId), pair: false }] : []];
   if (maps.length) return maps;

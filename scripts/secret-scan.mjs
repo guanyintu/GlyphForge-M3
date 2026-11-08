@@ -8,8 +8,8 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const VERSION = '8.30.1';
 const assets = {
-  win32: ['windows_x64.zip', 'd29144deff3a68aa93ced33dddf84b7fdc26070add4aa0f4513094c8332afc4e'],
-  linux: ['linux_x64.tar.gz', '551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb'],
+  win32: ['windows_x64.zip', 'd29144deff3a68aa93ced33dddf84b7fdc26070add4aa0f4513094c8332afc4e',378333178],
+  linux: ['linux_x64.tar.gz', '551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb',378332058],
 };
 const root = process.cwd();
 function run(bin, args, options={}) {
@@ -18,6 +18,30 @@ function run(bin, args, options={}) {
 function git(args) {
   const r=run('git',args);if(r.status!==0)throw new Error('Git inventory failed');return r.stdout;
 }
+export async function downloadPinnedArchive(urls,sha,fetcher=fetch) {
+  let status;
+  for(let attempt=0;attempt<3;attempt++) {
+    const url=urls[Math.min(attempt,urls.length-1)];
+    const headers={Accept:'application/octet-stream','X-GitHub-Api-Version':'2022-11-28'};
+    // Scoped Actions token only goes to the fixed official API, never the binary
+    // download host, logs, files, dependency installation or application builds.
+    if(url.startsWith('https://api.github.com/repos/gitleaks/gitleaks/releases/assets/') && process.env.GITHUB_TOKEN)
+      headers.Authorization='Bearer '+process.env.GITHUB_TOKEN;
+    try {
+      const res=await fetcher(url,{headers,signal:AbortSignal.timeout(30000)});
+      status=res.status;
+      if(res.ok) {
+        const bytes=Buffer.from(await res.arrayBuffer());
+        if(createHash('sha256').update(bytes).digest('hex')!==sha)throw new Error('Scanner archive checksum mismatch');
+        return bytes;
+      }
+    } catch(error) {
+      if(error instanceof Error && error.message==='Scanner archive checksum mismatch')throw error;
+    }
+    if(attempt<2)await new Promise(resolve=>setTimeout(resolve,1000*(attempt+1)));
+  }
+  throw new Error('Pinned scanner download failed'+(Number.isInteger(status)?' (HTTP '+status+')':''));
+}
 async function scanner() {
   if(process.arch!=='x64'||!assets[process.platform])throw new Error('Use GITLEAKS_BIN with pinned 8.30.1 on this platform');
   const dir=path.join(tmpdir(),'glyphforge-gitleaks-'+VERSION);
@@ -25,23 +49,11 @@ async function scanner() {
   const exe=process.env.GITLEAKS_BIN||path.join(dir,process.platform==='win32'?'gitleaks.exe':'gitleaks');
   if(process.env.GITLEAKS_BIN&&!existsSync(exe))throw new Error('Configured scanner missing');
   if(!existsSync(exe)) {
-    const [asset,sha]=assets[process.platform], archive=path.join(dir,'download-'+asset);
-    let bytes;
-    for (let attempt=0;attempt<3;attempt++) {
-      try {
-        const res=await fetch(`https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_${asset}`,{signal:AbortSignal.timeout(30000)});
-        if(!res.ok) {
-          if(attempt<2 && (res.status===429 || res.status>=500)) { await new Promise(resolve=>setTimeout(resolve,1000*(attempt+1))); continue; }
-          throw new Error('Pinned scanner download failed');
-        }
-        bytes=Buffer.from(await res.arrayBuffer()); break;
-      } catch(error) {
-        if(attempt===2 || (error instanceof Error && error.message==='Pinned scanner download failed')) throw error;
-        await new Promise(resolve=>setTimeout(resolve,1000*(attempt+1)));
-      }
-    }
-    if(!bytes)throw new Error('Pinned scanner download failed');
-    if(createHash('sha256').update(bytes).digest('hex')!==sha)throw new Error('Scanner archive checksum mismatch');
+    const [asset,sha,assetId]=assets[process.platform], archive=path.join(dir,'download-'+asset);
+    const bytes=await downloadPinnedArchive([
+      `https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_${asset}`,
+      `https://api.github.com/repos/gitleaks/gitleaks/releases/assets/${assetId}`,
+    ],sha);
     writeFileSync(archive,bytes);
     const unpack=process.platform==='win32'
       ? run('powershell.exe',['-NoProfile','-NonInteractive','-Command',`Expand-Archive -LiteralPath '${archive.replaceAll("'","''")}' -DestinationPath '${dir.replaceAll("'","''")}' -Force`])
@@ -107,7 +119,7 @@ async function main() {
 // scanner reports, request URLs, headers or commit messages.
 export function safeScannerError(error) {
   const allowed=new Set(['Git inventory failed','Use GITLEAKS_BIN with pinned 8.30.1 on this platform','Configured scanner missing','Pinned scanner download failed','Scanner archive checksum mismatch','Scanner extraction failed','Wrong Gitleaks version']);
-  return error instanceof Error && allowed.has(error.message) ? error.message : 'Unexpected scanner environment failure';
+  return error instanceof Error && (allowed.has(error.message) || /^Pinned scanner download failed \(HTTP \d{3}\)$/.test(error.message)) ? error.message : 'Unexpected scanner environment failure';
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
   main().catch(error=>{console.error('Secret scan failed closed: '+safeScannerError(error)+'; raw diagnostic output suppressed.');process.exitCode=1;});

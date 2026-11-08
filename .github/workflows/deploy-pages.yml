@@ -26,6 +26,8 @@ jobs:
           persist-credentials: false
 
       - name: Secret scan before executing project or dependency code
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/secret-scan.mjs
 
       - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
@@ -73,6 +75,8 @@ jobs:
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
 
       - name: Scan the final Pages assets and repository history
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: pnpm secrets:scan
 
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5

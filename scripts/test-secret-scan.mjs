@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
-import {safeFindings,safeScannerError} from './secret-scan.mjs';
+import {safeFindings,safeScannerError,downloadPinnedArchive} from './secret-scan.mjs';
 const bin=process.env.GITLEAKS_BIN||path.join(tmpdir(),'glyphforge-gitleaks-8.30.1',process.platform==='win32'?'gitleaks.exe':'gitleaks');
 // Synthetic value exists only in memory. It is never printed or written.
 const synthetic='sb_'+'secret_'+crypto.randomUUID().replaceAll('-','');
@@ -18,4 +19,10 @@ assert.notEqual(wrong.status,0,'missing scanner must fail closed');
 assert.ok(!wrong.stdout.includes(synthetic));
 assert.equal(safeScannerError(new Error('Configured scanner missing')), 'Configured scanner missing');
 assert.ok(!safeScannerError(new Error(synthetic)).includes(synthetic), 'unexpected errors cannot disclose secrets');
-console.log('4/4 secret gates: detection/redaction, safe metadata, missing scanner fail-closed, safe diagnostics');
+const fixture=Buffer.from('verified synthetic archive');
+const hash=createHash('sha256').update(fixture).digest('hex');
+let calls=0;
+assert.deepEqual(await downloadPinnedArchive(['official-primary','official-api'],hash,async url=>{calls++;return new Response(url==='official-primary'?null:fixture,{status:url==='official-primary'?503:200});}),fixture);
+assert.equal(calls,2,'official API fallback must be tried after a transport error');
+await assert.rejects(downloadPinnedArchive(['official-primary'],hash,async()=>new Response('tampered')),{message:'Scanner archive checksum mismatch'});
+console.log('6/6 secret gates: detection/redaction, safe metadata, missing scanner fail-closed, safe diagnostics, official fallback, tamper rejection');

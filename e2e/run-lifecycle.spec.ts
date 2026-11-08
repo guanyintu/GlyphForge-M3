@@ -1,3 +1,4 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import { test, expect, chromium } from "@playwright/test";
 import { execFileSync } from "node:child_process";
 import { readdirSync, writeFileSync } from "node:fs";
@@ -107,7 +108,7 @@ for (const mode of ["fresh", "v5"] as const) test(`real IndexedDB ${mode}: 100 m
 });
 
 test("real UI: pin, export, cleanup, favorite source and failure feedback", async ({ page }) => {
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   const c = page.locator(".candidate").first(); const text = await c.getAttribute("data-candidate-text");
   await c.getByRole("button", { name: `收藏 ${text}`, exact: true }).click();
   await page.getByRole("button", { name: "运行历史与留存", exact: true }).click();
@@ -139,7 +140,7 @@ test("real UI: pin, export, cleanup, favorite source and failure feedback", asyn
 });
 
 test("page reload/reopen recovers dead owners and preserves another live tab", async ({ page, context }) => {
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.evaluate(async () => {
     const h = await import("/e2e-harness/lifecycle.js");
     (window as any).releaseLive = await h.acquireRunLock("live-tab");
@@ -147,10 +148,10 @@ test("page reload/reopen recovers dead owners and preserves another live tab", a
     await h.beginRun(h.createWorkflow(), "dead-reload");
     await h.appendRunBatch("dead-reload", [{ text: "部分产物", parts: [] }]);
   });
-  const second = await context.newPage(); await second.goto("/"); await expect(second.getByText(/生成完成/)).toBeVisible();
+  const second = await context.newPage(); await openEditor(second, "/"); await expect(second.getByText(/生成完成/)).toBeVisible();
   const alive = await second.evaluate(async () => (await (await import("/e2e-harness/lifecycle.js")).db.runs.get("live-tab")).status);
   expect(alive).toBe("running");
-  await page.reload(); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await reloadEditor(page); await expect(page.getByText(/生成完成/)).toBeVisible();
   const state = await page.evaluate(async () => {
     const h = await import("/e2e-harness/lifecycle.js");
     return { live: (await h.db.runs.get("live-tab")).status, dead: (await h.db.runs.get("dead-reload")).status, count: await h.db.generated.where("runId").equals("dead-reload").count() };
@@ -158,7 +159,7 @@ test("page reload/reopen recovers dead owners and preserves another live tab", a
   expect(state).toEqual({ live: "interrupted", dead: "interrupted", count: 1 });
   await page.evaluate(async () => { const h = await import("/e2e-harness/lifecycle.js"); await h.beginRun(h.createWorkflow(), "dead-close"); });
   await page.close(); await second.close();
-  const reopen = await context.newPage(); await reopen.goto("/"); await expect(reopen.getByText(/生成完成/)).toBeVisible();
+  const reopen = await context.newPage(); await openEditor(reopen, "/"); await expect(reopen.getByText(/生成完成/)).toBeVisible();
   expect(await reopen.evaluate(async () => (await (await import("/e2e-harness/lifecycle.js")).db.runs.get("dead-close")).status)).toBe("interrupted");
 });
 
@@ -184,7 +185,7 @@ test("UI startup cancellation and unexpected Worker failure persist accurate ter
       }
     };
   });
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.evaluate(() => { (window as any).workerMode = "delay"; });
   for (let i = 0; i < 20; i++) {
     await page.getByRole("button", { name: /^运行工作流/ }).click();
@@ -221,7 +222,7 @@ test("real Chromium profile survives browser process close and reopen", async ()
   const profile = `test-results/reopen-${Date.now()}`;
   let browser = await chromium.launchPersistentContext(profile, { headless: true });
   try {
-    const page = await browser.newPage(); await page.goto("http://127.0.0.1:4175/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+    const page = await browser.newPage(); await openEditor(page, "http://127.0.0.1:4175/"); await expect(page.getByText(/生成完成/)).toBeVisible();
     await page.evaluate(async () => {
       const h = await import("/e2e-harness/lifecycle.js");
       (window as any).browserRunLock = await h.acquireRunLock("browser-close");
@@ -230,7 +231,7 @@ test("real Chromium profile survives browser process close and reopen", async ()
     });
     await browser.close();
     browser = await chromium.launchPersistentContext(profile, { headless: true });
-    const reopened = await browser.newPage(); await reopened.goto("http://127.0.0.1:4175/"); await expect(reopened.getByText(/生成完成/)).toBeVisible();
+    const reopened = await browser.newPage(); await openEditor(reopened, "http://127.0.0.1:4175/"); await expect(reopened.getByText(/生成完成/)).toBeVisible();
     const state = await reopened.evaluate(async () => {
       const h = await import("/e2e-harness/lifecycle.js");
       return { status: (await h.db.runs.get("browser-close")).status, count: await h.db.generated.where("runId").equals("browser-close").count() };

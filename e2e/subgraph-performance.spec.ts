@@ -1,10 +1,11 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import { test, expect } from "@playwright/test";
 import { execFileSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
 test.beforeAll(() => { execFileSync(process.execPath, ["node_modules/vite/bin/vite.js", "build", "--config", "e2e/subgraphs.vite.config.ts"], { stdio: "pipe" }); });
 
 test("300 nested call instances stream a virtual million-entry resource with sampled heap bounds", async ({ page }) => {
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   const report = await page.evaluate(async () => {
     const h = await import("/subgraphs-harness/subgraphs.js");
     const w = h.createWorkflow(); w.limit = 1;

@@ -1,10 +1,11 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ context }) => {
   await context.route(/https?:\/\//, route => new URL(route.request().url()).hostname === "127.0.0.1" ? route.continue() : route.abort());
 });
 async function open(page: import('@playwright/test').Page) {
-  await page.goto('/');
+  await openEditor(page, '/');
   await expect(page.locator('.result-timing')).toContainText('生成完成');
 }
 
@@ -35,7 +36,7 @@ test('M2: conflicting relation edits preserve native IndexedDB rows and metadata
   await dialog.getByRole('button', { name: '保存修改', exact: true }).click();
   await expect(page.getByText('相同关系已存在，原关系未修改', { exact: true })).toBeVisible();
   expect(await snapshot()).toEqual(before);
-  await page.reload();
+  await reloadEditor(page);
   expect(await snapshot()).toEqual(before);
 });
 
@@ -48,7 +49,7 @@ test('M2: selecting the current workflow cannot overwrite an unsaved rename or c
   await expect(page.getByLabel('工作流名称')).toHaveValue('刚刚修改的名字');
   await expect(page.locator('.candidate')).toHaveCount(count);
   await expect(page.locator('.save-status')).toContainText('已保存到本地');
-  await page.reload();
+  await reloadEditor(page);
   await expect(page.getByLabel('工作流名称')).toHaveValue('刚刚修改的名字');
 });
 
@@ -62,7 +63,7 @@ test('M2: all saved workflows remain discoverable after twelve', async ({ page }
     await new Promise<void>((resolve, reject) => { tx.oncomplete = () => resolve(); tx.onerror = () => reject(tx.error); });
     database.close();
   });
-  await page.reload();
+  await reloadEditor(page);
   await expect(page.locator('.saved-workflows > button')).toHaveCount(17);
   await page.getByRole('button', { name: '我的配方 13', exact: true }).click();
   await expect(page.getByLabel('工作流名称')).toHaveValue('我的配方 13');
@@ -96,7 +97,7 @@ test('M2: database startup failure stays visible and can retry without clearing 
   await expect(page.getByRole('alert')).toContainText('本地数据库无法打开');
   await page.evaluate(() => { (window as any).m2AllowOpen = true; });
   await page.getByRole('button', { name: '重试打开', exact: true }).click();
-  await expect(page.locator('.result-timing')).toContainText('生成完成');
+  await enterEditor(page); await expect(page.locator('.result-timing')).toContainText('生成完成');
   await expect(page.getByRole('alert')).toBeHidden();
 });
 

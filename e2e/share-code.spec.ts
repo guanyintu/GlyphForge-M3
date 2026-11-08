@@ -1,9 +1,10 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import { test, expect } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
 import { readdirSync, writeFileSync } from 'node:fs';
 test.beforeAll(() => execFileSync(process.execPath, ['node_modules/vite/bin/vite.js','build','--config','e2e/share.vite.config.ts'], {stdio:'pipe'}));
 const workerURL = () => '/assets/'+readdirSync('dist/assets').find(s=>/^execution\.worker-.*\.js$/.test(s));
-async function open(page:any) { await page.goto('/');await expect(page.getByText(/生成完成/)).toBeVisible(); }
+async function open(page:any) { await openEditor(page, '/');await expect(page.getByText(/生成完成/)).toBeVisible(); }
 async function share(page:any) { await page.getByRole('button',{name:'导出工作流',exact:true}).click(); }
 function evidence(name:string,data:unknown){writeFileSync(`docs/p2-g/${process.env.P2G_SAMPLE||'targeted'}-${name}.json`,JSON.stringify(data,null,2));}
 
@@ -19,7 +20,7 @@ test('UI selected portable code → copy → offline new context → readonly pr
   const after=await target.evaluate(async()=>{const h=await import('/share-harness/share.js');return Promise.all(h.db.tables.map((t:any)=>t.count()));});expect(after).toEqual(before);
   await target.screenshot({path:`docs/p2-g/${process.env.P2G_SAMPLE||'targeted'}-preview.png`,fullPage:true});
   await target.getByRole('button',{name:'确认导入工作流'}).click();await expect(target.getByRole('dialog')).not.toBeVisible();await target.getByRole('button',{name:/^运行工作流/}).click();await expect(target.getByText(/生成完成/)).toBeVisible();await expect(target.locator('.candidate-text').first()).toBeVisible();
-  const texts=await target.locator('.candidate-text').allTextContents();await target.reload();await expect(target.locator('.candidate-text').first()).toBeVisible();expect(await target.locator('.candidate-text').allTextContents()).toEqual(texts);expect(external).toEqual([]);
+  const texts=await target.locator('.candidate-text').allTextContents();await reloadEditor(target);await expect(target.locator('.candidate-text').first()).toBeVisible();expect(await target.locator('.candidate-text').allTextContents()).toEqual(texts);expect(external).toEqual([]);
   evidence('ui',{chars:code.length,previewNoWrites:before,results:texts,external});await fresh.close();
 });
 

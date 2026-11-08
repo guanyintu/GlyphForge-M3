@@ -1,3 +1,4 @@
+import { openEditor } from "./editor-steps";
 import {test,expect,type Page} from '@playwright/test';
 import {createHash} from 'node:crypto';
 import {syntheticPayload} from '../scripts/community-business-smoke.mjs';
@@ -85,7 +86,7 @@ for (const width of [1280,375]) test(`cloud contract mock at ${width}px: OAuth f
     }
     throw Error('Unexpected mock API route '+u.pathname);
   });
-  await page.goto('./');await expect(page.getByText(/生成完成/)).toBeAttached();
+  await openEditor(page, './');await expect(page.getByText(/生成完成/)).toBeAttached();
   if(width===375)await page.getByRole('button',{name:'展开侧栏',exact:true}).click();
   await page.getByRole('button',{name:'社区广场',exact:true}).click();
   await expectGitHubOnly(page);

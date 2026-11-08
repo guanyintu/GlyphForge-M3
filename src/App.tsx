@@ -49,6 +49,7 @@ import {
 } from "lucide-react";
 import GraphEditor, { Inspector, NodeLibrary } from "./components/GraphEditor";
 import Results from "./components/Results";
+import WorkflowGenerator from "./components/WorkflowGenerator";
 import RunHistory from "./components/RunHistory";
 import { acquireRunLock, beginRun, finishRun, recoverRuns, pruneHistory, historyLimit, toggleFavorite } from "./storage/run-lifecycle";
 import { ResourceModal, ResourcePage } from "./components/Resources";
@@ -126,6 +127,8 @@ export default function App() {
   const [selected, setSelected] = useState("mix");
   const [selection, setSelection] = useState<string[]>(["mix"]);
   const [view, setView] = useState("nodes");
+  const [editing, setEditing] = useState(false);
+  const [savingAndLeaving, setSavingAndLeaving] = useState(false);
   const [code, setCode] = useState("");
   const [codeDirty, setCodeDirty] = useState(false);
   const codeDirtyRef = useRef(false);
@@ -290,6 +293,7 @@ export default function App() {
   );
   const run = useCallback(
     (override?: Workflow) => {
+      firstRun.current = true;
       const executable = override || workflow;
       try {
         if (codeDirty && !override) throw new Error("代码已修改，请先点击「应用到节点」");
@@ -362,11 +366,11 @@ export default function App() {
     [workflow, codeDirty, notify],
   );
   useEffect(() => {
-    if (ready && !firstRun.current) {
+    if (ready && editing && !firstRun.current) {
       firstRun.current = true;
       run();
     }
-  }, [ready, run]);
+  }, [ready, editing, run]);
   useEffect(
     () => () => {
       worker.current?.terminate();
@@ -458,7 +462,7 @@ export default function App() {
       }
       if (
         !input &&
-        page === "workflow" &&
+        page === "workflow" && editing &&
         !modal &&
         !resource &&
         !detail &&
@@ -547,7 +551,7 @@ export default function App() {
   }
   function switchWorkflow(w: Workflow) {
     if (codeDirtyRef.current) {
-      setPage("workflow"); setView("code"); setSidebarOpen(false);
+      setPage("workflow"); setEditing(true); setView("code"); setSidebarOpen(false);
       notify("有未应用的代码，请先应用到节点或放弃代码修改");
       return;
     }
@@ -602,6 +606,25 @@ export default function App() {
       } else notify(e instanceof Error ? e.message : String(e));
     }
   }
+  async function saveAndReturn() {
+    setSavingAndLeaving(true);
+    try {
+      const next = codeDirtyRef.current ? parseScript(code, workflow) : workflow;
+      validateGraph(next);
+      await db.workflows.put(next);
+      currentWorkflow.current = next;
+      setWorkflow(next);
+      localStorage.setItem("glyphforge-active", next.id);
+      setCodeDirty(false); codeDirtyRef.current = false; setCodeError("");
+      setSaveState("已保存到本地");
+      setEditing(false); setSubgraphsOpen(false); setLibrary(false); setMobileInspect(false);
+      notify("工作流已保存，可以继续生成");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "保存失败";
+      setCodeError(message); notify(`无法保存：${message}`);
+      if (codeDirtyRef.current) setView("code");
+    } finally { setSavingAndLeaving(false); }
+  }
   async function chooseHaiduWorkflow() {
     if (codeDirtyRef.current) { notify("请先应用或放弃代码草稿，再切换配方"); return; }
     try { switchWorkflow(await openHaidu()); setModal(null); setSidebarOpen(false); }
@@ -655,7 +678,7 @@ export default function App() {
           className="brand"
           onClick={(e) => {
             e.preventDefault();
-            setPage("workflow");
+            setPage("workflow"); setEditing(false);
           }}
         >
           <span className="brand-mark">
@@ -668,7 +691,7 @@ export default function App() {
         </a>
         <div className="sidebar-label">你的创作空间</div>
         <nav>
-          {nav.filter(n => onlineSharingEnabled || n.id !== "community").map((n) => (
+          {nav.filter(n => (onlineSharingEnabled || n.id !== "community") && (editing || n.id === "workflow" || n.id === "community")).map((n) => (
             <button
               className={`nav-item ${page === n.id ? "active" : ""}`}
               key={n.id}
@@ -679,7 +702,7 @@ export default function App() {
               }}
             >
               <n.icon size={18} />
-              <span>{pageNames[n.id as Page]}</span>
+              <span>{n.id === "workflow" && !editing ? "ID 生成" : pageNames[n.id as Page]}</span>
               {n.id === "resources" ? (
                 <span className="nav-count">{resources.length}</span>
               ) : n.id === "workflow" && page === "workflow" ? (
@@ -785,7 +808,7 @@ export default function App() {
             </span>
             <span>个人工作空间</span>
             <ChevronRight size={13} />
-            <b>{pageNames[page]}</b>
+            <b>{page === "workflow" && !editing ? "ID 生成" : pageNames[page]}</b>
           </div>
           <div className="topbar-right">
             <span className="local-pill">
@@ -815,10 +838,14 @@ export default function App() {
             </>}
           </div>
         ) : page === "workflow" ? (
-          <div className="workflow-page">
-            {subgraphsOpen ? <Subgraphs workflow={workflow} selection={selection} resources={resources} previews={previews} onChange={change} onClose={() => setSubgraphsOpen(false)} /> : null}
-            <h1 className="sr-only">工作流创作工坊</h1>
+          <div className={`workflow-page ${editing ? "editing-page" : "generation-page"}`}>
+            {editing && subgraphsOpen ? <Subgraphs workflow={workflow} selection={selection} resources={resources} previews={previews} onChange={change} onClose={() => setSubgraphsOpen(false)} /> : null}
+            <>{editing ? <h1 className="sr-only">编辑工作流</h1> : null}</>
             {workflow.comments?.includes("// glyphforge:preset:haidu-v2") ? <div className="draft-notice"><span>旧海都配方已保留。新版按原表五列组合。</span><button className="text-button" onClick={chooseHaiduWorkflow}>打开五列工作流</button></div> : null}
+            {!editing ? <WorkflowGenerator workflow={workflow} workflows={workflows} resources={resources} running={running} hasDraft={codeDirty}
+              onSelect={switchWorkflow} onChange={change} onGenerate={next => { change(next); run(next); }} onStop={stop}
+              onEdit={() => setEditing(true)} onPresets={() => setModal("presets")} onImport={() => fileInput.current?.click()} onExport={saveExport} /> : <>
+            <div className="editor-mode-heading"><button className="text-button" onClick={() => { setEditing(false); setSubgraphsOpen(false); setLibrary(false); setMobileInspect(false); }}><ArrowLeft size={15} />返回生成</button><span>编辑工作流</span><button className="button" disabled={savingAndLeaving} onClick={() => void saveAndReturn()}>{savingAndLeaving ? "正在保存…" : "保存并返回"}</button></div>
             <div className="workflow-heading">
               <div>
                 <div className="eyebrow">
@@ -858,6 +885,7 @@ export default function App() {
                 </button>
                 <button
                   className={`primary-button run-button ${running ? "is-running" : ""}`}
+                  aria-label={running ? "停止生成" : "运行工作流 · 生成预览"}
                   onClick={() => (running ? stop() : run())}
                 >
                   {running ? (
@@ -865,7 +893,7 @@ export default function App() {
                   ) : (
                     <Play size={15} fill="currentColor" />
                   )}
-                  {running ? "停止生成" : "运行工作流"}
+                  {running ? "停止生成" : "生成预览"}
                   <kbd>Ctrl ↵</kbd>
                 </button>
               </div>
@@ -1150,7 +1178,10 @@ export default function App() {
                 </button>
               </div>
             </section>
+            </>}
             <Results
+              key={editing ? "editor" : "generator"}
+              presentation={editing ? "editor" : "generator"}
               candidates={candidates}
               favorites={favorites}
               stats={stats}
@@ -1161,7 +1192,7 @@ export default function App() {
               onDetail={setDetail}
               onMutate={setMutation}
             />
-            <RunHistory onDetail={setDetail} />
+            {editing ? <RunHistory onDetail={setDetail} /> : <details className="generation-history"><summary>最近生成</summary><RunHistory onDetail={setDetail} /></details>}
             <div className="workspace-bottom-note">
               <span>让每一个 ID，都有一点你的样子。</span>
               <span>
@@ -1423,7 +1454,7 @@ export default function App() {
               </div>
             ) : (
               <div className="preset-grid">
-                <button className="preset-card green" onClick={chooseHaiduWorkflow}><span className="preset-tag">海都 · 原表五列流程</span><b className="preset-sample">1+1 / 1+2 / 2+1 / 小+2 / 双字直出</b><h3>海都潮人 ID 工作流</h3><p>独立词库实际参与组合，固定种子、去重和关系评分优化；在现有工坊中编辑与运行。</p><span className="preset-use">使用这个配方<ArrowLeft size={15} /></span></button>
+                <button className="preset-card green" onClick={chooseHaiduWorkflow}><span className="preset-tag">海都 · 原表五列流程</span><b className="preset-sample">1+1 / 1+2 / 2+1 / 小+2 / 双字直出</b><h3>海都潮人 ID 工作流</h3><p>独立词库实际参与组合，固定种子、去重和关系评分优化；选择后直接生成，需要调整时再点编辑。</p><span className="preset-use">使用这个配方<ArrowLeft size={15} /></span></button>
                 {relationRecipes.map(p => <button className="preset-card purple" key={p.id} onClick={async () => {
                   try { await ensureRecipeExamples(); switchWorkflow(createRelationRecipe(p.id)); setModal(null); }
                   catch (e) { notify(e instanceof Error ? e.message : "示例资源安装失败"); }

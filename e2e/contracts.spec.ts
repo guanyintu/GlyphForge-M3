@@ -1,3 +1,4 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import { test, expect } from "@playwright/test";
 import { execFileSync } from "node:child_process";
 import { readdirSync, writeFileSync } from "node:fs";
@@ -6,7 +7,7 @@ test.beforeAll(() => { execFileSync(process.execPath, ["node_modules/vite/bin/vi
 const assets = () => Object.fromEntries(["execution", "lab"].map(prefix => [prefix, "/assets/" + readdirSync("dist/assets").find(n => n.startsWith(prefix + ".worker-") && n.endsWith(".js"))]));
 
 test("a delayed old autosave cannot replace the selected workflow on reload", async ({ page }) => {
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.evaluate(async () => {
     const database = await new Promise<IDBDatabase>((resolve, reject) => {
       const r = indexedDB.open("glyphforge-v1"); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error);
@@ -27,7 +28,7 @@ test("a delayed old autosave cannot replace the selected workflow on reload", as
   await expect(page.getByLabel("工作流名称")).toHaveValue("叠字的快乐");
   await page.evaluate(() => { (window as any).__slowWorkflowSave.release = true; });
   await expect(page.getByText("已保存到本地", { exact: true })).toBeVisible();
-  await page.reload();
+  await reloadEditor(page);
   await expect(page.getByLabel("工作流名称")).toHaveValue("叠字的快乐");
 });
 

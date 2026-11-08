@@ -1,9 +1,10 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import { test, expect } from "@playwright/test";
 import { execFileSync } from "node:child_process";
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 test.beforeAll(() => { execFileSync(process.execPath, ["node_modules/vite/bin/vite.js", "build", "--config", "e2e/mutation.vite.config.ts"], { stdio: "pipe" }); });
 async function openFixture(page: import("@playwright/test").Page) {
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.evaluate(async () => { const h = await import("/mutation-harness/mutation.js"); await h.db.favorites.put({ text: "月月👩🏽‍💻星", parts: [{ resourceId: "nature", text: "月", version: 1 }], runId: "historical-source", workflowId: "historical-workflow", savedAt: Date.now(), seed: 42, pair: { left: "月", right: "星", relation: "couple" }, members: ["月", "星"] }); });
   await page.getByRole("button", { name: /^我的收藏/ }).click(); await page.getByRole("button", { name: "继续创作 月月👩🏽‍💻星", exact: true }).click();
   return page.getByRole("dialog", { name: "名字变异与继续创作" });
@@ -22,7 +23,7 @@ test("Unicode locks, deterministic rerun, dedup, rollback, copy/export and truth
   await panel.getByRole("button", { name: `收藏 ${first[0]}`, exact: true }).click(); await expect(panel.getByRole("button", { name: `收藏 ${first[0]}`, exact: true })).toHaveAttribute("aria-pressed", "true");
   await panel.getByRole("button", { name: `继续创作 ${first[0]}`, exact: true }).click(); await expect(panel.locator(".mutation-source strong")).toHaveText(first[0]); await panel.getByRole("button", { name: "生成变体", exact: true }).click(); await expect(panel.getByRole("button", { name: "生成变体", exact: true })).toBeEnabled();
   await panel.getByRole("button", { name: "回退上一轮", exact: true }).click(); await expect(panel.locator(".mutation-source strong")).toHaveText("月月👩🏽‍💻星"); expect(await panel.locator(".candidate-text").allTextContents()).toEqual(first); await expect(panel.getByRole("button", { name: "锁定位置 1 月", exact: true })).toHaveAttribute("aria-pressed", "true");
-  await page.screenshot({ path: "docs/p2-b/mutation-locks.png", fullPage: true }); await panel.getByRole("button", { name: "关闭变异器", exact: true }).click(); await page.reload(); await page.getByRole("button", { name: /^我的收藏/ }).click(); await page.getByRole("button", { name: `继续创作 ${first[0]}`, exact: true }).click();
+  await page.screenshot({ path: "docs/p2-b/mutation-locks.png", fullPage: true }); await panel.getByRole("button", { name: "关闭变异器", exact: true }).click(); await reloadEditor(page); await page.getByRole("button", { name: /^我的收藏/ }).click(); await page.getByRole("button", { name: `继续创作 ${first[0]}`, exact: true }).click();
   await expect(panel.locator(".mutation-source strong")).toHaveText(first[0]); await panel.getByRole("button", { name: "生成变体", exact: true }).click(); await expect(panel.locator(".candidate-text").first()).toBeVisible(); await expect(panel.getByRole("button", { name: "生成变体", exact: true })).toBeEnabled();
   const record = await page.evaluate(async () => { const h = await import("/mutation-harness/mutation.js"); return (await h.db.generated.toArray()).filter((x: any) => x.derivation?.round === 2)[0]; }); expect(record.derivation.parent.text).toBe(first[0]); expect(record.derivation.parent.runId).not.toBe("historical-source"); expect(errors).toEqual([]);
   await panel.locator(".candidate-name").first().click(); await expect(page.getByRole("dialog", { name: "名字来源" })).toContainText("名字变异衍生 · 不是原工作流产出");
@@ -49,7 +50,7 @@ test("cancel terminates blocked mutation Worker and persists cancelled state", a
 });
 
 test("production mutation Worker repeats seed/resources and portable package without stale Pair or members", async ({ page }) => {
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible(); const url = "/assets/" + readdirSync("dist/assets").find(s => /^execution\.worker-.*\.js$/.test(s));
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible(); const url = "/assets/" + readdirSync("dist/assets").find(s => /^execution\.worker-.*\.js$/.test(s));
   const report = await page.evaluate(async url => {
     const h = await import("/mutation-harness/mutation.js"); const w = h.mutationWorkflow({ text: "月月👩‍💻星", parts: [{ text: "月", resourceId: "nature", version: 1 }], runId: "old", workflowId: "old", pair: { left: "月", right: "星", relation: "couple" }, members: ["月", "星"] }, { locks: "[0,2]", operations: '["dictionary","homophone","martian","reorder"]', resourceId: "nature", intensity: 3, count: 128 }, 84);
     function run(workflow: any): Promise<any> { return new Promise((resolve, reject) => { const worker = new Worker(url, { type: "module" }), rows: any[] = []; const timeout = setTimeout(() => { worker.terminate(); reject(new Error("timeout")); }, 16000); worker.onerror = e => reject(new Error(e.message)); worker.onmessage = ({ data }) => { if (data.type === "batch") rows.push(...data.batch); if (["done", "error"].includes(data.type)) { clearTimeout(timeout); worker.terminate(); resolve({ ...data, rows }); } }; worker.postMessage(workflow); }); }

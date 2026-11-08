@@ -1,3 +1,4 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import { test, expect } from "@playwright/test";
 import { readdirSync } from "node:fs";
 import { createWorkflow } from "../src/core/model";
@@ -8,7 +9,7 @@ test("real UI: lab → saved resource → workflow and reload", async ({ page })
   const heavyRequests: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
   page.on("request", request => { if (/\/(decomposition|readings|strokes|cn2t|t2cn)-/.test(new URL(request.url()).pathname)) heavyRequests.push(request.url()); });
-  await page.goto("/");
+  await openEditor(page, "/");
   await expect(page.getByText(/生成完成/)).toBeVisible();
   expect(heavyRequests).toEqual([]);
   await page.getByRole("button", { name: "文字实验室", exact: true }).click();
@@ -22,7 +23,7 @@ test("real UI: lab → saved resource → workflow and reload", async ({ page })
   await dialog.getByLabel("词库名称").fill("审计实验室资源");
   await dialog.getByRole("button", { name: "完成", exact: true }).click();
   await expect(dialog).toBeHidden();
-  await page.reload();
+  await reloadEditor(page);
   await page.getByRole("button", { name: /^资源中心/ }).click();
   await expect(page.getByRole("button", { name: /审计实验室资源/ })).toBeVisible();
   const resourceId = await page.evaluate(async () => {
@@ -45,7 +46,7 @@ test("real UI: lab → saved resource → workflow and reload", async ({ page })
 });
 
 test("real UI: relation editor saves, edits, deletes and survives reload", async ({ page }) => {
-  await page.goto("/");
+  await openEditor(page, "/");
   await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.getByRole("button", { name: /^资源中心/ }).click();
   await page.getByRole("button", { name: "新建关系词库", exact: true }).click();
@@ -66,7 +67,7 @@ test("real UI: relation editor saves, edits, deletes and survives reload", async
   await dialog.locator(".relation-row").filter({ hasText: "山" }).getByRole("button", { name: "删除", exact: true }).click();
   await expect(dialog.locator(".relation-row")).toHaveCount(1);
   await dialog.getByRole("button", { name: "关闭", exact: true }).click();
-  await page.reload();
+  await reloadEditor(page);
   await page.getByRole("button", { name: /^资源中心/ }).click();
   await page.getByRole("button", { name: /审计词对/ }).click();
   await expect(dialog.locator(".relation-row")).toHaveCount(1);
@@ -74,7 +75,7 @@ test("real UI: relation editor saves, edits, deletes and survives reload", async
 });
 
 test("real IndexedDB: import and execute 10,000 relation rows", async ({ page }) => {
-  await page.goto("/");
+  await openEditor(page, "/");
   await expect(page.getByText(/生成完成/)).toBeVisible();
   const assets = readdirSync("dist/assets");
   const resourceAsset = "/assets/" + assets.find(name => name.startsWith("resources.worker-") && name.endsWith(".js"));
@@ -120,7 +121,7 @@ test("real IndexedDB: import and execute 10,000 relation rows", async ({ page })
 });
 
 test("real UI: editable relation recipe runs and persists", async ({ page }) => {
-  await page.goto("/");
+  await openEditor(page, "/");
   await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.getByTitle("选择配方").click();
   await page.getByRole("button", { name: /情侣 ID/ }).click();
@@ -128,12 +129,12 @@ test("real UI: editable relation recipe runs and persists", async ({ page }) => 
   await expect(page.locator(".candidate-name").filter({ hasText: "月亮邮差 / 星星收件人" })).toBeVisible();
   await expect(page.getByText(/生成完成/)).toBeVisible();
   await expect(page.getByText("已保存到本地", { exact: true })).toBeVisible();
-  await page.reload();
+  await reloadEditor(page);
   await expect(page.locator(".candidate-name").filter({ hasText: "月亮邮差 / 星星收件人" })).toBeVisible();
 });
 
 test("real UI: concurrent entry edits increment versions and refresh indexes", async ({ page }) => {
-  await page.goto("/");
+  await openEditor(page, "/");
   await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.getByRole("button", { name: /^资源中心/ }).click();
   await page.getByRole("button", { name: /小动物字库/ }).click();
@@ -165,7 +166,7 @@ test("real UI: concurrent entry edits increment versions and refresh indexes", a
 });
 
 test("production Workers: bounded nested execution, persistence and hard cancellation", async ({ page }) => {
-  await page.goto("/");
+  await openEditor(page, "/");
   await expect(page.getByText(/生成完成/)).toBeVisible();
   const asset = "/assets/" + readdirSync("dist/assets").find(name => name.startsWith("execution.worker-") && name.endsWith(".js"));
   const bounded = parseScript('for a in range(0, 1000) { for b in range(0, 1000) { emit(text(a) + ":" + text(b)); } }', createWorkflow());

@@ -1,10 +1,11 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import { test, expect } from "@playwright/test";
 import { execFileSync } from "node:child_process";
 import { readdirSync, writeFileSync } from "node:fs";
 test.beforeAll(() => { execFileSync(process.execPath, ["node_modules/vite/bin/vite.js", "build", "--config", "e2e/subgraphs.vite.config.ts"], { stdio: "pipe" }); });
 
 test("empty definition, copy and cross-workflow reuse survive reload", async ({ page }) => {
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.getByRole("button", { name: "子图与函数", exact: true }).click();
   const panel = page.getByRole("dialog", { name: "子图与可复用函数" });
   await panel.getByRole("button", { name: "新建空子图", exact: true }).click();
@@ -24,7 +25,7 @@ test("empty definition, copy and cross-workflow reuse survive reload", async ({ 
   await page.locator(".react-flow__node").last().click(); await page.getByRole("button", { name: "连接到结果输出", exact: true }).click();
   await page.getByRole("button", { name: /^运行工作流/ }).click(); await expect(page.locator(".candidate-name").first()).toBeVisible();
   const first = await page.locator(".candidate-text").first().innerText();
-  await expect(page.getByText("已保存到本地", { exact: true })).toBeVisible(); await page.reload();
+  await expect(page.getByText("已保存到本地", { exact: true })).toBeVisible(); await reloadEditor(page);
   // Bootstrap automatically runs. Wait for its committed result before manually
   // rerunning; otherwise the same toolbar button can become Stop during click.
   await expect(page.locator(".candidate-text").first()).toHaveText(first);
@@ -33,7 +34,7 @@ test("empty definition, copy and cross-workflow reuse survive reload", async ({ 
 
 test("canvas extraction, parameter editing, execution, favorites and durable reload", async ({ page }) => {
   test.setTimeout(90000); const errors: string[] = []; page.on("pageerror", e => errors.push(e.message));
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.locator('.react-flow__node[data-id="mix"]').click(); await page.locator('.react-flow__node[data-id="check"]').click({ modifiers: ["Control"] });
   await page.getByRole("button", { name: "子图与函数", exact: true }).click(); const panel = page.getByRole("dialog", { name: "子图与可复用函数" });
   await panel.getByRole("button", { name: /封装所选节点/ }).click(); await expect(panel.getByLabel("子图名称")).toBeVisible();
@@ -48,7 +49,7 @@ test("canvas extraction, parameter editing, execution, favorites and durable rel
   await panel.getByRole("button", { name: "返回主图", exact: false }).click();
   await page.getByRole("button", { name: /^运行工作流/ }).click(); await expect(page.locator(".candidate-name").first()).toContainText("星");
   await page.getByLabel("筛选生成结果").fill("星"); await page.getByTitle("收藏名字", { exact: true }).first().click();
-  await expect(page.getByText("已保存到本地", { exact: true })).toBeVisible(); await page.reload();
+  await expect(page.getByText("已保存到本地", { exact: true })).toBeVisible(); await reloadEditor(page);
   await expect(page.locator('.forge-node').filter({ hasText: "浏览器命名函数" })).toBeVisible();
   await page.getByRole("button", { name: /^运行工作流/ }).click(); await expect(page.locator(".candidate-name").first()).toContainText("星");
   await page.emulateMedia({ reducedMotion: "reduce" }); await expect(page.locator(".results-viewport")).toHaveClass(/motion-disabled/);
@@ -70,7 +71,7 @@ test("canvas extraction, parameter editing, execution, favorites and durable rel
 });
 
 test("production Worker inherits nested budgets, retains sources and terminates with partial results", async ({ page }) => {
-  test.setTimeout(90000); const url = "/assets/" + readdirSync("dist/assets").find(n => /^execution\.worker-.*\.js$/.test(n)); await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  test.setTimeout(90000); const url = "/assets/" + readdirSync("dist/assets").find(n => /^execution\.worker-.*\.js$/.test(n)); await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   const report = await page.evaluate(async url => {
     const h = await import("/subgraphs-harness/subgraphs.js");
     const w = h.createWorkflow(); const extracted = h.extractSubgraph(w, ["a", "b", "mix", "check"]); const inner = extracted.definition;
@@ -100,7 +101,7 @@ test("production Worker inherits nested budgets, retains sources and terminates 
 
 test("nested production Worker watchdog expires while a resource page is blocked", async ({ page }) => {
   test.setTimeout(40000);
-  const url = "/assets/" + readdirSync("dist/assets").find(n => /^execution\.worker-.*\.js$/.test(n)); await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  const url = "/assets/" + readdirSync("dist/assets").find(n => /^execution\.worker-.*\.js$/.test(n)); await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   const report = await page.evaluate(async url => {
     const h = await import("/subgraphs-harness/subgraphs.js");
     await h.db.resources.add({ id: "watchdog", name: "watchdog", kind: "word", description: "", color: "green", count: 5000, version: 1, updatedAt: 0 });

@@ -1,9 +1,10 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import {test,expect} from '@playwright/test';
 import {execFileSync} from 'node:child_process';
 import {readdirSync,writeFileSync} from 'node:fs';
 test.beforeAll(()=>execFileSync(process.execPath,['node_modules/vite/bin/vite.js','build','--config','e2e/packs.vite.config.ts'],{stdio:'pipe'}));
 const workerUrl=()=>'/assets/'+readdirSync('dist/assets').find(s=>/^execution\.worker-.*\.js$/.test(s));
-async function open(page:import('@playwright/test').Page){await page.goto('/');await expect(page.getByText(/生成完成/)).toBeVisible();}
+async function open(page:import('@playwright/test').Page){await openEditor(page, '/');await expect(page.getByText(/生成完成/)).toBeVisible();}
 async function packs(page:import('@playwright/test').Page){await page.getByRole('button',{name:'算子扩展包',exact:true}).click();}
 
 test('UI installs both operators, edits params, runs production Worker, favorites, disables/uninstalls and restores',async({page})=>{
@@ -13,7 +14,7 @@ test('UI installs both operators, edits params, runs production Worker, favorite
   const before=await page.evaluate(async()=>{const h=await import('/packs-harness/packs.js');return (await h.db.workflows.toArray()).find((w:any)=>w.nodes.some((n:any)=>n.op==='extension'));});expect(before.nodes.filter((n:any)=>n.op==='extension')).toHaveLength(2);
   await packs(page);await page.getByRole('button',{name:'禁用 1.0.0',exact:true}).click();await page.getByRole('button',{name:'工作流工坊',exact:true}).click();await page.getByRole('button',{name:/^运行工作流/}).click();await expect(page.getByText(/扩展 glyphforge-text@1.0.0：已安装 \/ 已禁用/).first()).toBeVisible();
   await packs(page);await page.getByRole('button',{name:'卸载 1.0.0',exact:true}).click();await page.getByRole('button',{name:'工作流工坊',exact:true}).click();expect(await page.locator('.react-flow__node').filter({hasText:'glyphforge-text@1.0.0/'}).count()).toBe(2);await page.getByRole('button',{name:/^运行工作流/}).click();await expect(page.getByText(/缺失扩展：未安装/).first()).toBeVisible();
-  await packs(page);await page.getByRole('button',{name:'安装 1.0.0',exact:true}).click();await page.getByRole('button',{name:'工作流工坊',exact:true}).click();await page.getByRole('button',{name:/^运行工作流/}).click();await expect(page.locator('.candidate-text').first()).toContainText('【');await expect(page.getByRole('button',{name:/^运行工作流/})).toBeEnabled();await page.reload();await page.getByRole('button',{name:/^我的收藏/}).click();await expect(page.locator('.candidate-text').filter({hasText:text})).toBeVisible();expect(errors).toEqual([]);
+  await packs(page);await page.getByRole('button',{name:'安装 1.0.0',exact:true}).click();await page.getByRole('button',{name:'工作流工坊',exact:true}).click();await page.getByRole('button',{name:/^运行工作流/}).click();await expect(page.locator('.candidate-text').first()).toContainText('【');await expect(page.getByRole('button',{name:/^运行工作流/})).toBeEnabled();await reloadEditor(page);await page.getByRole('button',{name:/^我的收藏/}).click();await expect(page.locator('.candidate-text').filter({hasText:text})).toBeVisible();expect(errors).toEqual([]);
 });
 
 test('UI unverified JSON stays disabled, dependencies and malicious code are visible rejections; explicit version migration',async({page})=>{
@@ -32,7 +33,7 @@ test('offline blank context restores v7 extension + NameScript + P2-A + dynamic 
     const workerRun=(workflow:any)=>new Promise<any>((resolve,reject)=>{const worker=new Worker(url,{type:'module'}),rows:any[]=[];worker.onmessage=({data})=>{if(data.type==='batch')rows.push(...data.batch);if(data.type==='done'||data.type==='error'){worker.terminate();resolve({...data,rows});}};worker.onerror=e=>reject(new Error(e.message));worker.postMessage(workflow);});
     const result=await workerRun(outer);if(result.type!=='done')throw new Error(result.message);await h.toggleFavorite(result.rows[0]);const mutation=h.mutationWorkflow(result.rows[0],{locks:'[]',operations:'["dictionary","affix"]',intensity:1,count:4,pool:'云',prefix:'小',suffix:'子',resourceId:'ext-dynamic',mappingId:''},42);const mutated=await workerRun(mutation);if(mutated.type!=='done')throw new Error(mutated.message);await h.toggleFavorite(mutated.rows[0]);return {pkg:await h.exportPackage(outer),rows:result.rows,mutated:mutated.rows,favorites:await h.db.favorites.toArray()};
   },url);expect(saved.pkg.version).toBe(7);expect(saved.mutated.length).toBeGreaterThan(0);expect(saved.favorites).toHaveLength(2);
-  const context=await browser.newContext();await context.route(/^https:\/\//,r=>r.abort());const blank=await context.newPage();await blank.goto('/');await expect(blank.getByText(/生成完成/)).toBeVisible();
+  const context=await browser.newContext();await context.route(/^https:\/\//,r=>r.abort());const blank=await context.newPage();await openEditor(blank, '/');await expect(blank.getByText(/生成完成/)).toBeVisible();
   const restored=await blank.evaluate(async({pkg,url})=>{const h=await import('/packs-harness/packs.js');for(const t of h.db.tables)await t.clear();const w=await h.importPackage(pkg);return await new Promise<any>((resolve,reject)=>{const worker=new Worker(url,{type:'module'}),rows:any[]=[];worker.onmessage=async({data})=>{if(data.type==='batch')rows.push(...data.batch);if(data.type==='done'||data.type==='error'){worker.terminate();const run=await h.db.runs.get(rows[0]?.runId);resolve({...data,rows,run,packs:await h.db.extensionPacks.toArray()});}};worker.onerror=e=>reject(new Error(e.message));worker.postMessage(w);});},{pkg:saved.pkg,url});
   expect(restored.type).toBe('done');expect(restored.rows.map((c:any)=>c.text)).toEqual(saved.rows.map((c:any)=>c.text));expect(restored.rows[0].parts).toHaveLength(3);expect(restored.run.resources.find((r:any)=>r.definition?.type==='dynamic').definition.workflow.extensions).toEqual(saved.pkg.packManifest);expect(restored.packs[0].enabled).toBe(true);writeFileSync('docs/p2-d/offline-roundtrip.json',JSON.stringify({before:saved,after:restored},null,2));await context.close();
 });
@@ -46,7 +47,7 @@ test('production Worker handles million logical combinations lazily with extensi
 });
 
 test('blocked beginRun explains zero-running versus pending terminal record',async({page})=>{
- await page.goto('/');await expect(page.getByText(/生成完成/)).toBeVisible();
+ await openEditor(page, '/');await expect(page.getByText(/生成完成/)).toBeVisible();
  await page.evaluate(async()=>{await new Promise(resolve=>{void navigator.locks.request('glyphforge-run:startup-pending',()=>new Promise<void>(release=>{(window as any).releaseStartup=release;resolve(true);}));});crypto.randomUUID=()=> 'startup-pending';});
  await page.getByRole('button',{name:/^运行工作流/}).click();await page.getByRole('button',{name:/^停止生成/}).click();
  const read=()=>page.evaluate(async()=>{const h=await import('/packs-harness/packs.js');return {running:await h.db.runs.where('status').equals('running').count(),cancelled:await h.db.runs.where('status').equals('cancelled').count()};});

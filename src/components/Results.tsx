@@ -35,6 +35,7 @@ export default function Results({
   stats,
   running,
   onlyFavorites = false,
+  presentation = "editor",
   onFavorite,
   onSave,
   onCopy,
@@ -46,6 +47,7 @@ export default function Results({
   stats?: RunStats;
   running: boolean;
   onlyFavorites?: boolean;
+  presentation?: "editor" | "generator";
   onFavorite: (c: Candidate) => void;
   onSave: (c: Candidate[]) => unknown;
   onCopy: (text: string) => void;
@@ -57,7 +59,7 @@ export default function Results({
   const gameReport = showRules ? checkGameId(gameText, gameRule) : undefined;
   const [saveError, setSaveError] = useState("");
   const [query, setQuery] = useState("");
-  const [view, setView] = useState("list");
+  const [view, setView] = useState(presentation === "generator" ? "cards" : "list");
   const [starred, setStarred] = useState(false);
   const [scroll, setScroll] = useState(0);
   const [width, setWidth] = useState(1000);
@@ -126,7 +128,7 @@ export default function Results({
     return () => { feedback.current.forEach(a => a.cancel()); feedback.current.clear(); };
   }, [motionEnabled, view]);
   useEffect(() => () => clearTimeout(copyTimer.current), []);
-  const cols = view === "list" ? 1 : Math.max(1, Math.floor(width / 190));
+  const cols = view === "list" ? 1 : Math.max(1, Math.floor(width / (presentation === "generator" ? 170 : 190)));
   const rowHeight = view === "list" ? 48 : 91;
   const startRow = Math.max(0, Math.floor(scroll / rowHeight) - 2);
   const animatedView = view === "play" || view === "scatter" || view === "float";
@@ -150,23 +152,23 @@ export default function Results({
   const visibleKeys = visible.map(c => { const occurrence = occurrences.get(c.text) ?? 0; occurrences.set(c.text, occurrence + 1); return JSON.stringify([c.text, occurrence]); });
   useResultFlip(grid, JSON.stringify([visibleKeys, view, query, sort, excluded, deduplicate]), motionEnabled && !physics && scroll === 0);
   return (
-    <section className={`results-section ${onlyFavorites ? "standalone" : ""}`}>
+    <section className={`results-section ${onlyFavorites ? "standalone" : ""} ${presentation === "generator" ? "for-generation" : ""}`}>
       <div className="results-heading">
         <div className="result-title">
           <span className="section-icon">
             <Sparkles size={17} />
           </span>
-          <h2>{onlyFavorites ? "我的收藏" : "灵感产物"}</h2>
+          <h2>{onlyFavorites ? "我的收藏" : presentation === "generator" ? "生成结果" : "灵感产物"}</h2>
           <span className="count-badge">{results.length}</span>
           <span className="result-timing">
             {running
               ? "正在捕捉灵感…"
               : stats
                 ? `${(stats.duration / 1000).toFixed(2)}s · ${stats.truncated ? "已达到结果上限" : "生成完成"}`
-                : candidates.length ? "已保留的创作结果" : "运行工作流，看看会发生什么"}
+                : candidates.length ? "已保留的创作结果" : presentation === "generator" ? "选好工作流，点击生成" : "运行工作流，看看会发生什么"}
           </span>
         </div>
-        {stats?.safePruned ? <span className="field-note">安全省略 {stats.safePruned.toLocaleString()} 条拒绝组合的来源构造（保持读取和计步）</span> : null}
+        {presentation === "editor" && stats?.safePruned ? <span className="field-note">安全省略 {stats.safePruned.toLocaleString()} 条拒绝组合的来源构造（保持读取和计步）</span> : null}
         <div className="result-actions">
           <select
             aria-label="结果导出格式"
@@ -211,7 +213,7 @@ export default function Results({
         </div>
       </div>
       {saveError ? <p role="alert">{saveError}</p> : null}
-      <button className="text-button" onClick={() => setShowRules(v => !v)}>游戏规则检查{showRules ? "（收起）" : ""}</button>
+      {presentation === "editor" ? <button className="text-button" onClick={() => setShowRules(v => !v)}>游戏规则检查{showRules ? "（收起）" : ""}</button> : null}
       {showRules ? <><GameRuleEditor rule={gameRule} onChange={setGameRule} /><div className="tool-panel"><label className="field-label">测试游戏 ID<input aria-label="测试游戏 ID" value={gameText} maxLength={1024} onChange={e => setGameText(e.target.value)} /></label><p>{Object.entries(gameReport!.metrics).map(([unit, value]) => `${unit}: ${value}`).join(" · ")}</p><p role="status">{gameReport!.valid ? "符合本地规则" : gameReport!.errors.join("；")}</p>{gameReport!.warnings.length ? <p>{gameReport!.warnings.join("；")}</p> : null}</div></> : null}
       <div className="results-toolbar">
         <div className="search-box">
@@ -241,6 +243,7 @@ export default function Results({
           <Star size={14} />
           只看收藏
         </button>
+        {presentation === "editor" ? <>
         <input
           className="exclude-input"
           aria-label="排除结果文字"
@@ -274,6 +277,7 @@ export default function Results({
           />
           动画
         </label>
+        </> : null}
         <div className="view-switch">
           {[
             { id: "cards", icon: Grid2X2, label: "卡片模式" },
@@ -281,7 +285,7 @@ export default function Results({
             { id: "play", icon: Sparkles, label: "灵感动画" },
             { id: "scatter", icon: Sparkles, label: "爆炸散开" },
             { id: "float", icon: Sparkles, label: "漂浮碰撞" },
-          ].map((v) => (
+          ].filter(v => presentation === "editor" || v.id === "cards" || v.id === "list").map((v) => (
             <button
               key={v.id}
               title={v.label}
@@ -321,7 +325,7 @@ export default function Results({
                 ? "换个关键词，或调整节点中的筛选条件。"
                 : onlyFavorites
                   ? "点击名字旁的星星，就能随时找到它。"
-                  : "连接词库与规则，点击右上角「运行工作流」。"}
+                  : presentation === "generator" ? "选一个工作流，点击「生成 ID」，遇见喜欢的名字就收藏。" : "连接词库与规则，点击右上角「运行工作流」。"}
             </p>
           </div>
         ) : (
@@ -369,8 +373,8 @@ export default function Results({
                 >
                   <button
                     className="candidate-name"
-                    title="查看名字来源"
-                    onClick={() => onDetail(c)}
+                    title={presentation === "generator" ? "点击复制名字" : "查看名字来源"}
+                    onClick={() => presentation === "generator" ? onCopy(c.text) : onDetail(c)}
                   >
                     <HighlightedName text={c.text} query={query} />
                     <small>
@@ -381,7 +385,7 @@ export default function Results({
                   </button>
                   {showRules ? <GameBadge text={c.text} rule={gameRule} onInspect={setGameText} /> : null}
                   <div className="candidate-buttons">
-                    {onMutate ? <button className="icon-button" title="变异 / 继续创作" aria-label={`继续创作 ${c.text}`} disabled={running} onClick={() => onMutate(c)}><Sparkles size={14} /></button> : null}
+                    {presentation === "editor" && onMutate ? <button className="icon-button" title="变异 / 继续创作" aria-label={`继续创作 ${c.text}`} disabled={running} onClick={() => onMutate(c)}><Sparkles size={14} /></button> : null}
                     <button
                       className="icon-button"
                       title="复制名字"
@@ -434,7 +438,7 @@ export default function Results({
         <span>
           {animatedView
             ? `精选展示 ${visible.length} 个结果 · ${reduced ? "减少动态效果" : `动画${animations ? "已开启" : "已关闭"}`}`
-            : "点击名字查看来源 · 点击 ☆ 收藏"}
+            : presentation === "generator" ? "点击名字复制 · 点击 ☆ 收藏" : "点击名字查看来源 · 点击 ☆ 收藏"}
           <Heart size={12} />
         </span>
       </div>

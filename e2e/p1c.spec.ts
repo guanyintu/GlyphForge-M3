@@ -1,9 +1,10 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import { test, expect } from "@playwright/test";
 import { readdirSync } from "node:fs";
 
 test("reverse UI separates provenance, opens exact resources and builds executable workflow", async ({ page }) => {
   const errors: string[] = []; page.on("pageerror", e => errors.push(e.message));
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.getByRole("button", { name: "逆向查找", exact: true }).click();
   await page.getByLabel("逆向查找名字").fill("月亮邮差X"); await page.getByRole("button", { name: "寻找线索" }).click();
   await expect(page.getByText("未找到可追溯生成记录", { exact: true })).toBeVisible();
@@ -19,26 +20,26 @@ test("reverse UI separates provenance, opens exact resources and builds executab
 });
 
 test("relation direction can be edited, persisted and queried without reversing slots", async ({ page }) => {
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.getByRole("button", { name: /^资源中心/ }).click(); await page.getByRole("button", { name: "新建关系词库", exact: true }).click();
   const d = page.getByRole("dialog", { name: "编辑关系词库" }); await d.getByLabel("左词 A").fill("寒"); await d.getByLabel("右词 B").fill("暑"); await d.getByLabel("关系方向").selectOption("directed"); await d.getByRole("button", { name: "添加词对", exact: true }).click();
   await d.getByRole("button", { name: "关闭", exact: true }).click();
   await page.getByRole("button", { name: "逆向查找", exact: true }).click(); await page.getByLabel("逆向查找名字").fill("暑"); await page.getByRole("button", { name: "寻找线索" }).click(); await expect(page.getByText("未找到允许此方向查询的关系。", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: /^资源中心/ }).click(); await page.getByRole("button", { name: /未命名关系词库/ }).click(); await d.getByRole("button", { name: "修改", exact: true }).click(); await d.getByLabel("关系方向").selectOption("symmetric"); await d.getByRole("button", { name: "保存修改", exact: true }).click(); await expect(d.locator(".relation-row")).toContainText("对称"); await d.getByRole("button", { name: "关闭", exact: true }).click();
-  await page.reload(); await page.getByRole("button", { name: "逆向查找", exact: true }).click(); await page.getByLabel("逆向查找名字").fill("暑"); await page.getByRole("button", { name: "寻找线索" }).click(); await expect(page.locator(".match-row").filter({ hasText: "寒 / 暑" })).toContainText("反向命中");
+  await reloadEditor(page); await page.getByRole("button", { name: "逆向查找", exact: true }).click(); await page.getByLabel("逆向查找名字").fill("暑"); await page.getByRole("button", { name: "寻找线索" }).click(); await expect(page.locator(".match-row").filter({ hasText: "寒 / 暑" })).toContainText("反向命中");
 });
 
 test("game rule presets are editable in the workbench and survive reload", async ({ page }) => {
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.getByRole("button", { name: "游戏规则检查", exact: true }).click(); const editor = page.locator(".game-rule-editor");
   await editor.getByLabel("规则名称", { exact: true }).fill("浏览器自定义规则"); await editor.getByLabel("可见字符簇数最大", { exact: true }).fill("3"); await editor.getByRole("button", { name: "保存规则预设", exact: true }).click(); await expect(editor.getByText("规则预设已保存")).toBeVisible(); await expect(page.locator(".game-check").first()).toContainText("不兼容");
   await page.screenshot({ path: "docs/p1c/game-ui.png", fullPage: true });
-  await page.reload(); await page.getByRole("button", { name: "游戏规则检查", exact: true }).click(); await editor.getByLabel("已保存的游戏规则", { exact: true }).selectOption({ label: "浏览器自定义规则" }); await expect(editor.getByLabel("可见字符簇数最大", { exact: true })).toHaveValue("3");
+  await reloadEditor(page); await page.getByRole("button", { name: "游戏规则检查", exact: true }).click(); await editor.getByLabel("已保存的游戏规则", { exact: true }).selectOption({ label: "浏览器自定义规则" }); await expect(editor.getByLabel("可见字符簇数最大", { exact: true })).toHaveValue("3");
 });
 
 test("production reverse Worker: 100k indexed entries, batching, cache invalidation and active cancellation", async ({ page, browser }) => {
   test.setTimeout(90000);
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   const workerPath = `/assets/${readdirSync("dist/assets").find(n => /^reverse\.worker-.*\.js$/.test(n))!}`;
   const evidence = await page.evaluate(async ({ workerPath }) => {
     const database = await new Promise<IDBDatabase>((resolve, reject) => { const r = indexedDB.open("glyphforge-v1"); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error); });

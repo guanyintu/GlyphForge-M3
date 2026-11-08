@@ -1,10 +1,11 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import { test, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
 import { readFileSync, writeFileSync } from "node:fs";
 import { createWorkflow } from "../src/core/model";
 
 async function fixture(page: Page, texts: string[]) {
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   const workflow = createWorkflow(); workflow.id = "p1d-fixture"; workflow.seed = 0; workflow.limit = 10000;
   workflow.nodes = [{ id: "names", op: "resource", inputs: [], params: { resourceId: "p1d-names" } }, { id: "out", op: "output", inputs: ["names"], params: {} }];
   await page.evaluate(async ({ workflow, texts }) => {
@@ -16,7 +17,7 @@ async function fixture(page: Page, texts: string[]) {
       texts.forEach(text => tx.objectStore("entries").add({ resourceId: "p1d-names", text }));
     }); db.close(); localStorage.setItem("glyphforge-active", workflow.id);
   }, { workflow, texts });
-  await page.reload(); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await reloadEditor(page); await expect(page.getByText(/生成完成/)).toBeVisible();
   await expect(page.locator(".results-section .count-badge")).toHaveText(String(texts.length));
 }
 const field = (page: Page) => page.locator(".physics-grid");
@@ -86,7 +87,7 @@ test("P1-D: stable keys, FLIP sorting/filtering, Unicode highlights and immediat
   await page.getByRole("button", { name: "爆炸散开", exact: true }).click(); await expect(page.locator(".animate-scatter")).toHaveCount(7);
   await page.getByLabel("开启动画", { exact: true }).uncheck(); await expect(page.locator(".animate-scatter")).toHaveCount(0);
   await page.getByLabel("开启动画", { exact: true }).check(); await page.emulateMedia({ reducedMotion: "reduce" }); await expect(page.locator(".animate-scatter")).toHaveCount(0);
-  await page.reload(); await page.getByRole("button", { name: /^我的收藏/ }).click(); await expect(page.getByLabel("收藏 猫", { exact: true })).toHaveAttribute("aria-pressed", "true");
+  await reloadEditor(page); await page.getByRole("button", { name: /^我的收藏/ }).click(); await expect(page.getByLabel("收藏 猫", { exact: true })).toHaveAttribute("aria-pressed", "true");
 });
 
 test("P1-D: visibility, resize, offscreen and unmount clean the owned RAF", async ({ page }) => {

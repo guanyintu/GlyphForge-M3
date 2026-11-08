@@ -1,15 +1,16 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import {test,expect} from '@playwright/test';
 import {execFileSync} from 'node:child_process';
 import {readdirSync,writeFileSync} from 'node:fs';
 test.beforeAll(()=>execFileSync(process.execPath,['node_modules/vite/bin/vite.js','build','--config','e2e/scale.vite.config.ts'],{stdio:'pipe'}));
 const workerUrl=()=>'/assets/'+readdirSync('dist/assets').find(s=>/^execution\.worker-.*\.js$/.test(s));
 test('readonly estimate UI and live metadata invalidation',async({page,context})=>{
-  await page.goto('/');await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, '/');await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.getByText('规模与执行风险（只读）',{exact:true}).click();await page.getByRole('button',{name:'估算当前工作流'}).click();
   await expect(page.getByRole('status').filter({hasText:'去重前候选'})).toBeVisible();
   // A separate editor tab exercises the real cross-tab notification protocol;
   // a separately bundled Dexie runtime inside the same tab has its own events.
-  const editor=await context.newPage();await editor.goto('/');await expect(editor.getByText(/生成完成/)).toBeVisible();
+  const editor=await context.newPage();await openEditor(editor, '/');await expect(editor.getByText(/生成完成/)).toBeVisible();
   await editor.evaluate(async()=>{const h=await import('/scale-harness/scale.js');const w=(await h.db.workflows.toArray()).find(w=>w.name==='宇宙浪漫命名器');for(const n of w.nodes.filter(n=>n.op==='resource')){const r=await h.db.resources.get(n.params.resourceId);await h.db.resources.update(r.id,{version:r.version+1,count:20000});}});
   await expect(page.getByRole('status').filter({hasText:'风险：高'})).toBeVisible();
   await editor.close();
@@ -17,7 +18,7 @@ test('readonly estimate UI and live metadata invalidation',async({page,context})
   await page.screenshot({path:'docs/p2-f/estimate.png',fullPage:true});
 });
 test('real production Worker/IDB audit: fully enumerated expensive graphs and bounded million prefix',async({page})=>{
-  test.setTimeout(240000);await page.goto('/');await expect(page.getByText(/生成完成/)).toBeVisible();
+  test.setTimeout(240000);await openEditor(page, '/');await expect(page.getByText(/生成完成/)).toBeVisible();
   const report=await page.evaluate(async url=>{
     const h=await import('/scale-harness/scale.js');
     const meta=(id:string)=>({id,name:id,kind:'word',count:0,description:'',version:1,color:'green',updatedAt:0});
@@ -49,7 +50,7 @@ test('real production Worker/IDB audit: fully enumerated expensive graphs and bo
   for(const s of report.samples){expect(s.type,`${s.name}: ${s.error}`).toBe('done');if(s.name==='tenK-output')expect(s.rows).toBe(10000);if(s.name.includes('reject-full')){expect(s.rows).toBe(0);expect(s.stats.steps).toBeGreaterThan(40000);}}
 });
 test('production concurrency rejects changed versions, cancels without late writes; reverse Worker cold/warm invalidation',async({page})=>{
-  await page.goto('/');await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, '/');await expect(page.getByText(/生成完成/)).toBeVisible();
   const reverseUrl='/assets/'+readdirSync('dist/assets').find(s=>/^reverse\.worker-.*\.js$/.test(s));
   const r=await page.evaluate(async({url,reverseUrl})=>{
     const h=await import('/scale-harness/scale.js'),id='f-race',meta={id,name:id,kind:'word',count:0,description:'',version:1,color:'green',updatedAt:0};await h.saveNewResource(meta,Array.from({length:200},(_,i)=>`月${i}`));

@@ -1,3 +1,4 @@
+import { openEditor, reloadEditor, enterEditor } from "./editor-steps";
 import { expect, test } from "@playwright/test";
 
 test("M2: the latest native intersection record resumes real motion after a batched offscreen/onscreen transition", async ({ page }) => {
@@ -17,7 +18,7 @@ test("M2: the latest native intersection record resumes real motion after a batc
       }
     };
   });
-  await page.goto("/"); await expect(page.getByText(/生成完成/)).toBeVisible();
+  await openEditor(page, "/"); await expect(page.getByText(/生成完成/)).toBeVisible();
   await page.getByRole("button", { name: "漂浮碰撞", exact: true }).click();
   const grid = page.locator(".physics-grid");
   await grid.scrollIntoViewIfNeeded();

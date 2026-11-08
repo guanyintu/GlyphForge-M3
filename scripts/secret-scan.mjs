@@ -26,9 +26,21 @@ async function scanner() {
   if(process.env.GITLEAKS_BIN&&!existsSync(exe))throw new Error('Configured scanner missing');
   if(!existsSync(exe)) {
     const [asset,sha]=assets[process.platform], archive=path.join(dir,'download-'+asset);
-    const res=await fetch(`https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_${asset}`,{signal:AbortSignal.timeout(30000)});
-    if(!res.ok)throw new Error('Pinned scanner download failed');
-    const bytes=Buffer.from(await res.arrayBuffer());
+    let bytes;
+    for (let attempt=0;attempt<3;attempt++) {
+      try {
+        const res=await fetch(`https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_${asset}`,{signal:AbortSignal.timeout(30000)});
+        if(!res.ok) {
+          if(attempt<2 && (res.status===429 || res.status>=500)) { await new Promise(resolve=>setTimeout(resolve,1000*(attempt+1))); continue; }
+          throw new Error('Pinned scanner download failed');
+        }
+        bytes=Buffer.from(await res.arrayBuffer()); break;
+      } catch(error) {
+        if(attempt===2 || (error instanceof Error && error.message==='Pinned scanner download failed')) throw error;
+        await new Promise(resolve=>setTimeout(resolve,1000*(attempt+1)));
+      }
+    }
+    if(!bytes)throw new Error('Pinned scanner download failed');
     if(createHash('sha256').update(bytes).digest('hex')!==sha)throw new Error('Scanner archive checksum mismatch');
     writeFileSync(archive,bytes);
     const unpack=process.platform==='win32'
@@ -91,6 +103,12 @@ async function main() {
   console.log(JSON.stringify(summary,null,2));
   if(summary.findings.length||forbidden.length){console.error('PUBLICATION BLOCKED. Review metadata privately; revoke/rotate any real credential. Never hide a leak with ignore rules.');process.exitCode=1;}
 }
+// Only these static diagnostics are safe to publish; never emit raw exceptions,
+// scanner reports, request URLs, headers or commit messages.
+export function safeScannerError(error) {
+  const allowed=new Set(['Git inventory failed','Use GITLEAKS_BIN with pinned 8.30.1 on this platform','Configured scanner missing','Pinned scanner download failed','Scanner archive checksum mismatch','Scanner extraction failed','Wrong Gitleaks version']);
+  return error instanceof Error && allowed.has(error.message) ? error.message : 'Unexpected scanner environment failure';
+}
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
-  main().catch(()=>{console.error('Secret scan failed closed; raw diagnostic output suppressed.');process.exitCode=1;});
+  main().catch(error=>{console.error('Secret scan failed closed: '+safeScannerError(error)+'; raw diagnostic output suppressed.');process.exitCode=1;});
 }

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
-import {safeFindings} from './secret-scan.mjs';
+import {safeFindings,safeScannerError} from './secret-scan.mjs';
 const bin=process.env.GITLEAKS_BIN||path.join(tmpdir(),'glyphforge-gitleaks-8.30.1',process.platform==='win32'?'gitleaks.exe':'gitleaks');
 // Synthetic value exists only in memory. It is never printed or written.
 const synthetic='sb_'+'secret_'+crypto.randomUUID().replaceAll('-','');
@@ -16,4 +16,6 @@ assert.ok(!safe.includes(synthetic));
 const wrong=spawnSync(process.execPath,['scripts/secret-scan.mjs','--staged-only'],{env:{...process.env,GITLEAKS_BIN:'missing-scanner-8.30.1'},encoding:'utf8'});
 assert.notEqual(wrong.status,0,'missing scanner must fail closed');
 assert.ok(!wrong.stdout.includes(synthetic));
-console.log('3/3 secret gates: detection/redaction, safe metadata, missing scanner fail-closed');
+assert.equal(safeScannerError(new Error('Configured scanner missing')), 'Configured scanner missing');
+assert.ok(!safeScannerError(new Error(synthetic)).includes(synthetic), 'unexpected errors cannot disclose secrets');
+console.log('4/4 secret gates: detection/redaction, safe metadata, missing scanner fail-closed, safe diagnostics');

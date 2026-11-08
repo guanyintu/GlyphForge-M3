@@ -31,7 +31,9 @@ export function patternText(template: string, a: string, b: string) {
   return transformText("pattern", [a, b], normalizeParams("pattern", { template }));
 }
 export { boundedText } from "../../core/contracts";
+// Frozen implementations predate curate; reject it rather than claiming old support.
 const executors: Record<Op, RegisteredOperator["execute"]> = {
+  curate: async function* () { throw new Error("curate is outside the frozen baseline"); },
   extension: async function* () { throw new Error("扩展需要固定版本执行作用域"); },
   mutate,
   call: async function* () { throw new Error("子图调用需要执行器作用域"); },

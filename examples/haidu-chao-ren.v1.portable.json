@@ -1,0 +1,3575 @@
+{
+  "format": "glyphforge",
+  "version": 4,
+  "irVersion": 1,
+  "operatorVersions": {
+    "program": 1,
+    "output": 1,
+    "pairs": 1
+  },
+  "workflow": {
+    "version": 1,
+    "id": "haidu-chao-ren",
+    "name": "海都潮人 ID",
+    "comments": [
+      "// 海都潮人 ID：二字核心 + 一字尾缀，输出 2 / 3 字短 ID。",
+      "// 词库为原创整理，按海都海洋感、赛博街头、氛围感、人设感分组。",
+      "// 到「资源中心」编辑关系行：左侧必须 2 字，右侧必须 1 字；运行顺序由种子控制。"
+    ],
+    "nodes": [
+      {
+        "id": "generate",
+        "op": "program",
+        "inputs": [],
+        "params": {},
+        "program": {
+          "version": 1,
+          "body": [
+            {
+              "kind": "for",
+              "name": "pair",
+              "source": {
+                "kind": "call",
+                "name": "pairs",
+                "args": [
+                  {
+                    "kind": "literal",
+                    "value": "haidu-chao-ren-pairs",
+                    "line": 5
+                  },
+                  {
+                    "kind": "literal",
+                    "value": "associated",
+                    "line": 5
+                  }
+                ],
+                "line": 5
+              },
+              "body": [
+                {
+                  "kind": "if",
+                  "test": {
+                    "kind": "binary",
+                    "op": "&&",
+                    "left": {
+                      "kind": "binary",
+                      "op": "==",
+                      "left": {
+                        "kind": "call",
+                        "name": "length",
+                        "args": [
+                          {
+                            "kind": "call",
+                            "name": "left",
+                            "args": [
+                              {
+                                "kind": "variable",
+                                "name": "pair",
+                                "line": 6
+                              }
+                            ],
+                            "line": 6
+                          }
+                        ],
+                        "line": 6
+                      },
+                      "right": {
+                        "kind": "literal",
+                        "value": 2,
+                        "line": 6
+                      },
+                      "line": 6
+                    },
+                    "right": {
+                      "kind": "binary",
+                      "op": "==",
+                      "left": {
+                        "kind": "call",
+                        "name": "length",
+                        "args": [
+                          {
+                            "kind": "call",
+                            "name": "right",
+                            "args": [
+                              {
+                                "kind": "variable",
+                                "name": "pair",
+                                "line": 6
+                              }
+                            ],
+                            "line": 6
+                          }
+                        ],
+                        "line": 6
+                      },
+                      "right": {
+                        "kind": "literal",
+                        "value": 1,
+                        "line": 6
+                      },
+                      "line": 6
+                    },
+                    "line": 6
+                  },
+                  "body": [
+                    {
+                      "kind": "emit",
+                      "value": {
+                        "kind": "call",
+                        "name": "left",
+                        "args": [
+                          {
+                            "kind": "variable",
+                            "name": "pair",
+                            "line": 7
+                          }
+                        ],
+                        "line": 7
+                      },
+                      "line": 7
+                    },
+                    {
+                      "kind": "emit",
+                      "value": {
+                        "kind": "binary",
+                        "op": "+",
+                        "left": {
+                          "kind": "call",
+                          "name": "left",
+                          "args": [
+                            {
+                              "kind": "variable",
+                              "name": "pair",
+                              "line": 8
+                            }
+                          ],
+                          "line": 8
+                        },
+                        "right": {
+                          "kind": "call",
+                          "name": "right",
+                          "args": [
+                            {
+                              "kind": "variable",
+                              "name": "pair",
+                              "line": 8
+                            }
+                          ],
+                          "line": 8
+                        },
+                        "line": 8
+                      },
+                      "line": 8
+                    }
+                  ],
+                  "otherwise": [],
+                  "line": 6
+                }
+              ],
+              "line": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "result",
+        "op": "output",
+        "inputs": [
+          "generate"
+        ],
+        "params": {}
+      }
+    ],
+    "layout": {
+      "generate": {
+        "x": 80,
+        "y": 130
+      },
+      "result": {
+        "x": 430,
+        "y": 130
+      }
+    },
+    "seed": 42,
+    "limit": 5000
+  },
+  "dependencies": [
+    {
+      "id": "haidu-chao-ren-pairs",
+      "name": "海都潮人 · 双字核心与尾缀",
+      "version": 2,
+      "kind": "relation"
+    }
+  ],
+  "resources": [
+    {
+      "meta": {
+        "id": "haidu-chao-ren-pairs",
+        "name": "海都潮人 · 双字核心与尾缀",
+        "kind": "relation",
+        "description": "左侧为两字 ID 核心，右侧为一字尾缀。人工搭配的海风、港口、赛博、氛围与人设词组；可在资源中心编辑关系行。",
+        "color": "purple",
+        "count": 258,
+        "version": 2,
+        "updatedAt": 0
+      },
+      "entries": [],
+      "relationRows": [
+        {
+          "left": "海盐",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海盐",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海盐",
+          "right": "仔",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "黑潮",
+          "right": "鸦",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "黑潮",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "黑潮",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "雾港",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "雾港",
+          "right": "鸦",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "雾港",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "夜航",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "夜航",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "夜航",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "蓝调",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "蓝调",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "蓝调",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "鲸落",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "鲸落",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "鲸落",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "深潜",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "深潜",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "深潜",
+          "right": "者",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "暗涌",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "暗涌",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "暗涌",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "潮汐",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "潮汐",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "潮汐",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "孤岛",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "孤岛",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "孤岛",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "沉船",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "沉船",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "沉船",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海风",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海风",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海风",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "盐汽",
+          "right": "水",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "盐汽",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "盐汽",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "夜潮",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "夜潮",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "夜潮",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "逆潮",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "逆潮",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "逆潮",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "远洋",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "远洋",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "远洋",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "深海",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "深海",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "深海",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "浅滩",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "浅滩",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "浅滩",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "灯塔",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "灯塔",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "灯塔",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "船坞",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "船坞",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "船坞",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "潮声",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "潮声",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "潮声",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海妖",
+          "right": "姬",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海妖",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海妖",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海盗",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海盗",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海盗",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "鲛人",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "鲛人",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "鲛人",
+          "right": "姬",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "蓝鲸",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "蓝鲸",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "蓝鲸",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海獭",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海獭",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海獭",
+          "right": "仔",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海猫",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海猫",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海猫",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "渔火",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "渔火",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "渔火",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "风帆",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "风帆",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "风帆",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "水手",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "水手",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "水手",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "提督",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "提督",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "提督",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海都",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海都",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海都",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "海都"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "空港",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "空港",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "空港",
+          "right": "鸦",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "霓虹",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "霓虹",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "霓虹",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "故障",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "故障",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "故障",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "失真",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "失真",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "失真",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "低频",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "低频",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "低频",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "噪点",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "噪点",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "噪点",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "朋克",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "朋克",
+          "right": "狗",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "朋克",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "赛博",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "赛博",
+          "right": "狐",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "赛博",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "黑胶",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "黑胶",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "黑胶",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "电波",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "电波",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "电波",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "像素",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "像素",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "像素",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "机车",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "机车",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "机车",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "暗巷",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "暗巷",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "暗巷",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "迷幻",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "迷幻",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "迷幻",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "摇滚",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "摇滚",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "摇滚",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "赛博"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "冷雨",
+          "right": "鸦",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "冷雨",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "冷雨",
+          "right": "君",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "反骨",
+          "right": "仔",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "反骨",
+          "right": "侠",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "反骨",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "坏种",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "坏种",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "坏种",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "怪胎",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "怪胎",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "怪胎",
+          "right": "仔",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "失眠",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "失眠",
+          "right": "犬",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "失眠",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "疯批",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "疯批",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "疯批",
+          "right": "仔",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "毒舌",
+          "right": "姐",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "毒舌",
+          "right": "哥",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "毒舌",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "野猫",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "野猫",
+          "right": "仔",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "野猫",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "冷面",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "冷面",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "冷面",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "旧梦",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "旧梦",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "旧梦",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "浮游",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "浮游",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "浮游",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "月蚀",
+          "right": "兔",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "月蚀",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "月蚀",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "灰烬",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "灰烬",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "灰烬",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "白噪",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "白噪",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "白噪",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "午夜",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "午夜",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "午夜",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "无眠",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "无眠",
+          "right": "犬",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "无眠",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "烟火",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "烟火",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "烟火",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "夜猫",
+          "right": "子",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "夜猫",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "夜猫",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "猫奴",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "猫奴",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "猫奴",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "酒鬼",
+          "right": "仙",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "酒鬼",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "酒鬼",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海王",
+          "right": "子",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海王",
+          "right": "爷",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "海王",
+          "right": "君",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "闲鱼",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "闲鱼",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "闲鱼",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "摆烂",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "摆烂",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "摆烂",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "社恐",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "社恐",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "社恐",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "社牛",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "社牛",
+          "right": "人",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "社牛",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "天才",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "天才",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "天才",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "怪咖",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "怪咖",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "怪咖",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "野狗",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "野狗",
+          "right": "仔",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "野狗",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "废柴",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "废柴",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "废柴",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "酷盖",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "酷盖",
+          "right": "仔",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "酷盖",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "冷脸",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "冷脸",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "冷脸",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "浪人",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "浪人",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "浪人",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "混子",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "混子",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "混子",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "独行",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "独行",
+          "right": "者",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "独行",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "人设"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "失语",
+          "right": "者",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "失语",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "失语",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "脱轨",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "脱轨",
+          "right": "者",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "脱轨",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "断片",
+          "right": "猫",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "断片",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "断片",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "失重",
+          "right": "鲸",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "失重",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "失重",
+          "right": "神",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "余烬",
+          "right": "王",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "余烬",
+          "right": "客",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        },
+        {
+          "left": "余烬",
+          "right": "鬼",
+          "relation": "associated",
+          "direction": "directed",
+          "reverseQueryable": false,
+          "tags": [
+            "海都潮人",
+            "氛围"
+          ],
+          "note": "左侧两字核心 + 右侧一字尾缀；生成二字与三字 ID",
+          "source": "GlyphForge 原创整理；参考公开海都潮人 ID 生成器的排列组合思路"
+        }
+      ]
+    }
+  ]
+}

@@ -43,7 +43,7 @@ it("all builtins expose bounded signatures and supported entry points", () => {
     expect(c.graph.inputs).toEqual(Array(operators[c.id].inputs).fill("CandidateSequence"));
     expect(c.budget.limits).toBe(executionBudget);
     expect(c.budget.scope).toBe("run");
-    expect(c.streaming).toBe(c.id === "group" ? "buffered" : "incremental");
+    expect(c.streaming).toBe(["group", "curate"].includes(c.id) ? "buffered" : "incremental");
     expect(normalizeParams(c.id, {})).toEqual(operators[c.id].defaults);
   }
   expect(() => labWorkflow("concat", {})).toThrow(ContractError);

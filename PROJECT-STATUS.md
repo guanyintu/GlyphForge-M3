@@ -1,5 +1,10 @@
 # GlyphForge：规划对照与接续状态
 
+
+## 2026-11-08 海都潮人 ID 发布更新
+
+用户已明确要求发布；本次沿用现有 Pages 与线上 M3 功能，迁入独立海都生成界面、扩充词库及配方。440 项本地单元及 8 项海都 Chromium 通过，正式发布以 Pages CI 的 deploy 结果为准。详见 [本次发布说明](docs/HAIDU-RELEASE-20261108.md)。原社区 OAuth/平台门禁不因静态站点更新而解除。
+
 ## 2026-11-01：M3 社区本地闭环与发布安全门禁
 
 - 沿用已存在独立worktree `../GlyphForge-M3`、分支`codex/m3-community`的历史社区提交，未重做。M2修复`2fd4d8a`/验收`c482606`已接入；运行时/SQL冻结`86b101d`，安全/CI测试补强`bf333eb`。就绪范围见[M3唯一验收表](docs/M3-COMMUNITY-READINESS.md)。

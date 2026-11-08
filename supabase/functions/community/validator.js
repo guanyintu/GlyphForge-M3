@@ -2,6 +2,18 @@ const segmenter = new Intl.Segmenter("zh", { granularity: "grapheme" });
 function glyphs(text) {
   return Array.from(segmenter.segment(text), (x) => x.segment);
 }
+const curationDefaults = {
+  lengths: "2,3",
+  category: "",
+  recipes: "direct,suffix,prefix,semantic,contrast",
+  includes: "",
+  excludes: "",
+  offset: 0
+};
+function validateCuration(p) {
+  if (!/^[1-9]\d?(,[1-9]\d?)*$/.test(String(p.lengths))) throw new Error("字数使用逗号分隔的 1–99 整数");
+  if (!Number.isInteger(p.offset) || Number(p.offset) < 0 || Number(p.offset) > 1e4) throw new Error("继续抽取位置需要 0–10000 整数");
+}
 const categories = ["han", "latin", "letter", "number", "mark", "symbol", "punctuation", "space"];
 const defaultGameRule = { name: "通用示例（可编辑）", lengths: { graphemes: { min: 2, max: 12 } }, allowed: [...categories], forbidden: "", allowSpaces: false, allowSpecial: true, blockZeroWidth: true };
 function parseGameRule(value) {
@@ -137,6 +149,7 @@ function parseCharacterMap(source) {
   return map;
 }
 const builtinOperators = {
+  curate: { id: "curate", name: "精选与多样性", category: "处理", description: "按关系评分、风格标签和种子排序；同批优先不同核心", inputs: 1, color: "orange", defaults: curationDefaults },
   extension: { id: "extension", name: "扩展算子", category: "扩展", description: "固定版本的声明式流水线；AST/实验室不适用", inputs: 1, color: "purple", defaults: { pack: "glyphforge-text", version: "1.0.0", operator: "frame", values: "{}", mappingId: "" } },
   mutate: { id: "mutate", name: "名字变异", category: "生成", description: "按字符簇位置锁定、固定种子的有界衍生创作", inputs: 0, color: "purple", defaults: { source: '{"text":"月","parts":[]}', locks: "[]", operations: '["replace","insert","affix"]', intensity: 1, count: 64, pool: "星月云梦", prefix: "小|夜", suffix: "子|酱", resourceId: "", mappingId: "", algorithm: 1 } },
   call: { id: "call", name: "子图调用", category: "函数", description: "调用稳定版本的参数化子图", inputs: 0, color: "purple", defaults: {} },
@@ -255,7 +268,7 @@ const operators = Object.fromEntries(
       ),
       outputType: "CandidateSequence",
       deterministic: true,
-      streaming: id !== "group"
+      streaming: id !== "group" && id !== "curate"
     }
   ])
 );
@@ -419,6 +432,7 @@ function normalizeParams(op, supplied) {
     if (isChineseOp(op)) validateChineseParams(op, p);
     if (op === "mutate") mutationConfig(p);
     validateRelationParams(op, p);
+    if (op === "curate") validateCuration(p);
     if (op === "gamecheck") {
       parseGameRule(String(p.rules));
       if (!["filter", "annotate"].includes(String(p.mode))) throw new Error("游戏检查模式无效");

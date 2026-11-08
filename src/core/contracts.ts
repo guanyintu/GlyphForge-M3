@@ -1,3 +1,4 @@
+import { validateCuration } from "./curation";
 import { mergeLineage } from "./lineage";
 import { operators } from "./model";
 import type { Candidate, Op, Params, Resource, SourcePart } from "./model";
@@ -100,6 +101,7 @@ export function normalizeParams(op: Op, supplied: Params): Params {
     if (isChineseOp(op)) validateChineseParams(op, p);
     if (op === "mutate") mutationConfig(p);
     validateRelationParams(op, p);
+    if (op === "curate") validateCuration(p);
     if (op === "gamecheck") { parseGameRule(String(p.rules)); if (!["filter", "annotate"].includes(String(p.mode))) throw new Error("游戏检查模式无效"); }
     if (op === "pattern" && !/^[AB]{1,16}$/.test(String(p.template))) throw new Error("模式需为 1–16 个 A / B，例如 AABB");
     if (op === "filter" && (Number(p.maxLength) < 1 || Number(p.maxLength) > 100)) throw new Error("长度限制需要在 1–100 之间");

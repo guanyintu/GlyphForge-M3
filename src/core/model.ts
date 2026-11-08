@@ -1,8 +1,10 @@
+import { curationDefaults } from "./curation";
 import { defaultGameRule } from "./game-rules";
 import type { Program } from "./program";
 import { chineseDefinitions } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
 export type Op =
+  | "curate"
   | "extension"
   | "mutate"
   | "call" | "argument"
@@ -148,6 +150,7 @@ const builtinOperators: Record<
     "version" | "inputTypes" | "outputType" | "deterministic" | "streaming"
   >
 > = {
+  curate: { id: "curate", name: "精选与多样性", category: "处理", description: "按关系评分、风格标签和种子排序；同批优先不同核心", inputs: 1, color: "orange", defaults: curationDefaults },
   extension: { id: "extension", name: "扩展算子", category: "扩展", description: "固定版本的声明式流水线；AST/实验室不适用", inputs: 1, color: "purple", defaults: { pack: "glyphforge-text", version: "1.0.0", operator: "frame", values: "{}", mappingId: "" } },
   mutate: { id: "mutate", name: "名字变异", category: "生成", description: "按字符簇位置锁定、固定种子的有界衍生创作", inputs: 0, color: "purple", defaults: { source: '{"text":"月","parts":[]}', locks: "[]", operations: '["replace","insert","affix"]', intensity: 1, count: 64, pool: "星月云梦", prefix: "小|夜", suffix: "子|酱", resourceId: "", mappingId: "", algorithm: 1 } },
   call: { id: "call", name: "子图调用", category: "函数", description: "调用稳定版本的参数化子图", inputs: 0, color: "purple", defaults: {} },
@@ -251,7 +254,7 @@ export const operators = Object.fromEntries(
       ),
       outputType: "CandidateSequence",
       deterministic: true,
-      streaming: id !== "group",
+      streaming: id !== "group" && id !== "curate",
     },
   ]),
 ) as Record<Op, OperatorDefinition>;

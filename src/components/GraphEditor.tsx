@@ -43,6 +43,7 @@ import { RelationParams } from "./RelationParams";
 import { GameRuleEditor } from "./GameRuleEditor";
 import { parseGameRule, defaultGameRule } from "../core/game-rules";
 const icons: Record<Op, LucideIcon> = {
+  curate: Filter,
   extension: Sparkles,
   mutate: Sparkles,
   call: Repeat2, argument: BookOpen,
@@ -560,6 +561,7 @@ export function Inspector({
             </div>
           </>
         ) : null}
+        {node.op === "curate" ? Object.entries(operators.curate.defaults).map(([key, value]) => <label className="field-label" key={key}>{({ lengths: "字数（逗号分隔）", category: "风格分类", recipes: "配方（逗号分隔）", includes: "包含字符", excludes: "排除词条（逗号分隔）", offset: "继续抽取位置" } as Record<string,string>)[key]}<input aria-label={`精选 ${key}`} type={typeof value === "number" ? "number" : "text"} value={String(node.params[key] ?? value)} onChange={e => param(key, typeof value === "number" ? Number(e.target.value) : e.target.value)} /></label>) : null}
         {node.op === "filter" ? (
           <>
             <label className="field-label">

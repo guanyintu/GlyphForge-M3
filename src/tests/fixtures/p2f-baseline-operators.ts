@@ -29,7 +29,9 @@ export { boundedText } from "../../core/contracts";
 export function acceptsFilter(text: string, p: RuleNode["params"]) {
   return glyphs(text).length <= Number(p.maxLength) && text.includes(String(p.includes)) && (!p.excludes || !text.includes(String(p.excludes)));
 }
+// Frozen implementations predate curate; reject it rather than claiming old support.
 const executors: Record<Op, RegisteredOperator["execute"]> = {
+  curate: async function* () { throw new Error("curate is outside the frozen baseline"); },
   extension: async function* () { throw new Error("扩展需要固定版本执行作用域"); },
   mutate,
   call: async function* () { throw new Error("子图调用需要执行器作用域"); },

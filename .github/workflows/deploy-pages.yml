@@ -49,6 +49,9 @@ jobs:
       - name: Install browser test dependencies
         run: pnpm exec playwright install --with-deps chromium
 
+      - name: Verify Haidu production generator
+        run: pnpm build && pnpm exec playwright test e2e/haidu.spec.ts
+
       - name: Run M3 browser acceptance tests
         run: pnpm community:ui-test
         env:

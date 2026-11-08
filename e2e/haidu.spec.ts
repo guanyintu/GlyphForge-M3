@@ -1,0 +1,157 @@
+import { test, expect } from "@playwright/test";
+import { writeFile } from "node:fs/promises";
+import { readFileSync, mkdirSync } from "node:fs";
+mkdirSync("docs/haidu", { recursive: true });
+
+async function open(page: import("@playwright/test").Page) {
+  await page.goto("/");
+  await page.getByRole("button", { name: "海都潮人 ID", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "海都潮人 ID." })).toBeVisible();
+}
+async function draw(page: import("@playwright/test").Page) {
+  await page.getByRole("button", { name: "生成 ID" }).click();
+  await expect(page.locator(".haidu-results")).toHaveAttribute("aria-busy", "false");
+  await expect(page.locator(".haidu-candidate")).toHaveCount(24);
+  return page.locator(".haidu-candidate").evaluateAll(els => els.map(e => e.getAttribute("data-candidate-text")!));
+}
+test("Haidu opens in simple mode; edit, preview, save, reenter and refresh preserve the graph", async ({ page }) => {
+  const errors: string[] = []; page.on("pageerror", e => errors.push(e.message));
+  await open(page);
+  await expect(page.locator(".studio")).toHaveCount(0);
+  await expect(page.getByText("高级选项", { exact: true })).toBeVisible();
+  const before = await draw(page);
+  expect(before.every(n => [2,3].includes([...n].length))).toBe(true);
+  await page.screenshot({ path: "docs/haidu/desktop.png", fullPage: true });
+  await page.getByRole("button", { name: "编辑", exact: true }).click();
+  await expect(page.locator(".studio")).toBeVisible();
+  await expect(page.getByRole("button", { name: "NameScript", exact: true })).toBeVisible();
+  await page.getByRole("button", { name: /^生成预览/ }).click();
+  await expect(page.getByText(/已达到结果上限|生成完成/).first()).toBeVisible();
+  await page.getByRole("button", { name: "保存并返回" }).click();
+  await expect(page.locator(".studio")).toHaveCount(0);
+  await page.reload();
+  await expect(page.getByRole("heading", { name: "海都潮人 ID." })).toBeVisible();
+  await expect(page.locator(".studio")).toHaveCount(0);
+  expect(await draw(page)).toEqual(before);
+  await page.getByRole("button", { name: "编辑", exact: true }).click();
+  await expect(page.locator(".studio")).toBeVisible();
+  expect(errors).toEqual([]);
+});
+test("unapplied code draft survives returning to generator; save applies valid code", async ({ page }) => {
+  await open(page); await page.getByRole("button", { name: "编辑", exact: true }).click();
+  await page.getByRole("button", { name: "NameScript", exact: true }).click();
+  const code = page.locator(".cm-content"), original = await code.innerText();
+  await code.fill("unfinished draft");
+  await page.getByRole("button", { name: "返回生成（保留草稿）" }).click();
+  await page.getByRole("button", { name: "编辑", exact: true }).click();
+  await expect(code).toHaveText("unfinished draft");
+  await page.getByRole("button", { name: "保存并返回" }).click();
+  await expect(page.locator(".studio")).toBeVisible();
+  await code.fill(original.replace('"2,3"', '"3"'));
+  await page.getByRole("button", { name: "保存并返回" }).click();
+  await expect(page.locator(".studio")).toHaveCount(0);
+  expect((await draw(page)).every(n => [...n].length === 3)).toBe(true);
+});
+test("length, style, deterministic seed, continuing draws and advanced recipes use production Worker", async ({ page }) => {
+  await open(page); const first = await draw(page);
+  expect(await draw(page)).toEqual(first);
+  await page.getByRole("button", { name: "继续抽取", exact: true }).click();
+  await expect(page.locator(".haidu-results")).toHaveAttribute("aria-busy", "false");
+  const next = await page.locator(".haidu-candidate").evaluateAll(els => els.map(e => e.getAttribute("data-candidate-text")!));
+  expect(next.some(n => first.includes(n))).toBe(false);
+  await page.getByRole("button", { name: "两字", exact: true }).click();
+  await page.getByLabel("风格分类", { exact: true }).selectOption("赛博");
+  expect((await draw(page)).every(n => [...n].length === 2)).toBe(true);
+  await expect(page.locator(".haidu-candidate small").first()).toContainText("赛博");
+  await page.getByRole("button", { name: "三字", exact: true }).click();
+  expect((await draw(page)).every(n => [...n].length === 3)).toBe(true);
+  await page.getByText("高级选项", { exact: true }).click();
+  await page.getByLabel("风格分类", { exact: true }).selectOption("");
+  await page.getByLabel("四字搭配（实验）", { exact: true }).check();
+  for (const label of ["双字直出", "核心 + 尾缀", "前缀 + 核心", "语义关联", "受控反差"]) await page.getByLabel(label, { exact: true }).uncheck();
+  expect((await draw(page)).every(n => [...n].length === 4)).toBe(true);
+});
+test("copy, favorite, batch selection, export, feedback and recent runs reuse persistence", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await open(page); const names = await draw(page), name = names[0];
+  await page.getByRole("button", { name: `复制 ${name}`, exact: true }).click();
+  await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe(name);
+  await page.getByRole("button", { name: `收藏 ${name}`, exact: true }).click();
+  await expect(page.getByRole("button", { name: `收藏 ${name}`, exact: true })).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "全选本批" }).click();
+  await page.getByRole("button", { name: "复制所选 (24)", exact: true }).click();
+  await expect.poll(() => page.evaluate(async () => (await navigator.clipboard.readText()).replace(/\r\n/g, "\n"))).toBe(names.join("\n"));
+  const download = page.waitForEvent("download"); await page.getByRole("button", { name: "导出喜欢的" }).click();
+  expect((await download).suggestedFilename()).toContain("喜欢的ID");
+  await page.getByRole("button", { name: `不喜欢 ${name}`, exact: true }).click();
+  await page.getByRole("button", { name: `排除 ${name}`, exact: true }).click();
+  await expect(page.locator(".haidu-results")).toHaveAttribute("aria-busy", "false");
+  await expect(page.locator(`.haidu-candidate[data-candidate-text="${name}"]`)).toHaveCount(0);
+  await page.getByRole("button", { name: "运行历史与留存", exact: true }).click();
+  await expect(page.locator(".history-row").first()).toBeVisible();
+  await page.reload(); await expect(page.getByRole("heading", { name: "海都潮人 ID." })).toBeVisible();
+  await page.getByText("高级选项", { exact: true }).click();
+  await expect(page.getByLabel("排除指定词条", { exact: true })).toHaveValue(name);
+  await page.getByRole("button", { name: /^我的收藏/ }).click();
+  await expect(page.locator(".candidate-name").filter({ hasText: name })).toBeVisible();
+});
+test("mobile generator has no horizontal overflow and respects reduced motion", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 }); await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/"); await page.getByRole("button", { name: "展开侧栏" }).click();
+  await page.getByRole("button", { name: "海都潮人 ID", exact: true }).click();
+  await expect(page.getByRole("button", { name: "关闭侧栏", exact: true })).toHaveCount(0);
+  await draw(page);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.screenshot({ path: "docs/haidu/mobile.png", fullPage: true });
+});
+test("portable import keeps old data and relationship edits update production results", async ({ page }) => {
+  await page.goto("/"); await expect(page.getByText(/生成完成/).first()).toBeVisible();
+  await page.getByRole("button", { name: "导入", exact: true }).click();
+  await page.locator('input[type=file][hidden]').setInputFiles("examples/haidu-chao-ren.portable.json");
+  await expect(page.getByRole("heading", { name: "海都潮人 ID." })).toBeVisible();
+  await page.getByText("高级选项", { exact: true }).click();
+  await page.getByLabel("包含指定字符", { exact: true }).fill("海盐鹅");
+  await page.evaluate(async () => {
+    const d = await new Promise<IDBDatabase>((resolve,reject) => { const r=indexedDB.open("glyphforge-v1"); r.onsuccess=()=>resolve(r.result); r.onerror=()=>reject(r.error); });
+    await new Promise<void>((resolve,reject) => { const tx=d.transaction(["resources","relations"],"readwrite"); tx.oncomplete=()=>resolve(); tx.onerror=()=>reject(tx.error); const req=tx.objectStore("resources").getAll(); req.onsuccess=()=>{const meta=req.result.find((r: {name:string;kind:string})=>r.name.includes("精选搭配")&&r.kind==="relation"); tx.objectStore("relations").add({resourceId:meta.id,left:"海盐",right:"鹅",relation:"associated",direction:"directed",reverseQueryable:false,weight:99,tags:["风格:海洋","配方:suffix"]}); tx.objectStore("resources").put({...meta,count:meta.count+1,version:meta.version+1});}; }); d.close();
+  });
+  await page.getByRole("button", { name: "生成 ID" }).click();
+  await expect(page.locator(".haidu-candidate")).toHaveCount(1);
+  await expect(page.locator(".haidu-candidate")).toHaveAttribute("data-candidate-text", "海盐鹅");
+});
+test("Chromium measures actual IndexedDB install and Worker execution", async ({ page, browser }) => {
+  await page.goto("/"); const start = Date.now();
+  await page.getByRole("button", { name: "海都潮人 ID", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "海都潮人 ID." })).toBeVisible();
+  const installMs = Date.now()-start;
+  await page.getByText("高级选项", { exact: true }).click();
+  await page.getByLabel("每批数量", { exact: true }).fill("200");
+  const t=Date.now(); await page.getByRole("button", { name: "生成 ID" }).click();
+  await expect(page.locator(".haidu-candidate")).toHaveCount(200);
+  await expect(page.locator(".haidu-results")).toHaveAttribute("aria-busy", "false");
+  const evidence={ browser:browser.version(), installMs, generate200IncludingUIandPersistenceMs:Date.now()-t, results:200 };
+  await writeFile("docs/haidu/browser-performance.json", JSON.stringify(evidence,null,2));
+  expect(evidence.generate200IncludingUIandPersistenceMs).toBeLessThan(10000);
+});
+test("10k relationship rows load and rank in the production Worker without duplicate outputs", async ({ page, browser }) => {
+  test.setTimeout(60000);
+  const pkg = JSON.parse(readFileSync("examples/haidu-chao-ren.portable.json", "utf8"));
+  const resource = pkg.resources[0];
+  resource.relationRows = Array.from({ length:10000 }, (_,i) => ({ left:`测${String.fromCodePoint(0x4e00+i)}`,right:"猫",relation:"associated",direction:"directed",reverseQueryable:false,weight:80+i%10,tags:[`风格:基准${i%8}`,"配方:suffix"] }));
+  resource.meta.count=10000;
+  pkg.workflow.nodes[0] = { id:"generate",op:"template",inputs:[],params:{ slots:JSON.stringify([{name:"p",kind:"pair",resourceId:resource.meta.id,relation:"associated"}]),templates:'["{p.left}{p.right}"]',separator:"",maxLength:4,equalLength:false } };
+  pkg.workflow.limit=200; pkg.operatorVersions.template=1;
+  await page.goto("/"); await expect(page.getByText(/生成完成/).first()).toBeVisible();
+  const start=Date.now(); await page.getByRole("button", { name:"导入",exact:true }).click();
+  await page.locator('input[type=file][hidden]').setInputFiles({name:"haidu-10k.json",mimeType:"application/json",buffer:Buffer.from(JSON.stringify(pkg))});
+  await expect(page.getByRole("heading", {name:"海都潮人 ID."})).toBeVisible();
+  const importMs=Date.now()-start, began=Date.now();
+  await page.getByRole("button", {name:"生成 ID"}).click();
+  await expect(page.locator(".haidu-candidate")).toHaveCount(200);
+  await expect(page.locator(".haidu-results")).toHaveAttribute("aria-busy","false");
+  const texts=await page.locator(".haidu-candidate").evaluateAll(es=>es.map(e=>e.getAttribute("data-candidate-text")));
+  expect(new Set(texts).size).toBe(200);
+  const executeWithUIandPersistenceMs=Date.now()-began;
+  await writeFile("docs/haidu/browser-10k.json",JSON.stringify({browser:browser.version(),rows:10000,importMs,executeWithUIandPersistenceMs,results:texts.length,categoryCount:await page.locator(".haidu-candidate small").evaluateAll(es=>new Set(es.map(e=>e.textContent?.split(" · ")[0])).size)},null,2));
+  expect(executeWithUIandPersistenceMs).toBeLessThan(10000);
+});

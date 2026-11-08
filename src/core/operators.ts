@@ -1,3 +1,4 @@
+import { curate } from "./curation";
 import { resolveMapping, mappingSource } from "./mapping-resource";
 import { boundedText, combineCandidates, normalizeParams, transformText, operatorContracts } from "./contracts";
 import { candidateText, glyphs, operators } from "./model";
@@ -35,6 +36,7 @@ export function acceptsFilter(text: string, p: RuleNode["params"]) {
 const executors: Record<Op, RegisteredOperator["execute"]> = {
   extension: async function* () { throw new Error("扩展需要固定版本执行作用域"); },
   mutate,
+  curate: c => curate(c.input(0), c.node.params, c.seed, c.tick),
   call: async function* () { throw new Error("子图调用需要执行器作用域"); },
   argument: async function* () { throw new Error("序列参数需要执行器作用域"); },
   gamecheck: async function* (c) {

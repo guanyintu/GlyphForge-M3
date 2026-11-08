@@ -1,0 +1,1196 @@
+{
+  "packManifest": [],
+  "operatorVersions": {
+    "program": 1,
+    "prefix": 1,
+    "curate": 1,
+    "output": 1,
+    "resource": 1,
+    "group": 1
+  },
+  "format": "glyphforge",
+  "version": 6,
+  "irVersion": 1,
+  "resourceDefinitionVersion": 1,
+  "workflow": {
+    "version": 1,
+    "id": "haidu-original-xlsx-v1",
+    "name": "海都潮人 ID · 原版 xlsx",
+    "seed": 42,
+    "limit": 75,
+    "comments": [
+      "// glyphforge:preset:haidu-original-xlsx-v1",
+      "// 原版 xlsx 的四列词库与五种组合；词库在资源中心独立编辑。",
+      "// 小xx 与双字直出均读取原表 2字!B 列（双字后缀）。",
+      "// 使用 GlyphForge 有界种子抽样和结果去重，不执行 Excel RAND，也不加入关系质量排序。"
+    ],
+    "layout": {
+      "formulas": {
+        "x": 40,
+        "y": 120
+      },
+      "selection": {
+        "x": 360,
+        "y": 120
+      },
+      "result": {
+        "x": 680,
+        "y": 120
+      }
+    },
+    "nodes": [
+      {
+        "id": "formulas",
+        "op": "program",
+        "inputs": [],
+        "params": {},
+        "program": {
+          "version": 1,
+          "body": [
+            {
+              "kind": "for",
+              "name": "head",
+              "source": {
+                "kind": "resource",
+                "id": "haidu-original-oneHead-sample",
+                "line": 3
+              },
+              "body": [
+                {
+                  "kind": "for",
+                  "name": "tail",
+                  "source": {
+                    "kind": "resource",
+                    "id": "haidu-original-oneTail-sample",
+                    "line": 3
+                  },
+                  "body": [
+                    {
+                      "kind": "emit",
+                      "value": {
+                        "kind": "binary",
+                        "op": "+",
+                        "left": {
+                          "kind": "variable",
+                          "name": "head",
+                          "line": 3
+                        },
+                        "right": {
+                          "kind": "variable",
+                          "name": "tail",
+                          "line": 3
+                        },
+                        "line": 3
+                      },
+                      "line": 3
+                    }
+                  ],
+                  "line": 3
+                }
+              ],
+              "line": 3
+            },
+            {
+              "kind": "for",
+              "name": "head",
+              "source": {
+                "kind": "resource",
+                "id": "haidu-original-oneHead-sample",
+                "line": 5
+              },
+              "body": [
+                {
+                  "kind": "for",
+                  "name": "word",
+                  "source": {
+                    "kind": "resource",
+                    "id": "haidu-original-twoTail-sample",
+                    "line": 5
+                  },
+                  "body": [
+                    {
+                      "kind": "emit",
+                      "value": {
+                        "kind": "binary",
+                        "op": "+",
+                        "left": {
+                          "kind": "variable",
+                          "name": "head",
+                          "line": 5
+                        },
+                        "right": {
+                          "kind": "variable",
+                          "name": "word",
+                          "line": 5
+                        },
+                        "line": 5
+                      },
+                      "line": 5
+                    }
+                  ],
+                  "line": 5
+                }
+              ],
+              "line": 5
+            },
+            {
+              "kind": "for",
+              "name": "word",
+              "source": {
+                "kind": "resource",
+                "id": "haidu-original-twoHead-sample",
+                "line": 7
+              },
+              "body": [
+                {
+                  "kind": "for",
+                  "name": "tail",
+                  "source": {
+                    "kind": "resource",
+                    "id": "haidu-original-oneTail-sample",
+                    "line": 7
+                  },
+                  "body": [
+                    {
+                      "kind": "emit",
+                      "value": {
+                        "kind": "binary",
+                        "op": "+",
+                        "left": {
+                          "kind": "variable",
+                          "name": "word",
+                          "line": 7
+                        },
+                        "right": {
+                          "kind": "variable",
+                          "name": "tail",
+                          "line": 7
+                        },
+                        "line": 7
+                      },
+                      "line": 7
+                    }
+                  ],
+                  "line": 7
+                }
+              ],
+              "line": 7
+            },
+            {
+              "kind": "for",
+              "name": "word",
+              "source": {
+                "kind": "resource",
+                "id": "haidu-original-twoTail",
+                "line": 9
+              },
+              "body": [
+                {
+                  "kind": "emit",
+                  "value": {
+                    "kind": "call",
+                    "name": "prefix",
+                    "args": [
+                      {
+                        "kind": "variable",
+                        "name": "word",
+                        "line": 9
+                      },
+                      {
+                        "kind": "literal",
+                        "value": "小",
+                        "line": 9
+                      }
+                    ],
+                    "line": 9
+                  },
+                  "line": 9
+                }
+              ],
+              "line": 9
+            },
+            {
+              "kind": "for",
+              "name": "word",
+              "source": {
+                "kind": "resource",
+                "id": "haidu-original-twoTail",
+                "line": 11
+              },
+              "body": [
+                {
+                  "kind": "emit",
+                  "value": {
+                    "kind": "variable",
+                    "name": "word",
+                    "line": 11
+                  },
+                  "line": 11
+                }
+              ],
+              "line": 11
+            }
+          ]
+        }
+      },
+      {
+        "id": "selection",
+        "op": "curate",
+        "inputs": [
+          "formulas"
+        ],
+        "params": {
+          "lengths": "2,3",
+          "category": "",
+          "recipes": "",
+          "includes": "",
+          "excludes": "",
+          "offset": 0,
+          "reviewedResourceId": ""
+        }
+      },
+      {
+        "id": "result",
+        "op": "output",
+        "inputs": [
+          "selection"
+        ],
+        "params": {}
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "id": "haidu-original-oneHead",
+      "name": "原版海都 · 1字前缀",
+      "kind": "word",
+      "version": 2
+    },
+    {
+      "id": "haidu-original-oneHead-sample",
+      "name": "原版海都 · 1字前缀 · 抽样",
+      "kind": "word",
+      "version": 1
+    },
+    {
+      "id": "haidu-original-oneTail",
+      "name": "原版海都 · 1字后缀",
+      "kind": "word",
+      "version": 2
+    },
+    {
+      "id": "haidu-original-oneTail-sample",
+      "name": "原版海都 · 1字后缀 · 抽样",
+      "kind": "word",
+      "version": 1
+    },
+    {
+      "id": "haidu-original-twoTail",
+      "name": "原版海都 · 2字后缀",
+      "kind": "word",
+      "version": 2
+    },
+    {
+      "id": "haidu-original-twoTail-sample",
+      "name": "原版海都 · 2字后缀 · 抽样",
+      "kind": "word",
+      "version": 1
+    },
+    {
+      "id": "haidu-original-twoHead",
+      "name": "原版海都 · 2字前缀",
+      "kind": "word",
+      "version": 2
+    },
+    {
+      "id": "haidu-original-twoHead-sample",
+      "name": "原版海都 · 2字前缀 · 抽样",
+      "kind": "word",
+      "version": 1
+    }
+  ],
+  "resources": [
+    {
+      "meta": {
+        "id": "haidu-original-oneHead",
+        "name": "原版海都 · 1字前缀",
+        "description": "原版 1字!A2:A62；61 行/61 个不同词。来源 by某黑魔 Ver.0.1.2。原始重复行保留在独立 catalog；资源按原系统唯一约束归并。",
+        "kind": "word",
+        "color": "green",
+        "version": 2,
+        "count": 61,
+        "updatedAt": 0
+      },
+      "entries": [
+        "阿",
+        "爱",
+        "池",
+        "雏",
+        "春",
+        "灯",
+        "冬",
+        "渡",
+        "恶",
+        "焚",
+        "风",
+        "芙",
+        "归",
+        "海",
+        "花",
+        "困",
+        "泪",
+        "涙",
+        "栗",
+        "恋",
+        "铃",
+        "绫",
+        "令",
+        "落",
+        "莓",
+        "眠",
+        "秋",
+        "囚",
+        "杀",
+        "伤",
+        "失",
+        "水",
+        "桃",
+        "甜",
+        "吻",
+        "雾",
+        "夏",
+        "小",
+        "心",
+        "星",
+        "雪",
+        "厌",
+        "宴",
+        "焰",
+        "夜",
+        "桜",
+        "萤",
+        "雨",
+        "愿",
+        "月",
+        "折",
+        "咒",
+        "昼",
+        "坠",
+        "别",
+        "蛇",
+        "死",
+        "影",
+        "反",
+        "叛",
+        "妄"
+      ]
+    },
+    {
+      "meta": {
+        "id": "haidu-original-oneHead-sample",
+        "name": "原版海都 · 1字前缀 · 抽样",
+        "description": "原工作流的有界固定种子抽样，可编辑数量。",
+        "kind": "word",
+        "color": "green",
+        "version": 1,
+        "count": 0,
+        "updatedAt": 0,
+        "definition": {
+          "format": 1,
+          "type": "dynamic",
+          "workflow": {
+            "version": 1,
+            "id": "haidu-original-oneHead-sample",
+            "name": "固定种子抽取素材",
+            "seed": 42,
+            "limit": 20,
+            "layout": {
+              "words": {
+                "x": 20,
+                "y": 80
+              },
+              "sample": {
+                "x": 300,
+                "y": 80
+              },
+              "result": {
+                "x": 580,
+                "y": 80
+              }
+            },
+            "nodes": [
+              {
+                "id": "words",
+                "op": "resource",
+                "inputs": [],
+                "params": {
+                  "resourceId": "haidu-original-oneHead"
+                }
+              },
+              {
+                "id": "sample",
+                "op": "group",
+                "inputs": [
+                  "words"
+                ],
+                "params": {
+                  "count": 1,
+                  "batches": 20,
+                  "prefix": "",
+                  "suffix": "",
+                  "separator": "",
+                  "joiner": "",
+                  "maxLength": 1,
+                  "random": true
+                }
+              },
+              {
+                "id": "result",
+                "op": "output",
+                "inputs": [
+                  "sample"
+                ],
+                "params": {}
+              }
+            ]
+          }
+        }
+      },
+      "entries": []
+    },
+    {
+      "meta": {
+        "id": "haidu-original-oneTail",
+        "name": "原版海都 · 1字后缀",
+        "description": "原版 1字!B2:B79；78 行/78 个不同词。来源 by某黑魔 Ver.0.1.2。原始重复行保留在独立 catalog；资源按原系统唯一约束归并。",
+        "kind": "word",
+        "color": "green",
+        "version": 2,
+        "count": 78,
+        "updatedAt": 0
+      },
+      "entries": [
+        "爱",
+        "岸",
+        "病",
+        "茶",
+        "池",
+        "川",
+        "春",
+        "辞",
+        "岛",
+        "灯",
+        "冬",
+        "渡",
+        "芙",
+        "感",
+        "归",
+        "鬼",
+        "海",
+        "痕",
+        "花",
+        "剂",
+        "娇",
+        "困",
+        "涙",
+        "礼",
+        "栗",
+        "铃",
+        "令",
+        "论",
+        "萝",
+        "落",
+        "莓",
+        "梦",
+        "眠",
+        "乃",
+        "奈",
+        "秋",
+        "日",
+        "杀",
+        "伤",
+        "师",
+        "诗",
+        "矢",
+        "颂",
+        "酥",
+        "桃",
+        "痛",
+        "吻",
+        "雾",
+        "夏",
+        "心",
+        "信",
+        "星",
+        "雪",
+        "宴",
+        "桜",
+        "萤",
+        "雨",
+        "欲",
+        "愿",
+        "月",
+        "沢",
+        "折",
+        "症",
+        "咒",
+        "昼",
+        "坠",
+        "子",
+        "死",
+        "蛇",
+        "影",
+        "叛",
+        "反",
+        "酱",
+        "妄",
+        "学",
+        "纪",
+        "记",
+        "录"
+      ]
+    },
+    {
+      "meta": {
+        "id": "haidu-original-oneTail-sample",
+        "name": "原版海都 · 1字后缀 · 抽样",
+        "description": "原工作流的有界固定种子抽样，可编辑数量。",
+        "kind": "word",
+        "color": "green",
+        "version": 1,
+        "count": 0,
+        "updatedAt": 0,
+        "definition": {
+          "format": 1,
+          "type": "dynamic",
+          "workflow": {
+            "version": 1,
+            "id": "haidu-original-oneTail-sample",
+            "name": "固定种子抽取素材",
+            "seed": 42,
+            "limit": 40,
+            "layout": {
+              "words": {
+                "x": 20,
+                "y": 80
+              },
+              "sample": {
+                "x": 300,
+                "y": 80
+              },
+              "result": {
+                "x": 580,
+                "y": 80
+              }
+            },
+            "nodes": [
+              {
+                "id": "words",
+                "op": "resource",
+                "inputs": [],
+                "params": {
+                  "resourceId": "haidu-original-oneTail"
+                }
+              },
+              {
+                "id": "sample",
+                "op": "group",
+                "inputs": [
+                  "words"
+                ],
+                "params": {
+                  "count": 1,
+                  "batches": 40,
+                  "prefix": "",
+                  "suffix": "",
+                  "separator": "",
+                  "joiner": "",
+                  "maxLength": 1,
+                  "random": true
+                }
+              },
+              {
+                "id": "result",
+                "op": "output",
+                "inputs": [
+                  "sample"
+                ],
+                "params": {}
+              }
+            ]
+          }
+        }
+      },
+      "entries": []
+    },
+    {
+      "meta": {
+        "id": "haidu-original-twoTail",
+        "name": "原版海都 · 2字后缀",
+        "description": "原版 2字!B2:B202；201 行/201 个不同词。来源 by某黑魔 Ver.0.1.2。原始重复行保留在独立 catalog；资源按原系统唯一约束归并。",
+        "kind": "word",
+        "color": "green",
+        "version": 2,
+        "count": 201,
+        "updatedAt": 0
+      },
+      "entries": [
+        "哀歌",
+        "爱恋",
+        "暧昧",
+        "傲娇",
+        "白昼",
+        "百合",
+        "宝石",
+        "悖论",
+        "笨蛋",
+        "不死",
+        "布丁",
+        "彩虹",
+        "潮汐",
+        "出逃",
+        "春日",
+        "春色",
+        "纯爱",
+        "代码",
+        "蛋糕",
+        "毒药",
+        "反派",
+        "放逐",
+        "飞鸟",
+        "飞行",
+        "废料",
+        "风铃",
+        "告白",
+        "告别",
+        "轨迹",
+        "果酱",
+        "骸骨",
+        "海湾",
+        "琥珀",
+        "花束",
+        "环游",
+        "幻境",
+        "幻痛",
+        "黄昏",
+        "纪念",
+        "夹心",
+        "酱汁",
+        "解药",
+        "狙击",
+        "咖啡",
+        "可可",
+        "傀儡",
+        "浪漫",
+        "粒子",
+        "脸红",
+        "流星",
+        "螺旋",
+        "玫瑰",
+        "梅子",
+        "美学",
+        "梦境",
+        "梦游",
+        "迷失",
+        "冥河",
+        "魔女",
+        "抹茶",
+        "慕斯",
+        "拿铁",
+        "奶冻",
+        "奶糕",
+        "霓虹",
+        "柠檬",
+        "牛奶",
+        "泡芙",
+        "苹果",
+        "奇遇",
+        "起司",
+        "汽水",
+        "千层",
+        "蔷薇",
+        "清秋",
+        "情话",
+        "情诗",
+        "情书",
+        "曲奇",
+        "人偶",
+        "日记",
+        "日志",
+        "山川",
+        "山海",
+        "珊瑚",
+        "少女",
+        "神明",
+        "诗集",
+        "手札",
+        "苏醒",
+        "桃酥",
+        "天使",
+        "甜莓",
+        "庭院",
+        "童话",
+        "吐司",
+        "微醺",
+        "物语",
+        "限定",
+        "相遇",
+        "小狗",
+        "小鹿",
+        "小猫",
+        "小兔",
+        "小熊",
+        "小羊",
+        "效应",
+        "心动",
+        "心事",
+        "心跳",
+        "心脏",
+        "信徒",
+        "星河",
+        "星云",
+        "行星",
+        "性恋",
+        "宣言",
+        "雪糕",
+        "巡游",
+        "夜行",
+        "夜游",
+        "旖旎",
+        "樱桃",
+        "幽灵",
+        "油画",
+        "游记",
+        "宇宙",
+        "芋圆",
+        "预言",
+        "怨灵",
+        "月球",
+        "躁动",
+        "眨眼",
+        "致辞",
+        "主义",
+        "罪名",
+        "日落",
+        "落日",
+        "罪犯",
+        "剧毒",
+        "告示",
+        "离别",
+        "果肉",
+        "骨骼",
+        "偶像",
+        "小说",
+        "泡泡",
+        "气泡",
+        "面包",
+        "恋歌",
+        "恶灵",
+        "蜜糖",
+        "水母",
+        "水彩",
+        "列车",
+        "法则",
+        "未遂",
+        "守则",
+        "星空",
+        "黑洞",
+        "情绪",
+        "谬论",
+        "灰烬",
+        "女巫",
+        "无色",
+        "循环",
+        "甜心",
+        "星星",
+        "银镜",
+        "情詩",
+        "番茄",
+        "腐败",
+        "腐坏",
+        "祈愿",
+        "角落",
+        "赠予",
+        "女配",
+        "女主",
+        "计划",
+        "依赖",
+        "恶女",
+        "恶人",
+        "墓场",
+        "墓地",
+        "墓园",
+        "深海",
+        "溺水",
+        "叙述",
+        "假想",
+        "妄想",
+        "降神",
+        "造神",
+        "恶行",
+        "反应",
+        "邮差",
+        "猫咪",
+        "主唱",
+        "乐队",
+        "教众",
+        "指南",
+        "语言"
+      ]
+    },
+    {
+      "meta": {
+        "id": "haidu-original-twoTail-sample",
+        "name": "原版海都 · 2字后缀 · 抽样",
+        "description": "原工作流的有界固定种子抽样，可编辑数量。",
+        "kind": "word",
+        "color": "green",
+        "version": 1,
+        "count": 0,
+        "updatedAt": 0,
+        "definition": {
+          "format": 1,
+          "type": "dynamic",
+          "workflow": {
+            "version": 1,
+            "id": "haidu-original-twoTail-sample",
+            "name": "固定种子抽取素材",
+            "seed": 42,
+            "limit": 40,
+            "layout": {
+              "words": {
+                "x": 20,
+                "y": 80
+              },
+              "sample": {
+                "x": 300,
+                "y": 80
+              },
+              "result": {
+                "x": 580,
+                "y": 80
+              }
+            },
+            "nodes": [
+              {
+                "id": "words",
+                "op": "resource",
+                "inputs": [],
+                "params": {
+                  "resourceId": "haidu-original-twoTail"
+                }
+              },
+              {
+                "id": "sample",
+                "op": "group",
+                "inputs": [
+                  "words"
+                ],
+                "params": {
+                  "count": 1,
+                  "batches": 40,
+                  "prefix": "",
+                  "suffix": "",
+                  "separator": "",
+                  "joiner": "",
+                  "maxLength": 2,
+                  "random": true
+                }
+              },
+              {
+                "id": "result",
+                "op": "output",
+                "inputs": [
+                  "sample"
+                ],
+                "params": {}
+              }
+            ]
+          }
+        }
+      },
+      "entries": []
+    },
+    {
+      "meta": {
+        "id": "haidu-original-twoHead",
+        "name": "原版海都 · 2字前缀",
+        "description": "原版 2字!A2:A196；195 行/194 个不同词。来源 by某黑魔 Ver.0.1.2。原始重复行保留在独立 catalog；资源按原系统唯一约束归并。",
+        "kind": "word",
+        "color": "green",
+        "version": 2,
+        "count": 194,
+        "updatedAt": 0
+      },
+      "entries": [
+        "暧昧",
+        "暗恋",
+        "傲娇",
+        "白日",
+        "白昼",
+        "百合",
+        "薄荷",
+        "宝石",
+        "笨蛋",
+        "玻璃",
+        "捕捉",
+        "不逢",
+        "不死",
+        "草莓",
+        "潮鸣",
+        "潮汐",
+        "赤道",
+        "春风",
+        "春日",
+        "春色",
+        "春野",
+        "春意",
+        "纯情",
+        "纯正",
+        "聪明",
+        "捣蛋",
+        "电子",
+        "独家",
+        "躲进",
+        "恶女",
+        "繁星",
+        "反派",
+        "贩卖",
+        "仿生",
+        "飞鸟",
+        "绯色",
+        "风铃",
+        "告白",
+        "告别",
+        "罐装",
+        "果酱",
+        "骸骨",
+        "海盐",
+        "合成",
+        "呼唤",
+        "琥珀",
+        "环游",
+        "幻痛",
+        "黄昏",
+        "黄油",
+        "机械",
+        "即食",
+        "纪念",
+        "寄往",
+        "夹心",
+        "焦糖",
+        "荆棘",
+        "狙击",
+        "可可",
+        "空洞",
+        "傀儡",
+        "浪漫",
+        "脸红",
+        "恋爱",
+        "恋心",
+        "量贩",
+        "灵魂",
+        "螺旋",
+        "梅子",
+        "梦境",
+        "梦游",
+        "迷失",
+        "冥河",
+        "抹茶",
+        "末世",
+        "慕斯",
+        "拿铁",
+        "奶糕",
+        "奶味",
+        "奶油",
+        "霓虹",
+        "拟态",
+        "柠檬",
+        "牛奶",
+        "泡芙",
+        "苹果",
+        "瓶装",
+        "破碎",
+        "千层",
+        "蔷薇",
+        "情话",
+        "曲奇",
+        "雀斑",
+        "人偶",
+        "软桃",
+        "山川",
+        "珊瑚",
+        "闪光",
+        "深蓝",
+        "世末",
+        "水银",
+        "四月",
+        "桃色",
+        "天使",
+        "甜莓",
+        "童话",
+        "兔绒",
+        "微醺",
+        "无人",
+        "无声",
+        "夏季",
+        "夏夜",
+        "限定",
+        "相恋",
+        "消极",
+        "小狗",
+        "小猫",
+        "小兔",
+        "小小",
+        "心动",
+        "心事",
+        "心脏",
+        "星河",
+        "星间",
+        "星夜",
+        "星云",
+        "行星",
+        "虚拟",
+        "野生",
+        "夜行",
+        "旖旎",
+        "樱桃",
+        "幽灵",
+        "邮寄",
+        "油画",
+        "宇宙",
+        "芋圆",
+        "元气",
+        "月落",
+        "月球",
+        "月夜",
+        "眨眼",
+        "占有",
+        "昭和",
+        "蒸汽",
+        "日落",
+        "落日",
+        "剧毒",
+        "偶像",
+        "奶甜",
+        "气泡",
+        "面包",
+        "恶灵",
+        "蜜糖",
+        "心碎",
+        "透明",
+        "终末",
+        "蓬松",
+        "星空",
+        "阴暗",
+        "水色",
+        "黑洞",
+        "情绪",
+        "一日",
+        "灰烬",
+        "无色",
+        "白桃",
+        "无名",
+        "无心",
+        "败给",
+        "甜心",
+        "星星",
+        "番茄",
+        "腐败",
+        "腐坏",
+        "祈愿",
+        "角落",
+        "赠予",
+        "依赖",
+        "恶人",
+        "不朽",
+        "墓场",
+        "墓地",
+        "墓园",
+        "深海",
+        "溺水",
+        "溺没",
+        "叙述",
+        "假想",
+        "妄想",
+        "神明",
+        "猫咪",
+        "邮差",
+        "月下"
+      ]
+    },
+    {
+      "meta": {
+        "id": "haidu-original-twoHead-sample",
+        "name": "原版海都 · 2字前缀 · 抽样",
+        "description": "原工作流的有界固定种子抽样，可编辑数量。",
+        "kind": "word",
+        "color": "green",
+        "version": 1,
+        "count": 0,
+        "updatedAt": 0,
+        "definition": {
+          "format": 1,
+          "type": "dynamic",
+          "workflow": {
+            "version": 1,
+            "id": "haidu-original-twoHead-sample",
+            "name": "固定种子抽取素材",
+            "seed": 42,
+            "limit": 40,
+            "layout": {
+              "words": {
+                "x": 20,
+                "y": 80
+              },
+              "sample": {
+                "x": 300,
+                "y": 80
+              },
+              "result": {
+                "x": 580,
+                "y": 80
+              }
+            },
+            "nodes": [
+              {
+                "id": "words",
+                "op": "resource",
+                "inputs": [],
+                "params": {
+                  "resourceId": "haidu-original-twoHead"
+                }
+              },
+              {
+                "id": "sample",
+                "op": "group",
+                "inputs": [
+                  "words"
+                ],
+                "params": {
+                  "count": 1,
+                  "batches": 40,
+                  "prefix": "",
+                  "suffix": "",
+                  "separator": "",
+                  "joiner": "",
+                  "maxLength": 2,
+                  "random": true
+                }
+              },
+              {
+                "id": "result",
+                "op": "output",
+                "inputs": [
+                  "sample"
+                ],
+                "params": {}
+              }
+            ]
+          }
+        }
+      },
+      "entries": []
+    }
+  ]
+}

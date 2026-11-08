@@ -6,8 +6,9 @@ import { db } from "../storage/db";
 import "../generator.css";
 
 /** A use view of the selected workflow. Execution and persistence stay in App. */
-export default function WorkflowGenerator({ workflow, workflows, resources, running, hasDraft, onSelect, onChange, onGenerate, onStop, onEdit, onPresets, onImport, onExport }: {
+export default function WorkflowGenerator({ workflow, workflows, resources, running, hasDraft, presets = [], onSelect, onChange, onGenerate, onStop, onEdit, onPresets, onImport, onExport }: {
   workflow: Workflow; workflows: Workflow[]; resources: Resource[]; running: boolean; hasDraft: boolean;
+  presets?: { id: string; label: string; onSelect: () => void | Promise<void> }[];
   onSelect: (workflow: Workflow) => void; onChange: (workflow: Workflow) => void;
   onGenerate: (workflow: Workflow) => void; onStop: () => void; onEdit: () => void;
   onPresets: () => void; onImport: () => void; onExport: () => void;
@@ -30,7 +31,7 @@ export default function WorkflowGenerator({ workflow, workflows, resources, runn
     <h1>{workflow.name}</h1>
     <p className="generator-description">选一个喜欢的工作流，看看这次会遇见什么名字。</p>
     <div className="generator-picker">
-      <label>选择工作流<select aria-label="选择工作流" value={workflow.id} disabled={running || hasDraft} onChange={e => { const next = choices.find(w => w.id === e.target.value); if (next) onSelect(next); }}>{choices.map(w => <option key={w.id} value={w.id}>{w.id === workflow.id ? workflow.name : w.name}</option>)}</select></label>
+      <label>选择工作流<select aria-label="选择工作流" value={workflow.id} disabled={running || hasDraft} onChange={e => { const next = choices.find(w => w.id === e.target.value); if (next) onSelect(next); else void presets.find(p => p.id === e.target.value)?.onSelect(); }}>{choices.map(w => <option key={w.id} value={w.id}>{w.id === workflow.id ? workflow.name : w.name}</option>)}{presets.map(preset => <option key={preset.id} value={preset.id}>{preset.label}</option>)}</select></label>
       <button className="button" onClick={onPresets}><WandSparkles size={15} />浏览配方</button>
     </div>
     <div className="generator-run-row">

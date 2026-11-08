@@ -31,3 +31,11 @@ for word in @${ids.direct} { emit(word); }
       { id: "result", op: "output", inputs: ["selection"], params: {} },
     ] };
 }
+
+/** Same engine and five branches, using the reference workbook's source pools. */
+export function haiduOriginalWorkflow(ids: Parameters<typeof haiduWorkflow>[0]): Workflow {
+  const workflow = haiduWorkflow(ids);
+  return { ...workflow, id: "haidu-original-xlsx-v1", name: "海都潮人 ID · 原版 xlsx", limit: 75,
+    comments: ["// glyphforge:preset:haidu-original-xlsx-v1", "// 原版 xlsx 的四列词库与五种组合；词库在资源中心独立编辑。", "// 小xx 与双字直出均读取原表 2字!B 列（双字后缀）。", "// 使用 GlyphForge 有界种子抽样和结果去重，不执行 Excel RAND，也不加入关系质量排序。"],
+  };
+}

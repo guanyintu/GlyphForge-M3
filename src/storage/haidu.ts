@@ -12,3 +12,16 @@ export async function openHaidu() {
   // The existing importer creates fresh IDs in one atomic transaction.
   return importPackage(pkg);
 }
+
+let originalInstall: Promise<Workflow> | undefined;
+export function openHaiduOriginal(): Promise<Workflow> {
+  return originalInstall ||= (async () => {
+    const existing = (await db.workflows.toArray()).find(w => w.comments?.includes("// glyphforge:preset:haidu-original-xlsx-v1"));
+    if (existing) return existing;
+    const { default: pkg } = await import("../../examples/haidu-chao-ren.original.portable.json");
+    const restored = await importPackage(pkg);
+    const workflow = { ...restored, name: pkg.workflow.name };
+    await db.workflows.put(workflow);
+    return workflow;
+  })().finally(() => { originalInstall = undefined; });
+}

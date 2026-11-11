@@ -1,18 +1,17 @@
 import "fake-indexeddb/auto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { createServer } from "vite";
 
 const server = await createServer({ optimizeDeps: { noDiscovery: true, include: [] }, server: { middlewareMode: true }, appType: "custom" });
 try {
   const { db, readResource } = await server.ssrLoadModule("/src/storage/db.ts");
-  const { installCorpus, openCorpusPreset } = await server.ssrLoadModule("/src/storage/corpus.ts");
+  const { openCorpusPreset } = await server.ssrLoadModule("/src/storage/corpus.ts");
   const { corpusPresets } = await server.ssrLoadModule("/src/core/corpus-presets.ts");
   const { exportPackage } = await server.ssrLoadModule("/src/core/sharing.ts");
   const { execute } = await server.ssrLoadModule("/src/core/engine.ts");
   await mkdir("public/workflows", { recursive: true });
   const manifest = [];
   for (const preset of corpusPresets) {
-    await installCorpus(JSON.parse(await readFile(`data/playertrack/${preset.style}.json`, "utf8")));
     const workflow = await openCorpusPreset(preset.style);
     workflow.id = `playertrack-${preset.style}-v1`;
     const portable = await exportPackage(workflow);

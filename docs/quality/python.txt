@@ -1,0 +1,18 @@
+E
+======================================================================
+ERROR: test_playertrack_corpus (unittest.loader._FailedTest.test_playertrack_corpus)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_playertrack_corpus
+Traceback (most recent call last):
+  File "C:\Users\someb\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\someb\Documents\ChatGPT\GlyphForge-quality-release-20261111\scripts\test_playertrack_corpus.py", line 6, in <module>
+    from playertrack_corpus import analyze, han, lexicon, normalize, position_summary, run, segment, sha
+ModuleNotFoundError: No module named 'playertrack_corpus'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

@@ -1,0 +1,23 @@
+{
+  "ready": true,
+  "events": [
+    {
+      "event": "navigation",
+      "url": "http://127.0.0.1:4176/GlyphForge/"
+    },
+    {
+      "event": "console",
+      "text": "[vite] connecting..."
+    },
+    {
+      "event": "console",
+      "text": "[vite] connected."
+    },
+    {
+      "event": "click-community"
+    }
+  ],
+  "heading": [
+    "让灵感，接着生长."
+  ]
+}

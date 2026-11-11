@@ -1,0 +1,68 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/GlyphForge-quality-release-20261111
+
+ ❯ src/tests/corpus-quality.test.ts (4 tests | 4 failed) 195ms
+   × cute: complete clauses, incompatible nouns and arbitrary character prefixes cannot be used as interchangeable word slots 118ms
+     → expected [ '甜甜', '豆子不想上班', '柠檬薯条', '白猫', …(71) ] to not include '豆子不想上班'
+   × nature: complete clauses, incompatible nouns and arbitrary character prefixes cannot be used as interchangeable word slots 37ms
+     → expected [ '深海', '落雨', '叶飞鸟', '春风', …(71) ] to not include '叶飞鸟'
+   × trend: complete clauses, incompatible nouns and arbitrary character prefixes cannot be used as interchangeable word slots 11ms
+     → expected [ '电子', '超级怎么回事', '摆烂绝对', …(72) ] to not include '摆烂绝对'
+   × haidu: complete clauses, incompatible nouns and arbitrary character prefixes cannot be used as interchangeable word slots 28ms
+     → expected [ '空白', '零海盐', '白野生', '盐海盐', …(71) ] to not include '零海盐'
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/corpus-quality.test.ts > cute: complete clauses, incompatible nouns and arbitrary character prefixes cannot be used as interchangeable word slots
+AssertionError: expected [ '甜甜', '豆子不想上班', '柠檬薯条', '白猫', …(71) ] to not include '豆子不想上班'
+ ❯ src/tests/corpus-quality.test.ts:15:61
+     13|   const texts:string[]=[];
+     14|   await execute(workflow,readResource,b=>texts.push(...b.map(c=>c.text…
+     15|   expect(texts.length).toBeGreaterThan(0);expect(texts).not.toContain(…
+       |                                                             ^
+     16| });
+     17|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  src/tests/corpus-quality.test.ts > nature: complete clauses, incompatible nouns and arbitrary character prefixes cannot be used as interchangeable word slots
+AssertionError: expected [ '深海', '落雨', '叶飞鸟', '春风', …(71) ] to not include '叶飞鸟'
+ ❯ src/tests/corpus-quality.test.ts:15:61
+     13|   const texts:string[]=[];
+     14|   await execute(workflow,readResource,b=>texts.push(...b.map(c=>c.text…
+     15|   expect(texts.length).toBeGreaterThan(0);expect(texts).not.toContain(…
+       |                                                             ^
+     16| });
+     17|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  src/tests/corpus-quality.test.ts > trend: complete clauses, incompatible nouns and arbitrary character prefixes cannot be used as interchangeable word slots
+AssertionError: expected [ '电子', '超级怎么回事', '摆烂绝对', …(72) ] to not include '摆烂绝对'
+ ❯ src/tests/corpus-quality.test.ts:15:61
+     13|   const texts:string[]=[];
+     14|   await execute(workflow,readResource,b=>texts.push(...b.map(c=>c.text…
+     15|   expect(texts.length).toBeGreaterThan(0);expect(texts).not.toContain(…
+       |                                                             ^
+     16| });
+     17|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  src/tests/corpus-quality.test.ts > haidu: complete clauses, incompatible nouns and arbitrary character prefixes cannot be used as interchangeable word slots
+AssertionError: expected [ '空白', '零海盐', '白野生', '盐海盐', …(71) ] to not include '零海盐'
+ ❯ src/tests/corpus-quality.test.ts:15:61
+     13|   const texts:string[]=[];
+     14|   await execute(workflow,readResource,b=>texts.push(...b.map(c=>c.text…
+     15|   expect(texts.length).toBeGreaterThan(0);expect(texts).not.toContain(…
+       |                                                             ^
+     16| });
+     17|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  13:53:30
+   Duration  1.66s (transform 312ms, setup 0ms, collect 758ms, tests 195ms, environment 0ms, prepare 255ms)

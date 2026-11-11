@@ -35,7 +35,7 @@ export function acceptsFilter(text: string, p: RuleNode["params"]) {
   return glyphs(text).length <= Number(p.maxLength) && text.includes(String(p.includes)) && (!p.excludes || !text.includes(String(p.excludes)));
 }
 const executors: Record<Op, RegisteredOperator["execute"]> = {
-  corpus: c => generateCorpus(c.input(0), c.node.params, c.seed, c.tick, c.node.params.reviewedResourceId ? c.read(String(c.node.params.reviewedResourceId), c.seed) : undefined),
+  corpus: c => generateCorpus(c.input(0), c.node.params, c.seed, c.tick, c.node.params.reviewedResourceId ? c.read(String(c.node.params.reviewedResourceId), c.seed) : undefined, c.resourceMetadata),
   extension: async function* () { throw new Error("扩展需要固定版本执行作用域"); },
   mutate,
   curate: c => curate(c.input(0), c.node.params, c.seed, c.tick, c.node.params.reviewedResourceId ? c.read(String(c.node.params.reviewedResourceId), c.seed) : undefined),

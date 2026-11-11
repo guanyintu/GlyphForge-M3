@@ -1,0 +1,120 @@
+{
+  "original": {
+    "frequency": 57,
+    "workflowId": "b8aa14f4-55ac-4332-9650-5c5addfc091a",
+    "resourceId": "ed84c2fe-c48c-4eb4-a9b9-3f621fbae0cd"
+  },
+  "meta": {
+    "id": "ed84c2fe-c48c-4eb4-a9b9-3f621fbae0cd",
+    "name": "FF14 · 萌系日常 · 导入",
+    "description": "PlayerTrack 本地聚合；原始名称和玩家 ID 不入库。AUTO 为规则分类，非人工批准。",
+    "kind": "word",
+    "color": "green",
+    "count": 254,
+    "version": 2,
+    "updatedAt": 1794378779490,
+    "corpus": {
+      "style": "cute",
+      "enabled": true,
+      "minLength": 2,
+      "maxLength": 6,
+      "source": {
+        "databaseSHA256": "0aea3693b1dcefc119afb8bfc71e1f5601aa71434ed5a781d73787772982b20b",
+        "boundaryLexiconSHA256": "bafed0a70bd9aa57accf2a39e16a290e269cbfb62c03312cab791b85d10288ba",
+        "deduplicatedPlayerNames": 82800
+      },
+      "qualityVersion": 2,
+      "composition": {
+        "version": 2,
+        "rules": [
+          {
+            "id": "whole",
+            "slots": [
+              "whole"
+            ],
+            "weight": 0.7
+          },
+          {
+            "id": "flavoured-dessert",
+            "slots": [
+              "flavour",
+              "sweet"
+            ],
+            "weight": 1.2
+          },
+          {
+            "id": "sleepy-pet",
+            "slots": [
+              "mood",
+              "animal"
+            ],
+            "weight": 1
+          },
+          {
+            "id": "pet-name",
+            "slots": [
+              "tiny",
+              "pet"
+            ],
+            "weight": 0.5
+          },
+          {
+            "id": "drink-order",
+            "slots": [
+              "order",
+              "drink"
+            ],
+            "weight": 0.7
+          },
+          {
+            "id": "long-sharing",
+            "slots": [
+              "sharing",
+              "sweet"
+            ],
+            "weight": 0.25
+          }
+        ]
+      }
+    }
+  },
+  "results": [
+    "不加糖的拿铁",
+    "兔兔",
+    "半糖的可可",
+    "半糖的豆乳",
+    "可可冰淇淋",
+    "可可团子",
+    "可可布丁",
+    "呆呆仓鼠",
+    "团子",
+    "困困小熊",
+    "困困小狗",
+    "奶糖",
+    "小兔",
+    "小熊",
+    "少冰的可可",
+    "少冰的豆乳",
+    "布丁",
+    "晚安",
+    "杏仁豆乳",
+    "棉花糖",
+    "椰子冰淇淋",
+    "泡芙",
+    "甜甜小熊",
+    "甜甜小狗",
+    "甜甜小鹿",
+    "甜甜水獭",
+    "红豆泡芙",
+    "芒果泡芙",
+    "草莓",
+    "草莓团子",
+    "薄荷吐司",
+    "软软柴犬",
+    "软软白兔",
+    "阿狐",
+    "阿鹿"
+  ],
+  "preserved": true,
+  "idempotent": true
+}

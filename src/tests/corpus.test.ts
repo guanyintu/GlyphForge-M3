@@ -7,6 +7,7 @@ import fantasy from "../../data/playertrack/fantasy.json";
 import trend from "../../data/playertrack/trend.json";
 import haidu from "../../data/playertrack/haidu.json";
 import report from "../../data/playertrack/report.json";
+import { preparedCorpus } from "../core/corpus-vocabulary";
 import { db, readResource } from "../storage/db";
 import { configureCorpus, corpusId, corpusWorkflow, exportCorpus, installBaseCorpus, installCorpus, reviewMaterials, updateCorpusRelation, updateMaterials } from "../storage/corpus";
 import { parseCorpusPackage } from "../core/corpus-package";
@@ -57,7 +58,7 @@ describe("PlayerTrack aggregated corpus",()=>{
     await configureCorpus(corpusId("cute"),{enabled:false});expect(await generate(await corpusWorkflow(corpusId("cute")))).toEqual([]);
   });
   it.each(packages)("generates style $style deterministically with declared length and real resource provenance",async(p)=>{
-    const id=await installCorpus(p),w=await corpusWorkflow(id),out=await generate(w);
+    const id=await installCorpus(preparedCorpus(parseCorpusPackage(p))),w=await corpusWorkflow(id),out=await generate(w);
     expect(out.length).toBeGreaterThan(20);expect(new Set(out.map(c=>c.text)).size).toBe(out.length);
     expect(out.every(c=>[...c.text].length>=2&&[...c.text].length<=p.maxLength)).toBe(true);
     if(p.style!=="haidu")expect(out.some(c=>[...c.text].length>3)).toBe(true);
@@ -70,13 +71,13 @@ describe("PlayerTrack aggregated corpus",()=>{
     const modified={...m,positionsByLength:{"2":{count:100,roles:{FIRST:100},absolute:{"1":100},relativeDeciles:{"0":100},preference:"FIRST",confidence:"SUFFICIENT_SAMPLE",share:1}}};
     expect(materialWeight(modified,"natural","LAST",2)).toBeGreaterThan(0);
     expect(materialWeight(modified,"natural","FIRST",3)).toBe(materialWeight(m,"natural","FIRST",100));
-    await installCorpus(haidu);
+    await installCorpus(preparedCorpus(parseCorpusPackage(haidu)));
     const outputs=[];
     for(const mode of Object.keys(corpusModes)){const out=await generate(await corpusWorkflow(corpusId("haidu"),mode));expect(out.length).toBeGreaterThan(20);outputs.push(out.map(c=>c.text).join(","));}
     expect(new Set(outputs).size).toBe(5);
   });
   it("allows long fantasy output and user-adjusted haidu lengths",async()=>{
-    const p=parseCorpusPackage(fantasy);p.entries=p.entries.filter(m=>m.length>=4);p.relations=[];
+    const p=preparedCorpus(parseCorpusPackage(fantasy));p.relations=[];
     await installCorpus(p);expect((await generate(await corpusWorkflow(corpusId("fantasy"),"style",8,10))).some(c=>[...c.text].length>=8)).toBe(true);
     await installCorpus(haidu);expect((await generate(await corpusWorkflow(corpusId("haidu"),"style",4,6))).every(c=>[...c.text].length>=4)).toBe(true);
   });

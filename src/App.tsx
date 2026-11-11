@@ -31,7 +31,6 @@ import {
   Code2,
   Command,
   Copy,
-  Database,
   FlaskConical,
   GitBranch,
   LayoutDashboard,
@@ -88,12 +87,10 @@ import { workflowFromMatches } from "./core/reverse-workflow";
 import { relationLabels } from "./core/relations";
 import { oauthReturnUrl } from "./community/oauth-return";
 
-type Page = "corpus" | "community" | "packs" | "workflow" | "resources" | "lab" | "reverse" | "favorites";
+type Page = "community" | "packs" | "workflow" | "resources" | "lab" | "reverse" | "favorites";
 const Community = lazy(() => import('./components/Community'));
 const CodeMirror = lazy(() => import("@uiw/react-codemirror"));
-const PlayerTrackCorpus = lazy(() => import("./components/PlayerTrackCorpus"));
 const pageNames: Record<Page, string> = {
-  corpus: "FF14 玩家语料词库",
   community: "社区广场",
   packs: "算子扩展包",
   workflow: "工作流工坊",
@@ -106,6 +103,10 @@ let bootPromise: Promise<Workflow> | undefined;
 function bootstrap() {
   return (bootPromise ||= (async () => {
     await initialize();
+    if ((await db.resources.toArray()).some(r=>r.corpus && r.corpus.style!=="all" && (Number(r.corpus.qualityVersion||0)<2 || r.corpus.composition?.version!==2))) {
+      const { upgradeCorpusQuality } = await import("./storage/corpus");
+      await upgradeCorpusQuality();
+    }
     await recoverRuns();
     if (!(await db.workflows.count()))
       await db.workflows.bulkAdd([
@@ -687,7 +688,6 @@ export default function App() {
   const nav = [
     { id: "community", icon: Leaf },
     { id: "workflow", icon: WorkflowIcon },
-    { id: "corpus", icon: Database },
     { id: "resources", icon: BookOpen },
     { id: "lab", icon: FlaskConical },
     { id: "reverse", icon: Search },
@@ -718,7 +718,7 @@ export default function App() {
         </a>
         <div className="sidebar-label">你的创作空间</div>
         <nav>
-          {nav.filter(n => (onlineSharingEnabled || n.id !== "community") && (editing || n.id === "workflow" || n.id === "corpus" || n.id === "community")).map((n) => (
+          {nav.filter(n => (onlineSharingEnabled || n.id !== "community") && (editing || n.id === "workflow" || n.id === "community")).map((n) => (
             <button
               className={`nav-item ${page === n.id ? "active" : ""}`}
               key={n.id}
@@ -1228,7 +1228,7 @@ export default function App() {
               </span>
             </div>
           </div>
-        ) : page === "community" && onlineSharingEnabled ? (<Suspense fallback={<p>正在打开社区…</p>}><Community workflow={workflow} resources={resources} onUse={switchWorkflow} notify={notify} canPublish={!codeDirty} /></Suspense>) : page === "corpus" ? (<Suspense fallback={<p role="status">正在打开语料词库…</p>}><PlayerTrackCorpus onUse={w=>{if(!codeDirtyRef.current)setEditing(false);switchWorkflow(w);}} notify={notify}/></Suspense>) : page === "packs" ? (<PacksPanel workflow={workflow} onChange={w => { switchWorkflow(w); }} notify={notify} />) : page === "resources" ? (
+        ) : page === "community" && onlineSharingEnabled ? (<Suspense fallback={<p>正在打开社区…</p>}><Community workflow={workflow} resources={resources} onUse={switchWorkflow} notify={notify} canPublish={!codeDirty} /></Suspense>) : page === "packs" ? (<PacksPanel workflow={workflow} onChange={w => { switchWorkflow(w); }} notify={notify} />) : page === "resources" ? (
           <ResourcePage
             resources={resources}
             previews={previews}

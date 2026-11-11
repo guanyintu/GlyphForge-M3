@@ -1,5 +1,5 @@
 import { corpusStyles } from "./corpus";
-import type { CorpusMaterial, CorpusPackage, PositionStats } from "./corpus";
+import type { CompositionPolicy, CorpusMaterial, CorpusPackage, PositionStats } from "./corpus";
 
 const reviews = ["AUTO", "PENDING", "APPROVED", "REJECTED"];
 function object(x: unknown): Record<string, unknown> {
@@ -37,7 +37,22 @@ export function parseMaterial(value: unknown): CorpusMaterial {
     positionTags: strings(m.positionTags), semanticTags: strings(m.semanticTags), styleTags: strings(m.styleTags), confidence: number(m.confidence, 1),
     enabled: bool(m.enabled), review: review(m.review), level: text(m.level, 32), kinds: strings(m.kinds), sources: counts(m.sources), sourceLengths: counts(m.sourceLengths),
     currentCount: count(m.currentCount), historyCount: count(m.historyCount), integrity: number(m.integrity, 1), semanticQuality: number(m.semanticQuality, 1),
-    statisticalWeight: number(m.statisticalWeight, 1e6), manualWeight: number(m.manualWeight, 100), styleWeight: number(m.styleWeight, 100), provenance: text(m.provenance) };
+    statisticalWeight: number(m.statisticalWeight, 1e6), manualWeight: number(m.manualWeight, 100), styleWeight: number(m.styleWeight, 100), provenance: text(m.provenance),
+    ...(m.compositionRoles === undefined ? {} : {compositionRoles:strings(m.compositionRoles)}),
+    ...(m.origin === undefined ? {} : {origin:m.origin === "editorial" ? "editorial" as const : "playertrack" as const}) };
+}
+export function parseComposition(value: unknown): CompositionPolicy {
+  const p=object(value);
+  if(p.version!==2||!Array.isArray(p.rules)||p.rules.length>64)throw new Error("配伍规则版本或数量无效");
+  const ids=new Set<string>();
+  const rules=p.rules.map(raw=>{
+    const r=object(raw),id=text(r.id,64),weight=number(r.weight,100);
+    if(!Array.isArray(r.slots))throw new Error("配伍槽位需要数组");
+    const slots=r.slots.map(slot=>text(slot,64));
+    if(ids.has(id)||slots.length<1||slots.length>4||weight<=0)throw new Error("配伍规则重复或槽位无效");
+    ids.add(id);return {id,slots,weight};
+  });
+  return {version:2,rules};
 }
 
 export function parseCorpusPackage(value: unknown): CorpusPackage {
@@ -59,5 +74,7 @@ export function parseCorpusPackage(value: unknown): CorpusPackage {
     return { left, right, type, frequency: count(r.frequency), playerCoverage: count(r.playerCoverage), review: review(r.review), enabled: bool(r.enabled), confidence: number(r.confidence, 1), evidence: text(r.evidence) };
   });
   return { format: "glyphforge-playertrack", version: 1, style: p.style as CorpusPackage["style"], name: text(p.name, 80), enabled: bool(p.enabled), minLength, maxLength, entries, relations,
+    ...(p.composition===undefined?{}:{composition:parseComposition(p.composition)}),
+    ...(p.qualityVersion===undefined?{}:{qualityVersion:count(p.qualityVersion)}),
     source: { databaseSHA256: String(source.databaseSHA256), boundaryLexiconSHA256: String(source.boundaryLexiconSHA256), deduplicatedPlayerNames: count(source.deduplicatedPlayerNames) } };
 }

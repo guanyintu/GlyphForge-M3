@@ -1,4 +1,6 @@
 import type { Candidate, Params } from "./model";
+import type { ResourceMetadataReader } from "./contracts";
+import { compositionPolicy, rolesFor } from "./corpus-vocabulary";
 
 export const corpusStyles = { cute: "萌系日常", nature: "自然意象", literary: "清冷文艺", fantasy: "奇幻角色", trend: "趣味潮流", haidu: "海都潮人" };
 export type CorpusStyle = keyof typeof corpusStyles;
@@ -8,6 +10,8 @@ export interface PositionStats {
   preference: string; confidence: string; share: number;
 }
 export interface CorpusMaterial {
+  compositionRoles?: string[];
+  origin?: "playertrack" | "editorial";
   text: string; length: number; frequency: number; playerCoverage: number; uniqueNameCount: number;
   firstCount: number; middleCount: number; lastCount: number;
   positionsByLength: Record<string, PositionStats>; positionTags: string[]; semanticTags: string[]; styleTags: string[];
@@ -19,9 +23,12 @@ export interface CorpusRelation {
   left: string; right: string; type: string; frequency: number; playerCoverage: number; review: Review; enabled: boolean; confidence: number; evidence: string;
 }
 export interface CorpusConfig {
+  qualityVersion?: number;
+  composition?: CompositionPolicy;
   style: CorpusStyle | "all"; enabled: boolean; minLength: number; maxLength: number;
   source: { databaseSHA256: string; boundaryLexiconSHA256: string; deduplicatedPlayerNames: number };
 }
+export interface CompositionPolicy { version: 2; rules: { id: string; slots: string[]; weight: number }[] }
 export interface CorpusPackage extends Omit<CorpusConfig, "style"> {
   format: "glyphforge-playertrack"; version: 1; style: CorpusStyle | "all"; name: string;
   entries: CorpusMaterial[]; relations: CorpusRelation[];
@@ -52,10 +59,9 @@ function rng(seed: number) {
   let n = seed >>> 0;
   return () => { n += 0x6D2B79F5; let t = n; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
 }
-const has = (c: Candidate, tags: string[]) => tags.some(t => c.corpus!.semanticTags.includes(t));
 
 /** Buffered but bounded; existing Worker owns cancellation, ticks, lineage and persistence. */
-export async function* generateCorpus(input: AsyncIterable<Candidate>, p: Params, seed: number, tick: () => void, reviewed?: AsyncIterable<Candidate>) {
+export async function* generateCorpus(input: AsyncIterable<Candidate>, p: Params, seed: number, tick: () => void, reviewed?: AsyncIterable<Candidate>, metadata?: ResourceMetadataReader) {
   validateCorpusParams(p);
   const items: Candidate[] = [];
   let scanned = 0;
@@ -80,33 +86,60 @@ export async function* generateCorpus(input: AsyncIterable<Candidate>, p: Params
       yield {text,parts:[...a.parts,...b.parts,...row.parts],notes:["人工批准的语料组合关系"]};
     }
   }
-  const choose = (pool: Candidate[], role: string, size: number) => {
-    if (!pool.length) return undefined;
-    const weights = pool.map(c => materialWeight(c.corpus!, mode, role, size) / (mode === "diverse" ? 1 + (use.get(c.text) || 0) * 2 : 1));
-    const total = weights.reduce((a, b) => a + b, 0); if (total <= 0) return undefined;
-    let pick = random() * total;
-    return pool[weights.findIndex(w => (pick -= w) < 0)] || pool[pool.length-1];
-  };
-  const direct = items.filter(c => c.corpus!.length >= min && c.corpus!.length <= max);
-  const style = String(p.style);
-  const left = items.filter(c => style === "fantasy" ? has(c, ["fantasy"]) : style === "haidu" ? has(c, ["modern"]) : style === "cute" ? has(c, ["modifier", "daily", "food"]) : style === "trend" ? has(c, ["slang", "modifier", "daily"]) : has(c, ["action", "literary", "nature"]));
-  const right = items.filter(c => style === "fantasy" ? has(c, ["fantasy"]) : style === "haidu" ? has(c, ["modern"]) : style === "cute" ? has(c, ["animal", "food", "daily"]) : style === "trend" ? has(c, ["animal", "food", "slang", "daily"]) : has(c, ["nature", "literary"]));
-  for (let attempt = 0; attempt < Number(p.count) * 60 && seen.size < Number(p.count); attempt++) {
-    tick(); const size = min + Math.floor(random() * (max-min+1));
-    let parts: Candidate[] = [];
-    if (attempt % 3 === 0 && direct.length) {
-      const c = choose(direct, "FREE", size); if (c) parts = [c];
-    } else {
-      const a = choose(left, "FIRST", size);
-      if (!a) continue;
-      // General combinations need at least one complete multi-character word.
-      // Fantasy transliteration and modern haidu roots are explicitly reviewed alphabets.
-      const compatible = right.filter(b => a.corpus!.length + b.corpus!.length === size && (style === "haidu" || style === "fantasy" || a.corpus!.length >= 2 || b.corpus!.length >= 2));
-      const b = choose(compatible, "LAST", size); if (b) parts = [a, b];
+  const style=String(p.style) as CorpusStyle | "all";
+  let policy = compositionPolicy(style === "all" ? "nature" : style);
+  if (metadata) for (const part of items[0].parts) {
+    const resource=await metadata(part.resourceId);
+    if (resource?.corpus?.composition) { policy=resource.corpus.composition; break; }
+  }
+  const byRole=new Map<string,Candidate[]>();
+  for(const item of items) {
+    const m=item.corpus!,roles=m.compositionRoles ?? rolesFor(style === "all" ? "nature" : style,item.text);
+    for(const role of new Set([...roles,...(m.review==="APPROVED"&&m.length>=2?["whole"]:[])])) {
+      if(!byRole.has(role))byRole.set(role,[]);byRole.get(role)!.push(item);
     }
-    const text = parts.map(c => c.text).join("");
-    if (!text || seen.has(text) || [...text].length < min || [...text].length > max) continue;
-    seen.add(text); for (const c of parts) use.set(c.text, (use.get(c.text) || 0) + 1);
-    yield { text, parts: parts.flatMap(c => c.parts), notes: ["本地聚合语料 · " + (corpusStyles[style as CorpusStyle] || "跨库组合"), `抽样：${corpusModes[mode as keyof typeof corpusModes]}`] };
+  }
+  type Choice={text:string;parts:Candidate[];rank:number};
+  const pools:{id:string;weight:number;items:Choice[]}[]=[];let combinations=0;
+  for(const rule of policy.rules) {
+    const pool:Choice[]=[];
+    function expand(parts:Candidate[],slot:number) {
+      tick();
+      if(slot<rule.slots.length) {
+        for(const next of byRole.get(rule.slots[slot])||[]) {
+          if(parts.reduce((n,c)=>n+c.corpus!.length,0)+next.corpus!.length<=max)expand([...parts,next],slot+1);
+        }
+        return;
+      }
+      const text=parts.map(c=>c.text).join(""),length=[...text].length;
+      if(length<min||length>max)return;
+      // Repeated stems and overlapping morphemes are not a naming recipe.
+      // Deliberate AA words belong in the standalone vocabulary.
+      if(parts.length>1&&parts.some((c,i)=>parts.slice(0,i).some(other=>[...c.text].some(ch=>other.text.includes(ch)))))return;
+      if(++combinations>10000)throw new Error("语义配伍超过 10,000 项，请缩小词库或配伍规则");
+      const weight=Math.exp(parts.reduce((sum,c,i)=>sum+Math.log(Math.max(1e-9,materialWeight(c.corpus!,mode,i===0?"FIRST":i===parts.length-1?"LAST":"MIDDLE",length))),0)/parts.length);
+      if(weight<=1e-8)return;
+      pool.push({text,parts,rank:-Math.log(Math.max(random(),1e-12))/weight});
+    }
+    expand([],0);pool.sort((a,b)=>a.rank-b.rank||a.text.localeCompare(b.text));
+    if(pool.length)pools.push({id:rule.id,weight:rule.weight,items:pool});
+  }
+  while(seen.size<Number(p.count)) {
+    tick();const active=pools.filter(pool=>pool.items.length);
+    if(!active.length)break;
+    let pick=random()*active.reduce((n,pool)=>n+pool.weight,0);
+    const pool=active.find(pool=>(pick-=pool.weight)<0)||active[active.length-1];
+    let index=0;
+    if(mode==="diverse") {
+      let best=Infinity;
+      for(let i=0;i<Math.min(24,pool.items.length);i++) {
+        const candidate=pool.items[i],rank=candidate.rank*(1+candidate.parts.reduce((n,c)=>n+(use.get(c.text)||0)*3,0));
+        if(rank<best){best=rank;index=i;}
+      }
+    }
+    const [candidate]=pool.items.splice(index,1);
+    if(seen.has(candidate.text))continue;
+    seen.add(candidate.text);for(const part of candidate.parts)use.set(part.text,(use.get(part.text)||0)+1);
+    yield {text:candidate.text,parts:candidate.parts.flatMap(c=>c.parts),notes:[`配伍 v2：${pool.id}`,`抽样：${corpusModes[mode as keyof typeof corpusModes]}`]};
   }
 }

@@ -1,0 +1,50 @@
+$ playwright test --config e2e/m3-ui.config.ts
+[WebServer] (node:111520) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:104796) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:109132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 e2e\m3-ui.check.ts:17:33 › cloud contract mock at 1280px: OAuth filters pages preview permissions failures recovery (8.1s)
+(node:115696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 e2e\m3-ui.check.ts:17:33 › cloud contract mock at 375px: OAuth filters pages preview permissions failures recovery (13.6s)
+  ok 3 e2e\m3-ui.check.ts:169:1 › disabled GitHub provider keeps the user in the community with setup guidance (836ms)
+  ok 4 e2e\m3-ui.check.ts:191:3 › failed OAuth return is sanitized (?error) (1.2s)
+  ok 5 e2e\m3-ui.check.ts:191:3 › failed OAuth return is sanitized (#error_code) (1.2s)
+  ok 6 e2e\m3-ui.check.ts:191:3 › failed OAuth return is sanitized (?code) (1.2s)
+
+
+  1) e2e\m3-ui.check.ts:17:33 › cloud contract mock at 1280px: OAuth filters pages preview permissions failures recovery
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'GitHub 登录', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('button', { name: 'GitHub 登录', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: 'GitHub 登录', exact: true })
+
+
+      10 |
+      11 | async function expectGitHubOnly(page: Page) {
+    > 12 |   await expect(githubButton(page)).toBeEnabled();
+         |                                    ^
+      13 |   await expect(page.locator('.community-account input')).toHaveCount(0);
+      14 |   await expect(page.getByRole('button', { name: /邮箱密码登录|演示登录|进入本地演示/ })).toHaveCount(0);
+      15 | }
+        at expectGitHubOnly (C:\Users\someb\Documents\ChatGPT\GlyphForge-quality-release-20261111\e2e\m3-ui.check.ts:12:36)
+        at C:\Users\someb\Documents\ChatGPT\GlyphForge-quality-release-20261111\e2e\m3-ui.check.ts:92:9
+
+    Error Context: test-results\m3-ui\m3-ui.check.ts-cloud-contr-c25d9-rmissions-failures-recovery\error-context.md
+
+  1 failed
+    e2e\m3-ui.check.ts:17:33 › cloud contract mock at 1280px: OAuth filters pages preview permissions failures recovery
+  5 passed (29.0s)
+[ELIFECYCLE] Command failed with exit code 1.

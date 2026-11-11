@@ -21,7 +21,7 @@ export default function WorkflowCards({ workflow, workflows, presets, disabled, 
       const w = item.id === workflow.id ? workflow : item;
       return { id: w.id, ...workflowCardInfo(w), label: w.name, active: w.id === workflow.id, onSelect: () => onSelect(w) };
     }),
-    ...presets.map(p => ({ ...p, category: p.order < 6 ? "FF14 玩家语料" : "海都工作流", active: false })),
+    ...presets.map(p => ({ ...p, category: p.order < 6 ? "FF14 风格" : "海都工作流", active: false })),
   ].sort((a,b) => a.order - b.order);
   const filtered = cards.filter(card => !query.trim() || `${card.label} ${card.category} ${card.description}`.toLowerCase().includes(query.trim().toLowerCase()));
   async function pick(card: typeof cards[number]) {

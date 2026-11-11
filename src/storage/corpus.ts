@@ -4,6 +4,8 @@ import { parseCorpusPackage, parseMaterial } from "../core/corpus-package";
 import type { Resource, Workflow } from "../core/model";
 import { db } from "./db";
 import { corpusPresetMarker, matchesCorpusPreset } from "../core/corpus-presets";
+import { preparedCorpus, rolesFor, compositionPolicy, editorialMaterial } from "../core/corpus-vocabulary";
+import composition from "../../data/playertrack/composition.json";
 
 export const corpusId = (style: string) => `playertrack-v1-${style}`;
 const opening = new Map<CorpusStyle, Promise<Workflow>>();
@@ -12,7 +14,7 @@ export function openCorpusPreset(style: CorpusStyle): Promise<Workflow> {
   const pending = opening.get(style); if (pending) return pending;
   const task = (async () => {
     const existing = (await db.workflows.toArray()).find(w => matchesCorpusPreset(w, style));
-    if (existing) return existing;
+    if (existing) { await upgradeCorpusQuality(); return existing; }
     const bundle = await loadBundled(style);
     return db.transaction("rw", db.resources, db.entries, db.relations, db.workflows, async () => {
       const concurrent = (await db.workflows.toArray()).find(w => matchesCorpusPreset(w, style));
@@ -29,7 +31,7 @@ export async function loadBundled(style: CorpusStyle): Promise<CorpusPackage> {
   const files = import.meta.glob(["../../data/playertrack/cute.json", "../../data/playertrack/nature.json", "../../data/playertrack/literary.json", "../../data/playertrack/fantasy.json", "../../data/playertrack/trend.json", "../../data/playertrack/haidu.json"]);
   const load = files[`../../data/playertrack/${style}.json`];
   if (!load) throw new Error("未找到本地风格素材");
-  return parseCorpusPackage((await load() as { default: unknown }).default);
+  return preparedCorpus(parseCorpusPackage((await load() as { default: unknown }).default));
 }
 
 /** Content-addressed additions only. A repeated import never overwrites local review/edit decisions. */
@@ -40,7 +42,7 @@ export async function installCorpus(value: unknown) {
     if (previous && (!previous.corpus || previous.corpus.style !== p.style)) throw new Error("资源 ID 冲突，未覆盖任何数据");
     const existing = new Set((await db.entries.where({ resourceId: id }).toArray()).map(e => e.text));
     const additions = p.entries.filter(e => !existing.has(e.text));
-    const meta: Resource = previous || { id, name: `FF14 · ${p.name}`, description: "PlayerTrack 本地聚合；原始名称和玩家 ID 不入库。AUTO 为规则分类，非人工批准。", kind: "word", color: "green", count: 0, version: 1, updatedAt: Date.now(), corpus: { style: p.style, enabled: p.enabled, minLength: p.minLength, maxLength: p.maxLength, source: p.source } };
+    const meta: Resource = previous || { id, name: `FF14 · ${p.name}`, description: "PlayerTrack 本地聚合与明确标记的编辑补充；频次不伪造。", kind: "word", color: "green", count: 0, version: 1, updatedAt: Date.now(), corpus: { style: p.style, enabled: p.enabled, minLength: p.minLength, maxLength: p.maxLength, source: p.source,...(p.composition?{composition:p.composition,qualityVersion:p.qualityVersion}: {}) } };
     await db.resources.put({ ...meta, count: existing.size+additions.length, version: previous && additions.length ? meta.version+1 : meta.version, updatedAt: additions.length ? Date.now() : meta.updatedAt });
     for (let i=0; i<additions.length; i+=500) await db.entries.bulkAdd(additions.slice(i,i+500).map(corpus => ({ resourceId: id, text: corpus.text, corpus })));
     const oldRelations = await db.relations.where({ resourceId: relationId }).toArray();
@@ -51,6 +53,24 @@ export async function installCorpus(value: unknown) {
     if (!relationMeta) await db.resources.add({ id: relationId, name: `FF14 · ${p.name} · 关系审核`, description: "相邻语义边界候选；关系类型为启发式，默认待审核。", kind: "relation", color: "blue", count: rows.length, version: 1, updatedAt: Date.now() });
     else if (rows.length) await db.resources.update(relationId, { count: oldRelations.length+rows.length, version: relationMeta.version+1, updatedAt: Date.now() });
     return id;
+  });
+}
+/** Add role annotations and editorial vocabulary once; preserve user fields and every old row. */
+export async function upgradeCorpusQuality() {
+  await db.transaction("rw",db.resources,db.entries,async()=>{
+    const resources=await db.resources.toArray();
+    for(const r of resources) {
+      const style=r.corpus?.style;
+      if(!style||style==="all"||!Object.hasOwn(composition.styles,style)||(Number(r.corpus?.qualityVersion||0)>=2&&r.corpus?.composition?.version===2))continue;
+      const entries=await db.entries.where({resourceId:r.id}).toArray(),seen=new Set(entries.map(e=>e.text));
+      for(const e of entries) {
+        const roles=rolesFor(style,e.text);
+        if(e.corpus&&e.corpus.compositionRoles===undefined&&roles.length)await db.entries.update(e.id!,{corpus:{...e.corpus,compositionRoles:roles}});
+      }
+      const additions=[...new Set(Object.values(composition.styles[style].roles).flat())].filter(text=>!seen.has(text));
+      if(additions.length)await db.entries.bulkAdd(additions.map(text=>({resourceId:r.id,text,corpus:editorialMaterial(style,text)})));
+      await db.resources.update(r.id,{corpus:{...r.corpus!,qualityVersion:2,composition:compositionPolicy(style)},count:entries.length+additions.length,version:r.version+1,updatedAt:Date.now()});
+    }
   });
 }
 

@@ -76,7 +76,7 @@ export async function importResourcePackage(data:unknown,bindings:Record<string,
       const corpus=parseCorpusPackage({format:'glyphforge-playertrack',version:1,name:item.meta.name,...item.meta.corpus,entries:item.corpusEntries,relations:[]});
       if(corpus.entries.length!==item.entries.length || corpus.entries.some((m,i)=>m.text!==item.entries[i]))throw new Error('语料快照与词条不一致');
       item.corpusEntries=corpus.entries;
-      item.meta.corpus={style:corpus.style,enabled:corpus.enabled,minLength:corpus.minLength,maxLength:corpus.maxLength,source:corpus.source};
+      item.meta.corpus={style:corpus.style,enabled:corpus.enabled,minLength:corpus.minLength,maxLength:corpus.maxLength,source:corpus.source,...(corpus.composition?{composition:corpus.composition,qualityVersion:corpus.qualityVersion}: {})};
     } else if(item.corpusEntries)throw new Error('普通词库不能携带语料元数据');
     if(item.meta.definition && (item.entries.length||item.relationRows))throw new Error('定义资源不能包含物化行');
     if(item.meta.kind==='relation') {if(item.entries.length||!Array.isArray(item.relationRows)||item.relationRows.length>100000)throw new Error('关系快照无效');item.relationRows.forEach(validatePair);}

@@ -1,0 +1,295 @@
+$ vitest run
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/GlyphForge-quality-release-20261111
+
+ ✓ src/tests/p1d-motion.test.ts (18 tests) 80ms
+ ✓ src/tests/core.test.ts (19 tests) 22ms
+stdout | src/tests/subgraphs.test.ts > parameterized sequence functions > streams 100 call instances with constant resource residency and bounded batches
+P2-A 100 outer / 300 total calls {
+  milliseconds: 20.021500000000287,
+  produced: 201,
+  maxBatch: 1,
+  steps: 1303,
+  definitionBytes: 620
+}
+
+ ✓ src/tests/subgraphs.test.ts (22 tests) 384ms
+ ✓ src/tests/p0.test.ts (31 tests) 697ms
+ ✓ src/tests/packs.test.ts (28 tests) 794ms
+ ✓ src/tests/run-lifecycle.test.ts (9 tests) 1034ms
+   ✓ 100 mixed runs bound ordinary history while preserving pins, favorites and active runs  783ms
+ ✓ src/tests/audit.test.ts (20 tests) 999ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":100000,"rows":60,"steps":442,"ms":19.068500000000313,"staticRows":1100,"cacheRows":0}
+
+stdout | src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":1000000,"rows":60,"steps":442,"ms":12.73660000000018,"staticRows":2000,"cacheRows":0}
+
+ ✓ src/tests/resource-catalog.test.ts (32 tests) 1144ms
+ ✓ src/tests/relations.test.ts (31 tests) 2057ms
+   ✓ relation persistence, migration and interchange > paginates relationship reads beyond 256 rows without omission or duplication  317ms
+ ✓ src/tests/p1c-search.test.ts (24 tests) 2259ms
+   ✓ matches simplified/traditional only when enabled and only real entries  571ms
+   ✓ optional pinyin matches real romanized or homophone candidates  571ms
+   ✓ caps ambiguous indexed hits, bounds batch sizes and the final beam  383ms
+ ✓ src/tests/p1c-game.test.ts (7 tests) 107ms
+stdout | src/tests/lineage.test.ts > 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows
+P2-E 10k {"ms":315.79219999999987,"stats":{"steps":40041,"count":10000,"truncated":true,"safePruned":0,"duration":315.4461000000001},"maxLineageBytes":168,"totalLineageBytes":1680000}
+
+stdout | src/tests/share-code.test.ts > seeded base64url/stream fuzz rejects corruption or returns the identical checksum-verified payload
+GFS1 base64 stream fuzz {"rejected":120,"identical":0}
+
+ ✓ src/tests/scale.test.ts (10 tests) 2947ms
+   ✓ 192 generated seed/version four-way differential includes all fields, read events, ticks and first-path duplicates  2666ms
+ ✓ src/tests/share-code.test.ts (30 tests) 2933ms
+   ✓ code export reads only bounded metadata closure and stops snapshots before 1MiB  656ms
+   ✓ seeded base64url/stream fuzz rejects corruption or returns the identical checksum-verified payload  465ms
+ ✓ src/tests/mutation.test.ts (35 tests) 4111ms
+   ✓ homophone uses shared bounded engine and changes text  800ms
+   ✓ reorder protects independent repeated positions and entire ZWJ cluster  541ms
+   ✓ locking all positions permits insert/affix while replacement/deletion produce no unchanged duplicates  436ms
+   ✓ deduplicates low-diversity requests without emitting original or empty text  304ms
+   ✓ reorders whole words and dictionary replaces a whole unlocked word  317ms
+   ✓ portable dictionary workflow remaps references, preserves factual parent IDs and supports version1 result data  335ms
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 270.54 ms, 40041 steps, max batch 64
+
+ ✓ src/tests/community.test.ts (7 tests) 617ms
+ ✓ src/tests/m2-relations.test.ts (5 tests) 303ms
+ ✓ src/tests/p1d-highlight.test.ts (4 tests) 4ms
+ ✓ src/tests/community-auth.test.ts (7 tests) 763ms
+ ✓ src/tests/storage.test.ts (8 tests) 403ms
+ ✓ src/tests/community-disabled.test.ts (1 test) 108ms
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 406.96 ms, 200002 steps
+
+ ✓ src/tests/p1c-relations.test.ts (5 tests) 420ms
+ ✓ src/tests/performance.test.ts (2 tests) 688ms
+   ✓ scans 100,000 source entries without expanding a result array  409ms
+ ✓ src/tests/contracts.test.ts (28 tests) 4847ms
+   ✓ homophones: node, printed code, AST and laboratory agree with omitted defaults  1069ms
+   ✓ hanconvert: node, printed code, AST and laboratory agree with omitted defaults  477ms
+   ✓ decompose: node, printed code, AST and laboratory agree with omitted defaults  974ms
+   ✓ compose: node, printed code, AST and laboratory agree with omitted defaults  1815ms
+ ✓ src/tests/community-demo.test.ts (1 test) 117ms
+ ✓ src/tests/audit-worker.test.ts (1 test) 79ms
+ ❯ src/tests/corpus.test.ts (17 tests | 3 failed) 5681ms
+   ✓ PlayerTrack aggregated corpus > validates all six independent bundles and actual all-length report 103ms
+   ✓ PlayerTrack aggregated corpus > installs concurrently once and preserves edits, favorites and existing resources 223ms
+   ✓ PlayerTrack aggregated corpus > keeps separate style review decisions and a lossless independent JSON round trip  359ms
+   ✓ PlayerTrack aggregated corpus > never generates pending, rejected or disabled materials, including standard resource nodes 157ms
+   ✓ PlayerTrack aggregated corpus > generates style 'cute' deterministically with declared length and real resource provenance 234ms
+   ✓ PlayerTrack aggregated corpus > generates style 'nature' deterministically with declared length and real resource provenance 131ms
+   × PlayerTrack aggregated corpus > generates style 'literary' deterministically with declared length and real resource provenance 49ms
+     → expected 15 to be greater than 20
+   ✓ PlayerTrack aggregated corpus > generates style 'fantasy' deterministically with declared length and real resource provenance 217ms
+   ✓ PlayerTrack aggregated corpus > generates style 'trend' deterministically with declared length and real resource provenance 81ms
+   ✓ PlayerTrack aggregated corpus > generates style 'haidu' deterministically with declared length and real resource provenance 214ms
+   × PlayerTrack aggregated corpus > supports all five weight modes and exact length position evidence with soft preferences 202ms
+     → expected 4 to be 5 // Object.is equality
+   × PlayerTrack aggregated corpus > allows long fantasy output and user-adjusted haidu lengths 30ms
+     → expected false to be true // Object.is equality
+   ✓ PlayerTrack aggregated corpus > workflow portable snapshots preserve corpus metadata, disabled rows, and seeded generation  335ms
+   ✓ PlayerTrack aggregated corpus > rejects malformed counts, tags, duplicate entries, endpoint mismatch atomically 32ms
+   ✓ PlayerTrack aggregated corpus > installs all 9k aggregate materials without changing database schema or overwriting old assets  3088ms
+   ✓ PlayerTrack aggregated corpus > approved relationship edits affect generation, survive repeated import and preserve portable provenance 152ms
+   ✓ PlayerTrack aggregated corpus > combines independent corpus sources through the existing concat workflow 70ms
+ ✓ src/tests/corpus-quality.test.ts (4 tests) 321ms
+ ❯ src/tests/corpus-presets.test.ts (8 tests | 5 failed) 1088ms
+   ✓ opens each of the six shipped workflows concurrently once and preserves user edits on reopen  478ms
+   ✓ public downloadable 'cute' is a standalone portable workflow with identical seeded output 227ms
+   × public downloadable 'nature' is a standalone portable workflow with identical seeded output 113ms
+     → expected [ '清晨朝露', '星野', '极光', '雨后微风', …(30) ] to have a length of 75 but got 34
+   × public downloadable 'literary' is a standalone portable workflow with identical seeded output 39ms
+     → expected [ '不语', '旧梦', '回声', '无名', '未眠', …(10) ] to have a length of 75 but got 15
+   × public downloadable 'fantasy' is a standalone portable workflow with identical seeded output 105ms
+     → expected [ '赤焰剑士', '罗兰', '苍穹骑士', '卡恩', …(66) ] to have a length of 75 but got 70
+   × public downloadable 'trend' is a standalone portable workflow with identical seeded output 23ms
+     → expected [ '赛博咸鱼', '摸鱼', '摸鱼大王', '退休勇者', …(24) ] to have a length of 75 but got 28
+   × public downloadable 'haidu' is a standalone portable workflow with identical seeded output 60ms
+     → expected [ '白日', '海盐', '异色', '空白', '夜行', …(38) ] to have a length of 75 but got 43
+   ✓ cards describe current saved settings and keep custom names independently selectable 42ms
+ ✓ src/tests/chinese.test.ts (20 tests) 6684ms
+   ✓ P1-A Chinese phonetics and conversion > uses phrase-aware OpenCC in both directions  378ms
+   ✓ P1-A Chinese phonetics and conversion > queries actual Unihan homophones and validates single-character inputs  707ms
+   ✓ P1-A real structure data > decomposes 明 left/right and 思 top/bottom  1661ms
+   ✓ P1-A real structure data > reverse-composes only actual known characters and respects duplicate counts  1418ms
+   ✓ P1-A real structure data > finds characters by components and filters structure and strokes  2251ms
+stdout | src/tests/lineage.test.ts > paired rejection benchmark preserves exact steps and avoids 10k metadata allocations
+P2-E paired allocation benchmark [{"mode":"off","ms":439.9404000000004,"steps":30304,"pruned":0},{"mode":"on","ms":149.57899999999972,"steps":30304,"pruned":10000},{"mode":"on","ms":171.45370000000003,"steps":30304,"pruned":10000},{"mode":"off","ms":675.6535999999996,"steps":30304,"pruned":0},{"mode":"off","ms":518.1808000000001,"steps":30304,"pruned":0},{"mode":"on","ms":221.433500000001,"steps":30304,"pruned":10000},{"mode":"on","ms":339.96649999999863,"steps":30304,"pruned":10000},{"mode":"off","ms":454.5584999999992,"steps":30304,"pruned":0},{"mode":"off","ms":400.2525999999998,"steps":30304,"pruned":0},{"mode":"on","ms":124.40409999999974,"steps":30304,"pruned":10000},{"mode":"on","ms":126.16610000000037,"steps":30304,"pruned":10000},{"mode":"off","ms":345.4495000000006,"steps":30304,"pruned":0}]
+
+ ✓ src/tests/lineage.test.ts (18 tests) 6790ms
+   ✓ frozen e637beb / disabled / enabled concat differential: 80 seeds and versions  781ms
+   ✓ frozen e637beb / disabled / enabled pattern differential: 80 seeds and versions  530ms
+   ✓ nested subgraphs, Chinese, Pair/members, extensions and mutation keep old metadata and seed behavior  695ms
+   ✓ 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows  326ms
+   ✓ paired rejection benchmark preserves exact steps and avoids 10k metadata allocations  3975ms
+ ✓ src/tests/haidu-original.test.ts (6 tests) 6554ms
+   ✓ original xlsx workflow installed in GlyphForge > uses the original five formulas and B-column words for both direct and small-prefix output  1492ms
+   ✓ original xlsx workflow installed in GlyphForge > generates unique two/three-character results with a repeatable seed and NameScript round trip  2870ms
+   ✓ original xlsx workflow installed in GlyphForge > portable export/import preserves every resource, definition and result  1517ms
+   ✓ original xlsx workflow installed in GlyphForge > updating the actual B-column resource changes direct/small results without rewriting the workflow  548ms
+stdout | src/tests/haidu.test.ts > Haidu workflow follows the reference's five columns > measures actual sampled workflow execution and portable export
+HAIDU_WORKFLOW_BENCH {"importMs":69.77709999999934,"executeMs":567.8088000000007,"exportMs":24.879499999999098,"count":3836,"steps":93680}
+
+ ✓ src/tests/haidu.test.ts (13 tests) 13663ms
+   ✓ Haidu workflow follows the reference's five columns > round trips all source pools, definitions, scores, tags, directions and references  3518ms
+   ✓ Haidu workflow follows the reference's five columns > enforces 2 before output limit and deduplicates  1195ms
+   ✓ Haidu workflow follows the reference's five columns > enforces 3 before output limit and deduplicates  1078ms
+   ✓ Haidu workflow follows the reference's five columns > enforces 2,3 before output limit and deduplicates  975ms
+   ✓ Haidu workflow follows the reference's five columns > actually produces all five formula shapes with real pool provenance  809ms
+   ✓ Haidu workflow follows the reference's five columns > new core words drive direct and small-prefix results without editing code or relations  623ms
+   ✓ Haidu workflow follows the reference's five columns > uses existing explicit relation rows as ranking evidence, not as a separate generator  601ms
+   ✓ Haidu workflow follows the reference's five columns > repeats a fixed seed, changes samples with another seed, balances styles and continues without overlap  2120ms
+   ✓ Haidu workflow follows the reference's five columns > supports category, includes, multiple exclusions and NameScript editing  1599ms
+   ✓ Haidu workflow follows the reference's five columns > measures actual sampled workflow execution and portable export  706ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/corpus-presets.test.ts > public downloadable 'nature' is a standalone portable workflow with identical seeded output
+AssertionError: expected [ '清晨朝露', '星野', '极光', '雨后微风', …(30) ] to have a length of 75 but got 34
+
+- Expected
++ Received
+
+- 75
++ 34
+
+ ❯ src/tests/corpus-presets.test.ts:29:17
+     27|   const texts:string[]=[];
+     28|   await execute(workflow,readResource,b=>texts.push(...b.map(c=>c.text…
+     29|   expect(texts).toHaveLength(75);expect(new Set(texts).size).toBe(75);
+       |                 ^
+     30|   expect(texts.every(t=>[...t].length>=2&&[...t].length<=(preset.style…
+     31|   const current=await openCorpusPreset(preset.style);expect(current.id…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  src/tests/corpus-presets.test.ts > public downloadable 'literary' is a standalone portable workflow with identical seeded output
+AssertionError: expected [ '不语', '旧梦', '回声', '无名', '未眠', …(10) ] to have a length of 75 but got 15
+
+- Expected
++ Received
+
+- 75
++ 15
+
+ ❯ src/tests/corpus-presets.test.ts:29:17
+     27|   const texts:string[]=[];
+     28|   await execute(workflow,readResource,b=>texts.push(...b.map(c=>c.text…
+     29|   expect(texts).toHaveLength(75);expect(new Set(texts).size).toBe(75);
+       |                 ^
+     30|   expect(texts.every(t=>[...t].length>=2&&[...t].length<=(preset.style…
+     31|   const current=await openCorpusPreset(preset.style);expect(current.id…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  src/tests/corpus-presets.test.ts > public downloadable 'fantasy' is a standalone portable workflow with identical seeded output
+AssertionError: expected [ '赤焰剑士', '罗兰', '苍穹骑士', '卡恩', …(66) ] to have a length of 75 but got 70
+
+- Expected
++ Received
+
+- 75
++ 70
+
+ ❯ src/tests/corpus-presets.test.ts:29:17
+     27|   const texts:string[]=[];
+     28|   await execute(workflow,readResource,b=>texts.push(...b.map(c=>c.text…
+     29|   expect(texts).toHaveLength(75);expect(new Set(texts).size).toBe(75);
+       |                 ^
+     30|   expect(texts.every(t=>[...t].length>=2&&[...t].length<=(preset.style…
+     31|   const current=await openCorpusPreset(preset.style);expect(current.id…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  src/tests/corpus-presets.test.ts > public downloadable 'trend' is a standalone portable workflow with identical seeded output
+AssertionError: expected [ '赛博咸鱼', '摸鱼', '摸鱼大王', '退休勇者', …(24) ] to have a length of 75 but got 28
+
+- Expected
++ Received
+
+- 75
++ 28
+
+ ❯ src/tests/corpus-presets.test.ts:29:17
+     27|   const texts:string[]=[];
+     28|   await execute(workflow,readResource,b=>texts.push(...b.map(c=>c.text…
+     29|   expect(texts).toHaveLength(75);expect(new Set(texts).size).toBe(75);
+       |                 ^
+     30|   expect(texts.every(t=>[...t].length>=2&&[...t].length<=(preset.style…
+     31|   const current=await openCorpusPreset(preset.style);expect(current.id…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  src/tests/corpus-presets.test.ts > public downloadable 'haidu' is a standalone portable workflow with identical seeded output
+AssertionError: expected [ '白日', '海盐', '异色', '空白', '夜行', …(38) ] to have a length of 75 but got 43
+
+- Expected
++ Received
+
+- 75
++ 43
+
+ ❯ src/tests/corpus-presets.test.ts:29:17
+     27|   const texts:string[]=[];
+     28|   await execute(workflow,readResource,b=>texts.push(...b.map(c=>c.text…
+     29|   expect(texts).toHaveLength(75);expect(new Set(texts).size).toBe(75);
+       |                 ^
+     30|   expect(texts.every(t=>[...t].length>=2&&[...t].length<=(preset.style…
+     31|   const current=await openCorpusPreset(preset.style);expect(current.id…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  src/tests/corpus.test.ts > PlayerTrack aggregated corpus > generates style 'literary' deterministically with declared length and real resource provenance
+AssertionError: expected 15 to be greater than 20
+ ❯ src/tests/corpus.test.ts:61:24
+     59|   it.each(packages)("generates style $style deterministically with dec…
+     60|     const id=await installCorpus(p),w=await corpusWorkflow(id),out=awa…
+     61|     expect(out.length).toBeGreaterThan(20);expect(new Set(out.map(c=>c…
+       |                        ^
+     62|     expect(out.every(c=>[...c.text].length>=2&&[...c.text].length<=p.m…
+     63|     if(p.style!=="haidu")expect(out.some(c=>[...c.text].length>3)).toB…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  src/tests/corpus.test.ts > PlayerTrack aggregated corpus > supports all five weight modes and exact length position evidence with soft preferences
+AssertionError: expected 4 to be 5 // Object.is equality
+
+- Expected
++ Received
+
+- 5
++ 4
+
+ ❯ src/tests/corpus.test.ts:76:35
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  src/tests/corpus.test.ts > PlayerTrack aggregated corpus > allows long fantasy output and user-adjusted haidu lengths
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/tests/corpus.test.ts:80:140
+     78|   it("allows long fantasy output and user-adjusted haidu lengths",asyn…
+     79|     const p=parseCorpusPackage(fantasy);p.entries=p.entries.filter(m=>…
+     80|     await installCorpus(p);expect((await generate(await corpusWorkflow…
+       |                                                                                                                                            ^
+     81|     await installCorpus(haidu);expect((await generate(await corpusWork…
+     82|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  2 failed | 30 passed (32)
+      Tests  8 failed | 463 passed (471)
+   Start at  14:05:30
+   Duration  16.86s (transform 14.80s, setup 0ms, collect 49.79s, tests 68.70s, environment 8ms, prepare 20.36s)
+
+[ELIFECYCLE] Test failed. See above for more details.

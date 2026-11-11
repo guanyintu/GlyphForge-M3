@@ -1,0 +1,40 @@
+✓ Lockfile passes supply-chain policies (verified 2d ago)
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +162
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: C:\Users\someb\AppData\Local\pnpm\store\v11
+  Virtual store is at:             node_modules/.pnpm
+Progress: resolved 162, reused 162, downloaded 0, added 12
+Progress: resolved 162, reused 162, downloaded 0, added 34
+Progress: resolved 162, reused 162, downloaded 0, added 124
+Progress: resolved 162, reused 162, downloaded 0, added 160
+Progress: resolved 162, reused 162, downloaded 0, added 161
+Progress: resolved 162, reused 162, downloaded 0, added 162
+Progress: resolved 162, reused 162, downloaded 0, added 162, done
+
+dependencies:
++ @supabase/supabase-js 2.118.0
++ @uiw/react-codemirror 4.25.12
++ @xyflow/react 12.12.0
++ dexie 4.4.7
++ dexie-react-hooks 4.4.0
++ lucide-react 0.468.0
++ opencc-js 1.4.2
++ pinyin-pro 3.29.5
++ react 19.3.1
++ react-dom 19.3.1
+
+devDependencies:
++ @electric-sql/pglite 0.3.14
++ @playwright/test 1.64.1
++ @types/react 19.3.0
++ @types/react-dom 19.3.0
++ @vitejs/plugin-react 5.2.0
++ fake-indexeddb 6.2.6
++ typescript 5.9.3
++ vite 7.3.7
++ vitest 3.2.7
+
+Done in 10s using pnpm v11.25.0

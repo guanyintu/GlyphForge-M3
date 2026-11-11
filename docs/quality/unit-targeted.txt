@@ -1,0 +1,12 @@
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/GlyphForge-quality-release-20261111
+
+ ✓ src/tests/corpus-quality.test.ts (4 tests) 340ms
+ ✓ src/tests/corpus-presets.test.ts (8 tests) 674ms
+ ✓ src/tests/corpus.test.ts (17 tests) 2234ms
+   ✓ PlayerTrack aggregated corpus > installs all 9k aggregate materials without changing database schema or overwriting old assets  1014ms
+
+ Test Files  3 passed (3)
+      Tests  29 passed (29)
+   Start at  14:13:01
+   Duration  4.35s (transform 1.22s, setup 0ms, collect 3.97s, tests 3.25s, environment 1ms, prepare 922ms)

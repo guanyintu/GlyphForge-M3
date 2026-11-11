@@ -1,0 +1,1 @@
+6/6 secret gates: detection/redaction, safe metadata, missing scanner fail-closed, safe diagnostics, official fallback, tamper rejection

@@ -1,0 +1,4 @@
+$ tsc --noEmit
+src/core/corpus.ts(90,34): error TS2367: This comparison appears to be unintentional because the types '"cute" | "nature" | "literary" | "fantasy" | "trend" | "haidu"' and '"all"' have no overlap.
+src/core/corpus.ts(97,63): error TS2367: This comparison appears to be unintentional because the types '"cute" | "nature" | "literary" | "fantasy" | "trend" | "haidu"' and '"all"' have no overlap.
+[ELIFECYCLE] Command failed with exit code 2.

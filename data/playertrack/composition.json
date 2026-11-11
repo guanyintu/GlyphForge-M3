@@ -1,0 +1,1051 @@
+{
+  "version": 2,
+  "description": "GlyphForge 编辑配伍规则；不将修饰词、完整短句、称号和音节视为可随意互拼的同类素材。补充词频为零，不冒充 PlayerTrack 观察。",
+  "styles": {
+    "cute": {
+      "roles": {
+        "whole": [
+          "奶糖",
+          "布丁",
+          "团子",
+          "泡芙",
+          "奶茶",
+          "可可",
+          "草莓",
+          "蜜桃",
+          "小熊",
+          "小兔",
+          "小鹿",
+          "猫猫",
+          "兔兔",
+          "糯米团",
+          "棉花糖",
+          "毛茸茸",
+          "软乎乎",
+          "晚安",
+          "好梦"
+        ],
+        "flavour": [
+          "草莓",
+          "抹茶",
+          "可可",
+          "蜜桃",
+          "薄荷",
+          "椰子",
+          "海盐",
+          "蜂蜜",
+          "红豆",
+          "芒果",
+          "蓝莓",
+          "杏仁",
+          "香草"
+        ],
+        "sweet": [
+          "奶糖",
+          "布丁",
+          "团子",
+          "泡芙",
+          "蛋糕",
+          "奶茶",
+          "吐司",
+          "豆乳",
+          "冰淇淋",
+          "饼干"
+        ],
+        "mood": [
+          "困困",
+          "懒懒",
+          "乖乖",
+          "软软",
+          "呆呆",
+          "甜甜"
+        ],
+        "animal": [
+          "小熊",
+          "小兔",
+          "小猫",
+          "小鹿",
+          "柴犬",
+          "海豹",
+          "水獭",
+          "企鹅",
+          "仓鼠",
+          "白兔",
+          "小狗"
+        ],
+        "tiny": [
+          "小",
+          "阿"
+        ],
+        "pet": [
+          "熊",
+          "兔",
+          "鹿",
+          "猫",
+          "狐",
+          "鲸"
+        ],
+        "order": [
+          "少冰的",
+          "半糖的",
+          "不加糖的"
+        ],
+        "drink": [
+          "奶茶",
+          "拿铁",
+          "豆乳",
+          "可可"
+        ],
+        "sharing": [
+          "想和你分享的"
+        ]
+      },
+      "rules": [
+        {
+          "id": "whole",
+          "slots": [
+            "whole"
+          ],
+          "weight": 0.7
+        },
+        {
+          "id": "flavoured-dessert",
+          "slots": [
+            "flavour",
+            "sweet"
+          ],
+          "weight": 1.2
+        },
+        {
+          "id": "sleepy-pet",
+          "slots": [
+            "mood",
+            "animal"
+          ],
+          "weight": 1
+        },
+        {
+          "id": "pet-name",
+          "slots": [
+            "tiny",
+            "pet"
+          ],
+          "weight": 0.5
+        },
+        {
+          "id": "drink-order",
+          "slots": [
+            "order",
+            "drink"
+          ],
+          "weight": 0.7
+        },
+        {
+          "id": "long-sharing",
+          "slots": [
+            "sharing",
+            "sweet"
+          ],
+          "weight": 0.25
+        }
+      ]
+    },
+    "nature": {
+      "roles": {
+        "whole": [
+          "月光",
+          "月夜",
+          "星河",
+          "星野",
+          "春日",
+          "夏夜",
+          "初雪",
+          "听雨",
+          "山海",
+          "晚风",
+          "云海",
+          "极光",
+          "流萤",
+          "晨雾",
+          "朝露",
+          "远山",
+          "秋水",
+          "海风",
+          "花影",
+          "林间",
+          "竹影",
+          "晴空"
+        ],
+        "listen": [
+          "听",
+          "枕"
+        ],
+        "sound": [
+          "雨",
+          "风",
+          "松涛"
+        ],
+        "watch": [
+          "望",
+          "观"
+        ],
+        "view": [
+          "云",
+          "月",
+          "海",
+          "山",
+          "星河",
+          "流云",
+          "晚霞",
+          "潮汐",
+          "远山"
+        ],
+        "day": [
+          "春日",
+          "清晨",
+          "雨后",
+          "初夏"
+        ],
+        "day-scene": [
+          "微风",
+          "晴光",
+          "朝露",
+          "花影",
+          "新绿"
+        ],
+        "night": [
+          "夏夜",
+          "秋夜",
+          "月下",
+          "深夜"
+        ],
+        "night-scene": [
+          "流萤",
+          "星光",
+          "晚风",
+          "月色"
+        ],
+        "place": [
+          "山间",
+          "林间",
+          "溪边",
+          "海边"
+        ],
+        "place-scene": [
+          "薄雾",
+          "微雨",
+          "花影",
+          "月光"
+        ],
+        "falling": [
+          "落在肩头的"
+        ],
+        "gentle": [
+          "月光",
+          "初雪",
+          "落花"
+        ]
+      },
+      "rules": [
+        {
+          "id": "whole",
+          "slots": [
+            "whole"
+          ],
+          "weight": 0.8
+        },
+        {
+          "id": "listening",
+          "slots": [
+            "listen",
+            "sound"
+          ],
+          "weight": 0.65
+        },
+        {
+          "id": "looking",
+          "slots": [
+            "watch",
+            "view"
+          ],
+          "weight": 0.8
+        },
+        {
+          "id": "day-scene",
+          "slots": [
+            "day",
+            "day-scene"
+          ],
+          "weight": 1
+        },
+        {
+          "id": "night-scene",
+          "slots": [
+            "night",
+            "night-scene"
+          ],
+          "weight": 1
+        },
+        {
+          "id": "place-scene",
+          "slots": [
+            "place",
+            "place-scene"
+          ],
+          "weight": 1
+        },
+        {
+          "id": "long-image",
+          "slots": [
+            "falling",
+            "gentle"
+          ],
+          "weight": 0.25
+        }
+      ]
+    },
+    "literary": {
+      "roles": {
+        "whole": [
+          "留白",
+          "余音",
+          "回声",
+          "未眠",
+          "失重",
+          "无声",
+          "迟归",
+          "余烬",
+          "残响",
+          "不语",
+          "散场",
+          "旧梦",
+          "归途",
+          "薄暮",
+          "独白",
+          "间奏",
+          "失语",
+          "远行",
+          "无名",
+          "序章"
+        ],
+        "passing": [
+          "路过",
+          "途经"
+        ],
+        "scene": [
+          "人间",
+          "长夜",
+          "荒原",
+          "暮色",
+          "旧街",
+          "黄昏"
+        ],
+        "not-asking": [
+          "不问"
+        ],
+        "answer": [
+          "归期",
+          "来处",
+          "去向"
+        ],
+        "unsent": [
+          "未寄"
+        ],
+        "letter": [
+          "书信",
+          "旧信",
+          "情书"
+        ],
+        "silent": [
+          "无声"
+        ],
+        "ending": [
+          "告别",
+          "散场",
+          "回响"
+        ],
+        "late": [
+          "迟来的"
+        ],
+        "arrival": [
+          "回声",
+          "晚风",
+          "春日",
+          "信"
+        ],
+        "unfinished": [
+          "未完的"
+        ],
+        "story": [
+          "序章",
+          "故事",
+          "对白",
+          "梦"
+        ],
+        "empty-place": [
+          "无人的"
+        ],
+        "place": [
+          "街角",
+          "站台",
+          "长街",
+          "海岸"
+        ],
+        "writing": [
+          "写给远方的"
+        ],
+        "long-letter": [
+          "信",
+          "书信",
+          "情书"
+        ],
+        "borrow": [
+          "借"
+        ],
+        "borrowing": [
+          "月光",
+          "晚风",
+          "星光",
+          "春色"
+        ],
+        "collect": [
+          "拾"
+        ],
+        "collecting": [
+          "旧梦",
+          "回声",
+          "余音",
+          "落日",
+          "星光"
+        ],
+        "hide": [
+          "藏"
+        ],
+        "hidden": [
+          "旧梦",
+          "心事",
+          "月光",
+          "来信"
+        ],
+        "wait": [
+          "等"
+        ],
+        "waiting": [
+          "天亮",
+          "风来",
+          "雨停",
+          "归人"
+        ],
+        "hour": [
+          "深夜",
+          "午夜"
+        ],
+        "night-event": [
+          "独白",
+          "来信",
+          "回声",
+          "散场"
+        ]
+      },
+      "rules": [
+        {
+          "id": "whole",
+          "slots": [
+            "whole"
+          ],
+          "weight": 0.8
+        },
+        {
+          "id": "passing-scene",
+          "slots": [
+            "passing",
+            "scene"
+          ],
+          "weight": 1
+        },
+        {
+          "id": "not-asking",
+          "slots": [
+            "not-asking",
+            "answer"
+          ],
+          "weight": 0.7
+        },
+        {
+          "id": "unsent-letter",
+          "slots": [
+            "unsent",
+            "letter"
+          ],
+          "weight": 0.7
+        },
+        {
+          "id": "silent-ending",
+          "slots": [
+            "silent",
+            "ending"
+          ],
+          "weight": 0.8
+        },
+        {
+          "id": "late-arrival",
+          "slots": [
+            "late",
+            "arrival"
+          ],
+          "weight": 0.7
+        },
+        {
+          "id": "unfinished-story",
+          "slots": [
+            "unfinished",
+            "story"
+          ],
+          "weight": 0.7
+        },
+        {
+          "id": "empty-place",
+          "slots": [
+            "empty-place",
+            "place"
+          ],
+          "weight": 0.7
+        },
+        {
+          "id": "long-letter",
+          "slots": [
+            "writing",
+            "long-letter"
+          ],
+          "weight": 0.25
+        },
+        {
+          "id": "borrow-image",
+          "slots": [
+            "borrow",
+            "borrowing"
+          ],
+          "weight": 0.7
+        },
+        {
+          "id": "collect-image",
+          "slots": [
+            "collect",
+            "collecting"
+          ],
+          "weight": 0.7
+        },
+        {
+          "id": "hidden-thought",
+          "slots": [
+            "hide",
+            "hidden"
+          ],
+          "weight": 0.7
+        },
+        {
+          "id": "waiting",
+          "slots": [
+            "wait",
+            "waiting"
+          ],
+          "weight": 0.7
+        },
+        {
+          "id": "night-event",
+          "slots": [
+            "hour",
+            "night-event"
+          ],
+          "weight": 0.7
+        }
+      ]
+    },
+    "fantasy": {
+      "roles": {
+        "whole": [
+          "艾琳",
+          "菲娜",
+          "莉娅",
+          "希尔",
+          "罗兰",
+          "凯尔",
+          "亚瑟",
+          "薇薇安",
+          "莉莉丝",
+          "爱丽丝",
+          "芙蕾雅",
+          "伊莉雅"
+        ],
+        "female-onset": [
+          "艾",
+          "伊",
+          "阿",
+          "露",
+          "菲",
+          "芙",
+          "蕾",
+          "薇"
+        ],
+        "female-ending": [
+          "琳",
+          "娜",
+          "娅",
+          "莉亚",
+          "蕾娜",
+          "缇娜"
+        ],
+        "male-onset": [
+          "艾",
+          "伊",
+          "阿",
+          "卡",
+          "凯",
+          "雷",
+          "诺",
+          "洛"
+        ],
+        "male-ending": [
+          "尔",
+          "恩",
+          "斯",
+          "里安",
+          "利安",
+          "洛斯",
+          "雷恩",
+          "里斯"
+        ],
+        "long-onset": [
+          "艾尔",
+          "阿尔",
+          "伊瑟",
+          "塞拉",
+          "菲尔"
+        ],
+        "long-ending": [
+          "莉亚",
+          "蕾娜",
+          "薇尔",
+          "缇娜",
+          "洛斯",
+          "里安"
+        ],
+        "epithet": [
+          "银翼",
+          "赤焰",
+          "苍穹",
+          "黎明",
+          "霜月",
+          "逐星"
+        ],
+        "profession": [
+          "骑士",
+          "游侠",
+          "剑士",
+          "舞者",
+          "法师",
+          "术士",
+          "召唤师",
+          "占星师"
+        ],
+        "long-title": [
+          "守望黎明的",
+          "追逐星辰的"
+        ],
+        "long-profession": [
+          "占星师",
+          "召唤师",
+          "魔导师"
+        ]
+      },
+      "rules": [
+        {
+          "id": "whole",
+          "slots": [
+            "whole"
+          ],
+          "weight": 0.7
+        },
+        {
+          "id": "female-name",
+          "slots": [
+            "female-onset",
+            "female-ending"
+          ],
+          "weight": 1
+        },
+        {
+          "id": "male-name",
+          "slots": [
+            "male-onset",
+            "male-ending"
+          ],
+          "weight": 1
+        },
+        {
+          "id": "long-name",
+          "slots": [
+            "long-onset",
+            "long-ending"
+          ],
+          "weight": 0.8
+        },
+        {
+          "id": "role-title",
+          "slots": [
+            "epithet",
+            "profession"
+          ],
+          "weight": 0.8
+        },
+        {
+          "id": "long-role-title",
+          "slots": [
+            "long-title",
+            "long-profession"
+          ],
+          "weight": 0.25
+        }
+      ]
+    },
+    "trend": {
+      "roles": {
+        "whole": [
+          "摸鱼",
+          "摆烂",
+          "躺平",
+          "咸鱼",
+          "菜鸡",
+          "社恐",
+          "社牛",
+          "退休勇者",
+          "下班再说",
+          "不想上班",
+          "只想摸鱼",
+          "今天摆烂",
+          "正在摸鱼",
+          "拒绝内卷"
+        ],
+        "activity": [
+          "摸鱼",
+          "摆烂",
+          "干饭",
+          "打工",
+          "划水"
+        ],
+        "occupation": [
+          "大王",
+          "选手",
+          "队长",
+          "冠军",
+          "大师",
+          "专家",
+          "研究员"
+        ],
+        "digital": [
+          "赛博",
+          "电子",
+          "量子"
+        ],
+        "identity": [
+          "咸鱼",
+          "打工人",
+          "观察员",
+          "摸鱼人",
+          "干饭人"
+        ],
+        "career": [
+          "退休",
+          "实习",
+          "兼职"
+        ],
+        "fantasy-role": [
+          "勇者",
+          "魔王",
+          "骑士",
+          "牧师"
+        ],
+        "badge": [
+          "头号",
+          "限定",
+          "隐藏"
+        ],
+        "persona": [
+          "咸鱼",
+          "菜鸡",
+          "干饭人",
+          "摸鱼人"
+        ],
+        "long-routine": [
+          "今天也在"
+        ],
+        "long-action": [
+          "认真摸鱼",
+          "努力干饭",
+          "假装上班"
+        ]
+      },
+      "rules": [
+        {
+          "id": "whole",
+          "slots": [
+            "whole"
+          ],
+          "weight": 0.65
+        },
+        {
+          "id": "activity-identity",
+          "slots": [
+            "activity",
+            "occupation"
+          ],
+          "weight": 1.2
+        },
+        {
+          "id": "digital-persona",
+          "slots": [
+            "digital",
+            "identity"
+          ],
+          "weight": 0.8
+        },
+        {
+          "id": "job-parody",
+          "slots": [
+            "career",
+            "fantasy-role"
+          ],
+          "weight": 0.8
+        },
+        {
+          "id": "persona-badge",
+          "slots": [
+            "badge",
+            "persona"
+          ],
+          "weight": 0.6
+        },
+        {
+          "id": "long-routine",
+          "slots": [
+            "long-routine",
+            "long-action"
+          ],
+          "weight": 0.25
+        }
+      ]
+    },
+    "haidu": {
+      "roles": {
+        "whole": [
+          "零点",
+          "低温",
+          "冷萃",
+          "冷光",
+          "冰点",
+          "脱轨",
+          "失真",
+          "失焦",
+          "失重",
+          "失序",
+          "留白",
+          "余白",
+          "空白",
+          "空集",
+          "空想",
+          "异想",
+          "异色",
+          "异常",
+          "异步",
+          "逆光",
+          "逆流",
+          "白噪",
+          "黑胶",
+          "电波",
+          "频率",
+          "磁带",
+          "像素",
+          "胶片",
+          "底片",
+          "暗房",
+          "切片",
+          "断层",
+          "断线",
+          "离线",
+          "在线",
+          "蓝调",
+          "灰调",
+          "锈色",
+          "铁锈",
+          "盐粒",
+          "海盐",
+          "街角",
+          "巷口",
+          "轨迹",
+          "边界",
+          "临界",
+          "零号",
+          "白日",
+          "夜行",
+          "野生",
+          "野火",
+          "无解",
+          "无序",
+          "未知",
+          "过曝",
+          "欠曝",
+          "短路",
+          "对焦",
+          "走神",
+          "慢热",
+          "半醒",
+          "失温",
+          "缺氧",
+          "停格",
+          "倒带",
+          "反拍",
+          "白噪音",
+          "低气压",
+          "慢半拍",
+          "负一层",
+          "零重力",
+          "冷处理",
+          "空白页",
+          "旧磁带",
+          "夜航员",
+          "离线中",
+          "黑白照",
+          "低频电台",
+          "短波信号",
+          "午夜电台",
+          "黑白胶片"
+        ],
+        "tone": [
+          "灰",
+          "蓝",
+          "冷"
+        ],
+        "visual-head": [
+          "调",
+          "光"
+        ],
+        "night": [
+          "夜"
+        ],
+        "motion": [
+          "行",
+          "航",
+          "游"
+        ],
+        "loss": [
+          "失"
+        ],
+        "state": [
+          "焦",
+          "真",
+          "序",
+          "重",
+          "速",
+          "声",
+          "语"
+        ],
+        "camera-body": [
+          "磁带",
+          "胶片"
+        ],
+        "device": [
+          "机"
+        ],
+        "photo-state": [
+          "未",
+          "已"
+        ],
+        "photo-action": [
+          "对焦",
+          "曝光"
+        ],
+        "negative": [
+          "不"
+        ],
+        "social-state": [
+          "在线",
+          "合群"
+        ],
+        "photo-tone": [
+          "黑白",
+          "复古"
+        ],
+        "photo-object": [
+          "胶片",
+          "底片",
+          "相片"
+        ]
+      },
+      "rules": [
+        {
+          "id": "whole",
+          "slots": [
+            "whole"
+          ],
+          "weight": 2
+        },
+        {
+          "id": "visual-tone",
+          "slots": [
+            "tone",
+            "visual-head"
+          ],
+          "weight": 0.2
+        },
+        {
+          "id": "night-motion",
+          "slots": [
+            "night",
+            "motion"
+          ],
+          "weight": 0.2
+        },
+        {
+          "id": "loss-state",
+          "slots": [
+            "loss",
+            "state"
+          ],
+          "weight": 0.2
+        },
+        {
+          "id": "recording-device",
+          "slots": [
+            "camera-body",
+            "device"
+          ],
+          "weight": 0.4
+        },
+        {
+          "id": "photo-status",
+          "slots": [
+            "photo-state",
+            "photo-action"
+          ],
+          "weight": 0.6
+        },
+        {
+          "id": "social-status",
+          "slots": [
+            "negative",
+            "social-state"
+          ],
+          "weight": 0.6
+        },
+        {
+          "id": "long-photo",
+          "slots": [
+            "photo-tone",
+            "photo-object"
+          ],
+          "weight": 0.3
+        }
+      ]
+    }
+  }
+}

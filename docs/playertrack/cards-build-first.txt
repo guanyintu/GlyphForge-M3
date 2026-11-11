@@ -1,0 +1,3 @@
+$ tsc -b && vite build
+src/tests/corpus-presets.test.ts(2,30): error TS2307: Cannot find module 'node:fs' or its corresponding type declarations.
+[ELIFECYCLE] Command failed with exit code 1.

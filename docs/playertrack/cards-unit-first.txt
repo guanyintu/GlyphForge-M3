@@ -1,0 +1,115 @@
+$ vitest run
+
+ RUN  v3.2.7 C:/Users/someb/Documents/ChatGPT/GlyphForge-playertrack-release-20261111
+
+ ✓ src/tests/p1d-motion.test.ts (18 tests) 133ms
+ ✓ src/tests/core.test.ts (19 tests) 21ms
+stdout | src/tests/subgraphs.test.ts > parameterized sequence functions > streams 100 call instances with constant resource residency and bounded batches
+P2-A 100 outer / 300 total calls {
+  milliseconds: 10.006700000000365,
+  produced: 201,
+  maxBatch: 1,
+  steps: 1303,
+  definitionBytes: 620
+}
+
+ ✓ src/tests/subgraphs.test.ts (22 tests) 208ms
+ ✓ src/tests/p0.test.ts (31 tests) 557ms
+ ✓ src/tests/run-lifecycle.test.ts (9 tests) 705ms
+   ✓ 100 mixed runs bound ordinary history while preserving pins, favorites and active runs  583ms
+ ✓ src/tests/packs.test.ts (28 tests) 468ms
+ ✓ src/tests/audit.test.ts (20 tests) 872ms
+stdout | src/tests/resource-catalog.test.ts > lazily reads 100000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":100000,"rows":60,"steps":442,"ms":17.33050000000003,"staticRows":1100,"cacheRows":0}
+
+stdout | src/tests/resource-catalog.test.ts > lazily reads 1000000 logical Cartesian rows with bounded prefix and shared steps
+P2-C logical benchmark {"logical":1000000,"rows":60,"steps":442,"ms":19.622800000000097,"staticRows":2000,"cacheRows":0}
+
+ ✓ src/tests/resource-catalog.test.ts (32 tests) 816ms
+ ✓ src/tests/p1c-search.test.ts (24 tests) 1318ms
+   ✓ caps ambiguous indexed hits, bounds batch sizes and the final beam  401ms
+ ✓ src/tests/relations.test.ts (31 tests) 1579ms
+ ✓ src/tests/p1c-game.test.ts (7 tests) 71ms
+stdout | src/tests/share-code.test.ts > seeded base64url/stream fuzz rejects corruption or returns the identical checksum-verified payload
+GFS1 base64 stream fuzz {"rejected":120,"identical":0}
+
+ ✓ src/tests/share-code.test.ts (30 tests) 1574ms
+   ✓ code export reads only bounded metadata closure and stops snapshots before 1MiB  460ms
+stdout | src/tests/lineage.test.ts > 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows
+P2-E 10k {"ms":304.73169999999936,"stats":{"steps":40041,"count":10000,"truncated":true,"safePruned":0,"duration":304.39220000000023},"maxLineageBytes":168,"totalLineageBytes":1680000}
+
+ ✓ src/tests/community.test.ts (7 tests) 469ms
+ ✓ src/tests/scale.test.ts (10 tests) 2570ms
+   ✓ 192 generated seed/version four-way differential includes all fields, read events, ticks and first-path duplicates  2175ms
+ ✓ src/tests/storage.test.ts (8 tests) 167ms
+ ✓ src/tests/mutation.test.ts (35 tests) 3663ms
+   ✓ homophone uses shared bounded engine and changes text  818ms
+   ✓ reorder protects independent repeated positions and entire ZWJ cluster  438ms
+   ✓ deduplicates low-diversity requests without emitting original or empty text  340ms
+   ✓ reorders whole words and dictionary replaces a whole unlocked word  356ms
+   ✓ portable dictionary workflow remaps references, preserves factual parent IDs and supports version1 result data  363ms
+ ✓ src/tests/p1d-highlight.test.ts (4 tests) 5ms
+ ✓ src/tests/contracts.test.ts (28 tests) 3964ms
+   ✓ homophones: node, printed code, AST and laboratory agree with omitted defaults  862ms
+   ✓ hanconvert: node, printed code, AST and laboratory agree with omitted defaults  459ms
+   ✓ decompose: node, printed code, AST and laboratory agree with omitted defaults  1063ms
+   ✓ compose: node, printed code, AST and laboratory agree with omitted defaults  1127ms
+ ✓ src/tests/community-disabled.test.ts (1 test) 176ms
+ ✓ src/tests/p1c-relations.test.ts (5 tests) 154ms
+ ✓ src/tests/m2-relations.test.ts (5 tests) 238ms
+stdout | src/tests/performance.test.ts > streams the first 10,000 of 1,000,000 combinations with bounded batches
+BENCH 1,000,000 possible / 10000 emitted: 226.17 ms, 40041 steps, max batch 64
+
+ ✓ src/tests/community-auth.test.ts (7 tests) 1745ms
+   ✓ blocks navigation when GitHub is disabled even if Email is enabled  344ms
+   ✓ does not expose the raw settings error or proceed with login  910ms
+ ✓ src/tests/community-demo.test.ts (1 test) 82ms
+ ✓ src/tests/audit-worker.test.ts (1 test) 185ms
+stdout | src/tests/performance.test.ts > scans 100,000 source entries without expanding a result array
+BENCH 100,000 duplicate entries: 320.19 ms, 200002 steps
+
+ ✓ src/tests/performance.test.ts (2 tests) 553ms
+   ✓ scans 100,000 source entries without expanding a result array  321ms
+ ✓ src/tests/corpus-presets.test.ts (8 tests) 1003ms
+   ✓ opens each of the six shipped workflows concurrently once and preserves user edits on reopen  540ms
+ ✓ src/tests/corpus.test.ts (17 tests) 4559ms
+   ✓ PlayerTrack aggregated corpus > workflow portable snapshots preserve corpus metadata, disabled rows, and seeded generation  334ms
+   ✓ PlayerTrack aggregated corpus > installs all 9k aggregate materials without changing database schema or overwriting old assets  2259ms
+ ✓ src/tests/chinese.test.ts (20 tests) 5772ms
+   ✓ P1-A Chinese phonetics and conversion > queries actual Unihan homophones and validates single-character inputs  753ms
+   ✓ P1-A real structure data > decomposes 明 left/right and 思 top/bottom  1547ms
+   ✓ P1-A real structure data > reverse-composes only actual known characters and respects duplicate counts  1216ms
+   ✓ P1-A real structure data > finds characters by components and filters structure and strokes  1773ms
+stdout | src/tests/lineage.test.ts > paired rejection benchmark preserves exact steps and avoids 10k metadata allocations
+P2-E paired allocation benchmark [{"mode":"off","ms":545.8500000000004,"steps":30304,"pruned":0},{"mode":"on","ms":180.5100999999995,"steps":30304,"pruned":10000},{"mode":"on","ms":190.9873000000007,"steps":30304,"pruned":10000},{"mode":"off","ms":528.3240999999998,"steps":30304,"pruned":0},{"mode":"off","ms":544.2318000000005,"steps":30304,"pruned":0},{"mode":"on","ms":129.58309999999983,"steps":30304,"pruned":10000},{"mode":"on","ms":155.38659999999982,"steps":30304,"pruned":10000},{"mode":"off","ms":346.91730000000007,"steps":30304,"pruned":0},{"mode":"off","ms":322.9948000000004,"steps":30304,"pruned":0},{"mode":"on","ms":112.62640000000101,"steps":30304,"pruned":10000},{"mode":"on","ms":118.45470000000023,"steps":30304,"pruned":10000},{"mode":"off","ms":297.28659999999945,"steps":30304,"pruned":0}]
+
+ ✓ src/tests/lineage.test.ts (18 tests) 5691ms
+   ✓ frozen e637beb / disabled / enabled concat differential: 80 seeds and versions  564ms
+   ✓ frozen e637beb / disabled / enabled pattern differential: 80 seeds and versions  506ms
+   ✓ nested subgraphs, Chinese, Pair/members, extensions and mutation keep old metadata and seed behavior  424ms
+   ✓ 10k outputs / million logical prefix keeps lineage bytes bounded and unchanged rows  317ms
+   ✓ paired rejection benchmark preserves exact steps and avoids 10k metadata allocations  3480ms
+ ✓ src/tests/haidu-original.test.ts (6 tests) 5672ms
+   ✓ original xlsx workflow installed in GlyphForge > uses the original five formulas and B-column words for both direct and small-prefix output  1080ms
+   ✓ original xlsx workflow installed in GlyphForge > generates unique two/three-character results with a repeatable seed and NameScript round trip  2712ms
+   ✓ original xlsx workflow installed in GlyphForge > portable export/import preserves every resource, definition and result  1165ms
+   ✓ original xlsx workflow installed in GlyphForge > updating the actual B-column resource changes direct/small results without rewriting the workflow  511ms
+stdout | src/tests/haidu.test.ts > Haidu workflow follows the reference's five columns > measures actual sampled workflow execution and portable export
+HAIDU_WORKFLOW_BENCH {"importMs":60.99909999999909,"executeMs":503.63870000000134,"exportMs":28.970299999999042,"count":3836,"steps":93680}
+
+ ✓ src/tests/haidu.test.ts (13 tests) 12586ms
+   ✓ Haidu workflow follows the reference's five columns > round trips all source pools, definitions, scores, tags, directions and references  2785ms
+   ✓ Haidu workflow follows the reference's five columns > enforces 2 before output limit and deduplicates  1120ms
+   ✓ Haidu workflow follows the reference's five columns > enforces 3 before output limit and deduplicates  1130ms
+   ✓ Haidu workflow follows the reference's five columns > enforces 2,3 before output limit and deduplicates  776ms
+   ✓ Haidu workflow follows the reference's five columns > actually produces all five formula shapes with real pool provenance  819ms
+   ✓ Haidu workflow follows the reference's five columns > new core words drive direct and small-prefix results without editing code or relations  846ms
+   ✓ Haidu workflow follows the reference's five columns > uses existing explicit relation rows as ranking evidence, not as a separate generator  693ms
+   ✓ Haidu workflow follows the reference's five columns > repeats a fixed seed, changes samples with another seed, balances styles and continues without overlap  2045ms
+   ✓ Haidu workflow follows the reference's five columns > supports category, includes, multiple exclusions and NameScript editing  1367ms
+   ✓ Haidu workflow follows the reference's five columns > measures actual sampled workflow execution and portable export  618ms
+
+ Test Files  31 passed (31)
+      Tests  467 passed (467)
+   Start at  12:40:08
+   Duration  15.11s (transform 11.35s, setup 0ms, collect 39.72s, tests 57.58s, environment 6ms, prepare 16.08s)

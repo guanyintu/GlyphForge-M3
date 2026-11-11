@@ -40,7 +40,7 @@ export async function exportPackage(
   validateGraph(workflow);
   const plan = options?.plan ?? await captureResources(dependencyIds(workflow));
   const maxBytes = Math.min(options?.maxBytes ?? 15*1024*1024,15*1024*1024);
-  if(workflow.extensions?.length || plan.resources.some(r=>r.definition)) { const { exportResourcePackage } = await import("./resource-package"); return exportResourcePackage(workflow,includeResources,signal,options); }
+  if(workflow.extensions?.length || plan.resources.some(r=>r.definition || r.corpus)) { const { exportResourcePackage } = await import("./resource-package"); return exportResourcePackage(workflow,includeResources,signal,options); }
   if (workflow.subgraphs?.length) workflow = { ...workflow, subgraphs: reachableDefinitions(workflow.nodes, workflow.subgraphs) };
   const ids = dependencyIds(workflow);
   const dependencies: Dependency[] = [];
@@ -257,7 +257,7 @@ export async function importPackage(
       layout[node.id] = { x: point.x, y: point.y };
     if (node.op === "resource" || node.op === "pairs")
       node.params.resourceId = mapping.get(String(node.params.resourceId))!;
-    if (node.op === "curate" && node.params.reviewedResourceId) node.params.reviewedResourceId = mapping.get(String(node.params.reviewedResourceId))!;
+    if ((node.op === "curate" || node.op === "corpus") && node.params.reviewedResourceId) node.params.reviewedResourceId = mapping.get(String(node.params.reviewedResourceId))!;
     if (node.op === "mutate" && node.params.resourceId) node.params.resourceId = mapping.get(String(node.params.resourceId)) ?? node.params.resourceId;
     if (node.op === "template") node.params.slots = JSON.stringify(templateConfig(node.params).slots.map(s => ({ ...s, resourceId: mapping.get(s.resourceId)! })));
     if (node.program)

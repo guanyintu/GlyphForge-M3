@@ -130,3 +130,9 @@ React / React DOM、React Flow、CodeMirror、Vite、Lucide 使用 MIT 许可，
 支持范围、版本语义、共享预算、验收和限制见 [P2-A 架构](docs/P2-A-ARCHITECTURE.md) 与 [验收](docs/P2-A-VALIDATION.md)。
 
 </details>
+
+## FF14 工作流与卡片选择
+
+生成首页现在使用网格卡片选择工作流。直接点击「FF14 · 萌系日常 / 自然意象 / 清冷文艺 / 奇幻角色 / 趣味潮流 / 海都潮人」，再点击「生成 ID」；首次自动安装对应素材，后续保留你的编辑。原版海都、扩充版和已有工作流均保留。
+
+六份完整可导入 JSON 位于 [工作流目录](public/workflows/)，可运行 `node scripts/export-playertrack-workflows.mjs` 重建。海都默认 2～3 字，其余 2～6 字，可进入编辑器或生成设置调整。[使用、测试和边界](docs/FF14-WORKFLOW-CARDS.md) / [完整语料报告](PLAYERTRACK_CORPUS_REPORT.md)。

@@ -12,9 +12,11 @@ import { allNodes } from './subgraphs';
 import { normalizeParams } from './contracts';
 import { normalizePair, validatePair } from './relations';
 import type { PairValue } from './model';
+import { parseCorpusPackage } from './corpus-package';
+import type { CorpusMaterial } from './corpus';
 
 function usedOperators(workflows:Workflow[]) {const used=new Set<string>();for(const w of workflows)for(const n of allNodes(w)){used.add(n.op);if(n.program)visitProgramExpressions(n.program,e=>{if(e.kind==="call" && Object.hasOwn(operators,e.name))used.add(e.name);});}return [...used];}
-interface Snapshot {meta:Resource;entries:string[];relationRows?:PairValue[]}
+interface Snapshot {meta:Resource;entries:string[];relationRows?:PairValue[];corpusEntries?:CorpusMaterial[]}
 export async function exportResourcePackage(workflow:Workflow,includeResources:boolean|string[]=true,signal?:AbortSignal,options?:{plan:ResourcePlan;maxBytes:number}) {
   workflow = { ...workflow }; delete workflow.communityOrigin;
   const plan=options?.plan??await captureResources(workflowResourceIds(workflow));
@@ -27,7 +29,22 @@ export async function exportResourcePackage(workflow:Workflow,includeResources:b
     if(includeResources!==true && (!Array.isArray(includeResources)||!includeResources.includes(meta.id)))continue;
     if(!meta.definition && meta.count>100000)throw new Error('便携包静态快照最多十万条');
     const item:Snapshot={meta,entries:[],...(meta.kind==='relation'?{relationRows:[]}: {})};
-    if(!meta.definition)for await(const c of readStaticResource(meta.id,0)) {
+    if(meta.corpus) {
+      item.corpusEntries=[];
+      let cursor=0;
+      for (;;) {
+        const rows=await db.entries.where('[resourceId+id]').between([meta.id,cursor],[meta.id,Infinity],true,true).limit(256).toArray();
+        if(!rows.length)break;
+        for(const row of rows) {
+          if(signal?.aborted)throw new Error('导出已取消');
+          if(!row.corpus)throw new Error('语料素材缺少元数据');
+          item.entries.push(row.text);item.corpusEntries.push(row.corpus);
+          bytes+=encoder.encode(JSON.stringify(row.corpus)).length+row.text.length*3;
+          if(bytes>maxBytes)throw new Error('语料便携快照超过大小预算，请独立导出词库');
+        }
+        cursor=rows[rows.length-1].id!+1;
+      }
+    } else if(!meta.definition)for await(const c of readStaticResource(meta.id,0,db,true)) {
       if(signal?.aborted)throw new Error('导出已取消');
       if(c.pair)item.relationRows!.push(c.pair);else item.entries.push(c.text);
       bytes+=encoder.encode(JSON.stringify(c.pair??c.text)).length;
@@ -55,6 +72,12 @@ export async function importResourcePackage(data:unknown,bindings:Record<string,
     validateResource(item.meta);
     if(seen.has(item.meta.id)||!Array.isArray(item.entries)||item.entries.length>100000||item.entries.some(s=>typeof s!=='string'||s.length>256)||!p.dependencies.some(d=>d.id===item.meta.id && d.kind===item.meta.kind && d.version===item.meta.version))throw new Error('资源快照无效或重复');
     seen.add(item.meta.id);
+    if(item.meta.corpus) {
+      const corpus=parseCorpusPackage({format:'glyphforge-playertrack',version:1,name:item.meta.name,...item.meta.corpus,entries:item.corpusEntries,relations:[]});
+      if(corpus.entries.length!==item.entries.length || corpus.entries.some((m,i)=>m.text!==item.entries[i]))throw new Error('语料快照与词条不一致');
+      item.corpusEntries=corpus.entries;
+      item.meta.corpus={style:corpus.style,enabled:corpus.enabled,minLength:corpus.minLength,maxLength:corpus.maxLength,source:corpus.source};
+    } else if(item.corpusEntries)throw new Error('普通词库不能携带语料元数据');
     if(item.meta.definition && (item.entries.length||item.relationRows))throw new Error('定义资源不能包含物化行');
     if(item.meta.kind==='relation') {if(item.entries.length||!Array.isArray(item.relationRows)||item.relationRows.length>100000)throw new Error('关系快照无效');item.relationRows.forEach(validatePair);}
     else if(item.relationRows)throw new Error('普通资源含关系行');
@@ -95,7 +118,8 @@ export async function importResourcePackage(data:unknown,bindings:Record<string,
     for(const item of snapshots) {
       await db.resources.add({...item.meta,updatedAt:Date.now()});
       const entries=[...new Set(item.entries)];
-      for(let i=0;i<entries.length;i+=1000)await db.entries.bulkAdd(entries.slice(i,i+1000).map(text=>({resourceId:item.meta.id,text})));
+      const corpusByText=new Map(item.corpusEntries?.map(m=>[m.text,m]));
+      for(let i=0;i<entries.length;i+=1000)await db.entries.bulkAdd(entries.slice(i,i+1000).map(text=>({resourceId:item.meta.id,text,...(corpusByText.has(text)?{corpus:corpusByText.get(text)}:{})})));
       const rows=[...new Map((item.relationRows??[]).map(r=>{const row=normalizePair(r);return [JSON.stringify(row),row];})).values()];
       for(let i=0;i<rows.length;i+=1000)await db.relations.bulkAdd(rows.slice(i,i+1000).map(r=>({...r,resourceId:item.meta.id})));
       if(!item.meta.definition)await db.resources.update(item.meta.id,{count:item.meta.kind==='relation'?rows.length:entries.length});

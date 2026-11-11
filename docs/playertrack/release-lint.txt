@@ -1,0 +1,2 @@
+$ node scripts/lint-release.mjs
+Release source/merge/workflow lint passed (239 tracked source files); typecheck handles TS syntax.

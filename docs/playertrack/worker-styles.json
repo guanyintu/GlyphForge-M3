@@ -1,0 +1,230 @@
+{
+  "firstResourceCounts": [
+    {
+      "id": "playertrack-v1-cute",
+      "name": "FF14 · 萌系日常",
+      "description": "PlayerTrack 本地聚合；原始名称和玩家 ID 不入库。AUTO 为规则分类，非人工批准。",
+      "kind": "word",
+      "color": "green",
+      "count": 244,
+      "version": 1,
+      "updatedAt": 1794372662308,
+      "corpus": {
+        "style": "cute",
+        "enabled": true,
+        "minLength": 2,
+        "maxLength": 6,
+        "source": {
+          "databaseSHA256": "0aea3693b1dcefc119afb8bfc71e1f5601aa71434ed5a781d73787772982b20b",
+          "boundaryLexiconSHA256": "bafed0a70bd9aa57accf2a39e16a290e269cbfb62c03312cab791b85d10288ba",
+          "deduplicatedPlayerNames": 82800
+        }
+      }
+    },
+    {
+      "id": "playertrack-v1-cute-relations",
+      "name": "FF14 · 萌系日常 · 关系审核",
+      "description": "相邻语义边界候选；关系类型为启发式，默认待审核。",
+      "kind": "relation",
+      "color": "blue",
+      "count": 117,
+      "version": 1,
+      "updatedAt": 1794372662330
+    },
+    {
+      "id": "playertrack-v1-fantasy",
+      "name": "FF14 · 奇幻角色",
+      "description": "PlayerTrack 本地聚合；原始名称和玩家 ID 不入库。AUTO 为规则分类，非人工批准。",
+      "kind": "word",
+      "color": "green",
+      "count": 191,
+      "version": 1,
+      "updatedAt": 1794372662396,
+      "corpus": {
+        "style": "fantasy",
+        "enabled": true,
+        "minLength": 2,
+        "maxLength": 6,
+        "source": {
+          "databaseSHA256": "0aea3693b1dcefc119afb8bfc71e1f5601aa71434ed5a781d73787772982b20b",
+          "boundaryLexiconSHA256": "bafed0a70bd9aa57accf2a39e16a290e269cbfb62c03312cab791b85d10288ba",
+          "deduplicatedPlayerNames": 82800
+        }
+      }
+    },
+    {
+      "id": "playertrack-v1-fantasy-relations",
+      "name": "FF14 · 奇幻角色 · 关系审核",
+      "description": "相邻语义边界候选；关系类型为启发式，默认待审核。",
+      "kind": "relation",
+      "color": "blue",
+      "count": 591,
+      "version": 1,
+      "updatedAt": 1794372662433
+    },
+    {
+      "id": "playertrack-v1-haidu",
+      "name": "FF14 · 海都潮人",
+      "description": "PlayerTrack 本地聚合；原始名称和玩家 ID 不入库。AUTO 为规则分类，非人工批准。",
+      "kind": "word",
+      "color": "green",
+      "count": 170,
+      "version": 1,
+      "updatedAt": 1794372662460,
+      "corpus": {
+        "style": "haidu",
+        "enabled": true,
+        "minLength": 2,
+        "maxLength": 3,
+        "source": {
+          "databaseSHA256": "0aea3693b1dcefc119afb8bfc71e1f5601aa71434ed5a781d73787772982b20b",
+          "boundaryLexiconSHA256": "bafed0a70bd9aa57accf2a39e16a290e269cbfb62c03312cab791b85d10288ba",
+          "deduplicatedPlayerNames": 82800
+        }
+      }
+    },
+    {
+      "id": "playertrack-v1-haidu-relations",
+      "name": "FF14 · 海都潮人 · 关系审核",
+      "description": "相邻语义边界候选；关系类型为启发式，默认待审核。",
+      "kind": "relation",
+      "color": "blue",
+      "count": 67,
+      "version": 1,
+      "updatedAt": 1794372662479
+    },
+    {
+      "id": "playertrack-v1-literary",
+      "name": "FF14 · 清冷文艺",
+      "description": "PlayerTrack 本地聚合；原始名称和玩家 ID 不入库。AUTO 为规则分类，非人工批准。",
+      "kind": "word",
+      "color": "green",
+      "count": 96,
+      "version": 1,
+      "updatedAt": 1794372662374,
+      "corpus": {
+        "style": "literary",
+        "enabled": true,
+        "minLength": 2,
+        "maxLength": 6,
+        "source": {
+          "databaseSHA256": "0aea3693b1dcefc119afb8bfc71e1f5601aa71434ed5a781d73787772982b20b",
+          "boundaryLexiconSHA256": "bafed0a70bd9aa57accf2a39e16a290e269cbfb62c03312cab791b85d10288ba",
+          "deduplicatedPlayerNames": 82800
+        }
+      }
+    },
+    {
+      "id": "playertrack-v1-literary-relations",
+      "name": "FF14 · 清冷文艺 · 关系审核",
+      "description": "相邻语义边界候选；关系类型为启发式，默认待审核。",
+      "kind": "relation",
+      "color": "blue",
+      "count": 3,
+      "version": 1,
+      "updatedAt": 1794372662379
+    },
+    {
+      "id": "playertrack-v1-nature",
+      "name": "FF14 · 自然意象",
+      "description": "PlayerTrack 本地聚合；原始名称和玩家 ID 不入库。AUTO 为规则分类，非人工批准。",
+      "kind": "word",
+      "color": "green",
+      "count": 216,
+      "version": 1,
+      "updatedAt": 1794372662349,
+      "corpus": {
+        "style": "nature",
+        "enabled": true,
+        "minLength": 2,
+        "maxLength": 6,
+        "source": {
+          "databaseSHA256": "0aea3693b1dcefc119afb8bfc71e1f5601aa71434ed5a781d73787772982b20b",
+          "boundaryLexiconSHA256": "bafed0a70bd9aa57accf2a39e16a290e269cbfb62c03312cab791b85d10288ba",
+          "deduplicatedPlayerNames": 82800
+        }
+      }
+    },
+    {
+      "id": "playertrack-v1-nature-relations",
+      "name": "FF14 · 自然意象 · 关系审核",
+      "description": "相邻语义边界候选；关系类型为启发式，默认待审核。",
+      "kind": "relation",
+      "color": "blue",
+      "count": 139,
+      "version": 1,
+      "updatedAt": 1794372662365
+    },
+    {
+      "id": "playertrack-v1-trend",
+      "name": "FF14 · 趣味潮流",
+      "description": "PlayerTrack 本地聚合；原始名称和玩家 ID 不入库。AUTO 为规则分类，非人工批准。",
+      "kind": "word",
+      "color": "green",
+      "count": 39,
+      "version": 1,
+      "updatedAt": 1794372662443,
+      "corpus": {
+        "style": "trend",
+        "enabled": true,
+        "minLength": 2,
+        "maxLength": 6,
+        "source": {
+          "databaseSHA256": "0aea3693b1dcefc119afb8bfc71e1f5601aa71434ed5a781d73787772982b20b",
+          "boundaryLexiconSHA256": "bafed0a70bd9aa57accf2a39e16a290e269cbfb62c03312cab791b85d10288ba",
+          "deduplicatedPlayerNames": 82800
+        }
+      }
+    },
+    {
+      "id": "playertrack-v1-trend-relations",
+      "name": "FF14 · 趣味潮流 · 关系审核",
+      "description": "相邻语义边界候选；关系类型为启发式，默认待审核。",
+      "kind": "relation",
+      "color": "blue",
+      "count": 0,
+      "version": 1,
+      "updatedAt": 1794372662447
+    }
+  ],
+  "lengths": {
+    "海都潮人": [
+      2,
+      3
+    ],
+    "萌系日常": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "自然意象": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "清冷文艺": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "奇幻角色": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "趣味潮流": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "errors": []
+}

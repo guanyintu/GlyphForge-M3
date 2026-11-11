@@ -52,3 +52,46 @@
 }
 
 .generator-controls select, .generator-options-fields input:not([type="checkbox"]) { border: 1px solid var(--line); border-radius: 8px; color: #344b39; background: #fff; }
+
+.workflow-picker { border: 0; padding: 0; margin: 0; min-width: 0; }
+.workflow-picker-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.workflow-picker-heading h2 { font-size: 15px; font-weight: 600; color: #344b39; margin: 0 0 5px; }
+.workflow-picker-heading p { font-size: 12px; color: #7b8577; margin: 0; }
+.workflow-picker-heading .text-button { white-space: nowrap; }
+.workflow-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-height: 436px; overflow-y: auto; padding: 3px; margin: -3px; scrollbar-width: thin; scrollbar-color: #b6c2ad transparent; }
+.workflow-card { --card-accent: #698363; --card-wash: #f0f4ec; position: relative; min-width: 0; min-height: 140px; display: flex; flex-direction: column; align-items: stretch; gap: 9px; padding: 16px; background: #fff; color: #344b39; border: 1px solid #e0e5d9; border-radius: 11px; text-align: left; cursor: pointer; transition: border-color .15s, background .15s; }
+.workflow-card.tone-rose { --card-accent: #a27b7f; --card-wash: #f8efef; }
+.workflow-card.tone-mist { --card-accent: #718791; --card-wash: #eff3f5; }
+.workflow-card.tone-lilac { --card-accent: #887ca0; --card-wash: #f3f0f7; }
+.workflow-card.tone-amber { --card-accent: #a58a50; --card-wash: #f8f4e9; }
+.workflow-card.tone-ink { --card-accent: #4e6b62; --card-wash: #edf3ef; }
+.workflow-card::before { content: ""; position: absolute; top: 16px; bottom: 16px; left: 0; width: 3px; background: var(--card-accent); border-radius: 0 3px 3px 0; opacity: .45; }
+.workflow-card:hover:not(:disabled) { border-color: var(--card-accent); background: var(--card-wash); }
+.workflow-card[aria-pressed="true"] { border-color: var(--card-accent); background: var(--card-wash); box-shadow: inset 0 0 0 1px var(--card-accent); }
+.workflow-card[aria-pressed="true"]::before { opacity: 1; }
+.workflow-card:focus-visible { outline: 2px solid #345c44; outline-offset: 2px; }
+.workflow-card:disabled { cursor: default; opacity: .62; }
+.workflow-card-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 10px; color: #7c8778; }
+.workflow-card-state { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; color: var(--card-accent); }
+.workflow-card strong { font-size: 16px; line-height: 1.5; font-weight: 600; overflow-wrap: anywhere; }
+.workflow-card-description { font-size: 12px; color: #788274; line-height: 1.65; }
+.workflow-card-sample { margin-top: auto; padding-top: 3px; font-size: 11px; color: var(--card-accent); line-height: 1.5; overflow-wrap: anywhere; }
+.workflow-picker-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 5px 12px; margin-top: 12px; font-size: 10px; color: #858f80; }
+.workflow-card-search { display: flex; gap: 8px; align-items: center; border: 1px solid #dde4d6; border-radius: 7px; padding: 9px 12px; color: #85917e; margin-bottom: 12px; }
+.workflow-card-search input { min-width: 0; flex: 1; border: 0; outline: 0; background: transparent; font-size: 12px; color: #344b39; }
+.workflow-card-search:focus-within { outline: 2px solid #6a8661; }
+.generator-controls .corpus-generate { margin: 0; padding: 12px; }
+.generator-controls .corpus-generate input { width: 72px; border: 1px solid #d9e0d2; border-radius: 6px; padding: 8px; background: #fff; color: #344b39; font-size: 12px; }
+.generator-controls .corpus-generate select { min-height: 34px; padding: 8px; font-size: 12px; }
+@media (max-width: 1040px) { .workflow-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+ .workflow-card-grid { gap: 9px; max-height: 450px; }
+ .workflow-card { padding: 12px 10px 12px 12px; min-height: 155px; gap: 7px; }
+ .workflow-card-top { font-size: 9px; gap: 4px; }
+ .workflow-card strong { font-size: 14px; }
+ .workflow-card-description { font-size: 11px; line-height: 1.6; }
+ .workflow-card-sample { font-size: 10px; }
+ .workflow-picker-heading { gap: 8px; }
+ .workflow-picker-heading p { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { .workflow-card { transition: none; } }

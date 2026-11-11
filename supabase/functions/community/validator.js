@@ -15,6 +15,14 @@ function validateCuration(p) {
   if (!/^[1-9]\d?(,[1-9]\d?)*$/.test(String(p.lengths))) throw new Error("字数使用逗号分隔的 1–99 整数");
   if (!Number.isInteger(p.offset) || Number(p.offset) < 0 || Number(p.offset) > 1e4) throw new Error("继续抽取位置需要 0–10000 整数");
 }
+const corpusStyles = { cute: "萌系日常", nature: "自然意象", literary: "清冷文艺", fantasy: "奇幻角色", trend: "趣味潮流", haidu: "海都潮人" };
+const corpusModes = { natural: "自然频率", uniform: "均匀随机", style: "风格优先", diverse: "低重复", tail: "长尾探索" };
+function validateCorpusParams(p) {
+  if (!Object.hasOwn(corpusStyles, String(p.style)) && p.style !== "all") throw new Error("语料风格无效");
+  if (!Object.hasOwn(corpusModes, String(p.mode))) throw new Error("语料抽样模式无效");
+  for (const key of ["minLength", "maxLength", "count"]) if (!Number.isInteger(p[key])) throw new Error("长度与数量需要整数");
+  if (Number(p.minLength) < 1 || Number(p.maxLength) > 32 || Number(p.minLength) > Number(p.maxLength) || Number(p.count) < 1 || Number(p.count) > 1e3) throw new Error("语料长度范围为 1–32，数量为 1–1000");
+}
 const categories = ["han", "latin", "letter", "number", "mark", "symbol", "punctuation", "space"];
 const defaultGameRule = { name: "通用示例（可编辑）", lengths: { graphemes: { min: 2, max: 12 } }, allowed: [...categories], forbidden: "", allowSpaces: false, allowSpecial: true, blockZeroWidth: true };
 function parseGameRule(value) {
@@ -150,6 +158,7 @@ function parseCharacterMap(source) {
   return map;
 }
 const builtinOperators = {
+  corpus: { id: "corpus", name: "语料风格组合", category: "生成", description: "使用独立语料词库的审核、位置与风格权重组合，支持 1–32 字", inputs: 1, color: "green", defaults: { style: "cute", mode: "style", minLength: 2, maxLength: 6, count: 75, reviewedResourceId: "" } },
   curate: { id: "curate", name: "精选与多样性", category: "处理", description: "按关系评分、风格标签和种子排序；同批优先不同核心", inputs: 1, color: "orange", defaults: curationDefaults },
   extension: { id: "extension", name: "扩展算子", category: "扩展", description: "固定版本的声明式流水线；AST/实验室不适用", inputs: 1, color: "purple", defaults: { pack: "glyphforge-text", version: "1.0.0", operator: "frame", values: "{}", mappingId: "" } },
   mutate: { id: "mutate", name: "名字变异", category: "生成", description: "按字符簇位置锁定、固定种子的有界衍生创作", inputs: 0, color: "purple", defaults: { source: '{"text":"月","parts":[]}', locks: "[]", operations: '["replace","insert","affix"]', intensity: 1, count: 64, pool: "星月云梦", prefix: "小|夜", suffix: "子|酱", resourceId: "", mappingId: "", algorithm: 1 } },
@@ -269,7 +278,7 @@ const operators = Object.fromEntries(
       ),
       outputType: "CandidateSequence",
       deterministic: true,
-      streaming: id !== "group" && id !== "curate"
+      streaming: id !== "group" && id !== "curate" && id !== "corpus"
     }
   ])
 );
@@ -434,6 +443,7 @@ function normalizeParams(op, supplied) {
     if (op === "mutate") mutationConfig(p);
     validateRelationParams(op, p);
     if (op === "curate") validateCuration(p);
+    if (op === "corpus") validateCorpusParams(p);
     if (op === "gamecheck") {
       parseGameRule(String(p.rules));
       if (!["filter", "annotate"].includes(String(p.mode))) throw new Error("游戏检查模式无效");
@@ -455,7 +465,7 @@ function astParams(op, values) {
   return normalizeParams(op, supplied);
 }
 function nodeResourceBindings(op, p) {
-  if (op === "curate" && p.reviewedResourceId) return [{ id: String(p.reviewedResourceId), pair: true }];
+  if ((op === "curate" || op === "corpus") && p.reviewedResourceId) return [{ id: String(p.reviewedResourceId), pair: true }];
   const maps = p.mappingId && ["mapchars", "hanconvert", "mutate", "extension"].includes(op) ? [{ id: String(p.mappingId), pair: false, mapping: true }] : [];
   if (op === "mutate") return [...maps, ...p.resourceId ? [{ id: String(p.resourceId), pair: false }] : []];
   if (maps.length) return maps;

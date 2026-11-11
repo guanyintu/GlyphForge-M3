@@ -45,6 +45,7 @@ export function toScript(workflow: Workflow): string {
       return;
     }
     switch (n.op) {
+      case "corpus":
       case "curate":
       case "extension":
       case "mutate":

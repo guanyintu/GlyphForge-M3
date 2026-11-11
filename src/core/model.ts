@@ -4,6 +4,7 @@ import type { Program } from "./program";
 import { chineseDefinitions } from "./chinese-definitions";
 import type { ChineseOp } from "./chinese-definitions";
 export type Op =
+  | "corpus"
   | "curate"
   | "extension"
   | "mutate"
@@ -61,6 +62,7 @@ export interface Workflow {
   extensions?: import("./packs").ExtensionPack[];
 }
 export interface Resource {
+  corpus?: import("./corpus").CorpusConfig;
   id: string;
   name: string;
   description: string;
@@ -72,6 +74,7 @@ export interface Resource {
   updatedAt: number;
 }
 export interface Entry {
+  corpus?: import("./corpus").CorpusMaterial;
   id?: number;
   resourceId: string;
   text: string;
@@ -104,6 +107,7 @@ export interface SourcePart {
   pair?: PairValue;
 }
 export interface Candidate {
+  corpus?: import("./corpus").CorpusMaterial;
   lineage?: import("./lineage").Lineage;
   derivation?: import("./mutation").Derivation;
   text: string;
@@ -150,6 +154,7 @@ const builtinOperators: Record<
     "version" | "inputTypes" | "outputType" | "deterministic" | "streaming"
   >
 > = {
+  corpus: { id: "corpus", name: "语料风格组合", category: "生成", description: "使用独立语料词库的审核、位置与风格权重组合，支持 1–32 字", inputs: 1, color: "green", defaults: { style: "cute", mode: "style", minLength: 2, maxLength: 6, count: 75, reviewedResourceId: "" } },
   curate: { id: "curate", name: "精选与多样性", category: "处理", description: "按关系评分、风格标签和种子排序；同批优先不同核心", inputs: 1, color: "orange", defaults: curationDefaults },
   extension: { id: "extension", name: "扩展算子", category: "扩展", description: "固定版本的声明式流水线；AST/实验室不适用", inputs: 1, color: "purple", defaults: { pack: "glyphforge-text", version: "1.0.0", operator: "frame", values: "{}", mappingId: "" } },
   mutate: { id: "mutate", name: "名字变异", category: "生成", description: "按字符簇位置锁定、固定种子的有界衍生创作", inputs: 0, color: "purple", defaults: { source: '{"text":"月","parts":[]}', locks: "[]", operations: '["replace","insert","affix"]', intensity: 1, count: 64, pool: "星月云梦", prefix: "小|夜", suffix: "子|酱", resourceId: "", mappingId: "", algorithm: 1 } },
@@ -254,7 +259,7 @@ export const operators = Object.fromEntries(
       ),
       outputType: "CandidateSequence",
       deterministic: true,
-      streaming: id !== "group" && id !== "curate",
+      streaming: id !== "group" && id !== "curate" && id !== "corpus",
     },
   ]),
 ) as Record<Op, OperatorDefinition>;

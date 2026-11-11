@@ -1,0 +1,2 @@
+$ node scripts/test-community-db.mjs
+{"engine":"PGlite embedded PostgreSQL; fixture Auth; NOT live Supabase acceptance","checks":42,"concurrency":"queued single connection; multi-connection Supabase pending"}

@@ -1,0 +1,2 @@
+$ node scripts/test-community-acceptance.mjs
+38/38 acceptance entry checks passed (local guard/TAP parser tests only; no database connection)

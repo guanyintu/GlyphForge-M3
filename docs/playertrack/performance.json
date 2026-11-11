@@ -1,0 +1,7 @@
+{
+  "materials": 11019,
+  "installMs": 2294,
+  "editorMs": 157,
+  "externalRequests": [],
+  "scope": "single Chromium desktop sample; not P95 or physical low-end"
+}

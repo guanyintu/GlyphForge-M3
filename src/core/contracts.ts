@@ -1,4 +1,5 @@
 import { validateCuration } from "./curation";
+import { validateCorpusParams } from "./corpus";
 import { mergeLineage } from "./lineage";
 import { operators } from "./model";
 import type { Candidate, Op, Params, Resource, SourcePart } from "./model";
@@ -102,6 +103,7 @@ export function normalizeParams(op: Op, supplied: Params): Params {
     if (op === "mutate") mutationConfig(p);
     validateRelationParams(op, p);
     if (op === "curate") validateCuration(p);
+    if (op === "corpus") validateCorpusParams(p);
     if (op === "gamecheck") { parseGameRule(String(p.rules)); if (!["filter", "annotate"].includes(String(p.mode))) throw new Error("游戏检查模式无效"); }
     if (op === "pattern" && !/^[AB]{1,16}$/.test(String(p.template))) throw new Error("模式需为 1–16 个 A / B，例如 AABB");
     if (op === "filter" && (Number(p.maxLength) < 1 || Number(p.maxLength) > 100)) throw new Error("长度限制需要在 1–100 之间");
@@ -142,7 +144,7 @@ export async function requireResourceKind(meta: ResourceMetadataReader, id: stri
   if ((resource.kind === "relation") !== pair) throw new ContractError({ code: "TYPE", message: pair ? "请选择关系词库，普通词条不能用作关系词对" : "关系词库请使用关系词对或共享变量模板节点" });
 }
 export function nodeResourceBindings(op: Op, p: Params): { id: string; pair: boolean; mapping?: boolean }[] {
-  if (op === "curate" && p.reviewedResourceId) return [{ id: String(p.reviewedResourceId), pair: true }];
+  if ((op === "curate" || op === "corpus") && p.reviewedResourceId) return [{ id: String(p.reviewedResourceId), pair: true }];
   const maps = p.mappingId && ["mapchars","hanconvert","mutate","extension"].includes(op) ? [{id:String(p.mappingId),pair:false,mapping:true}] : [];
   if (op === "mutate") return [...maps,...(p.resourceId ? [{id:String(p.resourceId),pair:false}] : [])];
   if (maps.length) return maps;

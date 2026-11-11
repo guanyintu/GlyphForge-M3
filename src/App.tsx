@@ -1,5 +1,8 @@
 import { onlineSharingEnabled } from "./community/availability";
 import { openHaidu, openHaiduOriginal } from "./storage/haidu";
+import { corpusPresets, matchesCorpusPreset } from "./core/corpus-presets";
+import type { CorpusStyle } from "./core/corpus";
+import type { WorkflowPresetCard } from "./components/WorkflowCards";
 import LineagePanel from "./components/LineagePanel";
 import { ExecutionEstimate } from "./components/ExecutionEstimate";
 import { PacksPanel } from "./components/Packs";
@@ -28,6 +31,7 @@ import {
   Code2,
   Command,
   Copy,
+  Database,
   FlaskConical,
   GitBranch,
   LayoutDashboard,
@@ -84,10 +88,12 @@ import { workflowFromMatches } from "./core/reverse-workflow";
 import { relationLabels } from "./core/relations";
 import { oauthReturnUrl } from "./community/oauth-return";
 
-type Page = "community" | "packs" | "workflow" | "resources" | "lab" | "reverse" | "favorites";
+type Page = "corpus" | "community" | "packs" | "workflow" | "resources" | "lab" | "reverse" | "favorites";
 const Community = lazy(() => import('./components/Community'));
 const CodeMirror = lazy(() => import("@uiw/react-codemirror"));
+const PlayerTrackCorpus = lazy(() => import("./components/PlayerTrackCorpus"));
 const pageNames: Record<Page, string> = {
+  corpus: "FF14 玩家语料词库",
   community: "社区广场",
   packs: "算子扩展包",
   workflow: "工作流工坊",
@@ -635,6 +641,14 @@ export default function App() {
     try { switchWorkflow(await openHaiduOriginal()); setModal(null); setSidebarOpen(false); }
     catch (error) { notify(error instanceof Error ? error.message : "原版工作流安装失败"); }
   }
+  async function chooseCorpusWorkflow(style: CorpusStyle) {
+    if (codeDirtyRef.current) { notify("请先应用或放弃代码草稿，再切换工作流"); return; }
+    try {
+      const { openCorpusPreset } = await import("./storage/corpus");
+      const next = await openCorpusPreset(style);
+      setEditing(false); switchWorkflow(next); setModal(null); setSidebarOpen(false);
+    } catch (error) { notify(error instanceof Error ? error.message : "FF14 工作流打开失败"); }
+  }
   function previewNode() {
     if (!selectedNode) return;
     const needed = new Set<string>();
@@ -663,9 +677,17 @@ export default function App() {
     });
     notify("正在预览所选节点，最多输出 20 条");
   }
+  const availableWorkflows = workflows.some(w => w.id === workflow.id) ? workflows : [...workflows, workflow];
+  const workflowPresets: WorkflowPresetCard[] = corpusPresets.flatMap((preset, order) => availableWorkflows.some(w => matchesCorpusPreset(w, preset.style)) ? [] : [{
+    id: `preset:playertrack-${preset.style}`, ...preset, length: preset.style === "haidu" ? "2–3 字" : "2–6 字", order,
+    onSelect: () => chooseCorpusWorkflow(preset.style),
+  }]);
+  if (!availableWorkflows.some(w => w.comments?.includes("// glyphforge:preset:haidu-original-xlsx-v1"))) workflowPresets.push({ id: "preset:haidu-original", label: "海都潮人 ID · 原版 xlsx", description: "原表四列词库，保留五种经典组合。", sample: "1+1 · 1+2 · 小xx · 直出", length: "2–3 字", tone: "sage", order: 6, onSelect: chooseHaiduOriginalWorkflow });
+  if (!availableWorkflows.some(w => w.comments?.includes("// glyphforge:preset:haidu-workflow-v3"))) workflowPresets.push({ id: "preset:haidu-expanded", label: "海都潮人 ID · 五列工作流", description: "独立素材池与关系评分，沿用五列工作流。", sample: "单字组合 · 双字搭配", length: "2–3 字", tone: "ink", order: 7, onSelect: chooseHaiduWorkflow });
   const nav = [
     { id: "community", icon: Leaf },
     { id: "workflow", icon: WorkflowIcon },
+    { id: "corpus", icon: Database },
     { id: "resources", icon: BookOpen },
     { id: "lab", icon: FlaskConical },
     { id: "reverse", icon: Search },
@@ -696,7 +718,7 @@ export default function App() {
         </a>
         <div className="sidebar-label">你的创作空间</div>
         <nav>
-          {nav.filter(n => (onlineSharingEnabled || n.id !== "community") && (editing || n.id === "workflow" || n.id === "community")).map((n) => (
+          {nav.filter(n => (onlineSharingEnabled || n.id !== "community") && (editing || n.id === "workflow" || n.id === "corpus" || n.id === "community")).map((n) => (
             <button
               className={`nav-item ${page === n.id ? "active" : ""}`}
               key={n.id}
@@ -848,7 +870,7 @@ export default function App() {
             <>{editing ? <h1 className="sr-only">编辑工作流</h1> : null}</>
             {workflow.comments?.includes("// glyphforge:preset:haidu-v2") ? <div className="draft-notice"><span>旧海都配方已保留。新版按原表五列组合。</span><button className="text-button" onClick={chooseHaiduWorkflow}>打开五列工作流</button></div> : null}
             {!editing ? <WorkflowGenerator workflow={workflow} workflows={workflows} resources={resources} running={running} hasDraft={codeDirty}
-              presets={workflows.some(w => w.comments?.includes("// glyphforge:preset:haidu-original-xlsx-v1")) ? [] : [{ id: "preset:haidu-original", label: "海都潮人 ID · 原版 xlsx", onSelect: chooseHaiduOriginalWorkflow }]}
+              presets={workflowPresets}
               onSelect={switchWorkflow} onChange={change} onGenerate={next => { change(next); run(next); }} onStop={stop}
               onEdit={() => setEditing(true)} onPresets={() => setModal("presets")} onImport={() => fileInput.current?.click()} onExport={saveExport} /> : <>
             <div className="editor-mode-heading"><button className="text-button" onClick={() => { setEditing(false); setSubgraphsOpen(false); setLibrary(false); setMobileInspect(false); }}><ArrowLeft size={15} />返回生成</button><span>编辑工作流</span><button className="button" disabled={savingAndLeaving} onClick={() => void saveAndReturn()}>{savingAndLeaving ? "正在保存…" : "保存并返回"}</button></div>
@@ -1206,7 +1228,7 @@ export default function App() {
               </span>
             </div>
           </div>
-        ) : page === "community" && onlineSharingEnabled ? (<Suspense fallback={<p>正在打开社区…</p>}><Community workflow={workflow} resources={resources} onUse={switchWorkflow} notify={notify} canPublish={!codeDirty} /></Suspense>) : page === "packs" ? (<PacksPanel workflow={workflow} onChange={w => { switchWorkflow(w); }} notify={notify} />) : page === "resources" ? (
+        ) : page === "community" && onlineSharingEnabled ? (<Suspense fallback={<p>正在打开社区…</p>}><Community workflow={workflow} resources={resources} onUse={switchWorkflow} notify={notify} canPublish={!codeDirty} /></Suspense>) : page === "corpus" ? (<Suspense fallback={<p role="status">正在打开语料词库…</p>}><PlayerTrackCorpus onUse={w=>{if(!codeDirtyRef.current)setEditing(false);switchWorkflow(w);}} notify={notify}/></Suspense>) : page === "packs" ? (<PacksPanel workflow={workflow} onChange={w => { switchWorkflow(w); }} notify={notify} />) : page === "resources" ? (
           <ResourcePage
             resources={resources}
             previews={previews}
@@ -1460,6 +1482,7 @@ export default function App() {
               </div>
             ) : (
               <div className="preset-grid">
+                {corpusPresets.map(preset => <button className="preset-card green" key={preset.style} onClick={() => void chooseCorpusWorkflow(preset.style)}><span className="preset-tag">FF14 玩家语料 · {preset.style === "haidu" ? "2–3 字" : "2–6 字"}</span><b className="preset-sample">{preset.sample}</b><h3>{preset.label}</h3><p>{preset.description}</p><span className="preset-use">使用这个工作流<ArrowLeft size={15}/></span></button>)}
                 <button className="preset-card green" onClick={chooseHaiduOriginalWorkflow}><span className="preset-tag">原版 xlsx · 原始词库</span><b className="preset-sample">1+1 / 1+2 / 2+1 / 小xx / 双字直出</b><h3>海都潮人 ID · 原版 xlsx</h3><p>使用原表四列词条和五种组合，小xx、双字直出取双字后缀；可直接生成，词库可编辑。</p><span className="preset-use">使用原版配方<ArrowLeft size={15} /></span></button>
                 <button className="preset-card green" onClick={chooseHaiduWorkflow}><span className="preset-tag">海都 · 原表五列流程</span><b className="preset-sample">1+1 / 1+2 / 2+1 / 小+2 / 双字直出</b><h3>海都潮人 ID 工作流（扩充版）</h3><p>独立词库实际参与组合，固定种子、去重和关系评分优化；选择后直接生成，需要调整时再点编辑。</p><span className="preset-use">使用这个配方<ArrowLeft size={15} /></span></button>
                 {relationRecipes.map(p => <button className="preset-card purple" key={p.id} onClick={async () => {

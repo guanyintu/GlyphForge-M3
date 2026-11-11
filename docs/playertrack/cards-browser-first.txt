@@ -1,0 +1,74 @@
+[WebServer] (node:70468) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:79800) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 30 tests using 1 worker
+
+(node:105144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 e2e\corpus.spec.ts:27:1 › six styles install idempotently and use the real production Worker with independent length policies (6.3s)
+  ok  2 e2e\corpus.spec.ts:47:1 › review, tag edits, disable and JSON export/import survive reload without duplicate entries (2.4s)
+  ok  3 e2e\corpus.spec.ts:66:1 › full material install is paginated, batch review persists and editor stays bounded (4.4s)
+  ok  4 e2e\corpus.spec.ts:82:1 › mobile corpus navigation, filters and generation fit a 390px screen (1.4s)
+  ok  5 e2e\corpus.spec.ts:92:1 › human relationship classification is exported and consumed by the real Worker (2.4s)
+  ok  6 e2e\generation-mode.spec.ts:23:1 › opening the app starts in generation mode; only Edit reveals the workflow (696ms)
+  ok  7 e2e\generation-mode.spec.ts:39:1 › selecting any saved workflow stays in generation mode (568ms)
+  ok  8 e2e\generation-mode.spec.ts:48:1 › ordinary Haidu controls run the real workflow with reproducible seed, length and count (5.7s)
+  ok  9 e2e\generation-mode.spec.ts:67:1 › clicking an ID copies it and favorites survive refresh without revealing the editor (2.6s)
+  ok 10 e2e\generation-mode.spec.ts:82:1 › unapplied code survives returning to generation; Save applies it and returns (1.5s)
+  ok 11 e2e\generation-mode.spec.ts:102:1 › invalid code keeps the draft and editor open when Save fails (1.2s)
+  ok 12 e2e\generation-mode.spec.ts:112:1 › mobile starts with selection and generation, then enters and leaves Edit (2.1s)
+  ok 13 e2e\haidu-original.spec.ts:25:1 › original xlsx is directly selectable and runs the real original word pools without exposing a graph (3.5s)
+  ok 14 e2e\haidu-original.spec.ts:41:1 › original source words are editable in the existing resource center and feed generation (2.3s)
+  ok 15 e2e\haidu-original.spec.ts:54:1 › original workflow portable export restores all eight resources and exact seeded results (3.5s)
+  ok 16 e2e\haidu-original.spec.ts:66:1 › mobile can select original xlsx directly, generate and refresh in ordinary mode (1.8s)
+  ok 17 e2e\haidu.spec.ts:27:1 › Haidu uses the existing editor behind Edit and preserves all five columns (6.1s)
+  ok 18 e2e\haidu.spec.ts:43:1 › cloud sharing and OAuth navigation are off while local export and import remain (620ms)
+  ok 19 e2e\haidu.spec.ts:52:1 › editing the actual core pool changes results without a relationship edit (2.4s)
+  ok 20 e2e\haidu.spec.ts:62:1 › local portable export restores the workflow and all real dependencies in a blank browser (6.5s)
+  ok 21 e2e\haidu.spec.ts:72:1 › mobile uses the same workflow editor and keeps the offline resource and result controls (2.5s)
+  ok 22 e2e\haidu.spec.ts:80:1 › sampled five-column workflow remains bounded in the production Worker (3.1s)
+  ok 23 e2e\haidu.spec.ts:86:1 › old Haidu drafts remain intact and expose a safe route to the five-column recipe (1.2s)
+  ok 24 e2e\workflow-cards.spec.ts:17:1 › the workflow dropdown is replaced by cards, including all six ready-to-use FF14 workflows (867ms)
+  ok 25 e2e\workflow-cards.spec.ts:30:1 › every FF14 card runs a real workflow immediately, survives reload and is installed only once (3.3s)
+  x  26 e2e\workflow-cards.spec.ts:51:1 › saved workflow names and settings remain selectable after editing and refresh (45.1s)
+(node:65268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 27 e2e\workflow-cards.spec.ts:61:1 › mobile uses two card columns and can choose FF14 and the original xlsx without overflow (1.9s)
+  ok 28 e2e\workflow-cards.spec.ts:72:1 › unapplied code disables card switching and keeps the existing workflow and draft (1.2s)
+  ok 29 e2e\workflow-cards.spec.ts:79:1 › uploaded portable workflow JSON loads offline through the existing importer (809ms)
+  ok 30 e2e\workflow-cards.spec.ts:86:1 › opening a lazy workflow disables generation until selection is complete (532ms)
+
+
+  1) e2e\workflow-cards.spec.ts:51:1 › saved workflow names and settings remain selectable after editing and refresh
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: '选择工作流：我的自然草稿', exact: true })
+
+
+      54 |   await page.getByRole("button",{name:"保存并返回",exact:true}).click();
+      55 |   await page.getByText("生成设置",{exact:true}).click();await page.getByLabel("固定种子",{exact:true}).check();await page.getByLabel("生成种子",{exact:true}).fill("731");
+    > 56 |   const first=await draw(page);await card(page,"宇宙浪漫命名器").click();await card(page,"我的自然草稿").click();
+         |                                                                                             ^
+      57 |   expect(await draw(page)).toEqual(first);await page.reload();
+      58 |   await expect(page.getByRole("heading",{level:1})).toHaveText("我的自然草稿");await expect(card(page,"我的自然草稿")).toHaveAttribute("aria-pressed","true");
+      59 |   await expect(page.locator(".workflow-card")).toHaveCount(11);
+        at C:\Users\someb\Documents\ChatGPT\GlyphForge-playertrack-release-20261111\e2e\workflow-cards.spec.ts:56:93
+
+    Error Context: test-results\workflow-cards-saved-workf-aa257-e-after-editing-and-refresh\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\workflow-cards-saved-workf-aa257-e-after-editing-and-refresh\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results\workflow-cards-saved-workf-aa257-e-after-editing-and-refresh\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\workflow-cards.spec.ts:51:1 › saved workflow names and settings remain selectable after editing and refresh
+  29 passed (2.1m)

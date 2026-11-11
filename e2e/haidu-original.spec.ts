@@ -4,7 +4,7 @@ const catalog: { pools: Record<string, { rows: { text: string }[] }> } = JSON.pa
 mkdirSync("docs/haidu", { recursive: true });
 async function choose(page: Page) {
   await page.goto("/");
-  await page.getByLabel("选择工作流", { exact: true }).selectOption({ label: "海都潮人 ID · 原版 xlsx" });
+  await page.getByRole("button", { name: "选择工作流：海都潮人 ID · 原版 xlsx", exact: true }).click();
   await expect(page.getByRole("heading", { level: 1 })).toContainText("原版 xlsx");
   await expect(page.locator(".studio, .cm-editor, .react-flow")).toHaveCount(0);
   await page.getByText("生成设置", { exact: true }).click();

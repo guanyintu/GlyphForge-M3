@@ -38,7 +38,7 @@ test("opening the app starts in generation mode; only Edit reveals the workflow"
 
 test("selecting any saved workflow stays in generation mode", async ({ page }) => {
   await page.goto("/");
-  await page.getByLabel("选择工作流", { exact: true }).selectOption({ label: "叠字的快乐" });
+  await page.getByRole("button", { name: "选择工作流：叠字的快乐", exact: true }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("叠字的快乐");
   await expect(page.locator(".studio, .cm-editor")).toHaveCount(0);
   await page.getByRole("button", { name: "生成 ID", exact: true }).click();

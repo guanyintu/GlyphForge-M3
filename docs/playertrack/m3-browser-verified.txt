@@ -1,0 +1,17 @@
+[WebServer] (node:115640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:47484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:113984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 e2e\m3-ui.check.ts:17:33 › cloud contract mock at 1280px: OAuth filters pages preview permissions failures recovery (15.0s)
+  ok 2 e2e\m3-ui.check.ts:17:33 › cloud contract mock at 375px: OAuth filters pages preview permissions failures recovery (13.8s)
+  ok 3 e2e\m3-ui.check.ts:169:1 › disabled GitHub provider keeps the user in the community with setup guidance (934ms)
+  ok 4 e2e\m3-ui.check.ts:191:3 › failed OAuth return is sanitized (?error) (1.2s)
+  ok 5 e2e\m3-ui.check.ts:191:3 › failed OAuth return is sanitized (#error_code) (1.3s)
+  ok 6 e2e\m3-ui.check.ts:191:3 › failed OAuth return is sanitized (?code) (1.2s)
+
+  6 passed (36.9s)

@@ -254,9 +254,11 @@ export async function* readStaticResource(
   id: string,
   seed: number,
   target: ForgeDatabase = db,
+  includeInactive = false,
 ): AsyncGenerator<Candidate> {
   const resource = await target.resources.get(id);
   if (!resource) throw new Error(`未找到资源 ${id}，请重新绑定词库`);
+  if (!includeInactive && resource.corpus && !resource.corpus.enabled) return;
   // Read at most 256 entries per page. A seeded rotation changes order without expanding the full resource.
   const count = resource.count;
   if (!count) return;
@@ -283,10 +285,16 @@ export async function* readStaticResource(
       if (!entries.length) break;
       cursor = entries.at(-1)!.id! + 1;
       for (const entry of entries) {
+        if (!includeInactive && "corpus" in entry && entry.corpus && (!entry.corpus.enabled || !["AUTO", "APPROVED"].includes(entry.corpus.review))) continue;
+        if (!includeInactive && "source" in entry && entry.source === "PlayerTrack aggregated local snapshot") {
+          const review = JSON.parse(entry.note || "{}") as { enabled?: boolean; review?: string };
+          if (!review.enabled || review.review !== "APPROVED") continue;
+        }
         const pair = "left" in entry ? normalizePair(entry) : undefined;
         const text = pair ? `${pair.left} / ${pair.right}` : (entry as Entry).text;
         yield {
           text,
+          ...("corpus" in entry && entry.corpus ? { corpus: entry.corpus } : {}),
           ...(pair ? { pair } : {}),
           parts: [
             { resourceId: id, text, version: resource.version, ...(pair ? { pair } : {}) },

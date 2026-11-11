@@ -31,6 +31,7 @@ export function acceptsFilter(text: string, p: RuleNode["params"]) {
 }
 // Frozen implementations predate curate; reject it rather than claiming old support.
 const executors: Record<Op, RegisteredOperator["execute"]> = {
+  corpus: async function* () { throw new Error("corpus is outside the frozen baseline"); },
   curate: async function* () { throw new Error("curate is outside the frozen baseline"); },
   extension: async function* () { throw new Error("扩展需要固定版本执行作用域"); },
   mutate,

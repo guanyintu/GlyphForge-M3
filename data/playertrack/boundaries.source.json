@@ -1,0 +1,30 @@
+{
+  "package": "jieba",
+  "version": "0.42.1",
+  "source": "https://pypi.org/project/jieba/0.42.1/",
+  "upstream": "https://github.com/fxsjy/jieba",
+  "archiveSHA256": "055ca12f62674fafed09427f176506079bc135638a14e23e25be909131928db2",
+  "dictionarySHA256": "7197c3211ddd98962b036cdf40324d1ea2bfaa12bd028e68faa70111a88e12a8",
+  "subsetSHA256": "c7cb8036acd3bcb486959613f04b3f3c1b946484098ca989c4b0e14f53e9b647",
+  "selection": {
+    "minFrequency": 100,
+    "length": [
+      2,
+      8
+    ],
+    "pos": [
+      "a",
+      "ad",
+      "an",
+      "i",
+      "l",
+      "n",
+      "ns",
+      "nz",
+      "v",
+      "vn"
+    ],
+    "personNamesExcluded": true
+  },
+  "words": 23437
+}

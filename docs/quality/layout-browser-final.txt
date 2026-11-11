@@ -1,0 +1,40 @@
+[WebServer] (node:113452) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:115436) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 29 tests using 1 worker
+
+(node:114980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 e2e\corpus.spec.ts:22:1 › six cards generate semantic recipes directly without an installer page or network service (5.1s)
+  ok  2 e2e\corpus.spec.ts:39:1 › a genuine v1 portable workflow upgrades once and preserves edits, favorites, name and seed (1.4s)
+  ok  3 e2e\corpus.spec.ts:70:1 › mobile can generate immediately with no installer controls or horizontal overflow (896ms)
+  ok  4 e2e\corpus.spec.ts:79:1 › mobile cards display complete names of four to six characters without ellipses or clipping (937ms)
+  ok  5 e2e\generation-mode.spec.ts:23:1 › opening the app starts in generation mode; only Edit reveals the workflow (668ms)
+  ok  6 e2e\generation-mode.spec.ts:39:1 › selecting any saved workflow stays in generation mode (564ms)
+  ok  7 e2e\generation-mode.spec.ts:48:1 › ordinary Haidu controls run the real workflow with reproducible seed, length and count (4.5s)
+  ok  8 e2e\generation-mode.spec.ts:67:1 › clicking an ID copies it and favorites survive refresh without revealing the editor (1.8s)
+  ok  9 e2e\generation-mode.spec.ts:82:1 › unapplied code survives returning to generation; Save applies it and returns (1.4s)
+  ok 10 e2e\generation-mode.spec.ts:102:1 › invalid code keeps the draft and editor open when Save fails (1.1s)
+  ok 11 e2e\generation-mode.spec.ts:112:1 › mobile starts with selection and generation, then enters and leaves Edit (1.9s)
+  ok 12 e2e\haidu-original.spec.ts:25:1 › original xlsx is directly selectable and runs the real original word pools without exposing a graph (3.3s)
+  ok 13 e2e\haidu-original.spec.ts:41:1 › original source words are editable in the existing resource center and feed generation (2.2s)
+  ok 14 e2e\haidu-original.spec.ts:54:1 › original workflow portable export restores all eight resources and exact seeded results (3.4s)
+  ok 15 e2e\haidu-original.spec.ts:66:1 › mobile can select original xlsx directly, generate and refresh in ordinary mode (1.7s)
+  ok 16 e2e\haidu.spec.ts:27:1 › Haidu uses the existing editor behind Edit and preserves all five columns (5.9s)
+  ok 17 e2e\haidu.spec.ts:43:1 › cloud sharing and OAuth navigation are off while local export and import remain (536ms)
+  ok 18 e2e\haidu.spec.ts:52:1 › editing the actual core pool changes results without a relationship edit (1.8s)
+  ok 19 e2e\haidu.spec.ts:62:1 › local portable export restores the workflow and all real dependencies in a blank browser (4.6s)
+  ok 20 e2e\haidu.spec.ts:72:1 › mobile uses the same workflow editor and keeps the offline resource and result controls (1.9s)
+  ok 21 e2e\haidu.spec.ts:80:1 › sampled five-column workflow remains bounded in the production Worker (2.5s)
+  ok 22 e2e\haidu.spec.ts:86:1 › old Haidu drafts remain intact and expose a safe route to the five-column recipe (1.1s)
+  ok 23 e2e\workflow-cards.spec.ts:17:1 › the workflow dropdown is replaced by cards, including all six ready-to-use FF14 workflows (666ms)
+  ok 24 e2e\workflow-cards.spec.ts:30:1 › every FF14 card runs a real workflow immediately, survives reload and is installed only once (3.0s)
+  ok 25 e2e\workflow-cards.spec.ts:51:1 › saved workflow names and settings remain selectable after editing and refresh (1.5s)
+  ok 26 e2e\workflow-cards.spec.ts:61:1 › mobile uses two card columns and can choose FF14 and the original xlsx without overflow (1.8s)
+  ok 27 e2e\workflow-cards.spec.ts:72:1 › unapplied code disables card switching and keeps the existing workflow and draft (1.1s)
+  ok 28 e2e\workflow-cards.spec.ts:79:1 › uploaded portable workflow JSON loads offline through the existing importer (784ms)
+  ok 29 e2e\workflow-cards.spec.ts:86:1 › opening a lazy workflow disables generation until selection is complete (464ms)
+
+  29 passed (1.0m)

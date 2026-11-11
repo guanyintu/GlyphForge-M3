@@ -25,6 +25,12 @@
 - 发布后证据在本工作区 PROJECT-STATUS 补记。未将旧版的测试数量用于本轮结论。
 - 发布扫描首轮在诊断 trace 的本地 Vite WebSocket URL 中发现 12 处短期开发连接令牌（仅本机，服务器已退出），不是生产凭据。六份原 trace 单独保留在工作树外的私有诊断归档；未加扫描忽略项，历史/索引/工作区含 dist/提交消息四范围重新扫描零命中，见 [secrets-final.txt](quality/secrets-final.txt)。
 
-## 边界
+## 手机长名字显示补充
+
+首版语义修正 `ff29c8c` 已通过 Actions [42975226982](https://github.com/guanyintu/GlyphForge-M3/actions/runs/42975226982) 部署并在线核对六风格各 75 个结果、六份 JSON 哈希一致、无外部请求或页面错误。手机截图又发现原结果卡片继承单行省略号，导致四至六字名字显示不全；这属于显示问题，与实际生成文本、复制、收藏数据无关。
+
+新增真实浏览器边界测量先在旧 CSS 失败，见 [mobile-layout-red.txt](quality/mobile-layout-red.txt)。普通生成卡片现允许换行，手机字体 21px、行高 1.25，六字名字能在原卡片高度内完整显示，未改变虚拟列表行高或数据。最终 29 项生产 Chromium（含完整显示、原版/扩充海都和编辑模式）通过，见 [layout-browser-final.txt](quality/layout-browser-final.txt)；构建见 [layout-build.txt](quality/layout-build.txt)。
+
+## 保留边界
 
 六风格更偏向明确搭配和完整短语，尚不能保证所有用户都喜欢每个结果。真人持续挑选、真实 7 字以上原始名称样本、Firefox/WebKit/实物低端及原 v3.0 规划待补项继续有效；本轮不等于整份产品规划完成。原始数据库、玩家记录未上传，原词库、工作流、收藏未删除。联网分享保持关闭，没有修改生产数据库、Auth、RLS 或部署 Edge Function。

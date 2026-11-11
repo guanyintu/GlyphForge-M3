@@ -1,0 +1,64 @@
+[WebServer] (node:113260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:109124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:94144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 e2e\corpus.spec.ts:79:1 › mobile cards display complete names of four to six characters without ellipses or clipping (874ms)
+
+
+  1) e2e\corpus.spec.ts:79:1 › mobile cards display complete names of four to six characters without ellipses or clipping
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 22
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "clipped": true,
+    +     "text": "椰子冰淇淋",
+    +   },
+    +   Object {
+    +     "clipped": true,
+    +     "text": "半糖的奶茶",
+    +   },
+    +   Object {
+    +     "clipped": true,
+    +     "text": "半糖的拿铁",
+    +   },
+    +   Object {
+    +     "clipped": true,
+    +     "text": "芒果冰淇淋",
+    +   },
+    +   Object {
+    +     "clipped": true,
+    +     "text": "不加糖的奶茶",
+    +   },
+    + ]
+
+      84 |     return {text:text.textContent,clipped:button.scrollWidth>button.clientWidth+1||button.scrollHeight>button.clientHeight+1||box.bottom>outer.bottom-5};
+      85 |   }));
+    > 86 |   expect(names.length).toBeGreaterThan(3);expect(names.filter(n=>n.clipped)).toEqual([]);
+         |                                                                              ^
+      87 |   await page.screenshot({path:"docs/quality/mobile-complete-names.png",fullPage:true});
+      88 | });
+      89 |
+        at C:\Users\someb\Documents\ChatGPT\GlyphForge-quality-release-20261111\e2e\corpus.spec.ts:86:78
+
+    Error Context: test-results\corpus-mobile-cards-displa-34f75-ithout-ellipses-or-clipping\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\corpus-mobile-cards-displa-34f75-ithout-ellipses-or-clipping\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results\corpus-mobile-cards-displa-34f75-ithout-ellipses-or-clipping\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\corpus.spec.ts:79:1 › mobile cards display complete names of four to six characters without ellipses or clipping

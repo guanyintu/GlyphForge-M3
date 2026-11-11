@@ -75,3 +75,14 @@ test("mobile can generate immediately with no installer controls or horizontal o
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:"docs/quality/mobile-results.png",fullPage:true});
 });
+
+test("mobile cards display complete names of four to six characters without ellipses or clipping",async({page})=>{
+  await page.setViewportSize({width:390,height:844});await page.emulateMedia({reducedMotion:"reduce"});await page.goto("/");
+  await card(page,"FF14 · 萌系日常").click();await draw(page);
+  const names=await page.locator('.candidate').evaluateAll(cards=>cards.filter(card=>[...(card.getAttribute('data-candidate-text')||'')].length>3).map(card=>{
+    const button=card.querySelector<HTMLElement>('.candidate-name')!,text=card.querySelector<HTMLElement>('.candidate-text')!,box=text.getBoundingClientRect(),outer=card.getBoundingClientRect();
+    return {text:text.textContent,clipped:button.scrollWidth>button.clientWidth+1||button.scrollHeight>button.clientHeight+1||box.bottom>outer.bottom-5};
+  }));
+  expect(names.length).toBeGreaterThan(3);expect(names.filter(n=>n.clipped)).toEqual([]);
+  await page.screenshot({path:"docs/quality/mobile-complete-names.png",fullPage:true});
+});

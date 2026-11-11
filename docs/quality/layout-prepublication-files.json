@@ -1,0 +1,78 @@
+{
+  "base": "ff29c8cb5ce949d21e346dba96ac7e11275a3486",
+  "normalization": "git index LF; excludes this manifest",
+  "files": [
+    {
+      "path": "PROJECT-STATUS.md",
+      "sha256": "dfccd63b30d9df36399c6f36487e90696addd2f4f3e13a57489bb0732388ae1c"
+    },
+    {
+      "path": "docs/CORPUS-SEMANTIC-QUALITY.md",
+      "sha256": "a1d1d0fba3d7c964768f3a172233a5ac1d91c04643f6c43e367673cd7b612521"
+    },
+    {
+      "path": "docs/quality/actions.json",
+      "sha256": "db0a4f268896e8d5df8de9f271116e46e2a1fd521dcb2af6e41dd56e61d58a2c"
+    },
+    {
+      "path": "docs/quality/api-upload.json",
+      "sha256": "07ea0ee1c765a30d40177aa780cea2c2c4a708932fe27f25df9adfa1bec69242"
+    },
+    {
+      "path": "docs/quality/layout-browser-final.txt",
+      "sha256": "e3c9d49cfa82493b9c406e2a0776d685ad4c6467503995c305c97e6c5453e4cb"
+    },
+    {
+      "path": "docs/quality/layout-browser-samples.json",
+      "sha256": "c22ca271bdda21322040ee9e7aa5df96f3e60776ae2065338b45e765e469467c"
+    },
+    {
+      "path": "docs/quality/layout-browser-upgrade.json",
+      "sha256": "40c88de087743661e5799fa0aa331d78f4a66efbce1e949af17a5c58ec33dee9"
+    },
+    {
+      "path": "docs/quality/layout-build.txt",
+      "sha256": "25a776bee1e5bf6943ebef8b1833ead6134d8fc96633e83bfca4c0373198c15a"
+    },
+    {
+      "path": "docs/quality/layout-mobile-results.png",
+      "sha256": "98f3e86e455990c834ca6de554ca36632bab97182347b230c4d5a584e8b52eef"
+    },
+    {
+      "path": "docs/quality/live-ff29c8c-check.txt",
+      "sha256": "817e86752ed0dbe7bb124238defa18d1a13cad28677b8a163ba960f679d448ce"
+    },
+    {
+      "path": "docs/quality/live-ff29c8c-desktop.png",
+      "sha256": "3564b444ce88662850c6397af65e03a31f9ed5abb8abb98468c0771521ca958d"
+    },
+    {
+      "path": "docs/quality/live-ff29c8c-mobile.png",
+      "sha256": "7814ec32b121e14ec8f15921688abb9604ba927db392abc3127214678a044fff"
+    },
+    {
+      "path": "docs/quality/live-ff29c8c-verification.json",
+      "sha256": "ac0ff10adde197342b025f003f05a88532e11baf02d9fbaac443cd5de00e8d84"
+    },
+    {
+      "path": "docs/quality/mobile-complete-names.png",
+      "sha256": "67858fb345d87c25d09c165a02147b65247fe7c0c8610c5834fdf711ef991d4f"
+    },
+    {
+      "path": "docs/quality/mobile-layout-red.txt",
+      "sha256": "f8afdd00020f04b9eeae7746585cbc459e3cf25965a0f1b0ff889f8dc105ee98"
+    },
+    {
+      "path": "docs/quality/workspace-sync.json",
+      "sha256": "b2e93ad0ab95d946eeb0e382498c364f5c4d9bd3c59f22f103b04577359e8d68"
+    },
+    {
+      "path": "e2e/corpus.spec.ts",
+      "sha256": "569059c45458163cfea8c433baab39a31a556dcef3b6bc537f295707fc2f5641"
+    },
+    {
+      "path": "src/generator.css",
+      "sha256": "93b4d572a4abbe86e6ac8cdc030f3d78fa2d0ea7d7026eb690e2864cc25ff20f"
+    }
+  ]
+}
